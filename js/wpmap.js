@@ -4,7 +4,7 @@ function addWaterParcel(map, waterFeatures, parcelFeatures) {
       color: '#bf826a',
       fillColor: '#bf826a',
       weight: 0,
-      fillOpacity: 0.2,
+      fillOpacity: 0.3,
     },
     onEachFeature: function(feature, layer) {
       layer.options.interactive = true;
@@ -28,7 +28,7 @@ function addWaterParcel(map, waterFeatures, parcelFeatures) {
         layer.setStyle({
           color: '#bf826a',
           fillColor: '#bf826a',
-          weight: 2.5,
+          weight: 2,
           fillOpacity: 0.2,
         });
       });
@@ -37,7 +37,7 @@ function addWaterParcel(map, waterFeatures, parcelFeatures) {
           color: '#bf826a',
           fillColor: '#bf826a',
           weight: 0,
-          fillOpacity: 0.2,
+          fillOpacity: 0.3,
         });
         layer.closeTooltip();
       });
