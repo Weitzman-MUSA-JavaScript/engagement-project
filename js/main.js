@@ -3,8 +3,7 @@ import { loadData } from './loadData.js';
 import { waterParcel } from './loadWP.js';
 import { addWaterParcel } from './wpmap.js';
 import { updateSliderValue } from './sliderValue.js';
-// import { drawHist} from './drawHist.js';
-
+import { drawBar } from './drawBar.js';
 // basemap data
 const {shadow, buildings, landuse} = await loadData();
 
@@ -27,13 +26,15 @@ function updateWaterParcels(level) {
   addWaterParcel(waterParcelLayerGroup, allWaterData[level], allParcelData[level]);
 }
 const slider = document.querySelector('#waterLevel');
+const barEL = d3.select('#type-bar');
 slider.addEventListener('input', (event) => {
   const level = parseInt(event.target.value);
   updateWaterParcels(level);
   updateSliderValue(allParcelData, level);
+  drawBar(barEL, allParcelData[level]);
 });
 await updateWaterParcels(515);
 updateSliderValue(allParcelData, 515);
+drawBar(barEL, allParcelData[515]);
 
-// const histogramEL = d3.select('#valueHistogram');
-// drawHist(histogramEL, allParcelData[515]);
+
