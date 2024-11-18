@@ -1,6 +1,6 @@
 function initMap(el, shadow, buildings, landuse) {
   // set up the map
-  const map = L.map(el, {scrollWheelZoom: true}).setView([44.26006823123598, -72.57543733991592], 15);
+  const map = L.map(el, {scrollWheelZoom: true}).setView([44.26053976443341, -72.583011566153], 14);
   const mapboxStyle = 'mapbox/light-v11';
   const mapboxKey = 'pk.eyJ1IjoiZW16aG91IiwiYSI6ImNtMG9henVrdjA2bGwya3EwNWh6OGh1emgifQ.d2Xo2TLSYAGCMqvccySJSA';
 
@@ -20,7 +20,7 @@ function initMap(el, shadow, buildings, landuse) {
     style: {
       color: '#deeada',
       fillColor: 'white',
-      weight: 1.2,
+      weight: 1.6,
       fillOpacity: 0.3,
     },
     onEachFeature: function(feature, layer) {
