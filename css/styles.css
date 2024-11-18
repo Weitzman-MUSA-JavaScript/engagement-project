@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 .leaflet-interactive:focus {
     outline: none !important;
@@ -7,32 +7,61 @@
 html, body {
     height: 100%;
     margin: 0;
-    font-family: 'Gowun Batang', serif;
+    font-family: Lato, serif;
 }
 
 main {
     display: grid;
     grid-template-columns: 10vw 32vw auto;
+    grid-template-rows: auto;
     height: 100vh;
 }
 
 #map {
     grid-column: 3;
+    grid-row: 1;
     height: 100%;
     width: 100%;
 }
 
 #toolbar {
-    grid-column: 1; 
-    background-color: #efeeee;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  grid-column: 1; 
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 2px solid #e0e0e0;
+}
+
+#toolbar button {
+  padding: 12px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color:#1e7d8b; 
+  border: none; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+#toolbar button:hover {
+  background-color: #a14b25;
+  transform: scale(1.05);
+}
+
+#toolbar button:first-of-type {
+  margin-top: 0; 
+}
+
+#toolbar button:last-of-type {
+  margin-bottom: 0;
 }
 
 #slider-container {
   grid-column: 2; 
+  grid-row: 1;
   margin: 10px 0; 
   display: flex;
   flex-direction: column;
@@ -78,15 +107,46 @@ input[type="range"]::-webkit-slider-thumb {
   display: inline-block;
 }
 
-#type-donut{
-  width: 400px; 
+#type-bar{
+  width: 420px; 
   height: 370px;
   display: flex; 
   align-items: center; 
+  margin-top: 20px;
   margin-left: 5px;
   margin-bottom: 20px; 
-
 }
+
+#address-search-container {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: calc(100% - 60px);
+  padding: 10px;
+  margin: 10px auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+#search-label {
+  margin: 0 0 10px;
+  font-size: 20px; /* Adjust text size */
+  color: #333; /* Set label color */
+  font-weight: bold; /* Make it stand out */
+}
+
+#address-search-container input {
+  width: 98%; /* Input spans the width of the container */
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 10%);
+}
+
+
 
 
 
