@@ -20,7 +20,7 @@ function initMap(el, shadow, buildings, landuse) {
     style: {
       color: '#deeada',
       fillColor: 'white',
-      weight: 1.6,
+      weight: 1.,
       fillOpacity: 0.3,
     },
     onEachFeature: function(feature, layer) {
@@ -86,6 +86,7 @@ function initMap(el, shadow, buildings, landuse) {
 
   return map;
 }
+
 
 export { initMap };
 
