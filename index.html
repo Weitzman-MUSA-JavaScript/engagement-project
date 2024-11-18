@@ -8,11 +8,27 @@
 </head>
 <body>
     <main>
-        <div id="map"></div>
+        <!-- Toolbar -->
+        <div id="toolbar">
+            <button>Tool 1</button>
+            <button>Tool 2</button>
+            <button>Tool 3</button>
+        </div>
+
+        <!-- Slider -->
         <div id="slider-container">
             <label for="waterLevel">Water Level (Feet):</label>
-            <input type="range" id="waterLevel" min="515" max="518" step="1" value="515">
+            <p><strong>Hint:</strong> Drag slider to select a flood water level; Click on parcels to show detailed information.</p>
+            <input type="range" id="waterLevel" min="515" max="526" step="1" value="515">
+            <p><strong>Selected Water Level:</strong> <span id="current-level">515</span> ft</p>
+            <p><strong>Flood Impacts:</strong> <span id="corresponding-year">Unknown.</span></p>
+            <p><strong>Total Impacted Parcels:</strong> <span id="inundated-parcels">0</span></p>
+            <p><strong>Total Impacted Parcel Value:</strong> <span id="total-value">$0</span></p>
+            <div id="valueHistogram"></div>
         </div>
+
+        <!-- Map -->
+        <div id="map"></div>
     </main>
     
 
