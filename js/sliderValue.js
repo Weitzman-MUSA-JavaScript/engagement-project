@@ -1,11 +1,11 @@
 const levelToYear = {
   526: 'High water mark from flood on 07-11-2023.',
   525: 'High water mark from 1992 ice jam flood.',
-  522: 'High water mark from flood on 05-27-2011. Center line of State Street in front of federal building/post office will be flooded.',
+  522: 'High water mark from flood on 05-27-2011.',
   521: 'High water mark from flood on 08-29-2011.',
-  520: 'High water mark from flood on 01-13-2018. Street flooding in Montpelier. Low spot in federal building parking lot will be flooded.',
-  519: 'High water mark from flood on 12-18-2023, 07-11-2024.',
-  515: 'Cellar flooding begins. Equivalent of 7.5 ft mark on Langdon Street bridge.',
+  520: 'High water mark from flood on 01-13-2018.',
+  519: 'High water mark from flood on 07-11-2024.',
+  515: 'Cellar flooding begins, 7.5 ft.',
 };
 
 function updateStatistics(parcelLayers, level) {
