@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   color: #011f5b;
 }
 
@@ -23,7 +23,6 @@ body {
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   align-content: flex-start;
-  gap: 0rem;
 }
 
 .benchmark-menu {
@@ -39,13 +38,13 @@ fieldset {
 .benchmark-menu input {
   border-color: transparent;
   font-size: 1rem;
-  background-color: rgb(241, 241, 241);
+  background-color: #f1f1f1;
   border-radius: 0.5em;
   font-weight:lighter;
 }
 
 select {
-  width: 40%;
+  width: 80%;
   padding: 0.2rem;
   font-size: 1rem;
   font-weight: 100;
@@ -61,26 +60,47 @@ ul {
   font-size: 1rem;
 }
 
+li {
+  display: flex; /* Flexbox for inline alignment */
+  align-items: center; /* Vertically center the items */
+  gap: 1rem; /* Adds space between elements */
+  margin-bottom: 0.5rem; /* Adds spacing between list items */
+}
+
+
+label {
+  flex: 1; /* Allows the label to take up enough space */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .input-wrapper {
   position: relative;
-  width: 60%;
-  align-items: center;
+  display: flex; /* Flex container for input and unit */
+  align-items: center; /* Align input and unit vertically */
+  width: 50%;
   background-color: white;
   opacity: 0.75;
   border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem; /* Adds padding for better spacing */
 }
 
 input[type="number"] {
-  width: 100%;
-  box-sizing: border-box; 
+  width: 6vh; /* Takes full width of wrapper */
+  box-sizing: border-box;
   appearance: textfield;
+  text-align: center;
+  padding-right: 1rem; /* Prevents overlap with unit */
 }
 
 .unit {
   position: absolute;
-  right: 0;  
-  width: 5rem;
-  color: #cdcbcb; 
+  left: calc(100% - 2rem); /* Adjusts position relative to input-wrapper */
+  color: #cdcbcb;
+  pointer-events: none; /* Makes the unit unclickable */
+  text-align: left; /* Ensures text within the unit is left-aligned */
+  width: 5rem; /* Ensures consistent width for units */
 }
 
 .benchmark-chart-area {
@@ -100,7 +120,7 @@ input[type="number"] {
   justify-content: center;
   border-radius: 1rem;
   background-color: white;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 1rem rgb(0 0 0 / 10%);
 }
 
 #position-title {
@@ -110,12 +130,32 @@ input[type="number"] {
 }
 
 input[type="number"]:invalid {
-  color: red;
+  color: salmon;
+}
+
+input[type="text"] {
+  width: 80%;
+}
+
+/* save-athlete button */
+#save-athlete {
+  background-color: #011f5b;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 100;
+  cursor: pointer;
 }
 
 /* Billboard Charts */
+.bb-level > text:nth-child(2) {
+  opacity: 0;
+}
+
 .bb-axis.bb-axis-x path.domain {
-    opacity: 0;
+  opacity: 0;
 }
 
 #radar-chart .bb-axis text {
@@ -137,11 +177,6 @@ input[type="number"]:invalid {
 
 .bb-axis-0 > line:nth-child(1) {
   opacity: 0.5;
-}
-
-
-.bb-level > text:nth-child(2) {
-  opacity: 0;
 }
 
 .pct-chart .bb-text {

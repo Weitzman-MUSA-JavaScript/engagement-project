@@ -18,10 +18,14 @@
         <section class="benchmark-page">
             <section class="benchmark-menu" aria-labelledby="athlete-stats">
                 <fieldset id="athlete-stats">  
-                    <p>Select athlete position</p>
-                    <div class="radio-group">
-                    </div>
-                    <p>Enter athlete stats to benchmark against position</p>
+                    <label for="athlete-name">
+                        Athlete Name
+                            <input type="text" id="athlete-name" aria-label="Name of athlete">
+                    </label>
+                    <p>Status</p>
+                    <div id = "athlete-status"></div>
+                    <p>Position</p>
+                    <div id = "athlete-position"></div>
                     <ul id="stats-list">
                         <li>
                             <label for="bench-stat">
@@ -42,6 +46,12 @@
                             </label>
                         </li>
                     </ul>
+                    <label for="notes">
+                        Coach's Notes
+                            <input type="text" id="coach-notes" name="coach-notes" aria-label="Notes on athlete">
+                    </label>
+
+                    <button id="save-athlete" aria-label="Save athlete to database">Save Athlete</button>
                 </fieldset>
             </section>
             
@@ -62,24 +72,6 @@
   
         <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
   
-/*         <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAPujgD3xoa9zRjqve5nat6m4Q5Aa6MjDM",
-            authDomain: "penn-football-benchmarking.firebaseapp.com",
-            projectId: "penn-football-benchmarking",
-            storageBucket: "penn-football-benchmarking.firebasestorage.app",
-            messagingSenderId: "144027601930",
-            appId: "1:144027601930:web:a4ea4a588776b2341d63f3",
-            measurementId: "G-834Q3624G1"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
         </script> */
 
         <script src="js/main.js" type="module"></script>

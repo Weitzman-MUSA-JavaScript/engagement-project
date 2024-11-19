@@ -1,4 +1,3 @@
-import { getAthleteReports } from './firebase.js';
 
 function calculateChartData(indivStats, events) {
   let playerPosition = 'DB';
@@ -35,7 +34,6 @@ function calculateChartData(indivStats, events) {
 
         const mean = percentiles.reduce((a, b) => a + b, 0) / percentiles.length;
         const categoryPercentile = Math.round(mean);
-        // only return defined values
         if (!isNaN(categoryPercentile)) {
           categoryPercentiles.push(categoryPercentile);
         } else {
