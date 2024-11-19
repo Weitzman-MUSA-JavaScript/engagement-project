@@ -1,4 +1,6 @@
-function initMap(el, shadow, buildings, landuse) {
+import { displayParcelInfo } from './parcelInfo.js';
+
+function initMap(el, shadow, buildings, landuse, parcelLayers) {
   // set up the map
   const map = L.map(el, {scrollWheelZoom: true}).setView([44.26053976443341, -72.583011566153], 14);
   const mapboxStyle = 'mapbox/light-v11';
@@ -25,6 +27,9 @@ function initMap(el, shadow, buildings, landuse) {
     },
     onEachFeature: function(feature, layer) {
       layer.options.interactive = true;
+      layer.on('click', function() {
+        displayParcelInfo(parcelLayers, feature);
+      });
       layer.on('mouseover', function() {
         const owner = feature.properties.OWNER1 || 'Unknown';
         const landuseType = feature.properties.CAT || 'Unknown Land Use Type';

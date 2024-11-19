@@ -1,4 +1,5 @@
-function addWaterParcel(map, waterFeatures, parcelFeatures) {
+import { displayParcelInfo } from './parcelInfo.js';
+function addWaterParcel(map, waterFeatures, parcelFeatures, parcelLayers) {
   L.geoJSON(parcelFeatures, {
     style: {
       color: '#bf826a',
@@ -8,6 +9,9 @@ function addWaterParcel(map, waterFeatures, parcelFeatures) {
     },
     onEachFeature: function(feature, layer) {
       layer.options.interactive = true;
+      layer.on('click', function() {
+        displayParcelInfo(parcelLayers, feature);
+      });
       layer.on('mouseover', function() {
         const owner = feature.properties.OWNER1 || 'Unknown';
         const landuseType = feature.properties.CAT || 'Unknown Land Use Type';
@@ -15,6 +19,7 @@ function addWaterParcel(map, waterFeatures, parcelFeatures) {
         const value = feature.properties.REAL_FLV
           ? `$${(feature.properties.REAL_FLV / 1000000).toFixed(2)}M`
           : '$0';
+
         const tooltipContent = `
             <strong>Owner:</strong> ${owner}<br>
             <strong>Land Use Category:</strong> ${landuseType}<br>
