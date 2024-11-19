@@ -5,11 +5,14 @@ import { addWaterParcel } from './wpmap.js';
 import { updateSliderValue } from './sliderValue.js';
 import { drawBar } from './drawBar.js';
 import { initAddressSearch } from './address_search.js';
+import { addFloodReport } from './firebase.js';
+import { loadPoints} from './loadPoints.js';
 
 const events = new EventTarget();
 
 // basemap data
 const {shadow, buildings, landuse} = await loadData();
+const floodPoints = await loadPoints();
 // water parcel data and information
 const allWaterData = {};
 const allParcelData = {};
@@ -20,7 +23,7 @@ for (let level = 515; level <= 526; level++) {
 }
 // initialize basemap
 const mapEl = document.querySelector('#map');
-const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData);
+const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData, floodPoints);
 
 // initialize water parcel layer
 const waterParcelLayerGroup = L.layerGroup().addTo(basemap);
@@ -41,11 +44,15 @@ updateSliderValue(allParcelData, 515);
 drawBar(barEL, allParcelData[515]);
 
 // address search component
+let lat;
+let lng;
 const searchEl = document.querySelector('[name="address-search"]');
+const submitButton = document.querySelector('#submit');
 initAddressSearch(searchEl, events);
 function handleAddressSelection(event, map) {
+  submitButton.disabled = false;
   const feature = event.detail;
-  const [lng, lat] = feature.geometry.coordinates;
+  [lng, lat] = feature.geometry.coordinates;
   map.setView([lat, lng], 17);
 }
 events.addEventListener('autocompleteselected', (event) => {
@@ -66,19 +73,43 @@ const ResetControl = L.Control.extend({
 });
 basemap.addControl(new ResetControl());
 
+// report flood events
+const newAddress = document.querySelector('[name="address-contribute"]');
+initAddressSearch(newAddress, events);
+const parcelType = document.querySelector('#parcelSelect');
+submitButton.addEventListener('click', () => {
+  addFloodReport(parcelType.value, lat, lng);
+  // function to add a new point to the map
+  basemap.addData(lat, lng);
+  submitButton.disabled = true;
+});
 
 // control panels
 const tool1Button = document.querySelector('#tool1');
 const tool2Button = document.querySelector('#tool2');
+const tool3Button = document.querySelector('#tool3');
 const sidebarContainer = document.querySelector('#sidebar-container');
 const addressSearchContainer = document.querySelector('#address-search-container');
+const reportFloodContainer = document.querySelector('#report-container');
 
 tool1Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'block';
   addressSearchContainer.style.display = 'none';
+  reportFloodContainer.style.display = 'none';
+  basemap.hidePointsLayer();
 });
 
 tool2Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'none';
   addressSearchContainer.style.display = 'block';
+  reportFloodContainer.style.display = 'none';
+  basemap.hidePointsLayer();
+});
+
+tool3Button.addEventListener('click', () => {
+  sidebarContainer.style.display = 'none';
+  addressSearchContainer.style.display = 'none';
+  reportFloodContainer.style.display = 'block';
+  submitButton.disabled = true;
+  basemap.showPointsLayer();
 });
