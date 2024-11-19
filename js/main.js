@@ -1,7 +1,20 @@
+import { getAthleteReports, addAthleteReport} from './firebase.js';
 import { initBar } from './barchart.js';
 import { initStatEntry } from './stat_entry.js';
 import { calculateChartData } from './chart_data.js';
 import { initRadar } from './radar.js';
+
+
+/* Custom Events: 
+
+- statFilled
+Fired when a stat is filled in the form
+Detail: { statName: string, statValue: number } 
+
+- positionSelected
+Fired when a position is selected in the form
+Detail: { position: string } */
+
 
 // Fetch data
 const indivStatsResponse = await fetch('data/stats_2020_2024.json');
@@ -28,6 +41,8 @@ const speedEl = document.querySelector('#speed-chart');
 const agilityEl = document.querySelector('#agility-chart');
 const anthroEl = document.querySelector('#anthro-chart');
 const radarEl = document.querySelector('#radar-chart');
+
+addAthleteReport();
 
 // Render charts
 function updateCharts() {
