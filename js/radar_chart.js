@@ -87,6 +87,7 @@ function radar(data){
                             
                         }
                     }
+                    
       
         },
         elements: {

@@ -10,11 +10,11 @@ const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: "mapbox://styles/xllee/cm1wx9fej00og01pgfmx363w6", // style URL
     center: [14.44, 50.07], // starting position [lng, lat]
-    zoom: 11, // starting zoom
+    zoom: 14, // starting zoom
     maxZoom: 15,
     minZoom: 10,
     maxPitch: 60,
-    pitch: 35
+    pitch: 0
     
 });
 const geojson = data
@@ -175,12 +175,12 @@ populatesentiment(document);
         'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 1.5, 15, 4],
         'circle-opacity': ['interpolate', ['linear'], ['zoom'], 10, 0.5, 15, 0.8],
         'circle-color': ['match', ['get', 'sentiment'], // get the property
-        'Happy', '#56949A',
-        'Unhappy', '#D7677B',
-        'Proud', '#6E88B1',
-        'Dissatisfied (Transport)', '#DD7E6F',
-        'Disgust', '#CE9C80',
-        'Unsafe', '#B87BA0',              // if 'GP' then yellow
+        'Happy 😊', '#56949A',
+        'Unhappy 😐', '#D7677B',
+        'Proud 😎', '#6E88B1',
+        'Transport 😒', '#DD7E6F',
+        'Disgust 🤮', '#CE9C80',
+        'Unsafe 🫨', '#B87BA0',              // if 'GP' then yellow
                       // if 'XX' then black 
         'white']   
       }
@@ -236,12 +236,12 @@ map.on('click', (e) => {
         <br>
         <label for="sentiment-indicator">I am feeling:</label>
         <select id="sentiment-indicator" class="custom-select" required>
-            <option value="Happy">Happy</option>
-            <option value="Unhappy">Unhappy</option>
-            <option value="Dissatisfied (Transport)">Dissatisfied with Transport</option>
-            <option value="Proud">Proud</option>
-            <option value="Disgust">Disgust</option>
-            <option value="Unsafe">Unsafe</option>
+            <option value="Happy 😊">Happy</option>
+            <option value="Unhappy 😐">Unhappy</option>
+            <option value="Transport 😒">Dissatisfied with Transport</option>
+            <option value="Proud 😎">Proud</option>
+            <option value="Disgust 🤮">Disgust</option>
+            <option value="Unsafe 🫨">Unsafe</option>
         </select>
         <br>
         <button type="button" id="saveDataButton">Save</button>

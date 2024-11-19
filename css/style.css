@@ -67,38 +67,97 @@ li {
 
 .sidebar {
     position:relative ;
-    top: 60px;
+    top: 55px;
     width: 300px;
     left: 7px;
     z-index: 1;
     background-color: white;
-    padding: 10px;
+    
+    padding-right: 10px;
+    padding-left: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
     list-style-type: none;
        
 }
+button{
+    font-size: 15px;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #040303;
+  
+  }
+/* Spinner styles */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #6ac3a7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
 
-.qnslist {
-  position:absolute ;
-  top: 60px;
-  width: 300px;
-  right: 7px;
-  z-index: 1;
+/* Keyframes for spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#toggle-info{
+  font-size: small;
+  font-weight: 400;
+  border: 0px;
   background-color: white;
   padding: 10px;
+}
+.close-popup{
+  font-size: larger;
+  padding: 10px;
+
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position:fixed;
+  top: 0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 999;
+  background-color:white;
+  padding: 10px;
+  
+
+     
+}
+#info-details {
+  text-align: center;
+  width:fit-content;
+  background-color: white;
+  padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
+  /* box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5); */
   list-style-type: none;
+  
      
 }
 canvas {
   margin:auto;
 }
 .chart {
+  display:block;
   text-align: center;
   position:relative ;
-  top: 65px;
+  top: 60px;
   width: 300px;
   height: auto;
   left: 7px;
@@ -108,14 +167,15 @@ canvas {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
   list-style-type: none;
-  font-weight: 600;
+  font-weight: 300;
   
      
 }
 
 .legend {
+  display: block;
   position:relative ;
-  top: 70px;
+  top: 65px;
   width: 300px;
   
   left: 7px;
