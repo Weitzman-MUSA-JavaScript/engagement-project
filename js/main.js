@@ -13,6 +13,7 @@ const events = new EventTarget();
 // basemap data
 const {shadow, buildings, landuse} = await loadData();
 const floodPoints = await loadPoints();
+
 // water parcel data and information
 const allWaterData = {};
 const allParcelData = {};
@@ -21,6 +22,7 @@ for (let level = 515; level <= 526; level++) {
   allWaterData[level] = waterData.waterFeatures;
   allParcelData[level] = waterData.parcelFeatures;
 }
+
 // initialize basemap
 const mapEl = document.querySelector('#map');
 const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData, floodPoints);
@@ -79,7 +81,6 @@ initAddressSearch(newAddress, events);
 const parcelType = document.querySelector('#parcelSelect');
 submitButton.addEventListener('click', () => {
   addFloodReport(parcelType.value, lat, lng);
-  // function to add a new point to the map
   basemap.addData(lat, lng);
   submitButton.disabled = true;
 });

@@ -151,6 +151,15 @@ input[type="range"]::-webkit-slider-thumb {
   outline: none;
 }
 
+#report-container select {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  outline: none;
+}
+
+
 
 .reset-view-btn {
   background-color: #6a9b83;
@@ -172,19 +181,13 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
-#report-container select {
-  width: 100%;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 4px;
-  outline: none;
-}
 
 #report-container button:hover {
-  background-color: #a14b25; /* Hover effect */
+  background-color: #a14b25;
   transform: scale(1.05);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 #report-container button {
   width: 20%;
   padding: 10px;
