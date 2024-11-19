@@ -95,7 +95,7 @@ button{
   width: 50px;
   height: 50px;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #6ac3a7;
+  border-top: 5px solid #5f5f5f;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto;
@@ -135,6 +135,8 @@ button{
   z-index: 999;
   background-color:white;
   padding: 10px;
+  opacity: 1; 
+  transition: opacity 1s ease;
   
 
      
@@ -234,4 +236,8 @@ canvas {
   outline: none;
   border-color: #999; /* Green border when focused */
   box-shadow: 0 0 5px #999; /* Soft shadow when focused */
+}
+
+.fade-out {
+  opacity: 0;
 }

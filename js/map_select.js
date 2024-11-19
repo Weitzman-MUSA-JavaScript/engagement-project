@@ -10,13 +10,44 @@ const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: "mapbox://styles/xllee/cm1wx9fej00og01pgfmx363w6", // style URL
     center: [14.44, 50.07], // starting position [lng, lat]
-    zoom: 14, // starting zoom
-    maxZoom: 15,
+    zoom: 16, // starting zoom
+    maxZoom: 18,
     minZoom: 10,
     maxPitch: 60,
     pitch: 0
+
+
     
 });
+// Fly to user's location
+    function flyToUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    map.jumpTo({
+                        center: [longitude, latitude],
+
+                    });
+
+                    // Add a marker at the user's location (optional)
+                    // new mapboxgl.Marker()
+                    //     .setLngLat([longitude, latitude])
+                    //     .addTo(map);
+                },
+                (error) => {
+                    console.error("Error getting user location:", error.message);
+                    alert("Unable to retrieve your location.");
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    }
+
+    // Call the function (you could also attach this to a button click)
+
+
 const geojson = data
   // GeoJSON content loaded and parsed
  
@@ -162,6 +193,7 @@ populatesentiment(document);
         });
 }); 
   map.on('load', () => {
+    flyToUserLocation();
     /* Add the data to your map as a layer */
     map.addLayer({
       id: 'locations',
