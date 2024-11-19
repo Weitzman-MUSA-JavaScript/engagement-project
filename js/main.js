@@ -10,11 +10,6 @@ const events = new EventTarget();
 
 // basemap data
 const {shadow, buildings, landuse} = await loadData();
-
-// initialize basemap
-const mapEl = document.querySelector('#map');
-const basemap = initMap(mapEl, shadow, buildings, landuse);
-
 // water parcel data and information
 const allWaterData = {};
 const allParcelData = {};
@@ -23,11 +18,15 @@ for (let level = 515; level <= 526; level++) {
   allWaterData[level] = waterData.waterFeatures;
   allParcelData[level] = waterData.parcelFeatures;
 }
-const waterParcelLayerGroup = L.layerGroup().addTo(basemap);
+// initialize basemap
+const mapEl = document.querySelector('#map');
+const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData);
 
+// initialize water parcel layer
+const waterParcelLayerGroup = L.layerGroup().addTo(basemap);
 function updateWaterParcels(level) {
   waterParcelLayerGroup.clearLayers();
-  addWaterParcel(waterParcelLayerGroup, allWaterData[level], allParcelData[level]);
+  addWaterParcel(waterParcelLayerGroup, allWaterData[level], allParcelData[level], allParcelData);
 }
 const slider = document.querySelector('#waterLevel');
 const barEL = d3.select('#type-bar');
@@ -56,14 +55,12 @@ const originalView = { center: [44.26053976443341, -72.583011566153], zoom: 14 }
 const ResetControl = L.Control.extend({
   options: { position: 'bottomright' },
   onAdd: function() {
-    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-    container.style.backgroundColor = 'white';
-    container.style.padding = '5px';
-    container.style.cursor = 'pointer';
-    container.innerHTML = 'Reset View';
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom reset-view-btn');
+    container.innerHTML = '<i class="fas fa-sync-alt"></i> Reset View';
     L.DomEvent.on(container, 'click', function() {
       basemap.setView(originalView.center, originalView.zoom);
     });
+
     return container;
   },
 });
