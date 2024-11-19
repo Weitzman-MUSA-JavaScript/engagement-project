@@ -43,12 +43,12 @@ setTimeout(() => {
   container.replaceChild(button, spinner);
 // Add hover effect using CSS
   button.addEventListener("mouseenter", () => {
-    logo.style.filter = "invert(0.5)"; // Brighten the SVG on hover
-    logo.style.transition = "filter 0.3s ease"
+    logo.style.filter = "invert(1)"; // Brighten the SVG on hover
+    logo.style.transition = "filter 0.3s ease";
   });
 
   button.addEventListener("mouseleave", () => {
-    logo.style.filter = "invert(0)"; // Reset brightness
+    logo.style.filter = "invert(1)"; // Reset brightness
   });
   // Add a click event listener to the button
   button.addEventListener("click", () => {

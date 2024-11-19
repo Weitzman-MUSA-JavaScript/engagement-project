@@ -5,11 +5,12 @@
     <style>
       .st0 {
         fill: none;
-        stroke: #000;
+        stroke: #56949a;
         stroke-miterlimit: 10;
       }
 
       .st1 {
+        fill: #56949a;
         fill-rule: evenodd;
       }
     </style>
