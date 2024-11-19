@@ -117,7 +117,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-bottom: 20px; 
 }
 
-#address-search-container {
+#address-search-container, #report-container {
   grid-column: 2;
   grid-row: 1;
   align-self: start;
@@ -143,6 +143,14 @@ input[type="range"]::-webkit-slider-thumb {
   outline: none;
 }
 
+#report-container input {
+  width: 98%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  outline: none;
+}
+
 
 .reset-view-btn {
   background-color: #6a9b83;
@@ -153,7 +161,6 @@ input[type="range"]::-webkit-slider-thumb {
   padding: 8px 15px;
   border-radius: 8px;
   border: none; 
-
   cursor: pointer;
   text-align: center;
   align-items: center;
@@ -165,9 +172,31 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+#report-container select {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  outline: none;
+}
 
+#report-container button:hover {
+  background-color: #a14b25; /* Hover effect */
+  transform: scale(1.05);
+}
 
-
-
+#report-container button {
+  width: 20%;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: #6a9b83;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 
 

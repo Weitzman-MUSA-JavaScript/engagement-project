@@ -11,6 +11,7 @@
         <div id="toolbar">
             <button id="tool1">Inundation</button>
             <button id="tool2">Address</button>
+            <button id="tool3">Contribute</button>
         </div>
 
         <!-- Slider -->
@@ -37,6 +38,20 @@
             <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
             <p id="search-label">Pick a parcel:</p>
             <div id="parcel-info-table"></div>
+        </div>
+
+        <!-- Address Contribution-->
+        <div id="report-container" class="map-search-controls" style="display: none;">
+            <p id="search-label">Enter an address:</p>
+            <input type="text" name="address-contribute" placeholder="Near..." aria-label="Search around an address or place">
+            <p id="search-label">Select parcel type:</p>
+            <select id="parcelSelect">
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Others">Others</option>
+            </select>
+            <button id="submit" disabled>Submit</button>
         </div>
 
         
