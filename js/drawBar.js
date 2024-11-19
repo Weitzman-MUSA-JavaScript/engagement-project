@@ -1,6 +1,6 @@
 const height = Math.max(window.innerHeight * 0.4, 410);
 const width = Math.max(window.innerWidth * 0.3, 400);
-const margin = { top: 20, right: 10, bottom: 60, left: 20 };
+const margin = { top: 20, right: 10, bottom: 60, left: 25 };
 
 let svg;
 
