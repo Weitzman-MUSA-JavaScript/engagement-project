@@ -1,6 +1,6 @@
 import { displayParcelInfo } from './parcelInfo.js';
 
-function initMap(el, shadow, buildings, landuse, parcelLayers) {
+function initMap(el, shadow, buildings, landuse, parcelLayers, floodpoints) {
   // set up the map
   const map = L.map(el, {scrollWheelZoom: true}).setView([44.26053976443341, -72.583011566153], 14);
   const mapboxStyle = 'mapbox/light-v11';
@@ -88,6 +88,37 @@ function initMap(el, shadow, buildings, landuse, parcelLayers) {
     },
   }).addTo(map);
 
+  // add flood points
+  const pointsLayer = L.geoJSON(floodpoints, {
+    pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng, {
+        radius: 2,
+        fillColor: '#86202d',
+        color: '#86202d',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8,
+      });
+    },
+  });
+
+  map.showPointsLayer = function() {
+    pointsLayer.addTo(map);
+  };
+  map.hidePointsLayer = function() {
+    map.removeLayer(pointsLayer);
+  };
+
+  map.addData = function(lat, lng) {
+    const point = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [lng, lat],
+      },
+    };
+    pointsLayer.addData(point);
+  };
 
   return map;
 }
