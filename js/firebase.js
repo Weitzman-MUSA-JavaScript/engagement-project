@@ -69,6 +69,7 @@ async function uploadReports(featureCollection) {
      for (const feature of featureCollection.features) {
          await addDoc(collectionRef, feature);
      }
+     
      console.log("Feature collection uploaded successfully!");
      alert("Feature collection uploaded successfully!");
  } catch (error) {

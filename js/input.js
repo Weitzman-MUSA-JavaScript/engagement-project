@@ -21,7 +21,7 @@ async function saveData(lng, lat) {
         // Save to Firestore
         const docRef = await addDoc(collection(db, 'opinion_records'), data);
         console.log('Document written with ID:', docRef.id);
-        alert('Data saved to Firestore!');
+        
     } catch (error) {
         console.error('Error adding document:', error);
         alert('Failed to save data.');

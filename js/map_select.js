@@ -244,7 +244,7 @@ populatesentiment(document);
     // Create a popup, but don't add it to the map yet.
     const popup = new mapboxgl.Popup({
       closeButton: false,
-      closeOnClick: false
+      closeOnClick: true
   });
 
   map.on('mouseenter', 'locations', (e) => {
@@ -285,19 +285,29 @@ map.on('click', (e) => {
     const form = document.createElement('form');
     form.className = 'popup-form';
     form.innerHTML = `
+      
+      <div style="padding-top:15px" >
         <label for="comment" style="font-size:13px">Comment:</label>
-        <input type="text" id="comment" class="custom-select" name="comment" required>
-        <label for="sentiment-indicator" style="font-size:13px">I am feeling:</label>
-        <select id="sentiment-indicator" class="custom-select" required>
-            <option value="Happy 😊">Happy</option>
-            <option value="Unhappy 😐">Unhappy</option>
-            <option value="Transport 😒">Dissatisfied with Transport</option>
-            <option value="Proud 😎">Proud</option>
-            <option value="Disgust 🤮">Disgust</option>
-            <option value="Unsafe 🫨">Unsafe</option>
-        </select>
-        <br>
-        <button type="button" id="saveDataButton">Save</button>
+        <input type="text" id="comment" class="custom-select" name="comment" style="width:185px" required>
+        <div class="flex-container">
+          <div>
+          <label for="sentiment-indicator" style="font-size:13px">I am feeling:</label>
+          <select id="sentiment-indicator" class="custom-select" style="width:155px" required>
+              <option value="Happy 😊">Happy</option>
+              <option value="Unhappy 😐">Unhappy</option>
+              <option value="Transport 😒">Dissatisfied with Transport</option>
+              <option value="Proud 😎">Proud</option>
+              <option value="Disgust 🤮">Disgust</option>
+              <option value="Unsafe 🫨">Unsafe</option>
+          </select>
+            </div>
+            <div style="padding-top:11px; padding-left:8px;" >
+            <button type="button" style="width:38px; height:38px" id="saveDataButton">
+            <img src="data/icons/opine-logo.svg" alt="Opine Logo" style="height: 30px" />
+            </button>
+            </div>
+        </div>
+      </div>
     `;
 
     // Add form to popup
@@ -309,7 +319,13 @@ map.on('click', (e) => {
     // Attach event listener to the button
     form.querySelector('#saveDataButton').addEventListener('click', () => {
         saveData(coords.lng, coords.lat);
+        const button = event.target;
+        const spinner = document.createElement("div");
+            spinner.className = "spinner-small";
+            
+        button.parentElement.parentElement.parentElement.parentElement.replaceWith(spinner);
     });
+ 
 });
 
   
