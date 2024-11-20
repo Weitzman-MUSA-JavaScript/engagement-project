@@ -192,7 +192,13 @@ canvas {
   
      
 }
+#credits{
+  padding: 20px;
+}
 
+a {
+  color: #56949A;
+}
 #circle {
   width: 10px;
   height: 10px;
