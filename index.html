@@ -12,22 +12,19 @@
         <main role="main">
             <div class="header" role="banner">
                 <img src="www/penn_shield.svg" alt="Penn Football Logo" aria-label="Penn Football Logo">
-                <h2 id="position-title">Select a position group to start</h2>
+                <h2 id="position-title">Select position group to start</h2>
+                <input type="text" id="name-input" value = "Name">
+                <input type="text" id="status-input" value = "Sophomore">
+                <input type="text" id="number-input" value = "93">
             </div>
 
         <section class="benchmark-page">
             <section class="benchmark-menu" aria-labelledby="athlete-stats">
-                <fieldset id="athlete-stats">  
-                    <label for="athlete-name">
-                        Athlete Name
-                            <input type="text" id="athlete-name" aria-label="Name of athlete">
-                    </label>
-                    <p>Status</p>
-                    <div id = "athlete-status"></div>
-                    <p>Class</p>
-                    <div id = "athlete-class"></div>
-                    <p>Position</p>
-                    <div id = "athlete-position"></div>
+                <fieldset id="athlete-stats">
+                    <label for="athlete-position">
+                    Position
+                    <div id = "athlete-position" class = "input-wrapper"></div>
+                </label>
                     <ul id="stats-list">
                         <li>
                             <label for="bench-stat">
@@ -68,13 +65,11 @@
         </section>
         </main>
 
-        <script type="module"> import bb from 'https://cdn.jsdelivr.net/npm/billboard.js@3.14.0/+esm' </script>
+        <script type="module"> import bb from 'https://cdn.jsdelivr.net/npm/billboard.js@3.14.0/+esm'; </script>
           
         <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   
         <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
-  
-        </script> */
 
         <script src="js/main.js" type="module"></script>
     </body>

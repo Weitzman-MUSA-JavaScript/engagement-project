@@ -6,9 +6,19 @@ body {
 .header {
   display: flex;
   flex-direction: row;
-  align-items: center;  
   justify-content: flex-start;
   color: #011f5b;
+  margin-right: 5rem;
+}
+
+fieldset > * {
+  margin-bottom: 0.5rem;
+}
+
+.header > * {
+    font-size: 2rem;
+    font-weight: 100;
+    color: #011f5b;
 }
 
 .header img {
@@ -31,7 +41,6 @@ body {
 
 fieldset {
   border-color: transparent;
-  border-radius: 0.5em;
   width: 70%;
 }
 
@@ -39,18 +48,8 @@ fieldset {
   border-color: transparent;
   font-size: 1rem;
   background-color: #f1f1f1;
-  border-radius: 0.5em;
+  border-radius: 0.35em;
   font-weight:lighter;
-}
-
-select {
-  width: 80%;
-  padding: 0.2rem;
-  font-size: 1rem;
-  font-weight: 100;
-  color: #011f5b;
-  border: transparent;
-  border-radius: 0.5em;
 }
 
 ul {
@@ -62,24 +61,30 @@ ul {
 
 li {
   display: flex;
-  align-items: left; 
   margin-bottom: 0.5rem; 
 }
 
 label {
   flex: 1;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
 .input-wrapper {
   position: relative;
   display: flex; 
-  align-items: center; 
   background-color: white;
   opacity: 0.75;
   border-radius: 0.25rem;
+}
+
+select {
+  padding: 0.2rem;
+  font-size: 1rem;
+  font-weight: 100;
+  color: #011f5b;
+  border: transparent;
+  border-radius: 0.5em;
 }
 
 input[type="number"] {
@@ -116,7 +121,7 @@ input[type="number"] {
   justify-content: center;
   border-radius: 1rem;
   background-color: white;
-  box-shadow: 0 0 1rem rgb(0 0 0 / 10%);
+  box-shadow: 0 0 1rem rgb(0 0 0 / 5%);
 }
 
 #position-title {
@@ -130,10 +135,16 @@ input[type="number"]:invalid {
 }
 
 input[type="text"] {
-  width: 80%;
+  margin-bottom: 0.5rem;
+  border-color: transparent;
 }
 
-/* save-athlete button */
+.header input[type="text"] {
+  border-color: transparent;
+  box-sizing: content-box;
+  width: auto;
+}
+
 #save-athlete {
   background-color: #011f5b;
   color: white;
@@ -143,6 +154,11 @@ input[type="text"] {
   font-size: 1rem;
   font-weight: 100;
   cursor: pointer;
+  margin-top: 1rem;
+}
+
+#save-athlete:hover {
+  background-color: #0a3d91;
 }
 
 /* Billboard Charts */
@@ -158,12 +174,12 @@ input[type="text"] {
   fill: gray;
   font-size: 0.8rem;
   font-weight: 100;
-  text-anchor: middle;
 }
 
 .bb-title {
   fill: #011f5b;    
-  font-weight: 100;    
+  font-weight: 100;   
+  text-align:left; 
 }
 
 /* Radar Chart */

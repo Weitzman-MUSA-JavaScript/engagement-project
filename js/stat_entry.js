@@ -8,9 +8,21 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     return a.localeCompare(b);
   });
 
+  const inputEl = document.querySelectorAll('#name-input, #status-input, #number-input');
+
+inputEl.forEach(function(input) {
+  input.style.boxSizing = 'content-box'; // Ensure box-sizing is consistent
+  input.addEventListener('input', resizeInput);
+  resizeInput.call(input);
+});
+
+function resizeInput() {
+  this.style.width = (this.value.length + 1) + 'ch'; // Adjust as needed
+}
+
   const orderedStats = [
     'Bench', 'Squat', 'Power Clean', 'Hang Clean', '225lb Bench',
-    '10-Yard Sprint', 'Vertical Jump', 'Broad Jump', '60-Yard Shuttle', 'L Drill', 'Pro Agility', 'Flying 10',
+    '10Y Sprint', 'Vertical Jump', 'Broad Jump', '60Y Shuttle', 'L Drill', 'Pro Agility', 'Flying 10',
     'Height', 'Weight', 'Wingspan',
   ];
 
@@ -18,7 +30,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     pounds: ['Bench', 'Squat', 'Power Clean', 'Hang Clean', 'Weight'],
     reps: ['225lb Bench'],
     inches: ['Vertical Jump', 'Broad Jump', 'Height', 'Wingspan'],
-    seconds: ['10-Yard Sprint', '60-Yard Shuttle', 'L Drill', 'Pro Agility', 'Flying 10'],
+    seconds: ['10Y Sprint', '60Y Shuttle', 'L Drill', 'Pro Agility', 'Flying 10'],
   };
 
   function getUnit(stat) {
@@ -130,6 +142,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     events.dispatchEvent(event);
     updatePositionTitle(selectedPosition);
   }
+
 
   for (const item of Object.values(statListItems)) {
     const numInput = item.querySelector('input');

@@ -1,6 +1,6 @@
 
 function calculateChartData(indivStats, events) {
-  let playerPosition = 'DB';
+  let playerPosition = 'Defensive Back';
   const playerStats = [];
   const playerStatsValues = [];
   let positionStatsValues = [];
@@ -10,13 +10,13 @@ function calculateChartData(indivStats, events) {
 
   // Stats that are better when lower
   const inversePercentileStats = [
-    'Flying 10', '10-Yard Sprint', '60-Yard Shuttle', 'L Drill', 'Pro Agility',
+    'Flying 10', '10Y Sprint', '60Y Shuttle', 'L Drill', 'Pro Agility',
   ];
 
   // Stat categories
   const statCategories = {
-    speed: ['10-Yard Sprint', 'Flying 10'],
-    agility: ['Pro Agility', 'L Drill', '60-Yard Shuttle'],
+    speed: ['10Y Sprint', 'Flying 10'],
+    agility: ['Pro Agility', 'L Drill', '60Y Shuttle'],
     power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
     strength: ['Squat', 'Bench', '225lb Bench'],
   };

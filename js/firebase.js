@@ -34,6 +34,7 @@ async function addAthleteReport() {
     Class: 2022,
     Weight: 165,
     Height: 60,
+    Timestamp: new Date(),
   });
 }
 export { app, analytics, db, getAthleteReports, addAthleteReport };
