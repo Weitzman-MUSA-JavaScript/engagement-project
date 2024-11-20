@@ -20,7 +20,7 @@
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  const analytics = getAnalytics(app);
- const db= getFirestore(app)
+ const db= getFirestore(app,'opiniate-524f0')
  window.db= db;
  window.collection= collection;
  window.addDoc = addDoc;
