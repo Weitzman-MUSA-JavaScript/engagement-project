@@ -16,11 +16,11 @@
    appId: "1:778619690828:web:6080175dd7e2600451b9e9",
    measurementId: "G-2661G82D94"
  };
-
+ firebase.firestore().settings({ experimentalForceLongPolling: true });
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  const analytics = getAnalytics(app);
- const db= getFirestore(app,'opiniate-524f0')
+ const db= getFirestore(app,'opiniate-524f0 ')
  window.db= db;
  window.collection= collection;
  window.addDoc = addDoc;
