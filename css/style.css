@@ -203,6 +203,7 @@ canvas {
 .custom-select {
   width: 70%;
   padding-left:10px;
+  font-size:13px
   border: 2px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
