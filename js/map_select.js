@@ -204,8 +204,8 @@ populatesentiment(document);
         data: geojson
       },
       paint: {
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 1.5, 15, 4],
-        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 10, 0.5, 15, 0.8],
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 1.5, 15, 5],
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 10, 0.5, 15, 1],
         'circle-color': ['match', ['get', 'sentiment'], // get the property
         'Happy 😊', '#56949A',
         'Unhappy 😐', '#D7677B',
@@ -216,6 +216,28 @@ populatesentiment(document);
                       // if 'XX' then black 
         'white']   
       }
+      
+    });
+    map.addLayer({
+      id: 'labels',
+      type: 'symbol',
+      minzoom: 15, // Labels appear at zoom level 5 and higher
+      /* Add a GeoJSON source containing place coordinates and information. */
+      source: {
+        type: 'geojson',
+        data: geojson
+      },
+      layout: {
+        'text-field': ['get', 'comment_EN'], // Use the 'name' property for labels
+        'text-size': 11,              // Adjust text size
+        'text-offset': [0, 0.5],      // Offset text above the point
+        'text-anchor': 'top'          // Align text to the top of the point
+    },
+    paint:{
+      'text-color': '#000000',
+        'text-halo-color': '#FFFFFF',
+        'text-halo-width': 1
+    }
       
     });
     console.log('Map layer "locations" added successfully.');
@@ -263,10 +285,9 @@ map.on('click', (e) => {
     const form = document.createElement('form');
     form.className = 'popup-form';
     form.innerHTML = `
-        <label for="comment">Comment:</label>
-        <input type="text" id="comment" name="comment" required>
-        <br>
-        <label for="sentiment-indicator">I am feeling:</label>
+        <label for="comment" style="font-size:13px">Comment:</label>
+        <input type="text" id="comment" class="custom-select" name="comment" required>
+        <label for="sentiment-indicator" style="font-size:13px">I am feeling:</label>
         <select id="sentiment-indicator" class="custom-select" required>
             <option value="Happy 😊">Happy</option>
             <option value="Unhappy 😐">Unhappy</option>
