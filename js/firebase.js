@@ -1,6 +1,6 @@
  // Import the functions you need from the SDKs you need
- import {getFirestore, collection, addDoc, getDocs} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
- import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+ import {getFirestore,initializeFirestore, collection, addDoc, getDocs} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+ import { initializeApp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
@@ -16,11 +16,14 @@
    appId: "1:778619690828:web:6080175dd7e2600451b9e9",
    measurementId: "G-2661G82D94"
  };
- firebase.firestore().settings({ experimentalForceLongPolling: true });
+
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  const analytics = getAnalytics(app);
- const db= getFirestore(app,'opiniate-524f0 ')
+ const db= initializeFirestore(app, {
+    experimentalForceLongPolling: true,  // Custom setting
+    cacheSizeBytes: 10485760,            // Custom cache size (10MB)
+  });
  window.db= db;
  window.collection= collection;
  window.addDoc = addDoc;
