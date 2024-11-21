@@ -80,11 +80,11 @@ label {
 
 select {
   padding: 0.2rem;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: 100;
   color: #011f5b;
   border: transparent;
-  border-radius: 0.5em;
+  background-color: transparent;
 }
 
 input[type="number"] {
