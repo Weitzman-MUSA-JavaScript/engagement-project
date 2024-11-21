@@ -18,12 +18,14 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   function resizeInput() {
     this.style.width = (this.value.length + 1) + 'ch'; // Adjust as needed
-}
+  }
 
   const orderedStats = [
-    'Bench', 'Squat', 'Power Clean', 'Hang Clean', '225lb Bench',
-    '10Y Sprint', 'Vertical Jump', 'Broad Jump', '60Y Shuttle', 'L Drill', 'Pro Agility', 'Flying 10',
-    'Height', 'Weight', 'Wingspan',
+    'Weight', 'Height', 'Wingspan',
+    'Bench', 'Squat', '225lb Bench',
+    'Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean',
+    '10Y Sprint', 'Flying 10',
+    'Pro Agility', 'L Drill', '60Y Shuttle',
   ];
 
   const unitMapping = {
@@ -89,15 +91,38 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   initListItems();
 
   function populateList(stats) {
+    const statCategories = {
+      anthropometrics: ['Weight', 'Height', 'Wingspan'],
+      strength: ['Bench', 'Squat', '225lb Bench'],
+      speed: ['10Y Sprint', 'Flying 10'],
+      agility: ['Pro Agility', 'L Drill', '60Y Shuttle'],
+      power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
+    };
+
     listEl.innerHTML = '';
+
+    const categoryAdded = new Set();
 
     for (const stat of orderedStats) {
       if (stats.includes(stat)) {
+        // Find the category for the current stat
+        for (const [category, categoryStats] of Object.entries(statCategories)) {
+          if (categoryStats.includes(stat) && !categoryAdded.has(category)) {
+            // Create and append a label for the category
+            const labelEl = document.createElement('li');
+            labelEl.className = 'stat-category-label';
+            labelEl.textContent = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize category name
+            listEl.appendChild(labelEl);
+            categoryAdded.add(category);
+          }
+        }
+
         const item = statListItems[stat];
-        listEl.append(item);
+        listEl.appendChild(item);
       }
     }
   }
+
 
   function populatePosition() {
     positionEl.innerHTML = '';

@@ -7,9 +7,25 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   color: #011f5b;
   margin-right: 5rem;
 }
+
+#athlete-position select {
+  font-size: 2rem;
+  font-weight: 100;
+  color: #011f5b;
+  border: none;
+  background-color: transparent;
+  height: 2.5rem; /* Match other inputs or adjust as needed */
+  line-height: 2.5rem; /* Align text vertically */
+  padding: 0; /* Remove extra padding */
+  margin: 0; /* Reset margins */
+  display: flex;
+  align-items: center; /* Align the text within the dropdown */
+}
+
 
 fieldset > * {
   margin-bottom: 0.5rem;
@@ -78,15 +94,6 @@ label {
   border-radius: 0.25rem;
 }
 
-select {
-  padding: 0.2rem;
-  font-size: 2rem;
-  font-weight: 100;
-  color: #011f5b;
-  border: transparent;
-  background-color: transparent;
-}
-
 input[type="number"] {
   width: 10vh; /* Takes full width of wrapper */
   box-sizing: border-box;
@@ -124,18 +131,18 @@ input[type="number"] {
   box-shadow: 0 0 1rem rgb(0 0 0 / 5%);
 }
 
-#position-title {
-  font-size: 2rem;
-  font-weight: 100;
-  color: #011f5b;
+.stat-category-label, .bb-title {
+  font-weight: bold;
+  margin-top: 1em;
+  text-transform: uppercase;
 }
+
 
 input[type="number"]:invalid {
   color: salmon;
 }
 
 input[type="text"] {
-  margin-bottom: 0.5rem;
   border-color: transparent;
 }
 
@@ -176,12 +183,6 @@ input[type="text"] {
   font-weight: 100;
 }
 
-.bb-title {
-  fill: #011f5b;    
-  font-weight: 100;   
-  text-align:left; 
-}
-
 /* Radar Chart */
 .bb-level > polygon:nth-child(1) {
   opacity: 0.3;
@@ -189,8 +190,4 @@ input[type="text"] {
 
 .bb-axis-0 > line:nth-child(1) {
   opacity: 0.5;
-}
-
-.pct-chart .bb-text {
-  font-size: 1.5rem;
 }
