@@ -10,14 +10,14 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   const inputEl = document.querySelectorAll('#name-input, #status-input, #number-input');
 
-inputEl.forEach(function(input) {
-  input.style.boxSizing = 'content-box'; // Ensure box-sizing is consistent
-  input.addEventListener('input', resizeInput);
-  resizeInput.call(input);
-});
+  inputEl.forEach(function(input) {
+    input.style.boxSizing = 'content-box'; // Ensure box-sizing is consistent
+    input.addEventListener('input', resizeInput);
+    resizeInput.call(input);
+  });
 
-function resizeInput() {
-  this.style.width = (this.value.length + 1) + 'ch'; // Adjust as needed
+  function resizeInput() {
+    this.style.width = (this.value.length + 1) + 'ch'; // Adjust as needed
 }
 
   const orderedStats = [

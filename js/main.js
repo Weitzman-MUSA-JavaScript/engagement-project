@@ -23,7 +23,7 @@ const indivStats = await indivStatsResponse.json();
 const events = new EventTarget();
 
 const statListEl = document.querySelector('#athlete-stats');
-const positionDropdownEl = document.querySelector('#athlete-stats');
+const positionDropdownEl = document.querySelector('#header');
 
 const positions = Object.keys(indivStats);
 const statNames = Object.keys(Object.values(indivStats)[0][0]);
