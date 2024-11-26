@@ -8,16 +8,36 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     return a.localeCompare(b);
   });
 
-  const inputEl = document.querySelectorAll('#name-input, #status-input, #number-input');
+  const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
 
   inputEl.forEach(function(input) {
-    input.style.boxSizing = 'content-box'; // Ensure box-sizing is consistent
+    input.style.boxSizing = 'content-box';
     input.addEventListener('input', resizeInput);
     resizeInput.call(input);
   });
 
   function resizeInput() {
-    this.style.width = (this.value.length + 1) + 'ch'; // Adjust as needed
+    if (!this.value) {
+      if (this.id === 'athlete-position') {
+        this.value = 'Defensive Back';
+      } else if (this.id === 'name-input') {
+        this.value = 'Athlete Name';
+      } else if (this.id === 'number-input') {
+        this.value = '#';
+      }
+    }
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    const font = window.getComputedStyle(this).font;
+    context.font = font;
+
+    const textWidth = context.measureText(this.value).width;
+
+    const padding = 10;
+
+    this.style.width = textWidth + padding + 'px';
   }
 
   const orderedStats = [

@@ -8,22 +8,20 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  color: #011f5b;
-  margin-right: 5rem;
+  margin-right: 1rem;
 }
 
-#athlete-position select {
+#athlete-position select,
+#status-input{
   font-size: 2rem;
   font-weight: 100;
   color: #011f5b;
   border: none;
   background-color: transparent;
-  height: 2.5rem; /* Match other inputs or adjust as needed */
-  line-height: 2.5rem; /* Align text vertically */
-  padding: 0; /* Remove extra padding */
-  margin: 0; /* Reset margins */
+  height: 2.5rem; 
+  line-height: 2.5rem;
   display: flex;
-  align-items: center; /* Align the text within the dropdown */
+  align-items: center;
 }
 
 

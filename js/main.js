@@ -5,11 +5,11 @@ import { calculateChartData } from './chart_data.js';
 import { initRadar } from './radar.js';
 
 
-/* Custom Events: 
+/* Custom Events:
 
 - statFilled
 Fired when a stat is filled in the form
-Detail: { statName: string, statValue: number } 
+Detail: { statName: string, statValue: number }
 
 - positionSelected
 Fired when a position is selected in the form
@@ -32,7 +32,7 @@ const statNames = Object.keys(Object.values(indivStats)[0][0]);
 initStatEntry(statListEl, positionDropdownEl, statNames, positions, events);
 
 // Calculate chart data
-let chartData = calculateChartData(indivStats, events);
+const chartData = calculateChartData(indivStats, events);
 
 // Get chart elements
 const strengthEl = document.querySelector('#strength-chart');
@@ -46,15 +46,15 @@ addAthleteReport();
 
 // Render charts
 function updateCharts() {
-    const { positionMedians, playerPercentiles, playerStats, playerStatsValues, categoryPercentiles } = chartData.getCalculatedData();
+  const { positionMedians, playerPercentiles, playerStats, playerStatsValues, categoryPercentiles } = chartData.getCalculatedData();
 
-    initBar(strengthEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
-    initBar(powerEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
-    initBar(speedEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
-    initBar(agilityEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
-    initBar(anthroEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
+  initBar(strengthEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
+  initBar(powerEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
+  initBar(speedEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
+  initBar(agilityEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
+  initBar(anthroEl, positionMedians, playerStats, playerStatsValues, playerPercentiles);
 
-    initRadar(radarEl, categoryPercentiles);
+  initRadar(radarEl, categoryPercentiles);
 }
 
 // Listen for changes in stat or position
