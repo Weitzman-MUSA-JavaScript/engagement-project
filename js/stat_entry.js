@@ -1,45 +1,43 @@
 function initStatEntry(statListEl, positionDropdownEl, stats, positions, events) {
   const listEl = statListEl.querySelector('ul');
   const positionEl = positionDropdownEl.querySelector('div#athlete-position');
-
   const statListItems = {};
   const positionPositionItems = {};
-  positions = positions.sort((a, b) => {
-    return a.localeCompare(b);
-  });
 
+  // Sort positions alphabetically
+  positions = positions.sort((a, b) => a.localeCompare(b));
+
+  // Input elements for dynamic resizing and default handling
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
-
-  inputEl.forEach(function(input) {
+  inputEl.forEach(input => {
     input.style.boxSizing = 'content-box';
-    input.addEventListener('input', resizeInput);
+    applyDefaultValue.call(input);
     resizeInput.call(input);
+    input.addEventListener('input', resizeInput);
+    input.addEventListener('blur', applyDefaultValue);
   });
 
   function resizeInput() {
-    if (!this.value) {
-      if (this.id === 'athlete-position') {
-        this.value = 'Defensive Back';
-      } else if (this.id === 'name-input') {
-        this.value = 'Athlete Name';
-      } else if (this.id === 'number-input') {
-        this.value = '#';
-      }
-    }
-
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-
     const font = window.getComputedStyle(this).font;
     context.font = font;
-
-    const textWidth = context.measureText(this.value).width;
-
+    const textWidth = context.measureText(this.value || '').width;
     const padding = 10;
-
-    this.style.width = textWidth + padding + 'px';
+    const minWidth = 50;
+    this.style.width = Math.max(textWidth + padding, minWidth) + 'px';
   }
 
+  function applyDefaultValue() {
+    if (!this.value) {
+      if (this.id === 'athlete-position') this.value = 'Defensive Back';
+      if (this.id === 'name-input') this.value = 'Athlete Name';
+      if (this.id === 'number-input') this.value = '#';
+      resizeInput.call(this);
+    }
+  }
+
+  // Ordered list of stats
   const orderedStats = [
     'Weight', 'Height', 'Wingspan',
     'Bench', 'Squat', '225lb Bench',
@@ -48,6 +46,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     'Pro Agility', 'L Drill', '60Y Shuttle',
   ];
 
+  // Units for stats
   const unitMapping = {
     pounds: ['Bench', 'Squat', 'Power Clean', 'Hang Clean', 'Weight'],
     reps: ['225lb Bench'],
@@ -56,23 +55,16 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   };
 
   function getUnit(stat) {
-    if (unitMapping.pounds.includes(stat)) {
-      return 'lbs';
-    } else if (unitMapping.reps.includes(stat)) {
-      return 'reps';
-    } else if (unitMapping.inches.includes(stat)) {
-      return 'in';
-    } else if (unitMapping.seconds.includes(stat)) {
-      return 's';
-    }
+    if (unitMapping.pounds.includes(stat)) return 'lbs';
+    if (unitMapping.reps.includes(stat)) return 'reps';
+    if (unitMapping.inches.includes(stat)) return 'in';
+    if (unitMapping.seconds.includes(stat)) return 's';
     return '';
   }
 
   function updatePositionTitle(position) {
     const titleEl = document.getElementById('position-title');
-    if (titleEl) {
-      titleEl.textContent = `${position}`;
-    }
+    if (titleEl) titleEl.textContent = position;
   }
 
   function initListItems() {
@@ -81,14 +73,14 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
         const unit = getUnit(stat);
         const item = document.createElement('li');
         item.innerHTML = `
-              <label>
-                  ${stat}
-                  <div class="input-wrapper">
-                      <input type="number" id="athlete-stat-${stat}" name="${stat}" max="1000" step="any">
-                      <span class="unit">${unit}</span>
-                  </div>
-              </label>
-              `;
+          <label>
+              ${stat}
+              <div class="input-wrapper">
+                  <input type="number" id="athlete-stat-${stat}" name="${stat}" max="1000" step="any">
+                  <span class="unit">${unit}</span>
+              </div>
+          </label>
+        `;
         statListItems[stat] = item;
       }
     }
@@ -97,7 +89,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   function initPositionItems() {
     const selectEl = document.createElement('select');
     selectEl.name = 'position';
-
     for (const position of positions) {
       const option = document.createElement('option');
       option.value = position;
@@ -106,9 +97,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     }
     return selectEl;
   }
-
-  initPositionItems();
-  initListItems();
 
   function populateList(stats) {
     const statCategories = {
@@ -120,43 +108,31 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     };
 
     listEl.innerHTML = '';
-
     const categoryAdded = new Set();
 
     for (const stat of orderedStats) {
       if (stats.includes(stat)) {
-        // Find the category for the current stat
         for (const [category, categoryStats] of Object.entries(statCategories)) {
           if (categoryStats.includes(stat) && !categoryAdded.has(category)) {
-            // Create and append a label for the category
             const labelEl = document.createElement('li');
             labelEl.className = 'stat-category-label';
-            labelEl.textContent = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize category name
+            labelEl.textContent = category.charAt(0).toUpperCase() + category.slice(1);
             listEl.appendChild(labelEl);
             categoryAdded.add(category);
           }
         }
-
-        const item = statListItems[stat];
-        listEl.appendChild(item);
+        listEl.appendChild(statListItems[stat]);
       }
     }
   }
 
-
   function populatePosition() {
     positionEl.innerHTML = '';
-
     const position = initPositionItems();
     positionEl.appendChild(position);
-
     position.addEventListener('change', handlePositionChange);
   }
 
-  populatePosition();
-  populateList(stats);
-
-  // Handle stat entry
   function handleNumEntry(evt) {
     const numInput = evt.target;
     const statName = numInput.name;
@@ -164,39 +140,45 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     const statValue = filled ? parseFloat(numInput.value) : null;
 
     numInput.setCustomValidity('');
-
     if (!numInput.checkValidity() || parseFloat(numInput.value) <= 0) {
       numInput.setCustomValidity('Please enter a valid number');
       numInput.reportValidity();
       return;
     }
 
-    const event = new CustomEvent('statFilled', {
-      detail: { statName, filled, statValue },
-    });
+    const event = new CustomEvent('statFilled', { detail: { statName, filled, statValue } });
     events.dispatchEvent(event);
   }
 
-  // Handle position selection
   function handlePositionChange(evt) {
     const selectedPosition = evt.target.value;
-
-    const event = new CustomEvent('positionSelected', {
-      detail: { position: selectedPosition },
-    });
+    const event = new CustomEvent('positionSelected', { detail: { position: selectedPosition } });
     events.dispatchEvent(event);
     updatePositionTitle(selectedPosition);
+
+    const selectedText = evt.target.selectedOptions[0].text;
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const font = window.getComputedStyle(evt.target).font;
+    context.font = font;
+    const textWidth = context.measureText(selectedText).width;
+    const padding = 10;
+    evt.target.style.width = textWidth + padding + 'px';
   }
 
+  // Initialize position and stat list
+  initPositionItems();
+  initListItems();
+  populatePosition();
+  populateList(stats);
 
+  // Add event listeners for stats and positions
   for (const item of Object.values(statListItems)) {
-    const numInput = item.querySelector('input');
-    numInput.addEventListener('input', handleNumEntry);
+    item.querySelector('input').addEventListener('input', handleNumEntry);
   }
 
   for (const item of Object.values(positionPositionItems)) {
-    const radioInput = item.querySelector('input');
-    radioInput.addEventListener('change', handlePositionChange);
+    item.querySelector('input').addEventListener('change', handlePositionChange);
   }
 }
 

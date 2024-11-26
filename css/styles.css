@@ -3,13 +3,20 @@ body {
   color: #011f5b;
 }
 
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-right: 1rem;
+  gap: 1rem; 
 }
+
+#athlete-position, #name-input, #status-input, #number-input {
+  flex-shrink: 0; /* Prevent inputs from shrinking too small */
+  min-width: 50px; /* Set a minimum width for all inputs */
+}
+
 
 #athlete-position select,
 #status-input{
