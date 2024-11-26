@@ -28,8 +28,10 @@ async function getAthleteReports() {
   return reports;
 }
 
+const athleteID = 'test';
+
 async function addAthleteReport() {
-  await setDoc(doc(db, 'athlete-reports', 'athlete1'), {
+  await setDoc(doc(db, 'athlete-reports', athleteID), {
     Name: 'Anna Duan',
     Class: 2022,
     Weight: 165,

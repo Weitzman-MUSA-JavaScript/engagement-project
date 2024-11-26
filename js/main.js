@@ -1,4 +1,4 @@
-import { getAthleteReports, addAthleteReport} from './firebase.js';
+import { addAthleteReport} from './firebase.js';
 import { initBar } from './barchart.js';
 import { initStatEntry } from './stat_entry.js';
 import { calculateChartData } from './chart_data.js';

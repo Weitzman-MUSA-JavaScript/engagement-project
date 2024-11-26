@@ -9,7 +9,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   // Input elements for dynamic resizing and default handling
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
-  inputEl.forEach(input => {
+  inputEl.forEach((input) => {
     input.style.boxSizing = 'content-box';
     applyDefaultValue.call(input);
     resizeInput.call(input);

@@ -12,7 +12,7 @@
         <main role="main">
             <div class="header" id = "header" role="banner">
                 <img src="www/penn_shield.svg" alt="Penn Football Logo" aria-label="Penn Football Logo">
-                <div id = "athlete-position" class = "input-wrapper"></div>
+                <div id = "athlete-position"></div>
                 <input type="text" id="name-input" value = "Athlete Name">
                 <select id="status-input">
                     <option value="Recruit">Recruit</option>
@@ -48,10 +48,9 @@
                             </label>
                         </li>
                     </ul>
-                    <label for="notes">
-                        Coach's Notes
-                            <input type="text" id="coach-notes" name="coach-notes" aria-label="Notes on athlete">
-                    </label>
+                    <label for="coach-notes">Coach's Notes</label>
+                    <textarea id="coach-notes" name="coach-notes" aria-label="Notes on athlete">INITIAL QUICKNESS, REACT / RECOGNITION, LATERAL QUICKNESS, BALANCE / BODY CONTROL,BURST / CLOSING SPEED,
+                    HAND USE / SHED, DOUBLE TEAM / ANCHOR, TACKLING, PASS RUSH ABILITY, TOUGHNESS, MOTOR</textarea>                    
 
                     <button id="save-athlete" aria-label="Save athlete to database">Save Athlete</button>
                 </fieldset>

@@ -1,8 +1,12 @@
-body {
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
   font-family: Poppins, sans-serif;
   color: #011f5b;
 }
-
 
 .header {
   display: flex;
@@ -13,10 +17,9 @@ body {
 }
 
 #athlete-position, #name-input, #status-input, #number-input {
-  flex-shrink: 0; /* Prevent inputs from shrinking too small */
-  min-width: 50px; /* Set a minimum width for all inputs */
+  flex-shrink: 0; 
+  min-width: 50px; 
 }
-
 
 #athlete-position select,
 #status-input{
@@ -30,7 +33,6 @@ body {
   display: flex;
   align-items: center;
 }
-
 
 fieldset > * {
   margin-bottom: 0.5rem;
@@ -51,9 +53,8 @@ fieldset > * {
 
 .benchmark-page {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  align-content: flex-start;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .benchmark-menu {
@@ -62,15 +63,6 @@ fieldset > * {
 
 fieldset {
   border-color: transparent;
-  width: 70%;
-}
-
-.benchmark-menu input {
-  border-color: transparent;
-  font-size: 1rem;
-  background-color: #f1f1f1;
-  border-radius: 0.35em;
-  font-weight:lighter;
 }
 
 ul {
@@ -86,45 +78,66 @@ li {
 }
 
 label {
-  flex: 1;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
+.benchmark-menu input {
+  border-color: transparent;
+  width: 10vw;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 0.35em;
+  font-weight:lighter;
+}
+
+#coach-notes {
+  width: 100%;
+  height: 5rem;
+  display: block;      
+  text-align: left;     
+  padding: 0.5rem;      
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-y: auto;    
+  resize: vertical;  
+  border-color: rgb(218, 218, 218 0.5);
+  border-width: 1px;
+  border-radius: 0.35em;
+}
+
 .input-wrapper {
-  position: relative;
   display: flex; 
-  background-color: white;
-  opacity: 0.75;
-  border-radius: 0.25rem;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 40%;
 }
 
 input[type="number"] {
-  width: 10vh; /* Takes full width of wrapper */
-  box-sizing: border-box;
+  width: 60%;
   appearance: textfield;
   text-align: center;
-  padding-right: 1rem; /* Prevents overlap with unit */
 }
 
 .unit {
-  position: absolute;
-  left: calc(100% - 2rem); /* Adjusts position relative to input-wrapper */
-  color: #cdcbcb;
-  pointer-events: none; /* Makes the unit unclickable */
-  text-align: left; /* Ensures text within the unit is left-aligned */
-  width: 5rem; /* Ensures consistent width for units */
+  pointer-events: none;
+  align-content: center;
+  opacity: 0.5;
 }
 
 .benchmark-chart-area {
   display: grid;
-  grid-column: 2 / 6; 
-  grid-row: 1 / 4; 
+  grid-column: 2 / 6;
+  grid-row: 1 / 2;
   grid-template-columns: repeat(3, 1fr); 
-  grid-template-rows: repeat(2, 1fr);   
-  height: 70vh;       
-  gap: 1.5rem;                                        
+  grid-template-rows: repeat(2, 1fr); 
+  gap: 1.5rem;
+  height: 90vh;
+  overflow: hidden;
 }
+
 
 .pct-chart {
   display: flex;
