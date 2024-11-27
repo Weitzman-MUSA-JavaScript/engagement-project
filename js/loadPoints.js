@@ -8,7 +8,7 @@ async function loadPoints() {
   const newReports = await getFloodReports();
   newReports.forEach((doc) => {
     const report = doc.data();
-    const {Cat, Lat, Lon} = report;
+    const {Cat, Lat, Lon, Value, Damage, Housing, Insurance} = report;
     const newPoint = {
       type: 'Feature',
       geometry: {
@@ -17,6 +17,10 @@ async function loadPoints() {
       },
       properties: {
         Cat,
+        Value,
+        Damage,
+        Housing,
+        Insurance,
       },
     };
     floodedParcel.push(newPoint);

@@ -23,13 +23,17 @@ async function getFloodReports() {
   return reports;
 }
 
-async function addFloodReport(parcelType, lat, lon) {
+async function addFloodReport(parcelType, lat, lon, value, damage, housing, insurance) {
   const reportsColl = collection(db, 'floodReports');
   await addDoc(reportsColl, {
     Cat: parcelType,
     Lat: lat,
     Lon: lon,
     Time: new Date(),
+    Value: value,
+    Damage: damage,
+    Housing: housing,
+    Insurance: insurance,
   });
 }
 

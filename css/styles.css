@@ -111,7 +111,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 420px; 
   height: 345px;
   display: flex; 
-  align-items: center; 
+  align-items: top; 
   margin-top: 30px;
   margin-left: 5px;
   margin-bottom: 20px; 
@@ -129,36 +129,47 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #search-label {
-  margin: 0 0 10px;
   font-size: 20px;
   color: #333;
   font-weight: bold;
+  margin-bottom: 10px; 
 }
 
 #address-search-container input {
-  width: 98%;
-  padding: 5px;
+  width: 97%;
+  padding: 6px;
   font-size: 16px;
+  border: 1px solid #ccc; 
   border-radius: 4px;
   outline: none;
+  background-color: white;
+  box-shadow: inset 0 1px 2px 
+    color-mix(in srgb, rgb(0 0 0), 10%);
 }
 
 #report-container input {
-  width: 98%;
-  padding: 5px;
+  width: 96.5%; 
+  padding: 6px;
   font-size: 16px;
+  border: 1px solid #ccc; 
   border-radius: 4px;
   outline: none;
+  background-color: white; 
+  box-shadow: inset 0 1px 2px 
+    color-mix(in srgb, rgb(0 0 0), 10%); 
 }
 
 #report-container select {
   width: 100%;
-  padding: 5px;
+  padding: 6px;
   font-size: 16px;
+  border: 1px solid #ccc; 
   border-radius: 4px;
   outline: none;
+  background-color: white;
+  box-shadow: inset 0 1px 2px 
+    color-mix(in srgb, rgb(0 0 0), 10%);
 }
-
 
 
 .reset-view-btn {
@@ -181,11 +192,17 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
-
-#report-container button:hover {
-  background-color: #a14b25;
-  transform: scale(1.05);
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
 }
+
+input[type="number"] {
+    appearance: textfield; /* For Firefox */
+}
+
+
 
 /* stylelint-disable-next-line no-descending-specificity */
 #report-container button {
@@ -201,5 +218,19 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
+
+#report-container button:hover:not(:disabled) {
+  background-color: #a14b25;
+  transform: scale(1.05);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+#report-container button:disabled {
+  background-color: #d3d3d3;
+  color: #a1a1a1;          
+  cursor: not-allowed; 
+  transform: none;          
+}
+
 
 

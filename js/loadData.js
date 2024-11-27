@@ -10,8 +10,12 @@ async function loadData() {
   const lu = await fetch('data/lu_line2.geojson');
   const luCollection = await lu.json();
   const landuse = luCollection.features;
+  // Load affected amenity data
+  const amenity = await fetch('data/bf_526_p_nonres.geojson');
+  const amenityCollection = await amenity.json();
+  const amenities = amenityCollection.features;
 
-  return {shadow, buildings, landuse};
+  return {shadow, buildings, landuse, amenities};
 }
 
 export { loadData };
