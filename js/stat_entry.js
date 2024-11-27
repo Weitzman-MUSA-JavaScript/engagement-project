@@ -9,6 +9,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   // Input elements for dynamic resizing and default handling
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
+
   inputEl.forEach((input) => {
     input.style.boxSizing = 'content-box';
     applyDefaultValue.call(input);
@@ -18,6 +19,10 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   });
 
   function resizeInput() {
+    if (this.tagName !== 'INPUT' && this.tagName !== 'SELECT') {
+      return; // Skip elements that are not inputs or selects
+    }
+
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const font = window.getComputedStyle(this).font;
@@ -27,6 +32,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     const minWidth = 50;
     this.style.width = Math.max(textWidth + padding, minWidth) + 'px';
   }
+
 
   function applyDefaultValue() {
     if (!this.value) {

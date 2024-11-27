@@ -2,6 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebas
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js';
 import { getFirestore, collection, doc, setDoc, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
 
+// Firebase setup
 const firebaseConfig = {
   apiKey: 'AIzaSyAPujgD3xoa9zRjqve5nat6m4Q5Aa6MjDM',
   authDomain: 'penn-football-benchmarking.firebaseapp.com',
@@ -21,22 +22,63 @@ window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
 
-async function getAthleteReports() {
-  const reportsColl = collection(db, 'athlete-reports');
-  const reports = await getDocs(reportsColl);
-  console.log(reports);
-  return reports;
+// Add an athlete to Firestore
+async function addAthleteReport(data) {
+  if (!data || data.Name == 'Athlete Name' || !data.Status || !data.Position || data.Number == '#') {
+    Toastify({
+      text: 'Save failed: Missing required information (Name, Status, Position).',
+      duration: 3000,
+      gravity: 'top',
+      position: 'center', // Align: left, center, right
+      backgroundColor: 'salmon',
+    }).showToast();
+    return;
+  }
+
+  const athleteID = `${data.Name}-${data.Status}-${data.Position}`
+    .replace(/\s+/g, '-')
+    .toLowerCase();
+
+  try {
+    await setDoc(doc(db, 'athlete-reports', athleteID), {
+      'Timestamp': new Date(),
+      'Name': data.Name,
+      'Position': data.Position,
+      'Status': data.Status,
+      'Number': data.Number,
+      'Notes': data.Notes,
+      'Weight': data.Weight,
+      'Height': data.Height,
+      'Wingspan': data.Wingspan,
+      'Bench': data.Bench,
+      'Squat': data.Squat,
+      '225lb Bench': data['225lb Bench'],
+      'Vertical Jump': data['Vertical Jump'],
+      'Broad Jump': data['Broad Jump'],
+      'Hang Clean': data['Hang Clean'],
+      'Power Clean': data['Power Clean'],
+      '10Y Sprint': data['10Y Sprint'],
+      'Flying 10': data['Flying 10'],
+      'Pro Agility': data['Pro Agility'],
+      'L Drill': data['L Drill'],
+      '60Y Shuttle': data['60Y Shuttle'],
+    });
+    Toastify({
+      text: `Athlete report for ${data.Name} saved successfully.`,
+      duration: 3000,
+      gravity: 'top',
+      position: 'center',
+      backgroundColor: '#4CAF50',
+    }).showToast();
+  } catch (error) {
+    Toastify({
+      text: `Save failed: ${error.message}`,
+      duration: 3000,
+      gravity: 'top',
+      position: 'center',
+      backgroundColor: 'salmon',
+    }).showToast();
+  }
 }
 
-const athleteID = 'test';
-
-async function addAthleteReport() {
-  await setDoc(doc(db, 'athlete-reports', athleteID), {
-    Name: 'Anna Duan',
-    Class: 2022,
-    Weight: 165,
-    Height: 60,
-    Timestamp: new Date(),
-  });
-}
-export { app, analytics, db, getAthleteReports, addAthleteReport };
+export { app, analytics, db, addAthleteReport };
