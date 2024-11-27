@@ -9,12 +9,14 @@
 <body>
     <main>
         <div id="toolbar">
-            <button id="tool1">Inundation</button>
+            <button id="tool1">Parcel</button>
+            <button id="tool4">Amenity</button>
             <button id="tool2">Address</button>
             <button id="tool3">Contribute</button>
+
         </div>
 
-        <!-- Slider -->
+        <!-- Slider1 -->
         <div id="sidebar-container">
             <div id="slider-container">
                 <label for="waterLevel">Water Level (Feet):</label>
@@ -29,28 +31,73 @@
             </div>
         </div>
 
+        <div id="sidebar-container-2">
+            <div id="slider-container">
+                <label for="waterLevel">Water Level (Feet):</label>
+                <input type="range" id="waterLevel2" min="515" max="526" step="1" value="515">
+            </div>
+        </div>
+
         <!-- Map -->
         <div id="map"></div>
 
         <!-- Address Search -->
         <div id="address-search-container" class="map-search-controls" style="display: none;">
-            <p id="search-label">Enter an address:</p>
+            <p>Search for an address</p>
+            <p id="search-label">Enter Address:</p>
             <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
-            <p id="search-label">Pick a parcel:</p>
+            <p id="search-label">Select Parcel:</p>
             <div id="parcel-info-table"></div>
         </div>
 
         <!-- Address Contribution-->
         <div id="report-container" class="map-search-controls" style="display: none;">
-            <p id="search-label">Enter an address:</p>
+            <p>Contribute to the flood report? Existing red dots represent impacted buildings.</p>
+            <p id="search-label">Enter Address:</p>
             <input type="text" name="address-contribute" placeholder="Near..." aria-label="Search around an address or place">
-            <p id="search-label">Select parcel type:</p>
-            <select id="parcelSelect">
+            <p id="search-label">Select Parcel Type:</p>
+            <select id="parcel-select">
+                <option value="" disabled selected>  </option>
                 <option value="Residential">Residential</option>
                 <option value="Commercial">Commercial</option>
                 <option value="Industrial">Industrial</option>
                 <option value="Others">Others</option>
             </select>
+            <p id="search-label">Select Housing Type:</p>
+            <select id="housing-select">
+                <option value="" disabled selected>  </option>
+                <option value="Single-Family">Single-Family Homes</option>
+                <option value="Townhouse">Townhouse</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Condominium">Condominium</option>
+                <option value="Mobile-Home">Mobile Home</option>
+                <option value="Retail">Retail</option>
+                <option value="Office">Office</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Mixed-Used">Mixed Used</option>
+                <option value="Warehouse">Warehouse</option>
+                <option value="Factory">Factory</option>
+                <option value="Specailized">Other specialized types: schools, healthcare facilites, religious building,etc.</option>
+            </select>
+            <p id="search-label">Select Damage Level:</p>
+            <select id="damage-report">
+                <option value="" disabled selected>  </option>
+                <option value="No">No damage.</option>
+                <option value="Minor">Shallow water, minimal property impact.</option>
+                <option value="Moderate">Water entry into property, some disruption.</option>
+                <option value="Severe">Significant water damage, major disruption.</option>
+                <option value="Catastrophic">Extensive damage, need for repairs or rebuilding.</option>
+            </select>
+            <p id="search-label">Insurance Coverage:</p>
+            <select id="insurance-select">
+                <option value="" disabled selected>  </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="NA">Not Applicable</option>
+            </select>
+            <p id="search-label">Enter Estimated Parcel Value:</p>
+            <input type="number" id="parcel-value" placeholder="Enter value" aria-label="Enter value">
             <button id="submit" disabled>Submit</button>
         </div>
 

@@ -11,7 +11,7 @@ import { loadPoints} from './loadPoints.js';
 const events = new EventTarget();
 
 // basemap data
-const {shadow, buildings, landuse} = await loadData();
+const {shadow, buildings, landuse, amenities} = await loadData();
 const floodPoints = await loadPoints();
 
 // water parcel data and information
@@ -25,7 +25,7 @@ for (let level = 515; level <= 526; level++) {
 
 // initialize basemap
 const mapEl = document.querySelector('#map');
-const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData, floodPoints);
+const basemap = initMap(mapEl, shadow, buildings, landuse, allParcelData, floodPoints, amenities);
 
 // initialize water parcel layer
 const waterParcelLayerGroup = L.layerGroup().addTo(basemap);
@@ -34,6 +34,7 @@ function updateWaterParcels(level) {
   addWaterParcel(waterParcelLayerGroup, allWaterData[level], allParcelData[level], allParcelData);
 }
 const slider = document.querySelector('#waterLevel');
+const slider2 = document.querySelector('#waterLevel2');
 const barEL = d3.select('#type-bar');
 slider.addEventListener('input', (event) => {
   const level = parseInt(event.target.value);
@@ -44,6 +45,11 @@ slider.addEventListener('input', (event) => {
 await updateWaterParcels(515);
 updateSliderValue(allParcelData, 515);
 drawBar(barEL, allParcelData[515]);
+
+slider2.addEventListener('input', (event) => {
+  const level = parseInt(event.target.value);
+  updateWaterParcels(level);
+});
 
 // address search component
 let lat;
@@ -78,9 +84,13 @@ basemap.addControl(new ResetControl());
 // report flood events
 const newAddress = document.querySelector('[name="address-contribute"]');
 initAddressSearch(newAddress, events);
-const parcelType = document.querySelector('#parcelSelect');
+const parcelType = document.querySelector('#parcel-select');
+const parcelValue = document.querySelector('#parcel-value');
+const damageReport = document.querySelector('#damage-report');
+const housingType = document.querySelector('#housing-select');
+const insurance = document.querySelector('#insurance-select');
 submitButton.addEventListener('click', () => {
-  addFloodReport(parcelType.value, lat, lng);
+  addFloodReport(parcelType.value, lat, lng, parcelValue.value, damageReport.value, housingType.value, insurance.value);
   basemap.addData(lat, lng);
   submitButton.disabled = true;
 });
@@ -89,28 +99,46 @@ submitButton.addEventListener('click', () => {
 const tool1Button = document.querySelector('#tool1');
 const tool2Button = document.querySelector('#tool2');
 const tool3Button = document.querySelector('#tool3');
+const tool4Button = document.querySelector('#tool4');
 const sidebarContainer = document.querySelector('#sidebar-container');
+const sidebarContainer2 = document.querySelector('#sidebar-container-2');
 const addressSearchContainer = document.querySelector('#address-search-container');
 const reportFloodContainer = document.querySelector('#report-container');
 
 tool1Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'block';
+  sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'none';
   reportFloodContainer.style.display = 'none';
   basemap.hidePointsLayer();
+  basemap.hideAmenityLayer();
 });
 
 tool2Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'none';
+  sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'block';
   reportFloodContainer.style.display = 'none';
   basemap.hidePointsLayer();
+  basemap.hideAmenityLayer();
 });
 
 tool3Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'none';
+  sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'none';
   reportFloodContainer.style.display = 'block';
   submitButton.disabled = true;
   basemap.showPointsLayer();
+  basemap.hideAmenityLayer();
+});
+
+tool4Button.addEventListener('click', () => {
+  sidebarContainer.style.display = 'none';
+  sidebarContainer2.style.display = 'block';
+  addressSearchContainer.style.display = 'none';
+  reportFloodContainer.style.display = 'none';
+  submitButton.disabled = true;
+  basemap.hidePointsLayer();
+  basemap.showAmenityLayer();
 });
