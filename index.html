@@ -9,12 +9,14 @@
 <body>
     <main>
         <div id="toolbar">
-            <button id="tool1">Parcel</button>
-            <button id="tool4">Amenity</button>
-            <button id="tool2">Address</button>
-            <button id="tool3">Contribute</button>
-
+            <img id="logo" src="logo.svg" alt="Logo">
+            <button id="tool1">Affected Parcel</button>
+            <button id="tool4">Affected Amenity</button>
+            <button id="tool2">Property Information</button>
+            <button id="tool3">Report Damage</button>
+            <button id="tool5">View Contribution</button>
         </div>
+
 
         <!-- Slider1 -->
         <div id="sidebar-container">
@@ -31,10 +33,18 @@
             </div>
         </div>
 
+        <!-- Slider2 -->
         <div id="sidebar-container-2">
             <div id="slider-container">
                 <label for="waterLevel">Water Level (Feet):</label>
                 <input type="range" id="waterLevel2" min="515" max="526" step="1" value="515">
+                <p><strong>Hint:</strong> Drag slider to select a flood water level</p>
+                <p><strong>Selected Water Level:</strong> <span id="current-level2">515</span> ft</p>
+                <p><strong>Flood Impacts:</strong> <span id="corresponding-year2">Unknown.</span></p>
+                <p><strong>Impacted Public Amenities:</strong></p>
+                <p class="enhanced-paragraph">The <span style="color: #82587e;">●</span> dots here represent impacted public amenities at the highest water level recorded in the summer of 2023. The chart below illustrates an estimate of the population that will lose access to different categories of amenities at various inundation levels.
+                </p>
+                <div id="amenity-donut"></div>
             </div>
         </div>
 
@@ -43,7 +53,9 @@
 
         <!-- Address Search -->
         <div id="address-search-container" class="map-search-controls" style="display: none;">
-            <p>Search for an address</p>
+            <p class="enhanced-paragraph">
+                Enter an address in Montpelier to zoom in on the map. Select a parcel to view detailed flooding information. Use "Reset View" to return to the original map.
+            </p>
             <p id="search-label">Enter Address:</p>
             <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
             <p id="search-label">Select Parcel:</p>
@@ -52,7 +64,10 @@
 
         <!-- Address Contribution-->
         <div id="report-container" class="map-search-controls" style="display: none;">
-            <p>Contribute to the flood report? Existing red dots represent impacted buildings.</p>
+            <p class="enhanced-paragraph">
+                If you notice a property impacted by flooding but not yet reported, you can use the form below to contribute and help update the flood report.
+                <span style="color: #86202d;">●</span> dots represent properties impacted by summer 2023 flood.
+            </p>            
             <p id="search-label">Enter Address:</p>
             <input type="text" name="address-contribute" placeholder="Near..." aria-label="Search around an address or place">
             <p id="search-label">Select Parcel Type:</p>
@@ -101,7 +116,21 @@
             <button id="submit" disabled>Submit</button>
         </div>
 
-        
+        <div id="contributions-container">
+        </div>
+
+
+
+        <div class="copyright">
+            <p>© 2024 Emily Z, Jiayue M</p>
+            <p>All rights reserved.</p>
+            <p>Data Source: 
+              <a href="https://geodata.vermont.gov/" target="_blank">VCGA, </a>
+              <a href="https://water.noaa.gov/gauges/LNGV1" target="_blank">NOAA </a>
+            </p>
+            <p>Published: Nov 2024</p>
+        </div>
+    
     </main>
     
 
