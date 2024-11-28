@@ -7,6 +7,10 @@ import { drawBar } from './drawBar.js';
 import { initAddressSearch } from './address_search.js';
 import { addFloodReport } from './firebase.js';
 import { loadPoints} from './loadPoints.js';
+import { loadReports } from './contribution.js';
+import { drawDonut } from './amenityDonut.js';
+import { loadAmenity } from './loadAmenity.js';
+
 
 const events = new EventTarget();
 
@@ -14,13 +18,16 @@ const events = new EventTarget();
 const {shadow, buildings, landuse, amenities} = await loadData();
 const floodPoints = await loadPoints();
 
-// water parcel data and information
+// water, parcel, and amenity data
 const allWaterData = {};
 const allParcelData = {};
+const allAmenityData = {};
 for (let level = 515; level <= 526; level++) {
   const waterData = await waterParcel(level);
+  const amenityData = await loadAmenity(level);
   allWaterData[level] = waterData.waterFeatures;
   allParcelData[level] = waterData.parcelFeatures;
+  allAmenityData[level] = amenityData;
 }
 
 // initialize basemap
@@ -32,9 +39,9 @@ const waterParcelLayerGroup = L.layerGroup().addTo(basemap);
 function updateWaterParcels(level) {
   waterParcelLayerGroup.clearLayers();
   addWaterParcel(waterParcelLayerGroup, allWaterData[level], allParcelData[level], allParcelData);
+  basemap.frontlayer();
 }
 const slider = document.querySelector('#waterLevel');
-const slider2 = document.querySelector('#waterLevel2');
 const barEL = d3.select('#type-bar');
 slider.addEventListener('input', (event) => {
   const level = parseInt(event.target.value);
@@ -46,10 +53,17 @@ await updateWaterParcels(515);
 updateSliderValue(allParcelData, 515);
 drawBar(barEL, allParcelData[515]);
 
+const slider2 = document.querySelector('#waterLevel2');
+const amenityEL = d3.select('#amenity-donut');
+const palette = ['#8B1D1F', '#bf826a', '#9DBF6D', '#1e7d8b', '#52608B', '#825871'];
 slider2.addEventListener('input', (event) => {
   const level = parseInt(event.target.value);
+  const levelStr = String(level);
   updateWaterParcels(level);
+  updateSliderValue(allParcelData, level);
+  drawDonut(amenityEL, levelStr, allAmenityData[level], palette);
 });
+drawDonut(amenityEL, '515', allAmenityData[515], palette);
 
 // address search component
 let lat;
@@ -95,21 +109,30 @@ submitButton.addEventListener('click', () => {
   submitButton.disabled = true;
 });
 
+// load flood reports
+await loadReports();
+
+
 // control panels
 const tool1Button = document.querySelector('#tool1');
 const tool2Button = document.querySelector('#tool2');
 const tool3Button = document.querySelector('#tool3');
 const tool4Button = document.querySelector('#tool4');
+const tool5Button = document.querySelector('#tool5');
 const sidebarContainer = document.querySelector('#sidebar-container');
 const sidebarContainer2 = document.querySelector('#sidebar-container-2');
 const addressSearchContainer = document.querySelector('#address-search-container');
 const reportFloodContainer = document.querySelector('#report-container');
+const contributionsContainer = document.querySelector('#contributions-container');
+sidebarContainer2.style.display = 'none'; // Mandatory to Hide initially
+contributionsContainer.style.display = 'none'; // Mandatory to Hide initially
 
 tool1Button.addEventListener('click', () => {
   sidebarContainer.style.display = 'block';
   sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'none';
   reportFloodContainer.style.display = 'none';
+  contributionsContainer.style.display = 'none';
   basemap.hidePointsLayer();
   basemap.hideAmenityLayer();
 });
@@ -119,6 +142,7 @@ tool2Button.addEventListener('click', () => {
   sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'block';
   reportFloodContainer.style.display = 'none';
+  contributionsContainer.style.display = 'none';
   basemap.hidePointsLayer();
   basemap.hideAmenityLayer();
 });
@@ -128,6 +152,7 @@ tool3Button.addEventListener('click', () => {
   sidebarContainer2.style.display = 'none';
   addressSearchContainer.style.display = 'none';
   reportFloodContainer.style.display = 'block';
+  contributionsContainer.style.display = 'none';
   submitButton.disabled = true;
   basemap.showPointsLayer();
   basemap.hideAmenityLayer();
@@ -138,7 +163,19 @@ tool4Button.addEventListener('click', () => {
   sidebarContainer2.style.display = 'block';
   addressSearchContainer.style.display = 'none';
   reportFloodContainer.style.display = 'none';
+  contributionsContainer.style.display = 'none';
   submitButton.disabled = true;
   basemap.hidePointsLayer();
   basemap.showAmenityLayer();
+});
+
+tool5Button.addEventListener('click', () => {
+  sidebarContainer.style.display = 'none';
+  sidebarContainer2.style.display = 'none';
+  addressSearchContainer.style.display = 'none';
+  reportFloodContainer.style.display = 'none';
+  contributionsContainer.style.display = 'block';
+  submitButton.disabled = true;
+  basemap.showPointsLayer();
+  basemap.hideAmenityLayer();
 });
