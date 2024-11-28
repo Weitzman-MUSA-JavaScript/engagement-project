@@ -40,26 +40,38 @@ function toggleDropdownVisibility(dropdownMenu) {
 }
 
 function populateAthleteFields(athleteData) {
-  // Populate demographics
+  // Populate demographic fields
   document.getElementById('name-input').value = athleteData.Name || '';
   document.getElementById('number-input').value = athleteData.Number || '';
   document.getElementById('status-input').value = athleteData.Status || '';
   document.getElementById('coach-notes').value = athleteData.Notes || '';
 
-  // Update position
+  // Update position dropdown
   const positionDropdown = document.querySelector('#athlete-position select');
   if (positionDropdown) {
     positionDropdown.value = athleteData.Position || '';
-    positionDropdown.dispatchEvent(new Event('change'));
+    positionDropdown.dispatchEvent(new Event('change')); // Trigger listeners
   }
 
-  // Populate stats
+  // Populate stat fields
   document.querySelectorAll('[id^="athlete-stat-"]').forEach((input) => {
     const statName = input.name;
     if (athleteData[statName] !== undefined) {
       input.value = athleteData[statName] !== null ? athleteData[statName] : '';
       input.dispatchEvent(new Event('input'));
     }
+  });
+
+  // Resize inputs
+  document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input').forEach((input) => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const font = window.getComputedStyle(input).font;
+    context.font = font;
+    const textWidth = context.measureText(input.value || '').width;
+    const padding = 5;
+    const minWidth = 50;
+    input.style.width = Math.max(textWidth + padding, minWidth) + 'px';
   });
 }
 
