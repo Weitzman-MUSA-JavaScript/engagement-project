@@ -27,16 +27,16 @@ async function addAthleteReport(data) {
   if (!data || data.Name == 'Athlete Name' || !data.Status || !data.Position || data.Number == '#') {
     Toastify({
       text: 'Save failed: Missing required information (Name, Status, Position).',
-      duration: 3000,
+      duration: 5000,
       gravity: 'top',
-      position: 'center', // Align: left, center, right
+      position: 'center',
       backgroundColor: 'salmon',
     }).showToast();
     return;
   }
 
   const athleteID = `${data.Name}-${data.Status}-${data.Position}`
-    .replace(/\s+/g, '-')
+    .replace(/\s+/g, '')
     .toLowerCase();
 
   try {
@@ -65,7 +65,7 @@ async function addAthleteReport(data) {
     });
     Toastify({
       text: `Athlete report for ${data.Name} saved successfully.`,
-      duration: 3000,
+      duration: 5000,
       gravity: 'top',
       position: 'center',
       backgroundColor: '#4CAF50',
@@ -73,7 +73,7 @@ async function addAthleteReport(data) {
   } catch (error) {
     Toastify({
       text: `Save failed: ${error.message}`,
-      duration: 3000,
+      duration: 5000,
       gravity: 'top',
       position: 'center',
       backgroundColor: 'salmon',
@@ -81,4 +81,14 @@ async function addAthleteReport(data) {
   }
 }
 
-export { app, analytics, db, addAthleteReport };
+// Access athlete reports from firestore
+async function getAthleteReports() {
+  const querySnapshot = await getDocs(collection(db, 'athlete-reports'));
+  const reports = [];
+  querySnapshot.forEach((doc) => {
+    reports.push(doc.data());
+  });
+  return reports;
+}
+
+export { app, analytics, db, addAthleteReport, getAthleteReports };

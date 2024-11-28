@@ -15,19 +15,45 @@ html, body {
   gap: 1rem; 
 }
 
-#athlete-position #name-input, #status-input, #number-input {
-  flex-shrink: 1; 
-  min-width: 50px; 
+#dropdown-container {
+  position: relative; /* Ensures the dropdown is positioned relative to this container */
 }
 
-#athlete-position {
-  display: inline-flex;
-  width: auto;
-  padding: 0;
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Aligns the top of the dropdown with the bottom of the button */
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+  list-style: none;
   margin: 0;
-  align-items: center; 
+  padding: 0.5rem 0;
+  min-width: 200px; /* Ensures a minimum width for the dropdown */
+  max-height: 300px; /* Optional: Limits height for scrolling */
+  overflow-y: auto; /* Enables scrolling if content overflows */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensures the dropdown appears above other elements */
+  display: none; /* Initially hidden */
 }
 
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none; /* Utility class to hide elements */
+}
+
+.visible {
+  display: block; /* Utility class to show elements */
+}
 
 #athlete-position select,
 #status-input{
@@ -181,7 +207,7 @@ input[type="text"] {
   width: auto;
 }
 
-#save-athlete {
+#save-athlete, #load-athletes {
   background-color: #011f5b;
   color: white;
   border: none;
@@ -193,7 +219,7 @@ input[type="text"] {
   margin-top: 1rem;
 }
 
-#save-athlete:hover {
+#save-athlete:hover, #load-athletes:hover {
   background-color: #0a3d91;
 }
 

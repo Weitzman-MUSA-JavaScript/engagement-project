@@ -2,8 +2,8 @@ const barInstances = {};
 
 function initBar(barEl, positionMedians, statNames, playerStats, playerPercentiles) {
   const statCategories = {
-    speed: ['10-Yard Sprint', 'Flying 10'],
-    agility: ['Pro Agility', 'L Drill', '60-Yard Shuttle'],
+    speed: ['10Y Sprint', 'Flying 10'],
+    agility: ['Pro Agility', 'L Drill', '60Y Shuttle'],
     power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
     strength: ['Squat', 'Bench', '225lb Bench'],
     anthro: ['Weight', 'Height', 'Wingspan'],

@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 function initStatEntry(statListEl, positionDropdownEl, stats, positions, events) {
   const listEl = statListEl.querySelector('ul');
   const positionEl = positionDropdownEl.querySelector('div#athlete-position');
@@ -7,7 +8,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   // Sort positions alphabetically
   positions = positions.sort((a, b) => a.localeCompare(b));
 
-  // Input elements for dynamic resizing and default handling
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
 
   inputEl.forEach((input) => {
@@ -20,7 +20,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   function resizeInput() {
     if (this.tagName !== 'INPUT' && this.tagName !== 'SELECT') {
-      return; // Skip elements that are not inputs or selects
+      return;
     }
 
     const canvas = document.createElement('canvas');
@@ -28,11 +28,10 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     const font = window.getComputedStyle(this).font;
     context.font = font;
     const textWidth = context.measureText(this.value || '').width;
-    const padding = 10;
+    const padding = 5;
     const minWidth = 50;
     this.style.width = Math.max(textWidth + padding, minWidth) + 'px';
   }
-
 
   function applyDefaultValue() {
     if (!this.value) {
@@ -66,11 +65,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     if (unitMapping.inches.includes(stat)) return 'in';
     if (unitMapping.seconds.includes(stat)) return 's';
     return '';
-  }
-
-  function updatePositionTitle(position) {
-    const titleEl = document.getElementById('position-title');
-    if (titleEl) titleEl.textContent = position;
   }
 
   function initListItems() {
@@ -160,7 +154,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     const selectedPosition = evt.target.value;
     const event = new CustomEvent('positionSelected', { detail: { position: selectedPosition } });
     events.dispatchEvent(event);
-    updatePositionTitle(selectedPosition);
 
     const selectedText = evt.target.selectedOptions[0].text;
     const canvas = document.createElement('canvas');
