@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inundation Impact in Downtown Montpelier, Vermont</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <div id="toolbar">
+            <img id="logo" src="logo.svg" alt="Logo">
+            <button id="tool1">Affected Parcel</button>
+            <button id="tool4">Affected Amenity</button>
+            <button id="tool2">Property Information</button>
+            <button id="tool3">Report Damage</button>
+            <button id="tool5">View Contribution</button>
+        </div>
+
+
+        <!-- Slider1 -->
+        <div id="sidebar-container">
+            <div id="slider-container">
+                <label for="waterLevel">Water Level (Feet):</label>
+                <input type="range" id="waterLevel" min="515" max="526" step="1" value="515">
+                <p><strong>Hint:</strong> Drag slider to select a flood water level</p>
+                <p><strong>Selected Water Level:</strong> <span id="current-level">515</span> ft</p>
+                <p><strong>Flood Impacts:</strong> <span id="corresponding-year">Unknown.</span></p>
+                <p><strong>Total Impacted Parcels:</strong> <span id="inundated-parcels">0</span></p>
+                <p><strong>Total Impacted Parcel Value:</strong> <span id="total-value">$0</span></p>
+                <p><strong>Impacted Parcel Types:</strong></p>
+                <div id="type-bar"></div>
+            </div>
+        </div>
+
+        <!-- Slider2 -->
+        <div id="sidebar-container-2">
+            <div id="slider-container">
+                <label for="waterLevel">Water Level (Feet):</label>
+                <input type="range" id="waterLevel2" min="515" max="526" step="1" value="515">
+                <p><strong>Hint:</strong> Drag slider to select a flood water level</p>
+                <p><strong>Selected Water Level:</strong> <span id="current-level2">515</span> ft</p>
+                <p><strong>Flood Impacts:</strong> <span id="corresponding-year2">Unknown.</span></p>
+                <p><strong>Impacted Public Amenities:</strong></p>
+                <p class="enhanced-paragraph">The <span style="color: #82587e;">●</span> dots here represent impacted public amenities at the highest water level recorded in the summer of 2023. The chart below illustrates an estimate of the population that will lose access to different categories of amenities at various inundation levels.
+                </p>
+                <div id="amenity-donut"></div>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div id="map"></div>
+
+        <!-- Address Search -->
+        <div id="address-search-container" class="map-search-controls" style="display: none;">
+            <p class="enhanced-paragraph">
+                Enter an address in Montpelier to zoom in on the map. Select a parcel to view detailed flooding information. Use "Reset View" to return to the original map.
+            </p>
+            <p id="search-label">Enter Address:</p>
+            <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
+            <p id="search-label">Select Parcel:</p>
+            <div id="parcel-info-table"></div>
+        </div>
+
+        <!-- Address Contribution-->
+        <div id="report-container" class="map-search-controls" style="display: none;">
+            <p class="enhanced-paragraph">
+                If you notice a property impacted by flooding but not yet reported, you can use the form below to contribute and help update the flood report.
+                <span style="color: #86202d;">●</span> dots represent properties impacted by summer 2023 flood.
+            </p>            
+            <p id="search-label">Enter Address:</p>
+            <input type="text" name="address-contribute" placeholder="Near..." aria-label="Search around an address or place">
+            <p id="search-label">Select Parcel Type:</p>
+            <select id="parcel-select">
+                <option value="" disabled selected>  </option>
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Others">Others</option>
+            </select>
+            <p id="search-label">Select Housing Type:</p>
+            <select id="housing-select">
+                <option value="" disabled selected>  </option>
+                <option value="Single-Family">Single-Family Homes</option>
+                <option value="Townhouse">Townhouse</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Condominium">Condominium</option>
+                <option value="Mobile-Home">Mobile Home</option>
+                <option value="Retail">Retail</option>
+                <option value="Office">Office</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Mixed-Used">Mixed Used</option>
+                <option value="Warehouse">Warehouse</option>
+                <option value="Factory">Factory</option>
+                <option value="Specailized">Other specialized types: schools, healthcare facilites, religious building,etc.</option>
+            </select>
+            <p id="search-label">Select Damage Level:</p>
+            <select id="damage-report">
+                <option value="" disabled selected>  </option>
+                <option value="No">No damage.</option>
+                <option value="Minor">Shallow water, minimal property impact.</option>
+                <option value="Moderate">Water entry into property, some disruption.</option>
+                <option value="Severe">Significant water damage, major disruption.</option>
+                <option value="Catastrophic">Extensive damage, need for repairs or rebuilding.</option>
+            </select>
+            <p id="search-label">Insurance Coverage:</p>
+            <select id="insurance-select">
+                <option value="" disabled selected>  </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="NA">Not Applicable</option>
+            </select>
+            <p id="search-label">Enter Estimated Parcel Value:</p>
+            <input type="number" id="parcel-value" placeholder="Enter value" aria-label="Enter value">
+            <button id="submit" disabled>Submit</button>
+        </div>
+
+        <div id="contributions-container">
+        </div>
+
+
+
+        <div class="copyright">
+            <p>© 2024 Emily Z, Jiayue M</p>
+            <p>All rights reserved.</p>
+            <p>Data Source: 
+              <a href="https://geodata.vermont.gov/" target="_blank">VCGA, </a>
+              <a href="https://water.noaa.gov/gauges/LNGV1" target="_blank">NOAA </a>
+            </p>
+            <p>Published: Nov 2024</p>
+        </div>
+    
+    </main>
+    
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+    
+</body>
+</html>
