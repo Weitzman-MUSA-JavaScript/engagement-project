@@ -27,7 +27,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
 
   const columns = [
     ['x', ...filteredStatNames],
-    ['Player Percentiles', ...filteredPlayerPercentiles],
+    ['Percentile', ...filteredPlayerPercentiles],
   ];
 
   if (barInstances[barEl.id]) {
@@ -46,7 +46,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
       columns: columns,
       labels: true,
       type: 'bar',
-      color: function(color, d) {
+      color: function (color, d) {
         if (d && d.index !== undefined) {
           return colors[d.index];
         }
@@ -64,7 +64,8 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
     },
     axis: {
       rotated: false,
-      x: {show: true,
+      x: {
+        show: true,
         type: 'category',
         categories: filteredStatNames,
       },
@@ -75,30 +76,50 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
           top: 0,
           bottom: 0,
         },
-        tick: {
-          show: true,
-          text: {
-            show: false,
-          },
-        },
       },
     },
     legend: {
       show: false,
     },
+    tooltip: {
+      show: true,
+      contents: function(data) {
+        const d = data[0];
+        const statIndex = d.index;
+        const statName = filteredStatNames[statIndex];
+        const median = filteredPositionMedians[statIndex] || 'N/A';
+        const value = filteredPlayerStats[statIndex] || 'N/A';
+        const percentile = d.value;
+        return `
+          <div class="bb-tooltip">
+            <div class="tooltip-title">${statName}</div>
+            <div class="tooltip-row">
+              <span class="tooltip-label">Percentile: </span>
+              <span class="tooltip-value">${percentile}%</span>
+            </div>
+            <div class="tooltip-row">
+              <span class="tooltip-label">Median: </span>
+              <span class="tooltip-value">${median}</span>
+            </div>
+            <div class="tooltip-row">
+              <span class="tooltip-label">Value: </span>
+              <span class="tooltip-value">${value}</span>
+            </div>
+          </div>
+        `;
+      },
+    },
+
     bindto: barEl,
   });
 
   function getColor(percentiles) {
     return percentiles.map((percentile) => {
       if (percentile >= 80) {
-        // darkcyan
         return 'rgba(0, 139, 139, 0.7)';
       } else if (percentile >= 60) {
-        // gold
         return 'rgba(255, 215, 0, 0.7)';
       } else if (percentile >= 40) {
-        // salmon
         return 'rgba(250, 128, 114, 0.7)';
       } else {
         return 'rgba(211, 211, 211, 0.7)';

@@ -1,6 +1,6 @@
 
 function calculateChartData(indivStats, events) {
-  let playerPosition = 'Defensive Back';
+  let playerPosition = 'DB';
   const playerStats = [];
   const playerStatsValues = [];
   let positionStatsValues = [];

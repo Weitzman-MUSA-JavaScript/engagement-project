@@ -23,9 +23,6 @@ function initRadar(radarEl, categoryPercentiles) {
   }
 
   radarInstances[radarEl.id] = bb.generate({
-    title: {
-      text: 'Athlete Profile',
-    },
     data: {
       x: 'x',
       columns: columns,

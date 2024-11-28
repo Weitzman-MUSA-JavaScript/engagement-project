@@ -1,8 +1,7 @@
-
 html, body {
   padding: 1rem;
   height: 100%;
-  overflow: hidden;
+  overflow:scroll;
   font-family: Poppins, sans-serif;
   color: #011f5b;
 }
@@ -11,17 +10,17 @@ html, body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
-  gap: 1rem; 
+  align-items: center; /* Ensures vertical alignment */
+  gap: 1rem;
 }
 
 #dropdown-container {
-  position: relative; 
+  position: relative;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%; 
+  top: 100%;
   left: 0;
   background-color: #fff;
   border: transparent;
@@ -29,11 +28,11 @@ html, body {
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
-  min-width: 200px; 
-  max-height: 300px; 
-  overflow-y: auto; 
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000; 
+  z-index: 1000;
   display: none;
 }
 
@@ -48,34 +47,31 @@ html, body {
 }
 
 .hidden {
-  display: none; /* Utility class to hide elements */
+  display: none;
 }
 
 .visible {
-  display: block; /* Utility class to show elements */
+  display: block;
 }
 
 #athlete-position select,
-#status-input{
-  font-size: 2rem;
+#status-input {
+  font-size: 2.5rem;
   font-weight: 100;
   color: #011f5b;
   border: none;
   background-color: transparent;
-  height: 2.5rem; 
-  line-height: 2.5rem;
+  height: 3rem; 
+  line-height: 3rem;
   display: flex;
   align-items: center;
 }
 
-fieldset > * {
-  margin-bottom: 0.5rem;
-}
-
 .header > * {
-    font-size: 2rem;
-    font-weight: 100;
-    color: #011f5b;
+  font-size: 2.5rem;
+  font-weight: 100;
+  color: #011f5b;
+  line-height: 3rem;
 }
 
 .header img {
@@ -85,6 +81,10 @@ fieldset > * {
   align-self: center;
 }
 
+fieldset > * {
+  margin-bottom: 0.5rem;
+}
+
 .benchmark-page {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -92,7 +92,7 @@ fieldset > * {
 }
 
 .benchmark-menu {
-  grid-column: 1 / 2; 
+  grid-column: 1 / 2;
 }
 
 fieldset {
@@ -108,7 +108,7 @@ ul {
 
 li {
   display: flex;
-  margin-bottom: 0.5rem; 
+  margin-bottom: 0.5rem;
 }
 
 label {
@@ -123,20 +123,20 @@ label {
   font-size: 1rem;
   background-color: #f8f8f8;
   border-radius: 0.35em;
-  font-weight:lighter;
+  font-weight: lighter;
 }
 
 #coach-notes {
   width: 100%;
   height: 5rem;
-  display: block;      
-  text-align: left;     
-  padding: 0.5rem;      
+  display: block;
+  text-align: left;
+  padding: 0.5rem;
   box-sizing: border-box;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  overflow-y: auto;    
-  resize: vertical;  
+  overflow-y: auto;
+  resize: vertical;
   border-color: rgb(160, 159, 159, 0.3);
   color: gray;
   border-width: 1px;
@@ -144,7 +144,7 @@ label {
 }
 
 .input-wrapper {
-  display: flex; 
+  display: flex;
   flex-direction: row;
   justify-content: flex-end;
   width: 40%;
@@ -168,13 +168,12 @@ input[type="number"] {
   display: grid;
   grid-column: 2 / 6;
   grid-row: 1 / 2;
-  grid-template-columns: repeat(3, 1fr); 
-  grid-template-rows: repeat(2, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 1.5rem;
   height: 90vh;
   overflow: hidden;
 }
-
 
 .pct-chart {
   display: flex;
@@ -191,7 +190,6 @@ input[type="number"] {
   text-transform: uppercase;
 }
 
-
 input[type="number"]:invalid {
   color: salmon;
 }
@@ -206,7 +204,7 @@ input[type="text"] {
   width: auto;
 }
 
-#save-athlete, #load-athletes {
+#save-athlete, #clear-all, #load-athletes {
   background-color: #011f5b;
   color: white;
   border: none;
@@ -218,12 +216,7 @@ input[type="text"] {
   margin-top: 1rem;
 }
 
-#dropdown-container {
-  justify-content: center;
-  align-content: center;
-}
-
-#save-athlete:hover, #load-athletes:hover {
+#save-athlete:hover, #load-athletes:hover, #clear-all:hover {
   background-color: #0a3d91;
 }
 
@@ -248,11 +241,9 @@ input[type="text"] {
   font-size: 12px;
 }
 
-
 .bb-level > text:nth-child(2) {
   opacity: 0;
 }
-
 
 .bb-axis.bb-axis-x path.domain {
   opacity: 0;
@@ -263,7 +254,6 @@ input[type="text"] {
   font-weight: 100;
 }
 
-/* Radar Chart */
 .bb-level > polygon:nth-child(1) {
   opacity: 0.3;
 }
@@ -272,3 +262,39 @@ input[type="text"] {
   opacity: 0.5;
 }
 
+
+/* Billboard.js Tooltip Styling */
+.bb-tooltip {
+  padding: 10px;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  color: #011f5b;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bb-tooltip .tooltip-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.bb-tooltip .tooltip-row {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 4px;
+}
+
+.bb-tooltip .tooltip-row:last-child {
+  margin-bottom: 0; 
+}
+
+.bb-tooltip .tooltip-label {
+  font-weight: bold;
+}
+
+.bb-tooltip .tooltip-value {
+  text-align: right;
+}

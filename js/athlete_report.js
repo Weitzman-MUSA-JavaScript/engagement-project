@@ -49,8 +49,8 @@ function populateAthleteFields(athleteData) {
   // Update position dropdown
   const positionDropdown = document.querySelector('#athlete-position select');
   if (positionDropdown) {
-    positionDropdown.value = athleteData.Position || '';
-    positionDropdown.dispatchEvent(new Event('change')); // Trigger listeners
+    positionDropdown.value = athleteData.Position || 'DB';
+    positionDropdown.dispatchEvent(new Event('change'));
   }
 
   // Populate stat fields
@@ -62,19 +62,22 @@ function populateAthleteFields(athleteData) {
     }
   });
 
-  // Resize inputs
-  document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input').forEach((input) => {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    const font = window.getComputedStyle(input).font;
-    context.font = font;
-    const textWidth = context.measureText(input.value || '').width;
-    const padding = 5;
-    const minWidth = 50;
-    input.style.width = Math.max(textWidth + padding, minWidth) + 'px';
+  // Resize demographic inputs
+  const inputsToResize = ['#name-input', '#number-input', '#status-input'];
+  inputsToResize.forEach((selector) => {
+    const input = document.querySelector(selector);
+    if (input) {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const font = window.getComputedStyle(input).font;
+      context.font = font;
+      const textWidth = context.measureText(input.value || '').width;
+      const padding = 15;
+      const minWidth = 50;
+      input.style.width = `${Math.max(textWidth + padding, minWidth)}px`;
+    }
   });
 }
-
 
 function setupAthleteSelectionListener() {
   const dropdownMenu = document.getElementById('athlete-list');
@@ -103,4 +106,4 @@ function setupAthleteSelectionListener() {
   });
 }
 
-export { collectAthleteData, loadAthleteDropdown, setupAthleteSelectionListener };
+export { collectAthleteData, loadAthleteDropdown, setupAthleteSelectionListener, populateAthleteFields };

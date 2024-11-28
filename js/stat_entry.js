@@ -1,48 +1,49 @@
-/* eslint-disable no-invalid-this */
 function initStatEntry(statListEl, positionDropdownEl, stats, positions, events) {
   const listEl = statListEl.querySelector('ul');
   const positionEl = positionDropdownEl.querySelector('div#athlete-position');
   const statListItems = {};
   const positionPositionItems = {};
 
-  // Sort positions alphabetically
   positions = positions.sort((a, b) => a.localeCompare(b));
 
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input');
 
   inputEl.forEach((input) => {
     input.style.boxSizing = 'content-box';
-    applyDefaultValue.call(input);
+    resetDefaultValue.call(input);
     resizeInput.call(input);
     input.addEventListener('input', resizeInput);
     input.addEventListener('blur', applyDefaultValue);
+    if (input.id === 'name-input' || input.id === 'number-input') {
+      input.addEventListener('focus', clearPlaceholder);
+    }
   });
 
-  function resizeInput() {
-    if (this.tagName !== 'INPUT' && this.tagName !== 'SELECT') {
-      return;
-    }
+  function clearPlaceholder() {
+    if (this.id === 'name-input' && this.value === 'Athlete Name') this.value = '';
+    if (this.id === 'number-input' && this.value === '#') this.value = '';
+  }
 
+  function resizeInput() {
+    if (this.tagName !== 'INPUT' && this.tagName !== 'SELECT') return;
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-    const font = window.getComputedStyle(this).font;
-    context.font = font;
+    context.font = window.getComputedStyle(this).font;
     const textWidth = context.measureText(this.value || '').width;
-    const padding = 5;
-    const minWidth = 50;
-    this.style.width = Math.max(textWidth + padding, minWidth) + 'px';
+    this.style.width = `${Math.max(textWidth + 15, 50)}px`;
+  }
+
+  function resetDefaultValue() {
+    if (this.id === 'athlete-position') this.value = 'DB';
+    if (this.id === 'name-input') this.value = 'Athlete Name';
+    if (this.id === 'number-input') this.value = '#';
   }
 
   function applyDefaultValue() {
-    if (!this.value) {
-      if (this.id === 'athlete-position') this.value = 'Defensive Back';
-      if (this.id === 'name-input') this.value = 'Athlete Name';
-      if (this.id === 'number-input') this.value = '#';
-      resizeInput.call(this);
-    }
+    if (!this.value) resetDefaultValue.call(this);
+    resizeInput.call(this);
   }
 
-  // Ordered list of stats
   const orderedStats = [
     'Weight', 'Height', 'Wingspan',
     'Bench', 'Squat', '225lb Bench',
@@ -51,7 +52,6 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     'Pro Agility', 'L Drill', '60Y Shuttle',
   ];
 
-  // Units for stats
   const unitMapping = {
     pounds: ['Bench', 'Squat', 'Power Clean', 'Hang Clean', 'Weight'],
     reps: ['225lb Bench'],
@@ -79,8 +79,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
                   <input type="number" id="athlete-stat-${stat}" name="${stat}" max="1000" step="any">
                   <span class="unit">${unit}</span>
               </div>
-          </label>
-        `;
+          </label>`;
         statListItems[stat] = item;
       }
     }
@@ -89,12 +88,12 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   function initPositionItems() {
     const selectEl = document.createElement('select');
     selectEl.name = 'position';
-    for (const position of positions) {
+    positions.forEach((position) => {
       const option = document.createElement('option');
       option.value = position;
       option.textContent = position;
       selectEl.appendChild(option);
-    }
+    });
     return selectEl;
   }
 
@@ -110,7 +109,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     listEl.innerHTML = '';
     const categoryAdded = new Set();
 
-    for (const stat of orderedStats) {
+    orderedStats.forEach((stat) => {
       if (stats.includes(stat)) {
         for (const [category, categoryStats] of Object.entries(statCategories)) {
           if (categoryStats.includes(stat) && !categoryAdded.has(category)) {
@@ -123,7 +122,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
         }
         listEl.appendChild(statListItems[stat]);
       }
-    }
+    });
   }
 
   function populatePosition() {
@@ -146,39 +145,40 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
       return;
     }
 
-    const event = new CustomEvent('statFilled', { detail: { statName, filled, statValue } });
-    events.dispatchEvent(event);
+    events.dispatchEvent(new CustomEvent('statFilled', { detail: { statName, filled, statValue } }));
   }
 
   function handlePositionChange(evt) {
     const selectedPosition = evt.target.value;
-    const event = new CustomEvent('positionSelected', { detail: { position: selectedPosition } });
-    events.dispatchEvent(event);
-
-    const selectedText = evt.target.selectedOptions[0].text;
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    const font = window.getComputedStyle(evt.target).font;
-    context.font = font;
-    const textWidth = context.measureText(selectedText).width;
-    const padding = 10;
-    evt.target.style.width = textWidth + padding + 'px';
+    events.dispatchEvent(new CustomEvent('positionSelected', { detail: { position: selectedPosition } }));
   }
 
-  // Initialize position and stat list
+  function clearAllStats() {
+    Object.values(statListItems).forEach((item) => {
+      const input = item.querySelector('input');
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+    });
+  }
+
+  const clearAllButton = document.getElementById('clear-all');
+  if (clearAllButton) {
+    clearAllButton.addEventListener('click', clearAllStats);
+  }
+
   initPositionItems();
   initListItems();
   populatePosition();
   populateList(stats);
 
-  // Add event listeners for stats and positions
-  for (const item of Object.values(statListItems)) {
+  Object.values(statListItems).forEach((item) => {
     item.querySelector('input').addEventListener('input', handleNumEntry);
-  }
+  });
 
-  for (const item of Object.values(positionPositionItems)) {
+  Object.values(positionPositionItems).forEach((item) => {
     item.querySelector('input').addEventListener('change', handlePositionChange);
-  }
+  });
 }
 
 export { initStatEntry };
+
