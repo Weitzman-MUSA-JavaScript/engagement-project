@@ -24,9 +24,13 @@ function updateStatistics(parcelLayers, level) {
 
 function updateSliderValue(parcelLayers, level) {
   document.getElementById('current-level').textContent = level;
+  document.getElementById('current-level2').textContent = level;
+
 
   const yearInfo = levelToYear[level] ? `${levelToYear[level]}` : 'Unknown.';
   document.getElementById('corresponding-year').textContent = yearInfo;
+  document.getElementById('corresponding-year2').textContent = yearInfo;
+
 
   updateStatistics(parcelLayers, level);
 }

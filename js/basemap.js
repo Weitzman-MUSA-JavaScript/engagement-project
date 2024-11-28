@@ -93,11 +93,11 @@ function initMap(el, shadow, buildings, landuse, parcelLayers, floodpoints, amen
     pointToLayer: function(feature, latlng) {
       return L.circleMarker(latlng, {
         radius: 2,
-        fillColor: '#e25786',
-        color: '#e25786',
+        fillColor: '#82587e',
+        color: '#82587e',
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.8,
+        fillOpacity: 1,
       });
     },
   });
@@ -106,6 +106,9 @@ function initMap(el, shadow, buildings, landuse, parcelLayers, floodpoints, amen
   };
   map.hideAmenityLayer = function() {
     map.removeLayer(amenityPoints);
+  };
+  map.frontlayer = function() {
+    amenityPoints.bringToFront();
   };
 
   // add flood points
