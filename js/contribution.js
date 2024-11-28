@@ -63,6 +63,7 @@ async function loadReports() {
 
         <p style="font-size: 1em; color: #333; line-height: 1.6; margin-bottom: 20px;">
           The following table provides a summary of the submitted flood damage reports, including the number of reported damaged houses, the total property loss value, and the breakdown of residential and commercial properties. The data also highlights the number of properties affected by severe flooding and those lacking flood insurance. This information is valuable for understanding the extent of flood damage and the gaps in insurance coverage for affected properties.
+          If you just submitted a report, please refresh the page to see the updated summary.
         </p>
 
         <table style="
