@@ -16,25 +16,25 @@ html, body {
 }
 
 #dropdown-container {
-  position: relative; /* Ensures the dropdown is positioned relative to this container */
+  position: relative; 
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%; /* Aligns the top of the dropdown with the bottom of the button */
+  top: 100%; 
   left: 0;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: transparent;
   border-radius: 0.3rem;
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
-  min-width: 200px; /* Ensures a minimum width for the dropdown */
-  max-height: 300px; /* Optional: Limits height for scrolling */
-  overflow-y: auto; /* Enables scrolling if content overflows */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Ensures the dropdown appears above other elements */
-  display: none; /* Initially hidden */
+  min-width: 200px; 
+  max-height: 300px; 
+  overflow-y: auto; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+  display: none;
 }
 
 .dropdown-menu li {
@@ -137,7 +137,7 @@ label {
   word-wrap: break-word;
   overflow-y: auto;    
   resize: vertical;  
-  border-color: gray;
+  border-color: rgb(160, 159, 159, 0.3);
   color: gray;
   border-width: 1px;
   border-radius: 0.35em;
@@ -181,12 +181,11 @@ input[type="number"] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 1rem;
   background-color: white;
   box-shadow: 0 0 1rem rgb(0 0 0 / 5%);
 }
 
-.stat-category-label, .bb-title {
+.stat-category-label {
   font-weight: bold;
   margin-top: 1em;
   text-transform: uppercase;
@@ -219,11 +218,37 @@ input[type="text"] {
   margin-top: 1rem;
 }
 
+#dropdown-container {
+  justify-content: center;
+  align-content: center;
+}
+
 #save-athlete:hover, #load-athletes:hover {
   background-color: #0a3d91;
 }
 
 /* Billboard Charts */
+.bb text.bb-title {
+  font-family: Poppins, sans-serif;
+  fill: #011f5b;
+  font-weight: bold;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
+.bb tspan {
+  font-family: Poppins, sans-serif;
+  fill: #011f5b;
+  font-size: 12px;
+}
+
+.bb label {
+  font-family: Poppins, sans-serif;
+  fill: pink;
+  font-size: 12px;
+}
+
+
 .bb-level > text:nth-child(2) {
   opacity: 0;
 }
@@ -247,7 +272,3 @@ input[type="text"] {
   opacity: 0.5;
 }
 
-.bb-title {
-  font-family: Poppins, sans-serif;
-  opacity: 0.2;
-}

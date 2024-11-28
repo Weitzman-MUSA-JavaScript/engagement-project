@@ -59,8 +59,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
         ratio: 0.2,
       },
       width: {
-        ratio: 0.5,
-        max: 50,
+        max: 60,
       },
     },
     axis: {
@@ -71,7 +70,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
       },
       y: {
         show: false,
-        max: 100,
+        max: 105,
         padding: {
           top: 0,
           bottom: 0,
