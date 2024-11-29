@@ -1,0 +1,288 @@
+/* Pop up design from https://www.youtube.com/watch?v=AF6vGYIyV8M */
+.popup {
+    width: 100vw;
+    height: 91vh;
+
+    position: absolute;
+    top: 10%;
+    left: 50%;
+
+    background-color: #fdd8b9;
+    text-align: center;
+    text-justify: auto;
+    /*box-shadow: 0 5px 5px #808080;*/
+    display: flex;
+    justify-content: center;
+    
+    /* Pop-up Animation Related */
+    visibility: hidden;
+    overflow: hidden;
+    transform: translate(-50%, -70%) scale(0.1);
+    transition: transform 0.4s, top 0.4s, visibility 0.2s;   
+}
+
+.popup h2 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.open-popup {
+    visibility: visible;
+    top: 72.5%;
+    transform: translate(-50%, -70%) scale(1);
+    transition: transform 0.4s, top 0.4s, visibility 1s;   
+}
+
+.popup-slide {
+    position: absolute;
+    transform: translate(0%, 0%);
+    width: 90%;
+    top: 2.5%;
+    height: 97%;
+    transition: left 1s;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.all-session-container {
+  position: relative;
+  height: 50%;
+  top: 0%;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  margin: 0;
+  padding-bottom: 10%;
+}
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+  background-color: white;
+  overflow: hidden;
+
+  height: 175px;
+  width: 175px;
+
+  padding: 8px;
+}
+
+.hash-container {
+  height: 4rem;
+  width: 90%;
+
+  vertical-align: middle;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  line-height: 100%; 
+}
+
+.session-id {
+  font-size: 1.5rem;
+  grid-column: 2/3;
+
+  margin: auto;
+}
+
+.session-id-input {
+  grid-column: 3/4;
+  font-size: 1.5rem;
+  margin: auto;
+
+  width: 100px;
+}
+
+.session-error-msg {
+  color: red;
+}
+
+.popup-slide-left {
+    left: -195%;
+}
+
+.popup-slide-center {
+    left: 5%;
+}
+
+.popup-slide-right {
+    left: 205%;
+}
+
+.main-text {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.map-qn-container {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.popup-search-box {
+    position: absolute;
+    right: 3%;
+    top: 24%;
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 0;
+    
+    /* height: 20vh; */
+    max-height: 40vh;
+    width: 60vw;
+    z-index: 1000;
+
+    font-size: 1rem;
+}
+
+.popup-search-bar {
+    height: 1rem;
+    font-size: 1rem;
+}
+
+.popup-search-dropdown {
+    z-index: 1000000;
+    border: 1px solid #999;
+    background: rgba(250, 250, 250, 0.9);
+    box-shadow: 3px 3px 10px #888;
+    color: rgb(61, 60, 60);
+    flex: 1;
+
+    /* need to specify max-height, otherwise overflow won't work */
+    max-height: 20vh;
+    overflow: auto;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    margin-block-start: 0;
+    padding-inline-start: 0;
+    overflow-x:hidden;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+
+.popup-search-dropdown li {
+    list-style: none;
+    padding: 5px 3px;
+    cursor: pointer;
+    width: 98%;
+    word-wrap: normal;
+    max-width: 98%;
+    
+}
+
+.popup-search-dropdown li:hover {
+    background:#808080;
+}
+
+.address-entry { 
+    height: 100%;
+}
+
+.popup-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+    
+    height: 7vh;
+    bottom: 2%;
+}
+
+.popup-button-container button {
+    width: 35%;
+    height: 90%;
+    background: #bc5a1f;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+
+    font-family: "Montserrat";
+}
+
+.popup-button-container .popup-submit{
+    background: #A8B5E0;
+}
+
+.popup-icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.icon {
+    width: 100px;
+    height: 100px;
+    filter: grayscale(0%);
+    transition: filter 0.1s;
+}
+
+.icon:hover {
+  filter: grayscale(0%);
+}
+
+@media screen and (min-width: 30em) and (orientation: landscape) {
+    .popup {
+        width: 80vw;
+        height: 80vh;
+
+        transform: translate(-50%, -50%) scale(0.1);
+    }
+
+    .open-popup {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .map-qn-container {
+        height: 54vh;
+    }
+
+    .popup-button-container {
+        height: 10vh;
+    }
+
+    .popup-search-box {
+        right: 3%;
+        top: 18%;
+    }
+
+    .popup-button-container button {
+        font-size: 18px;
+    }
+  }

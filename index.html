@@ -1,0 +1,178 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>PMA Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <!-- <link rel="stylesheet" href="css/main-stat-style.css">-->
+    <link rel="stylesheet" href="css/popup-style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <header>
+      <h1>Pinpoint</h1>
+    </header>
+
+    <main>
+      <button class = "popup-button">Open Pop-up</button>
+      <div class="main-container">
+        <!--<div class = "test">
+          <div class = "test-inner">
+            HERE'S SOME TESTING STUFF
+          </div> 
+        </div> -->
+          <!-- <section id="map-section">
+            <div class="map" id="map"></section>
+          </section> -->
+          <div class="popup">
+
+            
+            <div class = "popup-slide popup-slide-0 popup-slide-center"> 
+              <div class = "main-text">
+                <h2> Hi there! <br> Are you here to contribute or would you like to just see the map?</h2>
+              </div>
+              <div class = "all-session-container">
+                <div class = "hash-container">
+                  <p class = "session-id"> Session ID: </p>
+                  <input type="text" class="session-id-input" placeholder="1234" autocomplete="off">
+                </div>
+                <div class = "session-error-msg"></div>
+                <div class = "qr-container">
+                  <div class = "qr-code"></div>
+                </div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-close-0"> Close</button>
+                <button class="popup-next-0"> Next</button>
+              </div>
+            </div>
+
+
+            <div class = "popup-slide popup-slide-1 popup-slide-right"> 
+              <h2> Qn 1: Where's your favourite singer from?</h2>
+              <div class="map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-1" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-1" >
+                  </ol>
+                </div>
+                <div class="map" id="map-1"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-1"> Back!</button>
+                <button class="popup-next-1"> Next!</button>
+              </div>
+            </div>
+            
+            
+            <div class = "popup-slide popup-slide-2 popup-slide-right"> 
+              <h2> Qn 2: Where would you like to live if money was no concern? </h2>
+              <div class = "map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-2" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-2">
+                  </ol>
+                </div>
+                <div class="map" id="map-2"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-2"> Back!</button>
+                <button class="popup-next-2"> Next!</button>
+              </div>
+            </div>
+            
+            
+            <div class = "popup-slide popup-slide-3 popup-slide-right"> 
+              <h2> Qn 3: What's is your favourite place in Philadelphia? </h2>
+              <div class = "map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-3" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-3">
+                  </ol>
+                </div>
+                <div class="map" id="map-3"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-3"> Back!</button>
+                <button class="popup-next-3"> Next!</button>
+              </div>
+            </div>
+          
+            
+            <div class = "popup-slide popup-slide-4 popup-slide-right"> 
+              <h2> Choose an icon and submit! </h2>
+              <div class = "popup-icon-container">
+                <img class = "icon" id = "cat-icon" src="img/icons/B_Cat.PNG" alt="Cat Icon">
+                <img class = "icon" id = "dog-icon" src="img/icons/B_Dog.PNG" alt="Dog Icon">
+                <img class = "icon" id = "fox-icon" src="img/icons/B_Fox.PNG" alt="Fox Icon">
+                <img class = "icon" id = "gir-icon" src="img/icons/B_Giraffe.PNG" alt="Giraffe Icon">
+                <img class = "icon" id = "ham-icon" src="img/icons/P_Hamster.PNG" alt="Hamster Icon">
+                <img class = "icon" id = "pan-icon" src="img/icons/P_Panda.PNG" alt="Panda Icon">
+                <img class = "icon" id = "she-icon" src="img/icons/P_Sheep.PNG" alt="Sheep Icon">
+                <img class = "icon" id = "ele-icon" src="img/icons/Y_Elephant.PNG" alt="Elephant Icon">
+                <img class = "icon" id = "slo-icon" src="img/icons/Y_Sloth.PNG" alt="Sloth Icon">
+                <img class = "icon" id = "zeb-icon" src="img/icons/Y_Zebra.PNG" alt="Zebra Icon">
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-4"> Back!</button>
+                <button class="popup-submit grayout"> Submit!</button>
+              </div>
+            </div>
+          
+          
+          </div>
+          
+
+          <!--<section id="footer-section">
+            <span> 
+              Property Data obtained from <a href="https://data.gov.sg/" title="data.gov">data.gov.sg</a> and <a href="https://ura.gov.sg/" title="ura.gov">ura.gov.sg</a>.<br>
+              <a href="https://www.flaticon.com/free-icons/home" title="home icons">Home icons created by Aswell Studio - Flaticon</a>
+            </span>
+          </section>-->
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://www.flaticon.com/free-icons/pin" title="pin icons">Pin icons created by Freepik - Flaticon</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script type="module" src="js/Observation.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

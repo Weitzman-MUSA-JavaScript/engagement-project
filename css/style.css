@@ -1,0 +1,100 @@
+/* at the start of CSS, make sure design go to the edge of the browser */
+
+/* Palette sourced from https://coolors.co/f6bd60-f7ede2-f5cac3-84a59d-f28482*/
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+
+    font-family: "Montserrat";
+}
+
+/* layout style */
+html {
+    font-family: sans-serif;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+header {
+    height: 9vh;
+    font-size: 12px;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+}
+
+main { 
+    background-color: #fdd8b9;
+}
+
+h1 {
+    color: #fff;
+    height: 100%;
+    padding: 2vh;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 3em;
+    background-color: #bc5a1f;
+}
+
+.main-container {
+    display: grid;
+    grid-template: 80vh 1fr / 1fr;
+    height: 88vh;
+}
+
+#map-section {
+    box-sizing: border-box;
+    grid-row: 1 / 3
+}
+
+#footer-section {
+    grid-row: 2 / 3;
+    box-sizing: border-box;
+    background-color: #D3D3D3;
+    border: 2px solid #808080;
+}
+
+.grayout {
+  filter: grayscale(100%);
+  transition: filter 0.1s;  
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+@media screen and (min-width: 30em) and (orientation: landscape) {
+    h1 {
+        color: #000;
+        height: 100%;
+        padding: 2vh;
+        margin: 0;
+        box-sizing: border-box;
+        font-size: 3em;
+        background-color: #f5cac3;
+    }
+
+    header {
+        height: 9vh;
+        font-size: 12px;
+        box-sizing: border-box;
+        background-size: 100% 100%;
+    }
+
+    .main-container {
+        display: grid;
+        grid-template: 80vh 1fr / 1fr;
+        height: 88vh;
+    }
+
+    #footer-section {
+        grid-row: 2 / 3;
+        box-sizing: border-box;
+        background-color: #D3D3D3;
+        border: 2px solid #808080;
+    }
+  }
