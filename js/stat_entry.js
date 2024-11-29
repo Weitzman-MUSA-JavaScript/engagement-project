@@ -4,18 +4,20 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
   const statListItems = {};
   const positionPositionItems = {};
 
+  // Default notes for each position
   const positionNotes = {
     OL: `QUICKNESS / TWITCH\nFEET QUICKNESS\nANKLE & KNEE BEND\nBALANCE - BODY CONTROL\nHIP ROLL / EXPLOSION\nLATERAL MOVEMENT\nCHANGE OF DIRECTION\nATHLETIC ABILITY`,
     RB: `INITIAL QUICKNESS\nBALANCE / BODY CONTROL\nINSIDE RUNNER\nPOWER / BREAK TACKLE\nAVOIDABILITY - ELUSIVENESS\nOUTSIDE RUNNER\nACCELERATION - BURST\nHANDS\nPASS PRO VS BLITZ\nRUN BLOCK (ISO - LEAD)`,
     TE: `RUN BLOCKING\nINITIAL QUICKNESS\nSUSTAIN - FINISH\nCHANGE OF DIRECTION\nTOUGHNESS\nBALANCE - BODY CONTROL\nFLEXIBILITY\nDEEP THREAT - SPEED\nADJUST TO BALL\nROUTE RUNNING\nINSTINCTS / AWARENESS`,
-    WR: `RUN BLOCKING\nINITIAL QUICKNESS\nSUSTAIN - FINISH\nCHANGE OF DIRECTION\nTOUGHNESS\nBALANCE - BODY CONTROL\nFLEXIBILITY\nDEEP THREAT - SPEED\nADJUST TO BALL\nROUTE RUNNING\nINSTINCTS / AWARENESS`,
+    WR: `TOUGHNESS\nHANDS\nABILITY TO ADJUST / ADAPT\nCHANGE OF DIRECTION\nACCELERATION / BURST\nRUN AFTER CATCH / BALL SKILLS\nBLOCKING\nINSTINCTS\nINITIAL QUICKNESS\nRELEASES (L.O.S)`,
     QB: `TOUGHNESS\nACCURACY\nARM WHIP\nQUICK FEET\nATHLETIC\nQUICK TWITCH (GETS IT OUT)\nTHROWS ARE ON TIME\nMOXIE / DEMEANOR`,
-    DT: `INITIAL QUICKNESS\nREACT / RECOGNITION\nLATERAL QUICKNESS\nBALANCE / BODY CONTROL\nBURST / CLOSING SPEED\nHAND USE /SHED\nDOUBLE TEAM / ANCHOR\nTACKLING\nPASS RUSH ABILITY\nTOUGHNESS\nMOTOR`,
+    DL: `INITIAL QUICKNESS\nREACT / RECOGNITION\nLATERAL QUICKNESS\nBALANCE / BODY CONTROL\nBURST / CLOSING SPEED\nHAND USE /SHED\nDOUBLE TEAM / ANCHOR\nTACKLING\nPASS RUSH ABILITY\nTOUGHNESS\nMOTOR`,
     LB: `READ / REACT\nC.O.D. / MOTOR\nCLOSING SPEED\nSTRENGTH / POINT OF ATTACK\nBALANCE / ANKLE FLEXIBILITY\nBURST / ACCELERATION\nEXPLOSION / STRENGTH\nLATERAL QUICKNESS\nTACKLING\nBLITZ / RUSH ABILITY\nCOVERAGE / RANGE\nTOUGHNESS / EXPLOSIVE\nBALL SKILLS`,
     DB: `BALL JUDGEMENT\nPLANT AND DRIVE\nBURST TO CLOSE\nABILITY TO PLAY MAN TO MAN\nTACKLING\nUNDERSTAND ZONES\nREACTION\nRUN SUPPORT\nBALANCE / BODY CONTROL\nSPECIAL TEAMS VALUE\nSHORT SPACE QUICKNESS`,
-    SAFETY: `KEYS - PLAY DIAGNOSIS\nAWARENESS\nRANGE\nABILITY TO PLAY MAN TO MAN\nRUN SUPPORT\nBALL JUDGEMENT\nBALANCE / BODY CONTROL\nTOUGHNESS\nQUICKNESS\nTACKLING ABILITY`,
+    SP: ` `,
   };
 
+  // Sort positions alphabetically
   positions = positions.sort((a, b) => a.localeCompare(b));
 
   const inputEl = document.querySelectorAll('#athlete-position, #name-input, #status-input, #number-input, #coach-notes');
@@ -40,22 +42,29 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     }
   });
 
+  /* Utility Functions */
   function clearPlaceholder() {
     if (this.id === 'name-input' && this.value === 'Athlete Name') this.value = '';
     if (this.id === 'number-input' && this.value === '#') this.value = '';
   }
 
   function clearNotesPlaceholder() {
-    if (Object.values(positionNotes).includes(this.value)) {
-      this.value = ''; // Clear placeholder if it's one of the predefined texts
+    const coachNotesField = this;
+    const positionDropdown = document.querySelector('#athlete-position select');
+    const currentPosition = positionDropdown.value || 'DB';
+
+    if (coachNotesField.value === positionNotes[currentPosition]) {
+      coachNotesField.value = '';
     }
   }
 
   function restoreNotesPlaceholder() {
     const positionDropdown = document.querySelector('#athlete-position select');
     const currentPosition = positionDropdown.value || 'DB';
-    if (this.value.trim() === '' && positionNotes[currentPosition]) {
-      this.value = positionNotes[currentPosition]; // Restore placeholder based on position
+    const coachNotesField = document.querySelector('#coach-notes');
+
+    if (coachNotesField.value.trim() === '' && positionNotes[currentPosition]) {
+      coachNotesField.value = positionNotes[currentPosition];
     }
   }
 
@@ -94,6 +103,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     return '';
   }
 
+  /* Initialize Stat List Items */
   function initListItems() {
     const orderedStats = [
       'Weight', 'Height', 'Wingspan',
@@ -120,6 +130,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     }
   }
 
+  /* Initialize Position Items */
   function initPositionItems() {
     const selectEl = document.createElement('select');
     selectEl.name = 'position';
@@ -132,6 +143,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     return selectEl;
   }
 
+  /* Populate Position */
   function populatePosition() {
     positionEl.innerHTML = '';
     const position = initPositionItems();
@@ -139,6 +151,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     position.addEventListener('change', handlePositionChange);
   }
 
+  /* Populate Stat List */
   function populateList(stats) {
     const statCategories = {
       anthropometrics: ['Weight', 'Height', 'Wingspan'],
@@ -168,6 +181,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     }
   }
 
+  /* Event Handlers */
   function handlePositionChange(evt) {
     const selectedPosition = evt.target.value;
     const coachNotesField = document.querySelector('#coach-notes');
@@ -201,6 +215,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     });
   }
 
+  /* Initialization */
   const clearAllButton = document.getElementById('clear-all');
   if (clearAllButton) {
     clearAllButton.addEventListener('click', clearAllStats);
@@ -221,5 +236,3 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 }
 
 export { initStatEntry };
-
-
