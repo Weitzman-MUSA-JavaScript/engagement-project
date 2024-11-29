@@ -204,11 +204,22 @@ input[type="text"] {
   width: auto;
 }
 
-#save-athlete, #clear-all, #load-athletes {
+#save-athlete, #clear-all, #load-athletes{
   background-color: #011f5b;
   color: white;
   border: none;
   border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 100;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+#download-pdf {
+  background-color: transparent;
+  border-color: transparent;
+  color: #011f5b;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 100;
