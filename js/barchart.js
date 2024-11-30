@@ -71,7 +71,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
       },
       y: {
         show: false,
-        max: 105,
+        max: 110,
         padding: {
           top: 0,
           bottom: 0,

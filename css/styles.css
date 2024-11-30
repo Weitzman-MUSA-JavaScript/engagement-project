@@ -1,18 +1,73 @@
-html, body {
-  padding: 0.5rem;
-  overflow: hidden;
+body {
+  margin: 0;
   font-family: Poppins, sans-serif;
   color: #011f5b;
 }
 
 .header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  background-color: #1f1f1f;
+}
+
+.header-left img {
+  padding: 1rem;
+  width: 3rem;
+  height: auto;
+}
+
+.header-middle {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center; /* Ensures vertical alignment */
+  gap: 1rem;
+  align-items: center;
+}
+
+#athlete-position select,
+#name-input,
+#status-input,
+#number-input {
+  font-size: 2.5rem;
+  font-weight: 100;
+  color: white;
+  border: none;
+  background-color: transparent;
+  height: 3rem; 
+  line-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+#athlete-position select {
+  background-color: transparent;
+  border: none;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
+#load-athletes,
+#download-pdf {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#load-athletes:hover,
+#download-pdf:hover {
+  color: gray;
+}
+
+/* Dropdown Menu */
 #dropdown-container {
   position: relative;
 }
@@ -22,8 +77,8 @@ html, body {
   top: 100%;
   left: 0;
   background-color: #fff;
-  border: transparent;
-  border-radius: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
@@ -53,46 +108,16 @@ html, body {
   display: block;
 }
 
-#athlete-position select,
-#status-input {
-  font-size: 2.5rem;
-  font-weight: 100;
-  color: #011f5b;
-  border: none;
-  background-color: transparent;
-  height: 3rem; 
-  line-height: 3rem;
-  display: flex;
-  align-items: center;
-}
-
-.header > * {
-  font-size: 2.5rem;
-  font-weight: 100;
-  color: #011f5b;
-  line-height: 3rem;
-}
-
-.header img {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  width: 3rem;
-  align-self: center;
-}
-
 fieldset > * {
   margin-bottom: 0.5rem;
 }
 
 .benchmark-page {
+  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
-.benchmark-menu {
-  grid-column: 1 / 2;
-}
 
 fieldset {
   border-color: transparent;
@@ -108,17 +133,17 @@ ul {
 li {
   display: flex;
   margin-bottom: 0.5rem;
+  justify-content: space-between;
 }
 
 label {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .benchmark-menu input {
   border-color: transparent;
-  width: 10vw;
+  width: 1rem;
   font-size: 1rem;
   background-color: #f8f8f8;
   border-radius: 0.35em;
@@ -126,8 +151,7 @@ label {
 }
 
 #coach-notes {
-  width: 100%;
-  height: 5rem;
+  width: 15vw;
   display: block;
   text-align: left;
   padding: 0.5rem;
@@ -150,7 +174,7 @@ label {
 }
 
 input[type="number"] {
-  width: 60%;
+  width: 40%;
   appearance: textfield;
   text-align: center;
 }
@@ -166,21 +190,20 @@ input[type="number"] {
 .benchmark-chart-area {
   display: grid;
   grid-column: 2 / 6;
-  grid-row: 1 / 2;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 1.5rem;
-  height: 90vh;
+  height: 80vh;
   overflow: hidden;
 }
 
 .pct-chart {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: white;
-  box-shadow: 0 0 1rem rgb(0 0 0 / 5%);
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(7, 9, 173, 0.05);
+
 }
 
 .stat-category-label {
@@ -203,33 +226,6 @@ input[type="text"] {
   width: auto;
 }
 
-#save-athlete, #clear-all, #load-athletes{
-  background-color: #011f5b;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 100;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-#download-pdf {
-  background-color: transparent;
-  border-color: transparent;
-  color: #011f5b;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 100;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-#save-athlete:hover, #load-athletes:hover, #clear-all:hover {
-  background-color: #0a3d91;
-}
-
 /* Billboard Charts */
 .bb text.bb-title {
   font-family: Poppins, sans-serif;
@@ -239,20 +235,17 @@ input[type="text"] {
   text-transform: uppercase;
 }
 
+.bb-text {
+  font-family: Poppins, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
 .bb tspan {
   font-family: Poppins, sans-serif;
   fill: #011f5b;
+  font-weight: bold;
   font-size: 12px;
-}
-
-.bb label {
-  font-family: Poppins, sans-serif;
-  fill: pink;
-  font-size: 12px;
-}
-
-.bb-level > text:nth-child(2) {
-  opacity: 0;
 }
 
 .bb-axis.bb-axis-x path.domain {
@@ -262,14 +255,6 @@ input[type="text"] {
 #radar-chart .bb-axis text {
   font-size: 0.8rem;
   font-weight: 100;
-}
-
-.bb-level > polygon:nth-child(1) {
-  opacity: 0.3;
-}
-
-.bb-axis-0 > line:nth-child(1) {
-  opacity: 0.5;
 }
 
 

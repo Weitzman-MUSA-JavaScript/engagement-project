@@ -10,25 +10,35 @@
 
     <body>
         <main role="main">
-            <div class="header" id = "header" role="banner">
-                <img src="www/penn_shield.svg" alt="Penn Football Logo" aria-label="Penn Football Logo">
-                <div id = "athlete-position"></div>
-                <input type="text" id="name-input" value = "Athlete Name">
-                <select id="status-input">
-                    <option value="RE">RE</option>
-                    <option value="FR">FR</option>
-                    <option value="SO" selected>SO</option>
-                    <option value="JR">JR</option>
-                    <option value="SR">SR</option>
-                  </select>
-                <input type="text" id="number-input" value = "#">
-                <div id="dropdown-container">
-                    <button id="load-athletes" aria-label="Load saved athletes">Load Athletes</button>
-                    <ul id="athlete-list" class="dropdown-menu hidden"></ul>
-                  </div>
-                  <button id="download-pdf">Download Report</button>
-
-            </div>
+            <div class="header" id="header" role="banner">
+                <!-- Logo -->
+                <div class="header-left">
+                    <img src="www/penn_shield.svg" alt="Penn Football Logo" aria-label="Penn Football Logo">
+                </div>
+            
+                <!-- Athlete Information -->
+                <div class="header-middle">
+                    <div id="athlete-position"></div>
+                    <input type="text" id="name-input" value="Athlete Name">
+                    <select id="status-input">
+                        <option value="RE">RE</option>
+                        <option value="FR">FR</option>
+                        <option value="SO" selected>SO</option>
+                        <option value="JR">JR</option>
+                        <option value="SR">SR</option>
+                    </select>
+                    <input type="text" id="number-input" value="#">
+                </div>
+            
+                <!-- Action Buttons -->
+                <div class="header-right">
+                    <div id="dropdown-container">
+                        <button id="load-athletes" aria-label="Load saved athletes">SAVED ATHLETES</button>
+                        <ul id="athlete-list" class="dropdown-menu hidden"></ul>
+                        <button id="download-pdf">DOWNLOAD PDF</button>
+                    </div>
+                </div>
+            </div>            
 
         <section class="benchmark-page">
             <section class="benchmark-menu" aria-labelledby="athlete-stats">
@@ -38,20 +48,22 @@
                         <li>
                             <label for="bench-stat">
                                 Bench
+                            </label>
                                 <div class="input-wrapper">
                                     <input type="number" id="bench-stat" class="stat-input" name="bench" aria-label="Bench press weight">
                                     <span class="unit">pounds</span>
                                 </div>
-                            </label>
+                            
                         </li>
                         <li>
                             <label for="wingspan-stat">
                                 Wingspan
+                            </label>
                                 <div class="input-wrapper">
                                     <input type="number" id="wingspan-stat" class="stat-input" name="wingspan" aria-label="Wingspan measurement in inches">
                                     <span class="unit">inches</span>
                                 </div>
-                            </label>
+                            
                         </li>
                     </ul>
                     <label for="coach-notes">Coach's Notes</label>
