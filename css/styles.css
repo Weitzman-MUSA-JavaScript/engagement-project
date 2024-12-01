@@ -1,4 +1,4 @@
-body {
+html, body {
   margin: 0;
   font-family: Poppins, sans-serif;
   color: #011f5b;
@@ -39,8 +39,14 @@ body {
 }
 
 #athlete-position select {
-  background-color: transparent;
   border: none;
+}
+
+#athlete-position select:hover,
+#name-input:hover,
+#status-input:hover,
+#number-input:hover {
+  color: #980000;
 }
 
 .header-right {
@@ -64,7 +70,24 @@ body {
 
 #load-athletes:hover,
 #download-pdf:hover {
-  color: gray;
+  color: #980000;
+}
+
+#save-athlete,
+#clear-all {
+  padding: 0.3rem;
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: #980000;
+  color: white;
+  border-color: transparent;
+  border-radius: 0.4rem;
+}
+
+#save-athlete:hover,
+#clear-all:hover {
+  background-color: #b90000;
 }
 
 /* Dropdown Menu */
@@ -126,8 +149,8 @@ fieldset {
 ul {
   list-style-type: none;
   padding-left: 0;
-  font-weight: 100;
-  font-size: 1rem;
+  font-weight: 300;
+  font-size: 0.9rem;
 }
 
 li {
@@ -144,10 +167,11 @@ label {
 .benchmark-menu input {
   border-color: transparent;
   width: 1rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background-color: #f8f8f8;
   border-radius: 0.35em;
-  font-weight: lighter;
+  font-weight: 200;
+  color: #a2a2a2;
 }
 
 #coach-notes {
@@ -192,7 +216,7 @@ input[type="number"] {
   grid-column: 2 / 6;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
   height: 80vh;
   overflow: hidden;
 }
@@ -206,8 +230,9 @@ input[type="number"] {
 
 }
 
-.stat-category-label {
-  font-weight: bold;
+.stat-category-label, label[for="coach-notes"] {
+  font-size: 0.75rem;
+  font-weight: 600;
   margin-top: 1em;
   text-transform: uppercase;
 }
@@ -227,25 +252,33 @@ input[type="text"] {
 }
 
 /* Billboard Charts */
+.bb svg {
+  text-align: left;
+  justify-content: left;
+}
+
 .bb text.bb-title {
+  color: #1f1f1f;
+  font-size: 0.75rem;
   font-family: Poppins, sans-serif;
-  fill: #011f5b;
-  font-weight: bold;
+  font-weight: 600;
   margin-top: 1em;
   text-transform: uppercase;
+  text-anchor: left;
+  transform: translate(-140px, 15px);
 }
 
 .bb-text {
   font-family: Poppins, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 100;
+  font-size: 1rem;
+  font-weight: 300;
 }
 
 .bb tspan {
   font-family: Poppins, sans-serif;
   fill: #011f5b;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: 400;
+  font-size: 0.75rem;
 }
 
 .bb-axis.bb-axis-x path.domain {
