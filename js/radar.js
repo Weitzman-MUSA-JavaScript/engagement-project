@@ -30,7 +30,7 @@ function initRadar(radarEl, categoryPercentiles) {
       labels: true,
       colors: {
         'Position Median': 'black',
-        'Athlete': 'magenta',
+        'Athlete': '#980000',
       },
     },
     radar: {

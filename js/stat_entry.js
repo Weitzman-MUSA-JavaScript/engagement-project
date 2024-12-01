@@ -90,16 +90,17 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
 
   function getUnit(stat) {
     const unitMapping = {
-      pounds: ['Bench', 'Squat', 'Power Clean', 'Hang Clean', 'Weight'],
+      lbs: ['Bench', 'Squat', 'Power Clean', 'Hang Clean', 'Weight'],
       reps: ['225lb Bench'],
-      inches: ['Vertical Jump', 'Broad Jump', 'Height', 'Wingspan'],
-      seconds: ['10Y Sprint', '60Y Shuttle', 'L Drill', 'Pro Agility', 'Flying 10'],
+      in: ['Vertical Jump', 'Broad Jump', 'Height', 'Wingspan'],
+      s: ['10Y Sprint', '60Y Shuttle', 'L Drill', 'Pro Agility', 'Flying 10'],
     };
 
-    if (unitMapping.pounds.includes(stat)) return 'lbs';
-    if (unitMapping.reps.includes(stat)) return 'reps';
-    if (unitMapping.inches.includes(stat)) return 'in';
-    if (unitMapping.seconds.includes(stat)) return 's';
+    for (const [unit, stats] of Object.entries(unitMapping)) {
+      if (stats.includes(stat)) {
+        return unit;
+      }
+    }
     return '';
   }
 
@@ -156,15 +157,27 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
     const statCategories = {
       anthropometrics: ['Weight', 'Height', 'Wingspan'],
       strength: ['Bench', 'Squat', '225lb Bench'],
+      power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
       speed: ['10Y Sprint', 'Flying 10'],
       agility: ['Pro Agility', 'L Drill', '60Y Shuttle'],
-      power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
     };
+
+    const orderedStats = [
+      'Weight', 'Height', 'Wingspan',
+      'Bench', 'Squat', '225lb Bench',
+      'Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean',
+      '10Y Sprint', 'Flying 10',
+      'Pro Agility', 'L Drill', '60Y Shuttle',
+    ];
 
     listEl.innerHTML = '';
     const categoryAdded = new Set();
 
-    for (const stat of stats) {
+    for (const stat of orderedStats) {
+      // Skip stats that are not in the provided stats list
+      if (!stats.includes(stat)) continue;
+
+      // Add category labels if not already added
       for (const [category, categoryStats] of Object.entries(statCategories)) {
         if (categoryStats.includes(stat) && !categoryAdded.has(category)) {
           const labelEl = document.createElement('li');
@@ -175,6 +188,7 @@ function initStatEntry(statListEl, positionDropdownEl, stats, positions, events)
         }
       }
 
+      // Append the stat item
       if (statListItems[stat]) {
         listEl.appendChild(statListItems[stat]);
       }
