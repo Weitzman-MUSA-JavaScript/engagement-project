@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   font-family: Poppins, sans-serif;
-  color: #011f5b;
+  color: #1f1f1f;
 }
 
 .header {
@@ -183,7 +183,7 @@ label {
   background-color: #f8f8f8;
   border-radius: 0.35em;
   font-weight: 200;
-  color: #a2a2a2;
+  color: #4d4d57;
 }
 
 #coach-notes {
