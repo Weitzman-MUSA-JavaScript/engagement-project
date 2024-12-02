@@ -2,7 +2,7 @@ const barInstances = {};
 
 function initBar(barEl, positionMedians, statNames, playerStats, playerPercentiles) {
   const statCategories = {
-    anthro: ['Weight', 'Height', 'Wingspan'],
+    anthropometrics: ['Weight', 'Height', 'Wingspan'],
     strength: ['Squat', 'Bench', '225lb Bench'],
     power: ['Vertical Jump', 'Broad Jump', 'Hang Clean', 'Power Clean'],
     speed: ['10Y Sprint', 'Flying 10'],
@@ -46,7 +46,7 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
       columns: columns,
       labels: true,
       type: 'bar',
-      color: function (color, d) {
+      color: function(color, d) {
         if (d && d.index !== undefined) {
           return colors[d.index];
         }
@@ -83,16 +83,16 @@ function initBar(barEl, positionMedians, statNames, playerStats, playerPercentil
     },
     tooltip: {
       show: true,
-      contents: function (data) {
+      contents: function(data) {
         const d = data[0];
         const statIndex = d.index;
         const statName = filteredStatNames[statIndex];
         const unit = getUnit(statName);
-        const median = filteredPositionMedians[statIndex] !== undefined 
-          ? `${Number(filteredPositionMedians[statIndex]).toFixed(1)} ${unit}` 
+        const median = filteredPositionMedians[statIndex] !== undefined
+          ? `${Number(filteredPositionMedians[statIndex]).toFixed(1)} ${unit}`
           : 'N/A';
-        const value = filteredPlayerStats[statIndex] !== undefined 
-          ? `${Number(filteredPlayerStats[statIndex]).toFixed(1)} ${unit}` 
+        const value = filteredPlayerStats[statIndex] !== undefined
+          ? `${Number(filteredPlayerStats[statIndex]).toFixed(1)} ${unit}`
           : 'N/A';
         const percentile = Number(d.value).toFixed(1);
 

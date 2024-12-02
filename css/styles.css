@@ -75,20 +75,30 @@ html, body {
 
 #save-athlete,
 #clear-all {
-  padding: 0.3rem;
+  padding: 0.5rem 1rem; 
   font-family: Poppins, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  background-color: #980000;
+  font-size: 0.75rem;
+  font-weight: 400; 
   color: white;
-  border-color: transparent;
-  border-radius: 0.4rem;
+  background-color: #011f5b;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 #save-athlete:hover,
 #clear-all:hover {
-  background-color: #b90000;
+  background-color: #023b87; 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+
+#save-athlete:active,
+#clear-all:active {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #001940; 
+}
+
 
 /* Dropdown Menu */
 #dropdown-container {
@@ -147,6 +157,7 @@ fieldset {
 }
 
 ul {
+  font-family: Lato, sans-serif;
   list-style-type: none;
   padding-left: 0;
   font-weight: 300;
@@ -165,6 +176,7 @@ label {
 }
 
 .benchmark-menu input {
+  font-family: Lato, sans-serif;
   border-color: transparent;
   width: 1rem;
   font-size: 0.9rem;
@@ -204,6 +216,7 @@ input[type="number"] {
 }
 
 .unit {
+  font-family: Lato, sans-serif;
   pointer-events: none;
   align-content: center;
   opacity: 0.5;
@@ -213,12 +226,11 @@ input[type="number"] {
 
 .benchmark-chart-area {
   display: grid;
-  grid-column: 2 / 6;
+  grid-column: 2 / 7;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2rem;
   height: 80vh;
-  overflow: hidden;
 }
 
 .pct-chart {
@@ -226,7 +238,7 @@ input[type="number"] {
   flex-direction: column;
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(7, 9, 173, 0.05);
+  box-shadow: 0 0 1rem rgba(7, 9, 173, 0.1);
 
 }
 
@@ -252,20 +264,15 @@ input[type="text"] {
 }
 
 /* Billboard Charts */
-.bb svg {
-  text-align: left;
-  justify-content: left;
-}
 
 .bb text.bb-title {
-  color: #1f1f1f;
   font-size: 0.75rem;
   font-family: Poppins, sans-serif;
   font-weight: 600;
   margin-top: 1em;
   text-transform: uppercase;
-  text-anchor: left;
-  transform: translate(-140px, 15px);
+  text-anchor: start !important;
+  transform: translate(-12rem, 0.8rem);
 }
 
 .bb-text {
@@ -275,9 +282,9 @@ input[type="text"] {
 }
 
 .bb tspan {
-  font-family: Poppins, sans-serif;
+  font-family: Lato, sans-serif;
   fill: #011f5b;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.75rem;
 }
 
@@ -285,9 +292,21 @@ input[type="text"] {
   opacity: 0;
 }
 
-#radar-chart .bb-axis text {
-  font-size: 0.8rem;
+div#radar-chart .bb-level > text:nth-child(2), 
+div#radar-chart .bb-text{
+  font-size: 0.75rem;
   font-weight: 100;
+}
+
+div#radar-chart .bb-axis-0 > text:nth-child(2),
+div#radar-chart .bb-axis-1 > text:nth-child(2),
+div#radar-chart .bb-axis-2 > text:nth-child(2),
+div#radar-chart .bb-axis-3 > text:nth-child(2) {
+  font-size: 0.5rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  margin-top: 1em;
+  text-transform: uppercase;
 }
 
 
@@ -304,9 +323,11 @@ input[type="text"] {
 }
 
 .bb-tooltip .tooltip-title {
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .bb-tooltip .tooltip-row {
@@ -320,9 +341,11 @@ input[type="text"] {
 }
 
 .bb-tooltip .tooltip-label {
-  font-weight: bold;
+  font-family: Lato, sans-serif;
+  font-weight: 400;
 }
 
 .bb-tooltip .tooltip-value {
+  font-family: Lato, sans-serif;
   text-align: right;
 }

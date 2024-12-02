@@ -36,7 +36,7 @@ const chartElements = {
   power: document.querySelector('#power-chart'),
   speed: document.querySelector('#speed-chart'),
   agility: document.querySelector('#agility-chart'),
-  anthro: document.querySelector('#anthro-chart'),
+  anthro: document.querySelector('#anthropometrics-chart'),
   radar: document.querySelector('#radar-chart'),
 };
 
