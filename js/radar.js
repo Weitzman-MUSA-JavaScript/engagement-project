@@ -7,12 +7,12 @@ function initRadar(radarEl, categoryPercentiles) {
 
   if (categoryPercentiles.length < 4) {
     columns = [
-      ['x', 'SPEED', 'AGILITY', 'POWER', 'STRENGTH'],
+      ['x', '💨SPEED', '🐆AGILITY', '⚡POWER', '💪STRENGTH'],
       ['Position Median', 50, 50, 50, 50],
     ];
   } else {
     columns = [
-      ['x', 'SPEED', 'AGILITY', 'POWER', 'STRENGTH'],
+      ['x', '💨SPEED', '🐆AGILITY', '⚡POWER', '💪STRENGTH'],
       ['Position Median', 50, 50, 50, 50],
       ['Athlete', ...categoryPercentiles],
     ];

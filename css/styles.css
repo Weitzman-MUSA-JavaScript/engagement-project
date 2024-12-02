@@ -302,10 +302,9 @@ div#radar-chart .bb-axis-0 > text:nth-child(2),
 div#radar-chart .bb-axis-1 > text:nth-child(2),
 div#radar-chart .bb-axis-2 > text:nth-child(2),
 div#radar-chart .bb-axis-3 > text:nth-child(2) {
-  font-size: 0.5rem;
+  font-size: 0.75rem;
   font-family: Poppins, sans-serif;
   font-weight: 600;
-  margin-top: 1em;
   text-transform: uppercase;
 }
 
