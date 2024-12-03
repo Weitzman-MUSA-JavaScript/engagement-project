@@ -1,0 +1,15 @@
+#0b7fa2  Office				B
+#215297  Retail				C
+#f4f2c1  Education                    E
+#f6bb81  Housing                      H
+#36ade5  Housing & retail mix
+#c8a5cf  Light industry               L
+#516702  Military (special uses)      M
+#abb20c  Open space (forest)          O
+#1ea33a  Park                         P
+#a3d49d  Sports                       S
+#bedef3  Waterbody                    W
+#fef66d	 Undecided			R
+#cc0521  Hospital			K
+
+C E H L M O P S W

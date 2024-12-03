@@ -1,0 +1,265 @@
+/* 
+Contents:
+
+Main interface CSS
+- body
+- content-panel
+- #map
+- hyperlinks
+
+Description bar CSS
+- image-container (for HDB logo)
+- button:hover (for hover effect)
+- show / hide state
+
+Font options CSS
+- .semibold (for semibold text)
+
+Creative mode CSS
+- hover over return to home
+- default creative mode cursor
+
+Gallery mode CSS
+- title container
+
+Story mode CSS
+- left and right buttons
+- form check
+
+*/
+
+/* ###################################################### */
+
+/* Main interface */
+
+html, body, #map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Barlow, sans-serif;
+    cursor: url('../assets/images/brush.cur'), default;
+}
+
+.content-panel {
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 30%;
+    scroll-behavior: smooth;
+    background-color: #fefcf6;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem; /* Custom padding for the left */
+    padding-right: 2rem; /* Custom padding for the right */
+    transition: width 0.5s ease, padding 0.5s ease; 
+}
+
+#map {
+    height: 100vh;
+    width: 70%;
+}
+
+.floating-button {
+    position: absolute;
+    bottom: 3.5%; /* Distance from the bottom */
+    right: 0.5%; /* Distance from the right */
+    background-color: #f4f2ec; /* Button background color */
+    border: 1px solid #ccc; /* Button border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding for button */
+    cursor: pointer; /* Cursor style */
+    z-index: 1000; /* Ensure it is above other elements */
+    width: 8%;
+    text-align: center;
+}
+
+.floating-button:hover {
+    background-color: #cccccc; /* Change color on hover */
+}
+
+a {
+    color: #65635c; /* Set font color */
+    text-decoration: underline; /* Underline the link */
+  }
+  
+  a:hover {
+    color: #b5ab86; /* Optional: Ensure the color remains the same when hovering */
+  }
+
+/* ###################################################### */
+
+/* Description bar */
+
+.image-container {
+    width: 13%; /* Set the width to 15% of the parent */
+    margin-top: 0.7rem; /* Adds spacing above the image container */
+    margin-bottom: 0.7rem; /* Adds spacing below the image container */
+    text-align: center; /* Centers the image horizontally */
+    transition: transform 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+.image-container img {
+    max-width: 100%; /* Ensure the image fits within the container */
+    height: auto; /* Maintain the aspect ratio */
+}
+
+.image-container:hover {
+    transform: scale(1.1); /* Enlarge the image to 110% of its original size */
+}
+
+/* Custom button styles */
+
+#creative-mode-btn,
+#new-map-btn,
+#confirm-upload-btn {
+    background-color: #858379; /* Custom background for "Enter creative mode" */
+    border: none; /* Remove border */
+}
+
+#explore-ideas-btn,
+#history-btn,
+#clear-canvas-btn,
+#upload-btn,
+#cancel-upload-btn {
+    background-color: #e6e4de; /* Custom background for the other two buttons */
+    color: black; /* Default text color should be black */
+    border: none; /* Remove border */
+}
+
+/* Hover effect */
+#creative-mode-btn:hover,
+#explore-ideas-btn:hover,
+#history-btn:hover,
+#new-map-btn:hover,
+#clear-canvas-btn:hover,
+#upload-btn:hover,
+#confirm-upload-btn:hover,
+#cancel-upload-btn:hover {
+    background-color: #f4f2ec;
+    color: black;
+}
+
+/* Show / hide state */
+
+/* Floating button */
+#toggle-panel-btn {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 0; /* Align to the left edge of the map panel */
+    transform: translate(-50%, -50%); /* Adjust for proper centering */
+    background-color: #fefcf6; /* Button background */
+    color: rgb(0, 0, 0); /* Icon color */
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem; /* Circle button size */
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above all other elements */
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for emphasis */
+}
+
+/* Hover effect for the button */
+#toggle-panel-btn:hover {
+    background-color: #e6e4de; /* Darker shade for hover effect */
+}
+
+.tooltip-inner {
+    background-color: #f4f2ec !important; /* Set a custom background color */
+    color: black !important; /* Change text color */
+    border-radius: 5px; /* Optional: round the corners */
+    font-family: 'Barlow', sans-serif !important; /* Use Barlow font for the tooltip */
+    margin-left: 10px; /* Adjust the distance between the button and the tooltip */
+}
+
+
+/* ###################################################### */
+
+/* Font options */
+
+.semibold {
+    font-weight: 600; /* Semibold weight */
+}
+
+/* ###################################################### */
+
+/* Creative mode */
+
+/* Add opacity change on hover */
+#back-icon-section:hover {
+    opacity: 0.7;
+    transition: opacity 0.3s ease; /* Smooth transition effect */
+}
+
+.mapboxgl-canvas {
+    cursor: url('../assets/images/brush.cur'), auto;
+}
+
+/* ###################################################### */
+
+/* Gallery mode */
+
+.scrollable-titles-container {
+    height: 20%; /* 50% of the parent height */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* Scrollable Description Container */
+.scrollable-description-container {
+    height: 23%; /* Adjust this height based on your layout */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+/* ###################################################### */
+
+/* Story map mode */
+
+
+#left-arrow {
+    background-color: #e6e4de; /* Custom background for "Enter creative mode" */
+    border: none; /* Remove border */
+    width: 30%;
+}
+
+#right-arrow {
+    background-color: #858379; /* Custom background for "Enter creative mode" */
+    border: none; /* Remove border */
+    width: 30%;
+}
+
+#chapter-content {
+    width: 100%;
+}
+
+.storymap-image-container {
+    width: 100%;          /* Make the container take the full width of the parent (chapter-content) */
+    display: flex;        /* Center the image horizontally */
+    justify-content: left;
+    margin-top: 20px;     /* Add some spacing if needed */
+    margin-bottom: 20px;  /* Add some spacing if needed */
+}
+
+.storymap-image-container img {
+    width: 100%;           /* Set image to 80% of the container's width */
+    max-width: 100%;      /* Prevent the image from exceeding the container width */
+    height: auto;         /* Maintain aspect ratio */
+}
+
+.form-check.form-switch {
+    border-bottom: 2px solid #ded9ca; /* Light gray color for the border */
+    padding-bottom: 10px; /* Add some padding for spacing */
+    margin-bottom: 15px; /* Add margin to separate from the dropdown */
+}
+
+.form-check-input:checked {
+    background-color: #a5a296; /* Custom color when checked */
+    border-color: #a5a296; /* Custom border color */
+}

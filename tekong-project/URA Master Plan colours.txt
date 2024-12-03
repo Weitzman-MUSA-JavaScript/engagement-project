@@ -1,0 +1,15 @@
+#0b7fa2  Business park
+#215297  Commercial
+#f6bb81  Housing
+#36ade5  Housing + Commercial
+#cc0521  Hospitals
+#b10166  Industry
+#c8a5cf  Light industry
+#516702  Special use (military)
+#f4f2c1  Schools
+#a3d49d  Sports and recreation
+#1ea33a  Park
+#abb20c  Open space
+#cc0521  Religious institutions
+#fef66d  Reserve
+#bedef3  Waterbody

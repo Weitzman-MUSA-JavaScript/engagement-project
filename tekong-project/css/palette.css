@@ -1,0 +1,20 @@
+/* 
+Contents:
+Creative mode - palette CSS
+*/
+
+#color-palette {
+    position: absolute;
+    top: 20px;
+    left: 30px;  /* Align to the left side of the map panel */
+    z-index: 1000; /* Ensure it's above the map */
+    background-color: #fefcf6; /* Set the background color */
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 150px; /* Set the width of the color palette */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: stretch; /* Ensure buttons stretch to full width of colorPalette */
+}

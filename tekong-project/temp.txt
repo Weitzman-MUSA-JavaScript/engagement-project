@@ -1,0 +1,113 @@
+I propose a third approach.
+
+Here, on loading the website, initialise a configuration file / object in the local storage
+
+it is something like
+
+Name		Zoning
+B1			W
+B2			M
+B3			M
+B4			M
+B5			M
+B6			M
+B7			O
+B8			O
+A1			(empty)
+A2			(empty)
+...
+
+till
+A38			(empty)
+
+
+in this configuration file, the B-something polygons have an initial Zoning assigned, but not the A-something polygons
+
+using this configuration file, in map.js the geojson is loaded and coloured appropriately
+
+   // 3. A-grid-20241116-3 (fill)
+    map.addLayer({
+        id: "A-grid-20241116-3",
+        type: "fill",
+        source: {
+            type: "geojson",
+            data: "assets/grids/Grid-A/A-grid-20241116-5.geojson",
+            promoteId: "Name" // Promote the 'Name' property as the unique ID
+        },
+        paint: {
+            "fill-color": [
+                "match",
+                ["get", "Zoning"],
+                "C", "#215297",    // Commercial
+                "E", "#f4f2c1",    // Education
+                "H", "#f6bb81",    // Housing
+                "L", "#c8a5cf",    // Light industry
+                "M", "#516702",    // Military
+                "O", "#abb20c",    // Open space
+                "P", "#1ea33a",    // Park
+                "S", "#a3d49d",    // Sports
+                "W", "#bedef3",    // Waterbody
+                "#f4f2ec"          // Default (white for empty or unknown values)
+            ],
+            "fill-opacity": 1,
+            "fill-outline-color": "#958858"
+        }
+    });
+
+    map.getLayer('A-grid-20241116-3').interactive = true;
+
+
+when user clicks on a button in colorPalette, the Zoning property in the config file is modified accordingly, and the map re-renders according to the updated config.
+
+would this be workable?
+
+for reference, my existing editzoning.js:
+
+
+
+let activeZoning = null; // Track the active zoning category
+
+function initEditZoning(map) {
+    // Listen for button clicks in the color palette
+    const colorPalette = document.getElementById("color-palette");
+    if (!colorPalette) {
+        console.error("Color palette not found!");
+        return;
+    }
+
+    colorPalette.addEventListener("click", function (event) {
+        const clickedButton = event.target;
+
+        // Ensure only buttons are handled
+        if (clickedButton.tagName === "BUTTON") {
+            // Update the active zoning category
+            activeZoning = clickedButton.dataset.zone || null; // Ensure we store the zoning code
+            console.log(`Active zoning set to: ${activeZoning}`);
+        }
+    });
+
+    // Listen for polygon clicks on the map
+    map.on("click", "A-grid-20241116-3", function (e) {
+        if (!activeZoning) {
+            console.log("No active zoning category selected.");
+            return;
+        }
+
+        // Get the clicked polygon's properties
+        const clickedPolygon = e.features[0];
+        const polygonName = clickedPolygon.properties.Name;
+
+        console.log(`Clicked polygon: Name = ${polygonName}`);
+
+        // Update the Zoning property of the polygon
+        map.setFeatureState(
+            {
+                source: "A-grid-20241116-3", // Source name
+                id: clickedPolygon.id, // Feature ID
+            },
+            { Zoning: activeZoning } // Set the new Zoning value
+        );
+
+        console.log(`Updated Zoning for ${polygonName} to: ${activeZoning}`);
+    });
+}
