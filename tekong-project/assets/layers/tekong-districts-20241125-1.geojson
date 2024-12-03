@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "tekong-districts-20241125-1",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "District": "Tekong Central" }, "geometry": { "type": "Point", "coordinates": [ 104.048836319397111, 1.376849303125369 ] } },
+{ "type": "Feature", "properties": { "District": "Kampong Sanyongkong" }, "geometry": { "type": "Point", "coordinates": [ 104.071312858594737, 1.392622690678428 ] } },
+{ "type": "Feature", "properties": { "District": "Elephant Harbour" }, "geometry": { "type": "Point", "coordinates": [ 104.03147550340131, 1.392170873244708 ] } },
+{ "type": "Feature", "properties": { "District": "Tekong North" }, "geometry": { "type": "Point", "coordinates": [ 104.039642316024853, 1.435107887765434 ] } },
+{ "type": "Feature", "properties": { "District": "Tanjong Todak" }, "geometry": { "type": "Point", "coordinates": [ 104.019983654172933, 1.423771655404933 ] } },
+{ "type": "Feature", "properties": { "District": "Tekong South Coast" }, "geometry": { "type": "Point", "coordinates": [ 104.06935683646941, 1.358255914603845 ] } }
+]
+}
