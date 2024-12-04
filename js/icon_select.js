@@ -19,8 +19,8 @@ function initializeIconClick(iconEl, eventBus) {
 
     iconEl.classList.remove("grayout");
 
-    // define a customized event
-    const iconClickEvt = new CustomEvent('icon-click', { detail: { iconClicked: iconEl }}); // define your own event
+    // event when icon is selected
+    const iconClickEvt = new CustomEvent('icon-click', { detail: { iconClicked: iconEl }});
 
     console.log("Icon clicked " + iconEl);
     

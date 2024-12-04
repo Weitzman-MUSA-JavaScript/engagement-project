@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     
     <!-- <link rel="stylesheet" href="css/main-stat-style.css">-->
-    <link rel="stylesheet" href="css/popup-style.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popup-style.css">
+    
+    <link rel="stylesheet" href="css/view-result.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,11 +21,10 @@
 
   <body>
     <header>
-      <h1>Pinpoint</h1>
+      <h1>PinPoint</h1>
     </header>
 
     <main>
-      <button class = "popup-button">Open Pop-up</button>
       <div class="main-container">
         <!--<div class = "test">
           <div class = "test-inner">
@@ -33,12 +34,30 @@
           <!-- <section id="map-section">
             <div class="map" id="map"></section>
           </section> -->
-          <div class="popup">
+          <div class="main-menu main-slide center">
+            <div class = "main-menu-button-container">
+              <button class="mm-new-session-button">
+                <img src = "img/pen.png">
+                <p>Create Brand New Session</p>
+              </button>
+              <button class="mm-contribute-button">
+                <img src = "img/puzzle.png">
+                <p> Contribute to Existing Session</p>
+              </button>
+              <button class="mm-view-results-button">
+                <img src = "img/preview.png" id = "img-view">
+                <p> View Results of Existing Session</p>
+              </button>
+            </div>
+          </div>
+  
 
-            
+          <div class="popup main-slide right">
+
+    
             <div class = "popup-slide popup-slide-0 popup-slide-center"> 
               <div class = "main-text">
-                <h2> Hi there! <br> Are you here to contribute or would you like to just see the map?</h2>
+                <p> Hi there! <br> Are you here to contribute or would you like to just see the map?</p>
               </div>
               <div class = "all-session-container">
                 <div class = "hash-container">
@@ -46,7 +65,7 @@
                   <input type="text" class="session-id-input" placeholder="1234" autocomplete="off">
                 </div>
                 <div class = "session-error-msg"></div>
-                <div class = "qr-container">
+                <div class = "qr-container hidden">
                   <div class = "qr-code"></div>
                 </div>
               </div>
@@ -58,7 +77,9 @@
 
 
             <div class = "popup-slide popup-slide-1 popup-slide-right"> 
-              <h2> Qn 1: Where's your favourite singer from?</h2>
+              <div class = "main-text">
+                <p> Qn 1: Where's your favourite singer from?</p>
+              </div>
               <div class="map-qn-container">
                 <div class="popup-search-box">
                   <input type="text" class="popup-search-bar" id="popup-search-bar-1" placeholder="Search Address..." autocomplete="off">
@@ -76,14 +97,16 @@
                 <div class="map" id="map-1"></div>
               </div>
               <div class = "popup-button-container">
-                <button class="popup-back-1"> Back!</button>
-                <button class="popup-next-1"> Next!</button>
+                <button class="popup-back-1"> Back</button>
+                <button class="popup-next-1"> Next</button>
               </div>
             </div>
             
             
             <div class = "popup-slide popup-slide-2 popup-slide-right"> 
-              <h2> Qn 2: Where would you like to live if money was no concern? </h2>
+              <div class = "main-text">
+                <p> Qn 2: Where would you like to live if money was no concern?</p>
+              </div>
               <div class = "map-qn-container">
                 <div class="popup-search-box">
                   <input type="text" class="popup-search-bar" id="popup-search-bar-2" placeholder="Search Address..." autocomplete="off">
@@ -101,14 +124,16 @@
                 <div class="map" id="map-2"></div>
               </div>
               <div class = "popup-button-container">
-                <button class="popup-back-2"> Back!</button>
-                <button class="popup-next-2"> Next!</button>
+                <button class="popup-back-2"> Back</button>
+                <button class="popup-next-2"> Next</button>
               </div>
             </div>
             
             
             <div class = "popup-slide popup-slide-3 popup-slide-right"> 
-              <h2> Qn 3: What's is your favourite place in Philadelphia? </h2>
+              <div class = "main-text">
+                <p> Qn 3: What's is your favourite place in Philadelphia?</p>
+              </div>
               <div class = "map-qn-container">
                 <div class="popup-search-box">
                   <input type="text" class="popup-search-bar" id="popup-search-bar-3" placeholder="Search Address..." autocomplete="off">
@@ -126,14 +151,21 @@
                 <div class="map" id="map-3"></div>
               </div>
               <div class = "popup-button-container">
-                <button class="popup-back-3"> Back!</button>
-                <button class="popup-next-3"> Next!</button>
+                <button class="popup-back-3"> Back</button>
+                <button class="popup-next-3"> Next</button>
               </div>
             </div>
           
             
             <div class = "popup-slide popup-slide-4 popup-slide-right"> 
-              <h2> Choose an icon and submit! </h2>
+              <div class = "submission-instructions-container">
+                <p> Fill in your username, pick an icon, and submit! </p>
+              </div>
+              <div class = "submission-username">
+                <p> Username: </p>
+                <input type="text" class="username-input" placeholder="lalalala" autocomplete="off">
+              </div>
+              
               <div class = "popup-icon-container">
                 <img class = "icon" id = "cat-icon" src="img/icons/B_Cat.PNG" alt="Cat Icon">
                 <img class = "icon" id = "dog-icon" src="img/icons/B_Dog.PNG" alt="Dog Icon">
@@ -147,14 +179,61 @@
                 <img class = "icon" id = "zeb-icon" src="img/icons/Y_Zebra.PNG" alt="Zebra Icon">
               </div>
               <div class = "popup-button-container">
-                <button class="popup-back-4"> Back!</button>
-                <button class="popup-submit grayout"> Submit!</button>
+                <button class="popup-back-4"> Back</button>
+                <button class="popup-submit grayout"> Submit</button>
               </div>
             </div>
           
           
           </div>
           
+          <div class="view-session main-slide right">
+            <div class="main-text">
+              <p>Confirm your Session ID?</p>
+            </div>
+            <div class = "all-session-container">
+              <div class = "hash-container">
+                <p class = "session-id"> Session ID: </p>
+                <input type="text" class="session-id-input" placeholder="1234" autocomplete="off">
+              </div>
+              <div class = "session-error-msg view-session-error-msg"></div>
+              <div class = "qr-container view-qr-container hidden">
+                <div class = "qr-code view-qr"></div>
+              </div>
+            </div>
+            <div class = "popup-button-container">
+              <button class="view-session-back"> Close </button>
+              <button class="view-session-next"> Next </button>
+            </div>
+          </div>
+
+          <div class="view-results main-slide right">
+            
+            <div class="change-qn-button-container">
+              <button class="change-qn-button">
+                  <p></p>
+              </button>
+            </div>
+            
+            <div class = "map-view-container">
+              <div class="popup-search-box">
+                <input type="text" class="popup-search-bar" id="popup-search-bar-view" placeholder="Search Address..." autocomplete="off">
+                <ul class="popup-search-dropdown" id ="popup-search-dropdown-view">
+                </ol>
+              </div>
+              <div class="map" id="map-view"></div>
+            </div>
+            <div class = "view-button-container popup-button-container">
+              <button class="view-back"> Back</button>
+            </div>
+            <div class = "view-change-qn-menu">
+              <ul class = "view-qn-list">
+                <li class = "view-qn-choice" value = 1></li>
+                <li class = "view-qn-choice" value = 2></li>
+                <li class = "view-qn-choice" value = 3></li>
+              </ul>
+            </div>
+          </div>
 
           <!--<section id="footer-section">
             <span> 
@@ -167,6 +246,9 @@
 
     <footer>
       <a href="https://www.flaticon.com/free-icons/pin" title="pin icons">Pin icons created by Freepik - Flaticon</a>
+      <a href="https://www.flaticon.com/free-icons/pencil" title="pencil icons">Pencil icons created by Icongeek26 - Flaticon</a>
+      <a href="https://www.flaticon.com/free-icons/puzzle" title="puzzle icons">Puzzle icons created by Freepik - Flaticon</a>
+      <a href="https://www.flaticon.com/free-icons/preview" title="preview icons">Preview icons created by Freepik - Flaticon</a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>

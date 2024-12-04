@@ -1,10 +1,14 @@
 
 function initializePopupSlides(popupEl, eventBus) {
 
+  // All slide numbers in the popup
   let slideNumbers = [0,1,2,3,4];
 
   // Load all popup slides onto the array
   let popupSlides = slideNumbers.map((slideNumber) => popupEl.querySelector('.popup-slide-' + slideNumber));
+
+  // Stored sessionID for dispatching when initial popup window confirms the session
+  let sessionID = null;
 
   // Controls which slide should go into center
   // The slidenumber corresponds to the slide that the "Next" button is on
@@ -40,6 +44,20 @@ function initializePopupSlides(popupEl, eventBus) {
       popupSlides[slideNumber].classList.add("popup-slide-right");
   }
 
+  // Enable next slide for just the initial slide 0 next when valid session ID is provided
+  // Special case for to allow for adding and removing the event listener.
+  // Also triggers the event recording the session id
+  function nextSlide0(){
+    nextSlide(0);
+
+    // session ID is confirmed and locked in
+    const sessionSelected = new CustomEvent('session-selected', { detail: { sessionID: sessionID }});
+
+    console.log("session ID selected " + sessionID);
+    
+    eventBus.dispatchEvent(sessionSelected);
+  }
+
   // Enable all back buttons
   [1,2,3,4].forEach((slideNumber) => {
     // Add listener for back button
@@ -50,13 +68,31 @@ function initializePopupSlides(popupEl, eventBus) {
   });
 
   // Grey out next buttons initially
-  [1,2,3].forEach((buttonNum) => popupEl.querySelector('.popup-next-' + buttonNum).classList.add("grayout"));
+  [0,1,2,3].forEach((buttonNum) => popupEl.querySelector('.popup-next-' + buttonNum).classList.add("grayout"));
 
   // TESTING Enable first next button 
-  popupEl.querySelector('.popup-next-0').addEventListener("click", () => {
-    nextSlide(0);
-    //console.log(popupSlides);
-  })
+  
+
+  // Enable next button only valid Session ID is found
+  eventBus.addEventListener("session-found", (e) => {
+
+    // Record session ID found
+    sessionID = e.detail.sessionID;
+
+    // Ungrey the next button
+    popupEl.querySelector('.popup-next-0').classList.remove("grayout");
+
+    popupEl.querySelector('.popup-next-0').addEventListener("click", nextSlide0);
+  });
+
+  // Disable next button when session ID is not valid
+  eventBus.addEventListener("session-not-found", () => {
+
+    // Ungrey the next button
+    popupEl.querySelector('.popup-next-0').classList.add("grayout");
+
+    popupEl.querySelector('.popup-next-0').removeEventListener("click", nextSlide0);
+  });
 
   // Enable next button only when question is answered. Only for slides 1,2,3 which have maps
   eventBus.addEventListener("map-click", (evt) => {
@@ -70,20 +106,6 @@ function initializePopupSlides(popupEl, eventBus) {
     })
   })
 
-  // Enable close button
-  popupEl.querySelector('.popup-close-0').addEventListener("click", () => {
-    closePopup(popupEl);
-    //console.log(popupSlides);
-  })
-
 }
 
-function openPopup(popupEl){
-  popupEl.classList.add("open-popup");
-}
-
-function closePopup(popupEl){
-  popupEl.classList.remove("open-popup");
-}
-
-export { initializePopupSlides, openPopup, closePopup };
+export { initializePopupSlides };

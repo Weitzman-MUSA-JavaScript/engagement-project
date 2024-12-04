@@ -3,10 +3,10 @@ import { debounce } from './debounce.js';
 // const addressEntry = document.querySelector('#entry');
 // const addressChoiceList = document.querySelector(`#address-choices`);
 
-function initializeAddressEntry(addressEntryEl, addressChoiceListEl, eventBus) {
+function initializeAddressEntry(addressEntryEl, addressChoiceListEl, questionNumber, eventBus) {
 
   function debouncedAddressEntry() {
-    debounce(handleAddressEntryChange(addressEntryEl, addressChoiceListEl, eventBus), 500); // should be in this format because I need to control what event in events; this wil "clean" the 'input' event input and use the later click event in the functions below
+    debounce(handleAddressEntryChange(addressEntryEl, addressChoiceListEl, questionNumber, eventBus), 500); // should be in this format because I need to control what event in events; this wil "clean" the 'input' event input and use the later click event in the functions below
   }; // if want to add debounce, need to add it here. wrap up the above function
   
   addressEntryEl.addEventListener('input', debouncedAddressEntry);
@@ -18,7 +18,7 @@ function initializeAddressEntry(addressEntryEl, addressChoiceListEl, eventBus) {
 }
 
 // mapbox api
-async function handleAddressEntryChange(addressEntry, addressChoiceList, eventBus) { // await fetch should always be in async function
+async function handleAddressEntryChange(addressEntry, addressChoiceList, questionNumber, eventBus) { // await fetch should always be in async function
   addressChoiceList.classList.remove('hidden'); // First remove the hidden style of ol
   console.log('handling address change');
   const partialAddress = addressEntry.value; // .value gets the text of the entry
@@ -51,12 +51,12 @@ async function handleAddressEntryChange(addressEntry, addressChoiceList, eventBu
   const choices = addressChoiceList.querySelectorAll('li'); // select all the children of address choice list that match li
   for (const choice of choices) {
     choice.addEventListener('click', (locationChoice) => {
-      handleAddressChoice(addressEntry, addressChoiceList, locationChoice, eventBus);
+      handleAddressChoice(addressEntry, addressChoiceList, locationChoice, questionNumber, eventBus);
     });
   }
 }
 
-function handleAddressChoice(addressEntry, addressChoiceList, locationChoice, eventBus) {
+function handleAddressChoice(addressEntry, addressChoiceList, locationChoice, questionNumber, eventBus) {
   const li = locationChoice.target; // .target is just get the object you click
   
   console.log(li);
@@ -70,10 +70,10 @@ function handleAddressChoice(addressEntry, addressChoiceList, locationChoice, ev
   addressEntry.value = text;
   addressChoiceList.classList.add('hidden'); // hide the list
 
-  // define a customized event
-  const addressLL = new CustomEvent('address-zoom-map', { detail: { coordinates: [lat, lon] }}); // define your own event
+  // handles when address is entered onto searchbar
+  const addressLL = new CustomEvent('address-zoom-map-'+questionNumber, { detail: { coordinates: [lat, lon] }}); 
   
-  console.log("CHOSEN" + lat + " and " + lon);
+  console.log("CHOSEN " + lat + " and " + lon + " for " + questionNumber);
   
   eventBus.dispatchEvent(addressLL);
 }

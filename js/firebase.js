@@ -30,13 +30,13 @@ async function getDataFS(collectionID) {
   return data;
 }
   
-async function addDataFS(col1, col2) {
-  const collectionRef = collection(db, 'test');
+async function addDataFS(collectionID, doc) {
 
-  await addDoc(collectionRef, {
-      field1: col1,
-      field2: col2,
-  });
+  // console.log(collectionID)
+
+  await addDoc(collection(db, collectionID), doc);
+
+  console.log("SUBMITTED")
 }
   
 export { app, db, getDataFS, addDataFS };

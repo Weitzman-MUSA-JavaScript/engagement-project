@@ -6,14 +6,16 @@ html,
 body {
     padding: 0;
     margin: 0;
+    width: 100%;
     height: 100%;
 
     font-family: "Montserrat";
+
+    position: fixed;
 }
 
 /* layout style */
 html {
-    font-family: sans-serif;
     box-sizing: border-box;
     height: 100%;
 }
@@ -27,6 +29,9 @@ header {
 
 main { 
     background-color: #fdd8b9;
+
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -37,12 +42,89 @@ h1 {
     box-sizing: border-box;
     font-size: 3em;
     background-color: #bc5a1f;
+    z-index: 10000;
 }
 
 .main-container {
+
     display: grid;
     grid-template: 80vh 1fr / 1fr;
     height: 88vh;
+
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.main-slide {
+  position: absolute;
+  top: 9%;
+
+  width: 100%;
+  height: 88vh;
+  margin: auto;
+
+  transform: translate(0%, 0%);
+  transition: left 1s;
+}
+
+.main-menu-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 90%;
+
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.main-menu-button-container button {
+    width: 75%;
+    height: 15%;
+    background: #bc5a1f;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+
+    font-family: "Montserrat";
+
+    display: grid;
+    grid-template-columns: 25% 75%;
+    min-height: fit-content;
+}
+
+.main-menu-button-container button img {
+  height: 60px;
+  grid-column: 1/2;
+  margin: auto;
+  margin-right: 0;
+}
+
+.main-menu-button-container button p {
+  grid-column: 2/3;
+  margin: auto;
+}
+
+.main-text {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: normal;
+  height: 15vh;
+
+  padding: 0;
+  text-align: center;
+}
+
+.main-text p {
+  margin: 0;
+}
+
+#img-view {
+  height: 52px;
 }
 
 #map-section {
@@ -64,6 +146,18 @@ h1 {
 
 .hidden {
     visibility: hidden;
+}
+
+.left {
+  left: -200%;
+}
+
+.center {
+  left: 0%;
+}
+
+.right {
+  left: 200%;
 }
 
 

@@ -1,4 +1,4 @@
-function initializeQR(qrEl, qrContainer, sessionEl, eventBus) {
+function initializeQR(qrEl, qrContainer, eventBus) {
 
   // Generate QR code at qrEl
   function generateQR(sessionID) {
@@ -12,13 +12,13 @@ function initializeQR(qrEl, qrContainer, sessionEl, eventBus) {
     });
   }
 
-
-  qrContainer.classList.add("hidden");
-
   eventBus.addEventListener("session-found", (evt) => {
+    qrEl.innerHTML = "";
     generateQR(evt.detail.sessionID);
+    console.log(qrContainer);
     qrContainer.classList.remove("hidden");
   });
+
   eventBus.addEventListener("session-not-found", () => {
     qrEl.innerHTML = "";
     qrContainer.classList.add("hidden");

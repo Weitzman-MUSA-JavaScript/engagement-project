@@ -12,13 +12,13 @@ function initializeMap(el, eventBus, mapQuestionNumber) {
   }).addTo(map);
 
 
-  eventBus.addEventListener( 'address-zoom-map', (evt) => zoomMap(evt, map) );
+  eventBus.addEventListener( 'address-zoom-map-' + mapQuestionNumber, (evt) => zoomMap(evt, map) );
 
   const clickIcon = L.icon({
     iconUrl: './img/placeholder.png',
 
     iconSize:     [64, 64], // size of the icon
-    iconAnchor:   [0, 94], // point of the icon which will correspond to marker's location
+    iconAnchor:   [30, 65], // point of the icon which will correspond to marker's location
     // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
@@ -57,4 +57,4 @@ function onMapClick(evt, map, clickPopup, eventBus, mapQuestionNumber) {
   
 }
 
-export { initializeMap };
+export { initializeMap, zoomMap };
