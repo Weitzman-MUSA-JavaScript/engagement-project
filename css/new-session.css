@@ -52,3 +52,11 @@
   font-family: "Montserrat";
 }
 
+@media screen and (min-width: 30em) and (orientation: landscape) {
+  .new-session{
+    width: 700px;
+    margin-left: 420px;
+  }
+
+}
+

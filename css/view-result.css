@@ -106,3 +106,16 @@
   width: 95%;
   margin-left: 2.5%;
 }
+
+@media screen and (min-width: 30em) and (orientation: landscape) {
+  .view-session {
+    width: 40%;
+    margin-left: 30%;
+  }
+
+  .view-results {
+    width: 70%;
+    margin-left: 15%;
+  }
+
+  }

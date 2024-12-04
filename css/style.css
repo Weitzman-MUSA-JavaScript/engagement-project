@@ -57,7 +57,7 @@ h1 {
 
 .main-slide {
   position: absolute;
-  top: 4%;
+  top: 9%;
 
   width: 100%;
   height: 88vh;
@@ -175,14 +175,11 @@ h1 {
   }
 
   .main-slide {
+    top: 4%;
     width: 100%;
     height: 78%;
-    margin: auto;
     margin-top: 5%;
     margin-bottom: 5%;
-  
-    transform: translate(0%, 0%);
-    transition: left 1.5s;
   }
 
   }
