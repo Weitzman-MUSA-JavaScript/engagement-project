@@ -1,9 +1,9 @@
-function initializeQR(qrEl, qrContainer, eventBus) {
+function initializeQR(qrEl, qrContainer, key, eventBus) {
 
   // Generate QR code at qrEl
   function generateQR(sessionID) {
     new QRCode(qrEl, {
-      text: 'http://127.0.0.1:3000/#' + sessionID,
+      text: 'https://theta1112.github.io/engagement-project/#' + sessionID,
       width: 175,
       height: 175,
       colorDark : '#262626',
@@ -13,15 +13,20 @@ function initializeQR(qrEl, qrContainer, eventBus) {
   }
 
   eventBus.addEventListener("session-found", (evt) => {
-    qrEl.innerHTML = "";
-    generateQR(evt.detail.sessionID);
-    console.log(qrContainer);
-    qrContainer.classList.remove("hidden");
+    if (evt.detail.key == key) {
+      qrEl.innerHTML = "";
+      generateQR(evt.detail.sessionID);
+      console.log(qrContainer);
+      qrContainer.classList.remove("hidden");
+    }
+
   });
 
-  eventBus.addEventListener("session-not-found", () => {
-    qrEl.innerHTML = "";
-    qrContainer.classList.add("hidden");
+  eventBus.addEventListener("session-not-found", (evt) => {
+    if (evt.detail.key == key) {
+      qrEl.innerHTML = "";
+      qrContainer.classList.add("hidden");
+    }
   });
 }
 

@@ -15,16 +15,13 @@ import { initializeLookupSession } from "./lookup_session.js";
 import { initializeUsernameEntry } from "./username_entry.js";
 import { initializeMainSlides } from "./main_slides.js";
 import { initializeQuestionChoice } from "./question_choice.js";
+import { initializeMapView } from "./create_map_view.js";
 // Event bus
 const eventBus = new EventTarget(); 
 
 // Construct map
 // const mapEl = document.querySelector(".map");
 // const map = initMap(mapEl);
-
-// const test = await getDataFS();
-
-// addDataFS("testy1", "testy2");
 
 // Process data
 // const {data, dataGeoJSON, neighborhoods} = await getData();
@@ -48,6 +45,7 @@ initializeMainSlides({mainMenuEl: document.querySelector(".main-menu"),
                       viewBackEl: document.querySelector(".view-back"),
                       viewSessionBack: document.querySelector(".view-session-back"),
                       viewSessionNext: document.querySelector(".view-session-next"),
+                      viewSessionID: document.querySelector(".view-session .session-id-input"),
                     },
                      eventBus);
 
@@ -57,10 +55,11 @@ initializeMainSlides({mainMenuEl: document.querySelector(".main-menu"),
 initializePopupSlides(document.querySelector(".popup"), eventBus);
 
 // Initialize maps and search boxes on all slides
-[1,2,3, "view"].forEach((questionNumber) => {
+[1,2,3].forEach((questionNumber) => {
   initializeMap(document.querySelector("#map-" + questionNumber), eventBus, questionNumber);
   initializeAddressEntry(document.querySelector("#popup-search-bar-" + questionNumber), 
                          document.querySelector("#popup-search-dropdown-"  + questionNumber), 
+                         questionNumber,
                          eventBus);
 })
 
@@ -76,11 +75,13 @@ initializeResponseStorage(document.querySelector(".popup-submit"), eventBus);
 // Initialize QR code
 initializeQR(document.querySelector(".popup .qr-code"), 
              document.querySelector(".popup .qr-container"),
+             "popup",
              eventBus);
 
 // Initialize component to look up session ID on firebase
 initializeLookupSession(document.querySelector(".session-id-input"),
                         document.querySelector(".session-error-msg"),
+                        "popup",
                         eventBus);
 
 // VIEW RESULTS SECTION:
@@ -88,11 +89,13 @@ initializeLookupSession(document.querySelector(".session-id-input"),
 // Initialize QR code for view results menu
 initializeQR(document.querySelector(".view-session .qr-code"), 
              document.querySelector(".view-session .qr-container"),
+             "view",
              eventBus);
 
 // Initialize component to look up session ID on firebase for view results menu
 initializeLookupSession(document.querySelector(".view-session .session-id-input"),
                         document.querySelector(".view-session .session-error-msg"),
+                        "view",
                         eventBus);
 
 // Handle question choice event
@@ -101,3 +104,12 @@ initializeQuestionChoice(document.querySelector(".change-qn-button"),
                          document.querySelectorAll(".view-qn-choice"), 
                          document.querySelector(".change-qn-button"),
                          eventBus);
+
+// Create map for result viewing
+initializeMapView(document.querySelector("#map-view"), eventBus)
+
+// Allow zooming for map for result viewing
+initializeAddressEntry(document.querySelector("#popup-search-bar-view"), 
+                       document.querySelector("#popup-search-dropdown-view"), 
+                       "view",
+                        eventBus);

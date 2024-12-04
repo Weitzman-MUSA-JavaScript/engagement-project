@@ -1,10 +1,10 @@
 import { debounce } from './debounce.js';
 import { getDataFS } from "./firebase.js";
 // 
-function initializeLookupSession(sessionEl, sessionErrorMsg, eventBus) {
+function initializeLookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
 
   function debouncedLookup() {
-    debounce(lookupSession(sessionEl, sessionErrorMsg, eventBus), 500); 
+    debounce(lookupSession(sessionEl, sessionErrorMsg, key, eventBus), 500); 
   }; // if want to add debounce, need to add it here. wrap up the above function
   
 
@@ -21,7 +21,7 @@ function initializeLookupSession(sessionEl, sessionErrorMsg, eventBus) {
   sessionEl.addEventListener('input', debouncedLookup);
 }
 
-async function lookupSession(sessionEl, sessionErrorMsg, eventBus) {
+async function lookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
   let enteredSessionID = sessionEl.value;
 
   // Check firestore for session ID
@@ -30,7 +30,7 @@ async function lookupSession(sessionEl, sessionErrorMsg, eventBus) {
 
   if (sessions.includes(enteredSessionID)) {
     // session found and dispatch event to generate the qr code
-    const sessionFound = new CustomEvent('session-found', { detail: { sessionID : enteredSessionID }});
+    const sessionFound = new CustomEvent('session-found', { detail: { sessionID : enteredSessionID, key: key }});
   
     eventBus.dispatchEvent(sessionFound);
 
@@ -38,7 +38,7 @@ async function lookupSession(sessionEl, sessionErrorMsg, eventBus) {
   } else {
     sessionErrorMsg.innerHTML = "SESSION ID NOT FOUND"; 
 
-    const sessionNotFound = new CustomEvent('session-not-found', { detail: { sessionID : enteredSessionID }});
+    const sessionNotFound = new CustomEvent('session-not-found', { detail: { sessionID : enteredSessionID, key: key }});
 
     eventBus.dispatchEvent(sessionNotFound);
   }

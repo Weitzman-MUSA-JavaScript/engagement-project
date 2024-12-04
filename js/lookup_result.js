@@ -23,6 +23,7 @@ function responseToFeature(response, qnNumber) {
     properties: {
       "username": response.username,
       "icon": response.icon,
+      "qnNumber": qnNumber,
     },
     geometry: {
       type: 'Point',
