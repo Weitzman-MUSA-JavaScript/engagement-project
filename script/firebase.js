@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const darkBlueIcon = L.icon({
+export const darkBlueIcon = L.icon({
   iconUrl: 'images/darkbluepin.png', // Path to your custom image
   iconSize: [30, null], // Set width to 50px, height is automatically calculated
   iconAnchor: [15, 30], // Adjust anchor point if needed
