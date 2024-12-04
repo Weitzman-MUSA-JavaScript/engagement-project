@@ -15,7 +15,9 @@ async function saveData(lng, lat) {
     const timestamp = new Date().toISOString();
     // const ipAddress = await getIPAddress(); // Get the user's IP address
 
-    const data = { lng, lat, comment_EN, sentiment, timestamp, ipAddress };
+    const data = { lng, lat, comment_EN, sentiment, timestamp,
+        // ipAddress 
+    };
 
     try {
         // Save to Firestore
