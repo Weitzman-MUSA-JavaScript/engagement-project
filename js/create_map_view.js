@@ -21,7 +21,6 @@ function initializeMapView(el, eventBus) {
     loadResult(evt.detail.sessionID).then(
       (data) => {
         results = data;
-        console.log("LOOK AT RESULTS" + results);
 
         // Initially render question 1
         renderData(1, layerGroup, results);
@@ -70,10 +69,10 @@ function renderData(qnNumber, layerGroup, results) {
       return(layer.bindPopup(feature.properties.username));
     }
   };
-  
+
   const filteredResults = results.filter( (feature) => feature.properties.qnNumber == qnNumber);
 
-  console.log(filteredResults);
+  // console.log(filteredResults);
 
   layerGroup.clearLayers();
 

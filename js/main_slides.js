@@ -36,20 +36,42 @@ function initializeMainSlides({mainMenuEl, popupEl, contributeButtonEl, viewEl, 
     slideRight(viewSessionEl, mainMenuEl);
   })
 
-  // View session ID to view results
-  viewSessionNext.addEventListener("click", () => {
-
+  // Needed so that I can remove and add the ability to move to next slide
+  function sessionToView() {
     // Dispatch event to load data and load question 1
     const loadDataEvt = new CustomEvent('load-results', { detail: { sessionID: viewSessionID.value }});
-    const qnChoiceEvt = new CustomEvent('qn-choice', { detail: { qnChosen: 1 }});
-      
+            
     console.log("Session Loaded " + viewSessionID.value);
     
-    eventBus.dispatchEvent(qnChoiceEvt);
     eventBus.dispatchEvent(loadDataEvt);
 
     slideLeft(viewSessionEl, viewEl);
-  })
+  }
+
+  // Enable next button only valid Session ID is found
+  eventBus.addEventListener("session-found", (e) => {
+
+    if (e.detail.key == "view") {
+
+      // Ungrey the next button
+      viewSessionNext.classList.remove("grayout");
+
+      // View session ID to view results
+      viewSessionNext.addEventListener("click", sessionToView);
+    }
+  });
+
+  // Disable next button when session ID is not valid
+  eventBus.addEventListener("session-not-found", (e) => {
+
+    if (e.detail.key == "view") {
+      // Ungrey the next button
+      viewSessionNext.classList.add("grayout");
+
+      viewSessionNext.removeEventListener("click", sessionToView);
+    }
+  });
+
 }
 
 function slideRight(fromEl, toEl) {
