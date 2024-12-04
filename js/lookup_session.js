@@ -25,27 +25,27 @@ async function lookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
 
   // Check firestore for session ID
   const sessionsRaw = await getDataFS("session-collection");
-  const sessions = sessionsRaw.map((e) => e.sessionID);
-  const sessionFound = sessions.find((e) => e.sessionID == enteredSessionID);
-
-  console.log(sessions)
+  const sessionFound = sessionsRaw.find((e) => e.sessionID == enteredSessionID);
 
   if (sessionFound !== undefined) {
 
     // session found and dispatch event to generate the qr code
-    const sessionFound = new CustomEvent('session-found', { detail: { 
+    const sessionFoundEvt = new CustomEvent('session-found', { detail: { 
       sessionID : enteredSessionID, 
-      key: key }});
+      key: key,
+      qn1: sessionFound.qn1,
+      qn2: sessionFound.qn2,
+      qn3: sessionFound.qn3, }});
   
-    eventBus.dispatchEvent(sessionFound);
+    eventBus.dispatchEvent(sessionFoundEvt);
 
     sessionErrorMsg.innerHTML = "";
   } else {
     sessionErrorMsg.innerHTML = "SESSION ID NOT FOUND"; 
 
-    const sessionNotFound = new CustomEvent('session-not-found', { detail: { sessionID : enteredSessionID, key: key }});
+    const sessionNotFoundEvt = new CustomEvent('session-not-found', { detail: { sessionID : enteredSessionID, key: key }});
 
-    eventBus.dispatchEvent(sessionNotFound);
+    eventBus.dispatchEvent(sessionNotFoundEvt);
   }
 
   console.log("LOOK UP EVENT");
