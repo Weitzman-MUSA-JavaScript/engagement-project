@@ -13,7 +13,7 @@ async function saveData(lng, lat) {
     const comment_EN = document.getElementById('comment').value;
     const sentiment = document.getElementById('sentiment-indicator').value;
     const timestamp = new Date().toISOString();
-    const ipAddress = await getIPAddress(); // Get the user's IP address
+    // const ipAddress = await getIPAddress(); // Get the user's IP address
 
     const data = { lng, lat, comment_EN, sentiment, timestamp, ipAddress };
 
