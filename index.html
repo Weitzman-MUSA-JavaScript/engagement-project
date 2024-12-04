@@ -13,15 +13,17 @@
     <body>
         <main>
             <h1>CLEAR PATHS PHILADELPHIA</h1>
-            <p>Finding easier and safer pedestrian routes--for everybody.</p>
-            <button onclick="window.location.href = 'navigation.html';">GO SOMEWHERE</button>
-            <br>
-            <button onclick="window.location.href = 'report.html';">REPORT AN OBSTRUCTION</button>
-            <br>
-            <button onclick="window.location.href = 'appInfo.html';">ABOUT CLEAR PATHS PHL</button>
+            <p>Finding easier and safer pedestrian routes&mdash;for everybody.</p>
+            <div class="button-group">
+                <button onclick="window.location.href = 'navigation.html';">GO SOMEWHERE</button>
+                <br>
+                <button onclick="window.location.href = 'report.html';">REPORT AN OBSTRUCTION</button>
+                <br>
+                <button onclick="window.location.href = 'appInfo.html';">ABOUT CLEAR PATHS PHL</button>
+            </div>
         </main>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script type="module" src="js/main.js"></script>
     </body>
 </html>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script type="module" src="js/main.js"></script>
