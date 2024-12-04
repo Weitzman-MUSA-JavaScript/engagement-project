@@ -5,6 +5,22 @@ function initializeQuestionChoice(changeQnEl, qnMenuEl, allQnChoiceEls, changeQn
   // Text for rendering question
   const questionText = changeQnButtonEl.querySelector("p");
 
+  let qn1Text = "Qn 1: Default Qn1";
+  let qn2Text = "Qn 2: Default Qn2";
+  let qn3Text = "Qn 3: Default Qn3";
+
+  function fillQuestionChoice(qnChoiceEl) {
+    if (qnChoiceEl.value == 1) {
+      qnChoiceEl.innerHTML = qn1Text;
+    } else if (qnChoiceEl.value == 2) {
+      qnChoiceEl.innerHTML = qn2Text;
+    } else if (qnChoiceEl.value == 3) {
+      qnChoiceEl.innerHTML = qn3Text;
+    }
+  
+    qnChoiceEl.classList.add("view-qn-choice-open");
+  }
+
   // Open qn choice menu
   changeQnEl.addEventListener("click", () => {
     console.log("QUESTION CHANGE MENU");
@@ -31,22 +47,23 @@ function initializeQuestionChoice(changeQnEl, qnMenuEl, allQnChoiceEls, changeQn
     });
   });
 
-  // Fill question 1 first
-  questionText.value = 1;
-  fillQuestionChoice(questionText);
 
-}
 
-function fillQuestionChoice(qnChoiceEl) {
-  if (qnChoiceEl.value == 1) {
-    qnChoiceEl.innerHTML = "Qn 1: Where's your favourite singer from?";
-  } else if (qnChoiceEl.value == 2) {
-    qnChoiceEl.innerHTML = "Qn 2: Where would you like to live if money was no concern?";
-  } else if (qnChoiceEl.value == 3) {
-    qnChoiceEl.innerHTML = "Qn 3: What's your favourite place in Philadelphia?";
-  }
+  // Create listener for sessions
+  eventBus.addEventListener('session-found', (evt) => {
 
-  qnChoiceEl.classList.add("view-qn-choice-open");
+    if (evt.detail.key == "view") {
+      qn1Text = evt.detail.qn1;
+      qn2Text = evt.detail.qn2;
+      qn3Text = evt.detail.qn3;
+  
+      // Fill question 1 first
+      questionText.value = 1;
+      fillQuestionChoice(questionText);
+    }
+
+  });
+
 }
 
 function clearAllQuestionChoices(allQnChoiceEls) {
