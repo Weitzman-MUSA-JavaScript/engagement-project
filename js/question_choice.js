@@ -37,6 +37,11 @@ function initializeQuestionChoice(changeQnEl, qnMenuEl, allQnChoiceEls, changeQn
 
       questionText.innerHTML = "";
 
+      // event when question is selected
+      const qnChoiceEvt = new CustomEvent('qn-choice', { detail: { qnChosen: el.value }});
+
+      eventBus.dispatchEvent(qnChoiceEvt);
+
       questionText.value = el.value;
       fillQuestionChoice(questionText);
 
