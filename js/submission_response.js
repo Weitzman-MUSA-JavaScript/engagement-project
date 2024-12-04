@@ -1,20 +1,19 @@
-import { debounce } from "./debounce.js";
-// 
-function initializeUsernameEntry(usernameEl, eventBus) {
+
+// Controls the little popup that comes up when response submitted 
+function initializeSubmissionPopup(submissionPopupEl, eventBus) {
   
-  usernameEl.addEventListener('input', () => debounce(handleUsernameEntry(usernameEl.value, eventBus), 500));
+  eventBus.addEventListener('response-submitted', () => {
+    // Make popup come down
+    submissionPopupEl.classList.remove("submit-slide-top");
+
+    console.log("MOVE SUBMISSION DOWN");
+
+    // Move popup back up
+    setTimeout(() => {submissionPopupEl.classList.add("submit-slide-top")}, 2000);
+  });
 }
 
-function handleUsernameEntry(username, eventBus) {
-
-  // event when username is entered
-  const usernameEntryEvt = new CustomEvent('username-entered', { detail: { username: username }});
-
-  console.log("Username entered " + username);
-  
-  eventBus.dispatchEvent(usernameEntryEvt);
-}
 
 export {
-  initializeUsernameEntry,
+  initializeSubmissionPopup,
 };

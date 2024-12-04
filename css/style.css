@@ -57,7 +57,7 @@ h1 {
 
 .main-slide {
   position: absolute;
-  top: 9%;
+  top: 4%;
 
   width: 100%;
   height: 88vh;
@@ -135,8 +135,7 @@ h1 {
 #footer-section {
     grid-row: 2 / 3;
     box-sizing: border-box;
-    background-color: #D3D3D3;
-    border: 2px solid #808080;
+    background-color: #fdd8b9;
 }
 
 .grayout {
@@ -162,32 +161,28 @@ h1 {
 
 
 @media screen and (min-width: 30em) and (orientation: landscape) {
-    h1 {
-        color: #000;
-        height: 100%;
-        padding: 2vh;
-        margin: 0;
-        box-sizing: border-box;
-        font-size: 3em;
-    }
+  .main-menu-button-container{
+    width: 40%;
+    margin-left: 30%;
+  }
 
-    header {
-        height: 9vh;
-        font-size: 12px;
-        box-sizing: border-box;
-        background-size: 100% 100%;
-    }
+  .left {
+    left: -100%
+  }
 
-    .main-container {
-        display: grid;
-        grid-template: 80vh 1fr / 1fr;
-        height: 88vh;
-    }
+  .right { 
+    right: 100%;
+  }
 
-    #footer-section {
-        grid-row: 2 / 3;
-        box-sizing: border-box;
-        background-color: #D3D3D3;
-        border: 2px solid #808080;
-    }
+  .main-slide {
+    width: 100%;
+    height: 78%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  
+    transform: translate(0%, 0%);
+    transition: left 1.5s;
+  }
+
   }

@@ -1,40 +1,21 @@
 // Maybe remove the -compat
 import { initializeMap } from "./create_map.js";
-// import { initializeHist } from "./chart.js";
-// import { getData } from "./data_cleaning.js";
 import { initializePopupSlides} from "./popup_slides.js";
-// import { initializeList } from "./neighborhood_list.js";
-// import { initializeMapRendering } from "./map_rendering.js";
-// import { initializeStatDisplay } from "./stat_displaying.js";
 import { initializeIconSelect} from "./icon_select.js";
 import { initializeAddressEntry } from "./address-input.js";
 import { initializeResponseStorage } from "./response_handler.js";
 import { initializeQR } from "./qr_builder.js";
-// import { getDataFS, addDataFS } from "./firebase.js";
 import { initializeLookupSession } from "./lookup_session.js";
 import { initializeUsernameEntry } from "./username_entry.js";
 import { initializeMainSlides } from "./main_slides.js";
 import { initializeQuestionChoice } from "./question_choice.js";
 import { initializeMapView } from "./create_map_view.js";
 import { initializeNewSessionCreator } from "./new_session.js";
+import { initializePopupQuestion } from "./popup_questions.js";
+import { initializeSubmissionPopup } from "./submission_response.js";
 // Event bus
 const eventBus = new EventTarget(); 
 
-// Construct map
-// const mapEl = document.querySelector(".map");
-// const map = initMap(mapEl);
-
-// Process data
-// const {data, dataGeoJSON, neighborhoods} = await getData();
-
-// Initialize search box
-// initializeAddressEntry();
-
-// Create neighborhood list
-// initializeList(neighborhoods, evt));
-
-// Initialize map point rendering
-// initializeMapRendering(dataGeoJSON, map, evt);
 
 // Initialize logic for navigation between main slides 
 initializeMainSlides({mainMenuEl: document.querySelector(".main-menu"),
@@ -87,6 +68,14 @@ initializeLookupSession(document.querySelector(".session-id-input"),
                         document.querySelector(".session-error-msg"),
                         "popup",
                         eventBus);
+
+// Initialize loading questions when session found
+initializePopupQuestion(document.querySelector(".popup-qn1"),
+                        document.querySelector(".popup-qn2"),
+                        document.querySelector(".popup-qn3"),
+                        eventBus);
+
+initializeSubmissionPopup(document.querySelector(".submit-slide"), eventBus);
 
 // VIEW RESULTS SECTION:
 

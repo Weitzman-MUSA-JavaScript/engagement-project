@@ -18,6 +18,14 @@ function initializeLookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
   };
 
   sessionEl.addEventListener('input', debouncedLookup);
+
+  // Add lookup when new session created
+  eventBus.addEventListener("creation-submitted", (evt) => {
+    if (window.location.hash !== ""){
+      sessionEl.value = window.location.hash.substring(1, window.location.hash.length);
+      debouncedLookup();
+    };
+  });
 }
 
 async function lookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
