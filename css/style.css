@@ -163,7 +163,9 @@ h1 {
 @media screen and (min-width: 30em) and (orientation: landscape) {
   .main-menu-button-container{
     width: 40%;
-    margin-left: 30%;
+    margin-left: 28%;
+
+    padding-top: 2%;
   }
 
   .left {

@@ -296,8 +296,8 @@
 
 @media screen and (min-width: 30em) and (orientation: landscape) {
   .popup-slide {
-    width: 700px;
-    margin-left: 420px;
+    width: 40%;
+    margin-left: 25%;
   }
 
   .popup-search-box {

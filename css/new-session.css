@@ -54,8 +54,8 @@
 
 @media screen and (min-width: 30em) and (orientation: landscape) {
   .new-session{
-    width: 700px;
-    margin-left: 420px;
+    width: 40%;
+    margin-left: 25%;
   }
 
 }
