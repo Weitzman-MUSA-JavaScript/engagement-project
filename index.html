@@ -2,14 +2,14 @@
 
 <html lang="en">
   <head>
-    <title>PMA Dashboard</title>
+    <title>PinPoint</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     
     <!-- <link rel="stylesheet" href="css/main-stat-style.css">-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/popup-style.css">
-    
+    <link rel="stylesheet" href="css/new-session.css">
     <link rel="stylesheet" href="css/view-result.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -50,14 +50,36 @@
               </button>
             </div>
           </div>
-  
+
+          <div class="new-session main-slide right">
+            <div class="main-text">
+              <p>Create a new session!</p>
+              
+            </div>
+            <div class="new-qn-1 new-qn">
+              <p>Question 1:</p>
+              <input type="text" class="new-qn-input new-qn1" maxlength="55" placeholder="Question 1" autocomplete="off">
+            </div>
+            <div class="new-qn-2 new-qn">
+              <p>Question 2:</p>
+              <input type="text" class="new-qn-input new-qn2" maxlength="55" placeholder="Question 2" autocomplete="off">
+            </div>
+            <div class="new-qn-3 new-qn">
+              <p>Question 3:</p>
+              <input type="text" class="new-qn-input new-qn3" maxlength="55" placeholder="Question 3" autocomplete="off">
+            </div>
+            <div class = "button-container">
+              <button class="new-session-back"> Back </button>
+              <button class="new-session-create grayout"> Create </button>
+            </div>
+          </div>
 
           <div class="popup main-slide right">
 
     
             <div class = "popup-slide popup-slide-0 popup-slide-center"> 
               <div class = "main-text">
-                <p> Hi there! <br> Are you here to contribute or would you like to just see the map?</p>
+                <p> Hi there! <br> Confirm that you've got the right sessionID?</p>
               </div>
               <div class = "all-session-container">
                 <div class = "hash-container">
@@ -203,7 +225,7 @@
             </div>
             <div class = "popup-button-container">
               <button class="view-session-back"> Close </button>
-              <button class="view-session-next"> Next </button>
+              <button class="view-session-next grayout"> Next </button>
             </div>
           </div>
 

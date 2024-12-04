@@ -16,6 +16,7 @@ import { initializeUsernameEntry } from "./username_entry.js";
 import { initializeMainSlides } from "./main_slides.js";
 import { initializeQuestionChoice } from "./question_choice.js";
 import { initializeMapView } from "./create_map_view.js";
+import { initializeNewSessionCreator } from "./new_session.js";
 // Event bus
 const eventBus = new EventTarget(); 
 
@@ -46,6 +47,9 @@ initializeMainSlides({mainMenuEl: document.querySelector(".main-menu"),
                       viewSessionBack: document.querySelector(".view-session-back"),
                       viewSessionNext: document.querySelector(".view-session-next"),
                       viewSessionID: document.querySelector(".view-session .session-id-input"),
+                      newSessionEl: document.querySelector(".new-session"),
+                      newSessionButton: document.querySelector(".mm-new-session-button"),
+                      newSessionBack: document.querySelector(".new-session-back"),
                     },
                      eventBus);
 
@@ -113,3 +117,7 @@ initializeAddressEntry(document.querySelector("#popup-search-bar-view"),
                        document.querySelector("#popup-search-dropdown-view"), 
                        "view",
                         eventBus);
+
+// NEW SESSION SECTION:
+
+initializeNewSessionCreator(document.querySelector(".new-session"), eventBus);

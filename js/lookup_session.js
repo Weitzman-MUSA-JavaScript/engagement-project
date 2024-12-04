@@ -17,7 +17,6 @@ function initializeLookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
     debouncedLookup();
   };
 
-
   sessionEl.addEventListener('input', debouncedLookup);
 }
 
@@ -27,10 +26,16 @@ async function lookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
   // Check firestore for session ID
   const sessionsRaw = await getDataFS("session-collection");
   const sessions = sessionsRaw.map((e) => e.sessionID);
+  const sessionFound = sessions.find((e) => e.sessionID == enteredSessionID);
 
-  if (sessions.includes(enteredSessionID)) {
+  console.log(sessions)
+
+  if (sessionFound !== undefined) {
+
     // session found and dispatch event to generate the qr code
-    const sessionFound = new CustomEvent('session-found', { detail: { sessionID : enteredSessionID, key: key }});
+    const sessionFound = new CustomEvent('session-found', { detail: { 
+      sessionID : enteredSessionID, 
+      key: key }});
   
     eventBus.dispatchEvent(sessionFound);
 

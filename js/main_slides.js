@@ -1,6 +1,7 @@
 
 function initializeMainSlides({mainMenuEl, popupEl, contributeButtonEl, viewEl, viewBackEl, viewSessionEl, 
-  viewButtonEl, viewSessionBack, viewSessionNext, viewSessionID}, eventBus) {
+  viewButtonEl, viewSessionBack, viewSessionNext, viewSessionID, newSessionEl, newSessionButton, 
+  newSessionBack}, eventBus) {
 
   // Main menu to popup contribute section
   contributeButtonEl.addEventListener("click", () => {
@@ -70,6 +71,16 @@ function initializeMainSlides({mainMenuEl, popupEl, contributeButtonEl, viewEl, 
 
       viewSessionNext.removeEventListener("click", sessionToView);
     }
+  });
+
+  // Main menu to new session
+  newSessionButton.addEventListener("click", () => {
+    slideLeft(mainMenuEl, newSessionEl);
+  });
+
+  // Main menu to new session
+  newSessionBack.addEventListener("click", () => {
+    slideRight(newSessionEl, mainMenuEl);
   });
 
 }

@@ -25,6 +25,9 @@ function initializeResponseStorage(submitButtonEl, eventBus) {
       const responseSubmitted = new CustomEvent('response-submitted');
       
       eventBus.dispatchEvent(responseSubmitted);
+
+      // Unlock after 5s
+      setTimeout(() => submissionLocked = false, 5000);
     }
   }
 

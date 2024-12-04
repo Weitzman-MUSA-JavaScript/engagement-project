@@ -1,0 +1,54 @@
+.new-session {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.new-session .main-text {
+  height: 5vh;
+}
+
+.new-qn {
+  width: 90%;
+  margin-left: 5%;
+  height: 15%;
+  min-height: fit-content;
+}
+
+.new-qn p {
+  margin: 0;
+}
+
+.new-qn-input {
+  width: 90%;
+  font-size: 1rem;
+  font-family: "Montserrat";
+  margin: 2px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  position: relative;
+  
+  height: 7vh;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.button-container button {
+  width: 35%;
+  height: 90%;
+  background: #bc5a1f;
+  color: #fff;
+  border: 0;
+  outline: none;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+
+  font-family: "Montserrat";
+}
+
