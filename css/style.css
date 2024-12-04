@@ -1,0 +1,268 @@
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
+h1 {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  position:absolute;
+  width: calc( 100% - 20px );;
+  z-index: 1;
+  background-color: white;
+  padding-top: 10px;
+padding-right: 10px;
+padding-bottom: 10px;
+padding-left: 10px;
+  border-radius: 0px;
+  margin-top: 0em;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: small;
+    font-family: Helvetica, sans-serif;
+}
+
+#map {
+    position:absolute;
+    top: 0px;
+    bottom: 0;
+    width: 100%;
+}
+
+.flex-container {
+  display: flex;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
+li {
+  display: flex;
+  flex-direction: row;
+  padding:1px;
+  margin: 0;
+  align-items: center;
+  justify-content:start;
+  margin-bottom: 1px;
+}
+#legend-item {
+  display: flex;
+  flex-direction: row;
+  padding:1px;
+  margin: 0;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+
+.sidebar {
+    position:relative ;
+    top: 55px;
+    width: 300px;
+    left: 7px;
+    z-index: 1;
+    background-color: white;
+    
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
+    list-style-type: none;
+       
+}
+button{
+  
+  font-size: 15px;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #ccc;
+border-radius: 50%;
+background-color: #f9f9f9;
+color: #040303;
+}
+/* Hover effect for dropdown */
+button:hover {
+  border-color: #777;
+}
+  
+/* Spinner styles */
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #5f5f5f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #5f5f5f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+
+}
+/* Keyframes for spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#toggle-info{
+  font-size: small;
+  font-weight: 400;
+  border: 0px;
+  background-color: white;
+  padding: 10px;
+}
+.close-popup{
+  font-size: larger;
+  padding: 10px;
+
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position:fixed;
+  top: 0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 999;
+  background-color:white;
+  padding: 10px;
+  opacity: 1; 
+  transition: opacity 1s ease;
+  
+
+     
+}
+#info-details {
+  text-align: center;
+  width:fit-content;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  /* box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5); */
+  list-style-type: none;
+  
+     
+}
+canvas {
+  margin:auto;
+}
+.chart {
+  display:block;
+  text-align: center;
+  position:relative ;
+  top: 60px;
+  width: 300px;
+  height: auto;
+  left: 7px;
+  z-index: 1;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
+  list-style-type: none;
+  font-weight: 300;
+  
+     
+}
+
+.legend {
+  display: block;
+  position:relative ;
+  top: 65px;
+  width: 300px;
+  
+  left: 7px;
+  height: fit-content;
+  z-index: 1;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(69, 66, 66, 0.5);
+  list-style-type: none;
+  padding: 10px;
+  
+     
+}
+#credits{
+  padding: 50px;
+}
+
+a {
+  color: #56949A;
+}
+#circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Styling the select elements */
+.custom-select {
+  width: 70%;
+  padding-left:10px;
+  font-size:13px
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  appearance: none; /* Removes the default arrow icon */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+    align-items: center;
+
+    
+}
+
+
+
+/* Styling the dropdown options */
+.custom-select option {
+  padding: 10px;
+  background-color: #fff;
+}
+
+/* Hover effect for dropdown */
+.custom-select:hover {
+  border-color: #777;
+}
+
+/* Focus state */
+.custom-select:focus {
+  outline: none;
+  border-color: #999; /* Green border when focused */
+  box-shadow: 0 0 5px #999; /* Soft shadow when focused */
+}
+
+.fade-out {
+  opacity: 0;
+}
