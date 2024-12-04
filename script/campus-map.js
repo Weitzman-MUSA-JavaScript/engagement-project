@@ -1,5 +1,6 @@
 export let campusMap;
 let tempMarker = null;
+import { darkBlueIcon } from './firebase.js';
 
 export function initializeCampusMap(eventBus, data) {
   campusMap = L.map('campus-map').setView([51.5247275, -0.1333933], 16);
@@ -22,7 +23,7 @@ export function addLocationMarker(lat, lng) {
   if (tempMarker) {
     campusMap.removeLayer(tempMarker);
   }
-  tempMarker = L.marker([lat, lng]).addTo(campusMap);
+  tempMarker = L.marker([lat, lng], { icon: darkBlueIcon }).addTo(campusMap);
   campusMap.setView([lat, lng], 16);
   return tempMarker;
 }
