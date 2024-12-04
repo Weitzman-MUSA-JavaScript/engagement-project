@@ -36,7 +36,6 @@ function initializeMapView(el, eventBus) {
 }
 
 function createMap(el) {
-  console.log(el);
   const map = L.map(el, {maxZoom: 18, zoomsnap: 0, scrollWheelZoom: false}).setView([0, 0], 1);
   const mapboxKey = 'pk.eyJ1Ijoic2Vhbm1rb2giLCJhIjoiY20weGI2bm8zMGJmOTJqcHEzeTRnZXEwcCJ9.8OStU7WetpCxZ9YiUCiigA';
   const mapboxStyle = 'mapbox/streets-v12';

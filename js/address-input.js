@@ -22,7 +22,7 @@ async function handleAddressEntryChange(addressEntry, addressChoiceList, questio
   addressChoiceList.classList.remove('hidden'); // First remove the hidden style of ol
   console.log('handling address change');
   const partialAddress = addressEntry.value; // .value gets the text of the entry
-  const apiKey = 'pk.eyJ1IjoianVueWl5IiwiYSI6ImNsbm03NGszNDFrbHgybW1uZXBrMTMwZ3EifQ.VJyFnRhnQtJ9yU5gl0SdoA';
+  const apiKey = 'sk.eyJ1Ijoic2Vhbm1rb2giLCJhIjoiY200OWQyYnB6MDJ6ajJpcHVod3JvMXd0bCJ9.Jng-iSpa5FRlw5HnaaFx2g';
   const bbox = [-75.3002, 39.8544, -74.9995, 40.0649].join(',');
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${partialAddress}.json?&access_token=${apiKey}`; // use ``
 
