@@ -8,7 +8,7 @@ function initializeLookupSession(sessionEl, sessionErrorMsg, key, eventBus) {
   }; // if want to add debounce, need to add it here. wrap up the above function
   
 
-  console.log(sessionEl);
+  // console.log(sessionEl);
 
   // Initialize using hash
   // if (window.location.hash);

@@ -16,7 +16,7 @@ function initializeQR(qrEl, qrContainer, key, eventBus) {
     if (evt.detail.key == key) {
       qrEl.innerHTML = "";
       generateQR(evt.detail.sessionID);
-      console.log(qrContainer);
+      // console.log(qrContainer);
       qrContainer.classList.remove("hidden");
     }
 
