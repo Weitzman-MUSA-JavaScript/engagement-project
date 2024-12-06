@@ -324,13 +324,13 @@
     width: 30vw;
   }
 
-  .submit-slide {
+  .submit-confirmation {
     width: 40%;
     left: 30%;
     
   }
 
-  .submit-slide p {
+  .submit-confirmation p {
     font-size: 2rem;
     margin-top: 40px;
   }
