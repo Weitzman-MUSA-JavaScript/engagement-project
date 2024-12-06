@@ -107,6 +107,10 @@
   margin-left: 2.5%;
 }
 
+.view-results .popup-search-box {
+  top: 22.5%;
+}
+
 @media screen and (min-width: 30em) and (orientation: landscape) {
   .view-session {
     width: 40%;
