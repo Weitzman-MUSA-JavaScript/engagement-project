@@ -238,6 +238,8 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+
+  margin-bottom: 20px;
 }
 
 .submission-username p { 
