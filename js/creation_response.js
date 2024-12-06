@@ -1,19 +1,19 @@
 
 // Controls the little popup that comes up when response submitted 
-function initializeSubmissionPopup(submissionPopupEl, eventBus) {
+function initializeCreationPopup(creationPopupEl, eventBus) {
   
-  eventBus.addEventListener('response-submitted', () => {
+  eventBus.addEventListener('creation-submitted', () => {
     // Make popup come down
-    submissionPopupEl.classList.remove("submit-slide-top");
+    creationPopupEl.classList.remove("submit-slide-top");
 
-    console.log("MOVE SUBMISSION DOWN");
+    console.log("MOVE CREATION SLIDE DOWN");
 
     // Move popup back up
-    setTimeout(() => {submissionPopupEl.classList.add("submit-slide-top")}, 2000);
+    setTimeout(() => {creationPopupEl.classList.add("submit-slide-top")}, 1500);
   });
 }
 
 
 export {
-  initializeSubmissionPopup,
+  initializeCreationPopup,
 };
