@@ -13,6 +13,7 @@ import { initializeMapView } from "./create_map_view.js";
 import { initializeNewSessionCreator } from "./new_session.js";
 import { initializePopupQuestion } from "./popup_questions.js";
 import { initializeSubmissionPopup } from "./submission_response.js";
+import { initializeCreationPopup } from "./creation_response.js";
 // Event bus
 const eventBus = new EventTarget(); 
 
@@ -110,3 +111,5 @@ initializeAddressEntry(document.querySelector("#popup-search-bar-view"),
 // NEW SESSION SECTION:
 
 initializeNewSessionCreator(document.querySelector(".new-session"), eventBus);
+
+initializeCreationPopup(document.querySelector(".create-slide"), eventBus);

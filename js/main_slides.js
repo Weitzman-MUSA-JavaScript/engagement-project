@@ -78,10 +78,15 @@ function initializeMainSlides({mainMenuEl, popupEl, contributeButtonEl, viewEl, 
     slideLeft(mainMenuEl, newSessionEl);
   });
 
-  // Main menu to new session
+  // New session to main menu
   newSessionBack.addEventListener("click", () => {
     slideRight(newSessionEl, mainMenuEl);
   });
+
+  // Go back to main menu on creation
+  eventBus.addEventListener('creation-submitted', () => {
+    slideRight(newSessionEl, mainMenuEl);
+  })
 
 }
 
