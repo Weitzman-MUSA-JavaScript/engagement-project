@@ -12,15 +12,7 @@ html {
 }
 
 body {
-  height: 100vh;
-  width: 100%;
-
-  margin: 0;
-  padding: 0;
-}
-
-main {
-  height: 100vh;
+  height: auto;
   width:100%;
   max-width: 1000px;
 
@@ -28,7 +20,6 @@ main {
 
   display:flex;
   flex-direction: column;
-  position: relative;
 }
 
 aside {
@@ -38,6 +29,12 @@ aside {
   position: fixed;
   bottom: 20px;
   margin-left: -350px;
+}
+
+@media (width < 1400px) {
+  aside {
+    display: none;
+  }
 }
 
 .project-list {
