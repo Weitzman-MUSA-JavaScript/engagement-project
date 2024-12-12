@@ -219,6 +219,10 @@ main {
   height: auto;
   width: auto;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   margin: 0;
   margin-top: 3rem;
 
@@ -231,9 +235,19 @@ main {
   width: auto;
 
   border: 0;
+  margin-left: 0.4rem;
 
   font-size: 1.2rem;
   font-weight: 400;
+
+  appearance: none;
+}
+
+.select-icon {
+  height: 1.2rem;
+  width: auto;
+
+  margin-left: 0.4rem;
 }
 
 /* for project list */
