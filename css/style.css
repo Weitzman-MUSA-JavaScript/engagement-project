@@ -3,7 +3,6 @@
 */
 * {
   box-sizing: border-box;
-  /* border: 1px solid red; */
 }
 
 html {
@@ -258,30 +257,13 @@ main {
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform 0.2s linear, height 0.2s linear, margin-top 0.2s linear;
+  transition: transform 0.2s ease, height 0.2s ease, margin-top 0.2s ease;
 
   display: flex;
   flex-direction: row;
   gap: 2rem;
 
   list-style: none;
-}
-
-.main-project-type button {
-  height: auto;
-  width: 100%;
-
-  background-color: white;
-  border: none;
-
-  font-size: 1rem;
-
-  cursor: pointer;
-}
-
-.main-project-type-list button {
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .main-project-type-list.visible {
@@ -293,17 +275,32 @@ main {
   margin-top: 1rem;
 }
 
-.main-project-type-list.visible button {
-  opacity: 1;
-  transition-delay: 0.2s;
-}
-
 .main-project-type {
   height: auto;
   width: auto;
 }
 
-.main-project-type button:hover {
+.main-project-type-list button {
+  height: auto;
+  width: 100%;
+
+  background-color: white;
+  border: none;
+
+  font-size: 1rem;
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  cursor: pointer;
+}
+
+.main-project-type-list.visible button {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+.main-project-type-list button:hover {
   color: gray;
 }
 

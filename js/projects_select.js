@@ -53,19 +53,10 @@ function initProjectsSelect(projectsListEl, projectsListItems, projects) {
       if (mainTypeList.classList.contains('visible')) {
         mainTypeList.classList.remove('visible');
       } else {
-        mainTypeList.style.display = 'flex';
         setTimeout(() => {
           mainTypeList.classList.add('visible');
         }, 10);
       }
-    }
-  });
-
-  mainTypeList.addEventListener('transitionend', () => {
-    if (!mainTypeList.classList.contains('visible')) {
-      mainTypeList.style.display = 'none';
-    } else {
-      mainTypeList.style.display = 'flex';
     }
   });
 }
