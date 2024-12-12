@@ -11,7 +11,7 @@
     <!-- Link to Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Link to favicon -->
@@ -19,48 +19,46 @@
   </head>
 
   <body>
-    <aside>
-      <ul>
-        <li><button data-type="all projects">All Projects</button></li>
-        <li><button data-type="data visualization">Data Visualization</button></li>
-        <li><button data-type="landscape">Landscape</button></li>
-        <li><button data-type="spatial analysis">Spatial Analysis</button></li>
-        <li><button data-type="web design">Web Design</button></li>
+    <!-- Add a sidebar for project type filter -->
+    <aside class="aside-project-type-filter">
+      <ul class="aside-project-type-list">
+        <li class="aside-project-type"><button data-type="all projects" class="active">All Projects</button></li>
+        <li class="aside-project-type"><button data-type="data visualization">Data Visualization</button></li>
+        <li class="aside-project-type"><button data-type="landscape">Landscape</button></li>
+        <li class="aside-project-type"><button data-type="spatial analysis">Spatial Analysis</button></li>
+        <li class="aside-project-type"><button data-type="web design">Web Design</button></li>
       </ul>
     </aside>
 
     <main>
-      <header>
+      <header class="page-header">
         <h1>Yaohan Xu</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">Projects</a></li>
-            <li><a href="comments.html">Comments</a></li>
-            <li><a href="about.html">About</a></li>
+        <nav class="page-navigator">
+          <ul class="page-name-list">
+            <li class="page-name"><a href="index.html">Projects</a></li>
+            <li class="page-name"><a href="comments.html">Comments</a></li>
+            <li class="page-name"><a href="about.html">About</a></li>
           </ul>
         </nav>
       </header>
       
-      <section>
-        <div>
+      <section class="main-content">
+        <div class="section-header">
           <h2>Projects</h2>
-          <p>Welcome to my Projects page! Here, you'll find a curated selection of works that reflect my skills, creativity, and passion for problem-solving.
-            Each project is a testament to my dedication to exploring new ideas, overcoming challenges, and delivering impactful solutions.
-            From web development and data visualization to machine learning and UI/UX design, these projects span a variety of fields, showcasing not only technical expertise but also a commitment to continuous learning and innovation.</p>  
+          <p>Welcome to my Projects page! Here, you'll find a curated selection of works that reflect my skills, creativity, and passion for problem-solving.Each project is a testament to my dedication to exploring new ideas, overcoming challenges, and delivering impactful solutions.From web development and data visualization to machine learning and UI/UX design, these projects span a variety of fields, showcasing not only technical expertise but also a commitment to continuous learning and innovation.</p>  
         </div>
 
-        <div>
-
-        </div>
+        <div class="main-project-type-filter">
           <p>View - 
             <select>
-              <option value="all projects">All Projects</option>
-              <option value="data visualization">Data Visualization</option>
-              <option value="landscape">Landscape</option>
-              <option value="spatial analysis">Spatial Analysis</option>
-              <option value="web design">Web Design</option>
+              <option class="main-project-type-list" value="all projects" selected>All Projects</option>
+              <option class="main-project-type" value="data visualization">Data Visualization</option>
+              <option class="main-project-type" value="landscape">Landscape</option>
+              <option class="main-project-type" value="spatial analysis">Spatial Analysis</option>
+              <option class="main-project-type" value="web design">Web Design</option>
             </select>
           </p>
+        </div>
 
         <ul class="project-list">
           <li class="project-item">
@@ -73,9 +71,7 @@
               <span class="project-title">Dynamic Lifeline</span>
               <span class="project-type">Landscape</span>
               <span class="project-time">2022-06</span>
-              <span class="project-description">I create different forms of corridors to guard sloths safely traversing three major
-                types of habitats in Costa Rica, and the development model transitions from more
-                human-intervened to more natural-adjusted.</span>
+              <span class="project-description">I create different forms of corridors to guard sloths safely traversing three major types of habitats in Costa Rica, and the development model transitions from more human-intervened to more natural-adjusted.</span>
             </div>
           </li>
           <li class="project-item">
@@ -88,9 +84,7 @@
               <span class="project-title">Mufu New Life</span>
               <span class="project-type">Landscape</span>
               <span class="project-time">2021-07</span>
-              <span class="project-description">I provide guidelines for planting needed by the ecological restoration
-                of the mine and replace traditional planting design with a way that
-                residents can participate.</span>
+              <span class="project-description">I provide guidelines for planting needed by the ecological restoration of the mine and replace traditional planting design with a way that residents can participate.</span>
             </div>
           </li>
           <li class="project-item">
@@ -103,9 +97,7 @@
               <span class="project-title">Break the Wall</span>
               <span class="project-type">Landscape</span>
               <span class="project-time">2021-10</span>
-              <span class="project-description">I set up a new prison layout and mode of beneficial coexistence with
-                the community and Neighborhood Association will ensure a way for
-                different groups to express ideas.</span>
+              <span class="project-description">I set up a new prison layout and mode of beneficial coexistence with the community and Neighborhood Association will ensure a way for different groups to express ideas.</span>
             </div>
           </li>
           <li class="project-item">
@@ -118,8 +110,189 @@
               <span class="project-title">Reshape the Farmland</span>
               <span class="project-type">Landscape</span>
               <span class="project-time">2021-02</span>
-              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously
-                choose various activities, and also leave room for possible future flooding.</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_5/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">05</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_6/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">06</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_7/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">07</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_8/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">08</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_9/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">09</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_10/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">10</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_11/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">11</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_12/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">12</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_13/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">13</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_14/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">14</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_15/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">15</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_16/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">16</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_17/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">17</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
+            </div>
+          </li>
+          <li class="project-item">
+            <div class="project-cover-container">
+              <img src="assets/project_18/cover.jpg" class="project-cover" alt="Reshape the Farmland Cover">
+            </div>
+
+            <div class="project-details">
+              <span class="project-number">18</span>
+              <span class="project-title">Reshape the Farmland</span>
+              <span class="project-type">Landscape</span>
+              <span class="project-time">2021-02</span>
+              <span class="project-description">I shape several different waterfront terrains that allow users to spontaneously choose various activities, and also leave room for possible future flooding.</span>
             </div>
           </li>
         </ul>
