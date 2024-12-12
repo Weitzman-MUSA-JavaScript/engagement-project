@@ -213,41 +213,74 @@ main {
 .main-project-type-filter {
   height: auto;
   width: 100%;
+
+  margin-top: 3.6rem;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.main-project-type-filter p {
+.main-project-type-selected {
   height: auto;
-  width: auto;
+  width: 100%;
 
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 0.75rem;
+
+  cursor: pointer;
+}
+
+.main-project-type-selected p {
+  height: auto;
+  width: auto;
 
   margin: 0;
-  margin-top: 3.6rem;
 
   font-size: 1.2rem;
   font-weight: 400;
+}
+
+.select-icon {
+  height: 1.2rem;
+  width: auto;
 }
 
 .main-project-type-list {
   height: auto;
   width: auto;
 
-  border: 0;
-  margin-left: 0.4rem;
+  margin: 0;
+  margin-top: 1rem;
+  padding: 0;
 
-  font-size: 1.2rem;
-  font-weight: 400;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
 
-  appearance: none;
+  list-style: none;
 }
 
-.select-icon {
-  height: 1.2rem;
+.main-project-type {
+  height: auto;
   width: auto;
+}
 
-  margin-left: 0.4rem;
+.main-project-type button {
+  height: auto;
+  width: 100%;
+
+  background-color: white;
+  border: none;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.main-project-type button:hover {
+  color: gray;
 }
 
 /* for project list */
