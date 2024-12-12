@@ -248,23 +248,23 @@ main {
 }
 
 .main-project-type-list {
-  height: auto;
+  height: 0;
   width: auto;
 
   margin: 0;
-  margin-top: 1rem;
   padding: 0;
+
+  overflow: hidden;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.2s linear, height 0.2s linear, margin-top 0.2s linear;
 
   display: flex;
   flex-direction: row;
   gap: 2rem;
 
   list-style: none;
-}
-
-.main-project-type {
-  height: auto;
-  width: auto;
 }
 
 .main-project-type button {
@@ -277,6 +277,30 @@ main {
   font-size: 1rem;
 
   cursor: pointer;
+}
+
+.main-project-type-list button {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.main-project-type-list.visible {
+  height: auto;
+  width: auto;
+
+  opacity: 1;
+  transform: scaleY(1);
+  margin-top: 1rem;
+}
+
+.main-project-type-list.visible button {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+.main-project-type {
+  height: auto;
+  width: auto;
 }
 
 .main-project-type button:hover {
