@@ -3,7 +3,7 @@
 */
 * {
   box-sizing: border-box;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 html {
@@ -13,22 +13,26 @@ html {
 
 body {
   height: auto;
-  width:100%;
+  width: 100%;
   max-width: 1000px;
 
-  margin:0 auto;
-
-  display:flex;
-  flex-direction: column;
+  margin: 0 auto;
+  padding: 0;
 }
 
+
+/*
+// for body elements
+*/
+
+/* aside */
 aside {
   height: auto;
-  width: 300px;
+  width: 250px;
 
   position: fixed;
-  bottom: 20px;
-  margin-left: -350px;
+  bottom: 60px;
+  margin-left: -310px;
 }
 
 @media (width < 1400px) {
@@ -37,16 +41,297 @@ aside {
   }
 }
 
-.project-list {
-  list-style: none;
-  
-  padding: 0;
+/* main */
+main {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 
+/*
+// for aside elements
+*/
+.aside-project-type-list {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+}
+
+.aside-project-type {
+  height: auto;
+  width: 100%;
+
+  margin-bottom: 35px;
+}
+
+.aside-project-type:last-child {
+  margin-bottom: 0;
+}
+
+.aside-project-type button {
+  height: auto;
+  width: 100%;
+
+  text-align: right;
+  background-color: white;
+  border: none;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.aside-project-type .active {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+
+/*
+// for main elements
+*/
+
+/* header */
+.page-header {
+  height: auto;
+  width: 100%;
+
+  margin-top: 3rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* section */
+.main-content {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*
+// for header elements
+*/
+
+/* for page header */
+.page-header h1 {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+
+  font-size: 1.8rem;
+  font-family: Merriweather, serif;
+}
+
+/* for page navigator */
+.page-navigator {
+  height: auto;
+  flex-grow: 1;
+}
+
+.page-name-list {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1.8rem;
+}
+
+.page-name {
+  height: auto;
+  width: auto;
+
+  font-size: 1.2rem;
+  font-family: Merriweather, serif;
+
+  list-style: none;
+}
+
+.page-name a {
+  text-decoration: none;
+  color: black;
+}
+
+
+/*
+// for section elements
+*/
+
+/* for section header */
+.section-header {
+  height: auto;
+  width: 100%;
+}
+
+.section-header h2 {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+  margin-top: 5rem;
+
+  font-size: 2.8rem;
+  font-weight: 400;
+}
+
+.section-header p {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+  margin-top: 2rem;
+
+  font-size: 1.4rem;
+  font-weight: 400;
+
+  line-height: 1.4;
+}
+
+/* for type selector */
+.main-project-type-filter {
+  height: auto;
+  width: 100%;
+}
+
+.main-project-type-filter p {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+  margin-top: 3rem;
+
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.main-project-type-list {
+  height: auto;
+  width: auto;
+
+  border: 0;
+
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* for project list */
+.project-list {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.project-item {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.project-cover-container {
+  height: auto;
+  width: 60%;
+
+  margin: 0;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+
+  border: 1px solid #a2a2a2;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
 .project-cover {
-  width: 60%;
   height: auto;
-  object-fit: cover;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid #d6d6d6;
+  border-radius: 15px;
+}
+
+.project-details {
+  height: auto;
+  width: 40%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  cursor: pointer;
+}
+
+/* for project details */
+.line-one {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 1.8rem;
+  font-family: Merriweather, serif;
+  font-weight: 700;
+}
+
+.line-two {
+  height:auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #383838;
+}
+
+.line-three {
+  height: auto;
+  width: 100%;
+
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
 }
