@@ -1,14 +1,17 @@
 import { loadProjectsData } from './projects_data.js';
 import { initProjectsSelect } from './projects_select.js';
 
+// Load projects data
 const projects = await loadProjectsData();
 
+// Create project list items
 const projectsListItems = {};
 function initListItems() {
   for (const project of projects) {
     const listItem = document.createElement('li');
     listItem.className = 'project-item';
 
+    // Create the list item content
     listItem.innerHTML = `
       <div class="project-cover-container">
               <img src="${project.folder}/cover.jpg" class="project-cover" alt="${project.title} Cover">
@@ -30,11 +33,13 @@ function initListItems() {
             </div>
     `;
 
+    // Add the list item to the list
     projectsListItems[project.id] = listItem;
   }
 }
 initListItems();
-console.log(projectsListItems);
+console.log(projectsListItems); // Print the list items
 
+// Initialize the selected projects list
 const projectsListEl = document.querySelector('#project-list');
 initProjectsSelect(projectsListEl, projectsListItems, projects);
