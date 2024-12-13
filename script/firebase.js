@@ -18,14 +18,23 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 export const darkBlueIcon = L.icon({
-  iconUrl: 'images/darkbluepin.png', // Path to your custom image
-  iconSize: [30, null], // Set width to 50px, height is automatically calculated
-  iconAnchor: [15, 30], // Adjust anchor point if needed
-  popupAnchor: [0, -30], // Position of the popup relative to the icon
+  iconUrl: 'images/darkbluepin.png',
+  iconSize: [30, null],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
 });
+
+const markerGroups = {
+  'discounted': [],
+  'free-hot-food': [],
+  'free-packaged-food': [],
+  'vegetarian': [],
+  'vegan': [],
+};
 
 export {app, analytics, db};
 
+// Storing form inputs
 export function initializeFoodForm() {
   console.log('Initializing food form...');
   const form = document.getElementById('food-entry-form');
@@ -106,40 +115,17 @@ export function initializeFoodForm() {
         const photoBase64 = event.target.result;
 
         try {
-          // Add new document to Firestore
           const docRef = await addDoc(collection(db, 'foodLocations'), {
-            location: new GeoPoint(location[0], location[1]), // Store location as GeoPoint
+            location: new GeoPoint(location[0], location[1]),
             locationDescription,
             foodDescription,
-            photo: photoBase64, // Store the photo (base64 or URL)
+            photo: photoBase64,
             foodOptions,
             dietaryOptions,
-            timestamp: Timestamp.fromDate(new Date()), // Store the current timestamp
+            timestamp: Timestamp.fromDate(new Date()),
           });
-
           console.log('Document written with ID: ', docRef.id);
-
-          const marker = L.marker(location).addTo(campusMap);
-          const popupContent = `
-              <div>
-              <h4>Location Description:</h4>
-              <p>${locationDescription}</p>
-              <h4>Food Description:</h4>
-              <p>${foodDescription}</p>
-              <h4>Photo:</h4>
-              <img src="${photoBase64}" alt="Food Image" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
-              <h4>Food Options:</h4>
-              <ul>
-                ${foodOptions.map((option) => `<li>${option.replace(/-/g, ' ')}</li>`).join('')}
-              </ul>
-              <h4>Dietary Options:</h4>
-              <ul>
-                ${dietaryOptions.map((option) => `<li>${option.replace(/-/g, ' ')}</li>`).join('')}
-              </ul>
-            </div>
-          `;
-          marker.bindPopup(popupContent);
-
+          await loadMarkers();
           alert('Location added successfully!');
         } catch (error) {
           console.error('Error adding document:', error);
@@ -158,14 +144,9 @@ export function initializeFoodForm() {
   });
 }
 
+// Close button for form
 export function initializeCloseButton() {
   const closeButton = document.querySelector('.close-button');
-
-  if (!closeButton) {
-    console.error('Close button not found!');
-    return;
-  }
-
   closeButton.addEventListener('click', () => {
     const form = document.getElementById('food-entry-form');
     if (form) {
@@ -176,14 +157,7 @@ export function initializeCloseButton() {
   });
 }
 
-const markerGroups = {
-  'discounted': [],
-  'free-hot-food': [],
-  'free-packaged-food': [],
-  'vegetarian': [],
-  'vegan': [],
-};
-
+// Load markers showing food pop-ups
 export async function loadMarkers() {
   async function generatePopupContent(docSnapshot, data) {
     const commentsSnapshot = await getDocs(collection(db, `foodLocations/${docSnapshot.id}/comments`));
@@ -205,9 +179,9 @@ export async function loadMarkers() {
     const expirationTime = new Date(timestamp);
 
     if (data.foodOptions.includes('free-hot-food')) {
-      expirationTime.setHours(expirationTime.getHours() + 200); // Add 2 hours for free-hot-food
+      expirationTime.setHours(expirationTime.getHours() + 2000); // Adjust to 2 hours for free-hot-food, left at 2000 for demonstration purposes
     } else if (data.foodOptions.includes('discounted') || data.foodOptions.includes('free-packaged-food')) {
-      expirationTime.setHours(expirationTime.getHours() + 400); // Add 4 hours for discounted or free-packaged-food
+      expirationTime.setHours(expirationTime.getHours() + 4000); // Adjust to 4 hours for discounted or free-packaged-food, left at 4000 for demonstration purposes
     }
 
     const currentTime = new Date();
@@ -252,6 +226,7 @@ export async function loadMarkers() {
     `;
   }
 
+  // Add comments to food marker pop-ups
   async function addComment(docId, marker) {
     const commentText = document.getElementById(`comment-${docId}`).value;
     if (!commentText.trim()) {
@@ -282,7 +257,6 @@ export async function loadMarkers() {
 
   try {
     const snapshot = await getDocs(collection(db, 'foodLocations'));
-    // Replace forEach with for...of to handle async operations properly
     for (const docSnapshot of snapshot.docs) {
       const data = docSnapshot.data();
 
@@ -301,7 +275,6 @@ export async function loadMarkers() {
 
         marker.bindPopup(popupContent);
 
-        // Add event listener for the "Add Comment" button
         marker.on('popupopen', () => {
           const addCommentBtn = document.querySelector(`[data-doc-id="${docSnapshot.id}"]`);
           if (addCommentBtn) {
@@ -330,6 +303,7 @@ export async function loadMarkers() {
   }
 }
 
+// Filter based on food options and dietary options checkboxes
 export function initializeFilters() {
   const checkboxes = document.querySelectorAll('.filter-container input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
@@ -358,17 +332,9 @@ function filterMarkers() {
       markerFoodOptions.some((option) =>
         selectedFoodOptions.some((selected) => option.includes(selected)),
       );
-    console.log('Checking Food Options Overlap:');
-    console.log('Selected Food Options:', selectedFoodOptions);
-    console.log('Marker Food Options:', markerFoodOptions);
-    console.log('Matches Food:', matchesFood);
 
     const matchesDietary = selectedDietaryOptions.length === 0 ||
       selectedDietaryOptions.every((option) => markerDietaryOptions.includes(option));
-    console.log('Checking Dietary Options:');
-    console.log('Selected Dietary Options:', selectedDietaryOptions);
-    console.log('Marker Dietary Options:', markerDietaryOptions);
-    console.log('Matches Dietary:', matchesDietary);
 
     const isVisible = matchesFood && matchesDietary;
     if (isVisible) {
@@ -376,7 +342,5 @@ function filterMarkers() {
     } else {
       campusMap.removeLayer(marker);
     }
-
-    console.log('Final Marker Visibility:', isVisible);
   });
 }
