@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('load', () => {
-  document.main.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
+  document.body.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
 });
 
 
