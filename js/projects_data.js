@@ -1,3 +1,4 @@
+// Load the projects data from the projects.json file
 async function loadProjectsData() {
   try {
     const projectsResponse = await fetch('data/projects.json');

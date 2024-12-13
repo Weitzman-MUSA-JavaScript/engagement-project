@@ -1,3 +1,4 @@
+// Initialize the projects type filter and list display
 function initProjectsSelect(projectsListEl, projectsListItems, projectsData) {
   // Create variables for the filter elements
   const asideFilter = document.querySelector('.aside-project-type-filter');

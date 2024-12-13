@@ -1,3 +1,4 @@
+// This is the main script for the comments page.
 import { loadProjectsData } from './projects_data.js';
 import { initProjectsSelect } from './projects_select.js';
 import { commentsControl } from './comments_control.js';
@@ -54,6 +55,7 @@ initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 // Initialize the comments control
 commentsControl();
 
+// Control the maximum height of the project comments part manually after the page is loaded
 window.addEventListener('load', () => {
   const projectItems = document.querySelectorAll('.project-item');
   console.log('Project Items:', projectItems);
@@ -67,26 +69,26 @@ window.addEventListener('load', () => {
       return;
     }
 
-    // 获取 project-part 和 comments-part 的高度
+    // Get the height of the project and comments parts
     const projectHeight = projectPart.offsetHeight;
     const commentsHeight = commentsPart.scrollHeight;
 
     console.log(`Project Part ${index} - Height: ${projectHeight}`);
     console.log(`Comments Part ${index} - Height: ${commentsHeight}`);
 
-    // 动态设置 comments-part 的高度和滚动条
+    // Set the max height of the comments part depending on the project part
     if (commentsHeight > projectHeight) {
-      commentsPart.style.maxHeight = `${projectHeight}px`; // 限制最大高度
-      commentsPart.style.overflowY = 'auto'; // 启用垂直滚动条
+      commentsPart.style.maxHeight = `${projectHeight}px`; // Limit the max height
+      commentsPart.style.overflowY = 'auto'; // Enable the scroll bar
     } else {
-      commentsPart.style.maxHeight = 'none'; // 恢复默认高度
-      commentsPart.style.overflowY = 'hidden'; // 禁用滚动条
+      commentsPart.style.maxHeight = 'none'; // Set back to default
+      commentsPart.style.overflowY = 'hidden'; // Disable the scroll bar
     }
   });
+
+  document.body.classList.add('loaded'); // Add the loaded class to the body
 });
 
+// Display the page after it is loaded
 window.addEventListener('load', () => {
-  document.body.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
 });
-
-

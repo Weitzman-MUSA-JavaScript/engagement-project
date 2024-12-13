@@ -1,3 +1,4 @@
+// This is the main script for the projects page.
 import { loadProjectsData } from './projects_data.js';
 import { initProjectsSelect } from './projects_select.js';
 
@@ -45,38 +46,37 @@ console.log(projectsListItems); // Print the list items
 const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 
-// window.addEventListener('load', () => {
-//   const projectItems = document.querySelectorAll('.project-item');
-//   console.log('Project Items:', projectItems);
-
-//   projectItems.forEach((item, index) => {
-//     const projectPart = item.querySelector('.project-cover-container');
-//     const commentsPart = item.querySelector('.project-details');
-
-//     if (!projectPart || !commentsPart) {
-//       console.warn(`Missing elements for index ${index}`);
-//       return;
-//     }
-
-//     // 获取 project-part 和 comments-part 的高度
-//     const projectHeight = projectPart.offsetHeight;
-//     const commentsHeight = commentsPart.scrollHeight;
-
-//     console.log(`Project Part ${index} - Height: ${projectHeight}`);
-//     console.log(`Comments Part ${index} - Height: ${commentsHeight}`);
-
-//     // 动态设置 comments-part 的高度和滚动条
-//     if (commentsHeight > projectHeight) {
-//       commentsPart.style.maxHeight = `${projectHeight}px`; // 限制最大高度
-//       commentsPart.style.overflowY = 'auto'; // 启用垂直滚动条
-//     } else {
-//       commentsPart.style.maxHeight = 'none'; // 恢复默认高度
-//       commentsPart.style.overflowY = 'hidden'; // 禁用滚动条
-//     }
-//   });
-// });
-
+// Control the maximum height of the project details manually after the page is loaded
 window.addEventListener('load', () => {
-  document.body.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
-});
+  const projectItems = document.querySelectorAll('.project-item');
+  console.log('Project Items:', projectItems);
 
+  projectItems.forEach((item, index) => {
+    const coverPart = item.querySelector('.project-cover-container');
+    const detailsPart = item.querySelector('.project-details');
+
+    if (!coverPart || !detailsPart) {
+      console.warn(`Missing elements for index ${index}`);
+      return;
+    }
+
+    // Get the height of the cover and details parts
+    const coverHeight = coverPart.offsetHeight;
+    const detailsHeight = detailsPart.scrollHeight;
+
+    console.log(`Cover Part ${index} - Height: ${coverHeight}`);
+    console.log(`Details Part ${index} - Height: ${detailsHeight}`);
+
+    // Set the max height of the details part depending on the cover part
+    if (detailsHeight > coverHeight) {
+      detailsPart.style.maxHeight = `${coverHeight}px`; // Limit the max height
+      detailsPart.style.overflowY = 'auto'; // Enable the scroll bar
+    } else {
+      detailsPart.style.maxHeight = 'none'; // Set back to default
+      detailsPart.style.overflowY = 'hidden'; // Disable the scroll bar
+    }
+  });
+
+  // Display the page after it is loaded
+  document.body.classList.add('loaded'); // Add the loaded class to the body
+});
