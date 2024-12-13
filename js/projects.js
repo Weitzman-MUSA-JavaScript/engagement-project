@@ -42,5 +42,10 @@ initListItems();
 console.log(projectsListItems); // Print the list items
 
 // Initialize the selected projects list
-const projectsListEl = document.querySelector('#project-list');
+const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
+
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
+});
+

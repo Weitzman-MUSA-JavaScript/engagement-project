@@ -303,7 +303,51 @@
   height: auto;
   width: 100%;
 
+  margin-bottom: 1rem;
+
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.comment-item:last-child {
+  margin-bottom: 0;
+}
+
+.line-one {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line-two {
+  height: auto;
+  width: 100%;
+}
+
+.comment-name {
+  
+}
+
+.comment-time {
+
+}
+
+.comment-content {
+  
+}
+
+/* 页面初始状态：完全透明 */
+body {
+  opacity: 0; /* 初始透明度 */
+  transition: opacity 0.75s ease-in-out; /* 添加淡显的过渡效果 */
+}
+
+/* 页面加载完成后显示 */
+body.loaded {
+  opacity: 1; /* 渐变到完全可见 */
 }

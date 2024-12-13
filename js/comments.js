@@ -55,35 +55,38 @@ initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 commentsControl();
 
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    const projectItems = document.querySelectorAll('.project-item');
-    console.log('Project Items:', projectItems);
+  const projectItems = document.querySelectorAll('.project-item');
+  console.log('Project Items:', projectItems);
 
-    projectItems.forEach((item, index) => {
-      const projectPart = item.querySelector('.project-part');
-      const commentsPart = item.querySelector('.comments-part');
+  projectItems.forEach((item, index) => {
+    const projectPart = item.querySelector('.project-part');
+    const commentsPart = item.querySelector('.comments-part');
 
-      if (!projectPart || !commentsPart) {
-        console.warn(`Missing elements for index ${index}`);
-        return;
-      }
+    if (!projectPart || !commentsPart) {
+      console.warn(`Missing elements for index ${index}`);
+      return;
+    }
 
-      // 获取 project-part 和 comments-part 的高度
-      const projectHeight = projectPart.offsetHeight;
-      const commentsHeight = commentsPart.scrollHeight;
+    // 获取 project-part 和 comments-part 的高度
+    const projectHeight = projectPart.offsetHeight;
+    const commentsHeight = commentsPart.scrollHeight;
 
-      console.log(`Project Part ${index} - Height: ${projectHeight}`);
-      console.log(`Comments Part ${index} - Height: ${commentsHeight}`);
+    console.log(`Project Part ${index} - Height: ${projectHeight}`);
+    console.log(`Comments Part ${index} - Height: ${commentsHeight}`);
 
-      // 动态设置 comments-part 的高度和滚动条
-      if (commentsHeight > projectHeight) {
-        commentsPart.style.maxHeight = `${projectHeight}px`; // 限制最大高度
-        commentsPart.style.overflowY = 'auto'; // 启用垂直滚动条
-      } else {
-        commentsPart.style.maxHeight = 'none'; // 恢复默认高度
-        commentsPart.style.overflowY = 'hidden'; // 禁用滚动条
-      }
-    });
-  }, 500); // 延迟 500 毫秒
+    // 动态设置 comments-part 的高度和滚动条
+    if (commentsHeight > projectHeight) {
+      commentsPart.style.maxHeight = `${projectHeight}px`; // 限制最大高度
+      commentsPart.style.overflowY = 'auto'; // 启用垂直滚动条
+    } else {
+      commentsPart.style.maxHeight = 'none'; // 恢复默认高度
+      commentsPart.style.overflowY = 'hidden'; // 禁用滚动条
+    }
+  });
 });
+
+window.addEventListener('load', () => {
+  document.main.classList.add('loaded'); // 添加 "loaded" 类，触发过渡效果
+});
+
 
