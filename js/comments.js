@@ -25,7 +25,7 @@ function initListItems() {
             <span class="project-number">${project.number}</span>
             <span class="project-title">${project.title}</span>
           </div>
-          <button class="project-comment-button">
+          <button class="project-comment-button" id="add-comment-${project.id}">
             <img src="img/comment-icon.svg" class="comment-icon" alt="Comment Icon">
             <span>Add Comment</span>
           </button>
