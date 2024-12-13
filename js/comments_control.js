@@ -46,10 +46,11 @@ function commentsControl() {
       allCommentsParts.forEach((commentsPart) => {
         const projectId = commentsPart.closest('.project-item').dataset.projectId;
         const commentsList = commentsPart.querySelector('.comments-list');
+        console.log('Loading comments for project:', projectId);
         loadComments(projectId, commentsList); // 动态加载评论
       });
 
-      document.querySelector('.project-list').classList.add('no-hover'); // 禁用悬停效果
+      document.querySelector('.projects-list').classList.add('no-hover'); // 禁用悬停效果
 
       isShowActive = true; // 切换到 `show` 状态
     } else if (event.target.classList.contains('comments-hide')) {
@@ -59,10 +60,11 @@ function commentsControl() {
       // 清空所有评论内容
       allCommentsParts.forEach((commentsPart) => {
         const commentsList = commentsPart.querySelector('.comments-list');
+        console.log('Clearing comments for:', commentsList);
         commentsList.innerHTML = ''; // 清空评论
       });
 
-      document.querySelector('.project-list').classList.remove('no-hover'); // 恢复悬停效果
+      document.querySelector('.projects-list').classList.remove('no-hover'); // 恢复悬停效果
 
       isShowActive = false; // 切换到 `hide` 状态
     }
@@ -84,14 +86,14 @@ function commentsControl() {
   }
 
   // 初始化状态确保悬停效果禁用
-  document.querySelector('.project-list').classList.add('no-hover');
+  document.querySelector('.projects-list').classList.add('no-hover');
 
   // 初始渲染所有评论
-  allCommentsParts.forEach((commentsPart) => {
-    const projectId = commentsPart.closest('.project-item').dataset.projectId;
-    const commentsList = commentsPart.querySelector('.comments-list');
-    loadComments(projectId, commentsList); // 动态加载评论
-  });
+  // allCommentsParts.forEach((commentsPart) => {
+  //   const projectId = commentsPart.closest('.project-item').dataset.projectId;
+  //   const commentsList = commentsPart.querySelector('.comments-list');
+  //   loadComments(projectId, commentsList); // 动态加载评论
+  // });
 
   // 每次状态切换后更新鼠标事件监听
   toggleSwitch.addEventListener('click', updateMouseEventListeners);
