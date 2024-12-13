@@ -1,9 +1,11 @@
-function initProjectsSelect(projectsListEl, projectsListItems, projects) {
+function initProjectsSelect(projectsListEl, projectsListItems, projectsData) {
+  // Create variables for the filter elements
   const asideFilter = document.querySelector('.aside-project-type-filter');
   const mainFilter = document.querySelector('.main-project-type-filter');
   const mainSelectedText = document.querySelector('.main-project-type-selected p');
   const mainTypeList = document.querySelector('.main-project-type-list');
 
+  // Create a function to populate the list
   function populateList(projects) {
     projectsListEl.innerHTML = '';
 
@@ -13,8 +15,9 @@ function initProjectsSelect(projectsListEl, projectsListItems, projects) {
       projectsListEl.append(projectItem);
     });
   }
-  populateList(projects);
+  populateList(projectsData); // Populate the list with all projects
 
+  // Create a function to set the active button
   function setActiveButton(filterContainer, type) {
     const buttons = filterContainer.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -26,15 +29,17 @@ function initProjectsSelect(projectsListEl, projectsListItems, projects) {
     });
   }
 
+  // Create a function to handle filter clicks
   function handleFilterClick(type) {
     setActiveButton(asideFilter, type);
     setActiveButton(mainFilter, type);
     mainSelectedText.textContent = `View — ${type.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}`;
 
-    const filteredProjects = type === 'all projects' ? projects : projects.filter((project) => project.type.toLowerCase() === type);
+    const filteredProjects = type === 'all projects' ? projectsData : projectsData.filter((project) => project.type.toLowerCase() === type);
     populateList(filteredProjects);
   }
 
+  // Add event listener to the aside filter elements
   asideFilter.addEventListener('click', (event) => {
     if (event.target.tagName === 'BUTTON') {
       const type = event.target.dataset.type;
@@ -42,6 +47,7 @@ function initProjectsSelect(projectsListEl, projectsListItems, projects) {
     }
   });
 
+  // Add event listener to the main filter elements
   mainFilter.addEventListener('click', (event) => {
     if (event.target.tagName === 'BUTTON') {
       const type = event.target.dataset.type;
@@ -55,7 +61,7 @@ function initProjectsSelect(projectsListEl, projectsListItems, projects) {
       } else {
         setTimeout(() => {
           mainTypeList.classList.add('visible');
-        }, 10);
+        }, 10); // Delay the visibility to ensure the click event is handled
       }
     }
   });

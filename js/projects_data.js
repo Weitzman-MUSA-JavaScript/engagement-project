@@ -4,8 +4,8 @@ async function loadProjectsData() {
     if (!projectsResponse.ok) {
       throw new Error('Failed to load projects data');
     }
-    const projects = await projectsResponse.json();
-    return projects;
+    const projectsData = await projectsResponse.json();
+    return projectsData;
   } catch (error) {
     console.error('Error fetching or parsing the projects.json file:', error);
     return [];
