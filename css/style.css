@@ -3,7 +3,6 @@
 */
 * {
   box-sizing: border-box;
-  /* border: 1px solid red; */
 }
 
 html {
@@ -18,6 +17,13 @@ body {
 
   margin: 0 auto;
   padding: 0;
+
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out; /* for fade-in effect */
+}
+
+body.loaded {
+  opacity: 1; /* for fade-in effect */
 }
 
 

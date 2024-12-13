@@ -51,7 +51,7 @@
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform 0.2s ease, height 0.2s ease, margin-top 0.2s ease;
+  transition: transform 0.2s ease, height 0.2s ease, margin-top 0.2s ease; /* for smooth transition of type selector list */
 
   display: flex;
   flex-direction: row;
@@ -65,7 +65,7 @@
   width: auto;
 
   opacity: 1;
-  transform: scaleY(1);
+  transform: scaleY(1); /* for smooth transition of type selector list */
   margin-top: 1rem;
 }
 
@@ -84,14 +84,14 @@
   font-size: 1rem;
 
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease; /* for smooth transition of button */
 
   cursor: pointer;
 }
 
 .main-project-type-list.visible button {
   opacity: 1;
-  transition-delay: 0.2s;
+  transition-delay: 0.2s; /* for smooth transition of button */
 }
 
 .main-project-type-list button:hover {
@@ -196,15 +196,4 @@
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.4;
-}
-
-/* 页面初始状态：完全透明 */
-body {
-  opacity: 0; /* 初始透明度 */
-  transition: opacity 0.75s ease-in-out; /* 添加淡显的过渡效果 */
-}
-
-/* 页面加载完成后显示 */
-body.loaded {
-  opacity: 1; /* 渐变到完全可见 */
 }
