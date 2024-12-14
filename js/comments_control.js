@@ -1,3 +1,7 @@
+// Control the show/hide comments switch
+// When the toggle switch is set to `show`, all comments will be loaded and displayed.
+// When the toggle switch is set to `hide`, all comments will be cleared.
+// However, when the toggle switch is set to `hide`, the comments will be loaded and displayed when the mouse hovers over the project cover.
 import { loadComments } from './comments_load.js';
 
 function commentsControl() {
@@ -5,72 +9,33 @@ function commentsControl() {
   const allCommentsParts = document.querySelectorAll('.comments-part');
   const projectCoverContainers = document.querySelectorAll('.project-cover-container');
 
-  let isShowActive = true; // 初始状态为显示
+  let isShowActive = true; // Initialize the state of toggle switch to `show`
 
-  // 鼠标事件处理函数
+  // A function to handle mouse enter event
   function handleMouseEnter(event) {
-    if (isShowActive) return; // 确保鼠标逻辑在 `show` 状态下停用
+    if (isShowActive) return; // Eusure the mouse logic is disabled in `show` state
 
     const projectId = event.currentTarget.closest('.project-item').dataset.projectId;
     const relatedComments = document.querySelector(`#comments-${projectId}`);
     if (relatedComments) {
       const commentsList = relatedComments.querySelector('.comments-list');
-      loadComments(projectId, commentsList); // 动态加载评论
+      loadComments(projectId, commentsList); // Add comments to the project item
     }
   }
 
+  // A function to handle mouse leave event
   function handleMouseLeave(event) {
-    if (isShowActive) return; // 确保鼠标逻辑在 `show` 状态下停用
+    if (isShowActive) return; // Eusure the mouse logic is disabled in `show` state
 
     const projectId = event.currentTarget.closest('.project-item').dataset.projectId;
     const relatedComments = document.querySelector(`#comments-${projectId}`);
     if (relatedComments) {
       const commentsList = relatedComments.querySelector('.comments-list');
-      commentsList.innerHTML = ''; // 清空评论
+      commentsList.innerHTML = ''; // Clear the comments of the project item
     }
   }
 
-  // 初始化鼠标事件监听
-  projectCoverContainers.forEach((coverContainer) => {
-    coverContainer.addEventListener('mouseenter', handleMouseEnter);
-    coverContainer.addEventListener('mouseleave', handleMouseLeave);
-  });
-
-  // 点击切换逻辑
-  toggleSwitch.addEventListener('click', (event) => {
-    if (event.target.classList.contains('comments-show')) {
-      toggleSwitch.querySelector('.comments-show').setAttribute('active', true);
-      toggleSwitch.querySelector('.comments-hide').removeAttribute('active');
-
-      // 渲染所有评论
-      allCommentsParts.forEach((commentsPart) => {
-        const projectId = commentsPart.closest('.project-item').dataset.projectId;
-        const commentsList = commentsPart.querySelector('.comments-list');
-        console.log('Loading comments for project:', projectId);
-        loadComments(projectId, commentsList); // 动态加载评论
-      });
-
-      document.querySelector('.projects-list').classList.add('no-hover'); // 禁用悬停效果
-
-      isShowActive = true; // 切换到 `show` 状态
-    } else if (event.target.classList.contains('comments-hide')) {
-      toggleSwitch.querySelector('.comments-hide').setAttribute('active', true);
-      toggleSwitch.querySelector('.comments-show').removeAttribute('active');
-
-      // 清空所有评论内容
-      allCommentsParts.forEach((commentsPart) => {
-        const commentsList = commentsPart.querySelector('.comments-list');
-        console.log('Clearing comments for:', commentsList);
-        commentsList.innerHTML = ''; // 清空评论
-      });
-
-      document.querySelector('.projects-list').classList.remove('no-hover'); // 恢复悬停效果
-
-      isShowActive = false; // 切换到 `hide` 状态
-    }
-  });
-
-  // 监听状态变化调整鼠标事件
+  // Update mouse event listeners status
   function updateMouseEventListeners() {
     if (isShowActive) {
       projectCoverContainers.forEach((coverContainer) => {
@@ -85,17 +50,50 @@ function commentsControl() {
     }
   }
 
-  // 初始化状态确保悬停效果禁用
+  // Initialize mouse event listeners
+  projectCoverContainers.forEach((coverContainer) => {
+    coverContainer.addEventListener('mouseenter', handleMouseEnter);
+    coverContainer.addEventListener('mouseleave', handleMouseLeave);
+  });
+
+  // Make sure the hover effect is disabled when the page is first loaded
   document.querySelector('.projects-list').classList.add('no-hover');
 
-  // 初始渲染所有评论
-  // allCommentsParts.forEach((commentsPart) => {
-  //   const projectId = commentsPart.closest('.project-item').dataset.projectId;
-  //   const commentsList = commentsPart.querySelector('.comments-list');
-  //   loadComments(projectId, commentsList); // 动态加载评论
-  // });
+  // Load and clear all comments based on the toggle switch state
+  toggleSwitch.addEventListener('click', (event) => {
+    if (event.target.classList.contains('comments-show')) {
+      toggleSwitch.querySelector('.comments-show').setAttribute('active', true);
+      toggleSwitch.querySelector('.comments-hide').removeAttribute('active');
 
-  // 每次状态切换后更新鼠标事件监听
+      // Load all comments to the project items
+      allCommentsParts.forEach((commentsPart) => {
+        const projectId = commentsPart.closest('.project-item').dataset.projectId;
+        const commentsList = commentsPart.querySelector('.comments-list');
+        console.log('Loading comments for project:', projectId);
+        loadComments(projectId, commentsList); // Add comments dynamically
+      });
+
+      document.querySelector('.projects-list').classList.add('no-hover'); // Remove the hover effect
+
+      isShowActive = true; // Set the toggle switch to `show` state
+    } else if (event.target.classList.contains('comments-hide')) {
+      toggleSwitch.querySelector('.comments-hide').setAttribute('active', true);
+      toggleSwitch.querySelector('.comments-show').removeAttribute('active');
+
+      // Clear all comments from the project items
+      allCommentsParts.forEach((commentsPart) => {
+        const commentsList = commentsPart.querySelector('.comments-list');
+        console.log('Clearing comments for:', commentsList);
+        commentsList.innerHTML = ''; // Remove comments dynamically
+      });
+
+      document.querySelector('.projects-list').classList.remove('no-hover'); // Restore the hover effect
+
+      isShowActive = false; // Set the toggle switch to `hide` state
+    }
+  });
+
+  // Updata the mouse event listeners status when the toggle switch is clicked
   toggleSwitch.addEventListener('click', updateMouseEventListeners);
 }
 

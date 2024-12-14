@@ -362,13 +362,13 @@ const commentsData = [
 ];
 
 function loadComments(projectId, commentsList) {
-  // 筛选出当前项目的评论数据
+  // Filter comments based on the project ID
   const projectComments = commentsData.filter((comment) => comment.projectId === projectId);
 
-  // 清空现有评论（如果需要重新加载）
+  // Clear the current comments list
   commentsList.innerHTML = '';
 
-  // 遍历并动态生成评论列表项
+  // Add comments to the project item
   for (const comment of projectComments) {
     const commentItem = document.createElement('li');
     commentItem.className = 'comment-item';
