@@ -13,7 +13,7 @@ function commentsControl() {
 
   // A function to handle mouse enter event
   function handleMouseEnter(event) {
-    if (isShowActive) return; // Eusure the mouse logic is disabled in `show` state
+    if (isShowActive) return; // Ensure the mouse logic is disabled in `show` state
 
     const projectId = event.currentTarget.closest('.project-item').dataset.projectId;
     const relatedComments = document.querySelector(`#comments-${projectId}`);
@@ -25,7 +25,7 @@ function commentsControl() {
 
   // A function to handle mouse leave event
   function handleMouseLeave(event) {
-    if (isShowActive) return; // Eusure the mouse logic is disabled in `show` state
+    if (isShowActive) return; // Ensure the mouse logic is disabled in `show` state
 
     const projectId = event.currentTarget.closest('.project-item').dataset.projectId;
     const relatedComments = document.querySelector(`#comments-${projectId}`);
@@ -93,7 +93,7 @@ function commentsControl() {
     }
   });
 
-  // Updata the mouse event listeners status when the toggle switch is clicked
+  // Update the mouse event listeners status when the toggle switch is clicked
   toggleSwitch.addEventListener('click', updateMouseEventListeners);
 }
 

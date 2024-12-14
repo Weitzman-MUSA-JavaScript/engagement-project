@@ -361,12 +361,12 @@ const commentsData = [
   },
 ];
 
-在点击submit时，触发两个效果，一个是adddoc到firebase，另一个是loadComments获取数据并显示在页面上；
-但是在comments页面中，如果comment.hide为active的话，就不调用loadComments，只有当comment.show为active时才调用loadComments。
-而在每一个项目页面，只要点击了submit，就同时触发两个效果。
+// 在点击submit时，触发两个效果，一个是adddoc到firebase，另一个是loadComments获取数据并显示在页面上；
+// 但是在comments页面中，如果comment.hide为active的话，就不调用loadComments，只有当comment.show为active时才调用loadComments。
+// 而在每一个项目页面，只要点击了submit，就同时触发两个效果。
 
 function loadComments(projectId, commentsList) {
-  每次调用loadComments时，都先从firebase里getdocs数据，然后储存在对应的commentsData中，这里应该注意只下载对应projectId的数据，而不是下载所有数据后再筛选。
+//   每次调用loadComments时，都先从firebase里getdocs数据，然后储存在对应的commentsData中，这里应该注意只下载对应projectId的数据，而不是下载所有数据后再筛选。
   // Filter comments based on the project ID
   const projectComments = commentsData.filter((comment) => comment.projectId === projectId);
 
