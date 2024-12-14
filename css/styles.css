@@ -272,7 +272,7 @@ input[type="text"] {
   margin-top: 1em;
   text-transform: uppercase;
   text-anchor: start !important;
-  transform: translate(-12rem, 0.8rem);
+  transform: translate(-10rem, 0.8rem);
 }
 
 .bb-text {
