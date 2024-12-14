@@ -1,8 +1,8 @@
 // This is the main script for the comments page.
 import { loadProjectsData } from './projects_data.js';
 import { initProjectsSelect } from './projects_select.js';
-import { commentsControl } from './comments_control.js';
 import { loadComments } from './comments_load.js';
+import { commentsControl } from './comments_control.js';
 
 // Load projects data
 const projectsData = await loadProjectsData();
@@ -52,7 +52,7 @@ console.log(projectsListItems); // Print the list items
 const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 
-// Initialize the comments control
+// Initialize the control of showing/hiding comments
 commentsControl();
 
 // Control the maximum height of the project comments part manually after the page is loaded
@@ -87,8 +87,4 @@ window.addEventListener('load', () => {
   });
 
   document.body.classList.add('loaded'); // Add the loaded class to the body
-});
-
-// Display the page after it is loaded
-window.addEventListener('load', () => {
 });
