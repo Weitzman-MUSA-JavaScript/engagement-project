@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-// Define a fuunction to download comments for certain project from firebase
+// Define a function to download comments for a specific project from firebase
 async function getProjectComments(projectId) {
   const commentsCollection = collection(db, 'project_comments');
   const commentsQuery = query(commentsCollection, where('projectId', '==', projectId));
@@ -48,7 +48,7 @@ async function getProjectComments(projectId) {
   return comments.map(({ originalTime, ...rest }) => rest);
 }
 
-// Define a function to add a comment for certain project to firebase
+// Define a function to add a comment for a specific project to firebase
 async function addProjectComment(projectId, name, content) {
   const commentsCollection = collection(db, 'project_comments');
   await addDoc(commentsCollection, {
