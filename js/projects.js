@@ -47,6 +47,7 @@ const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 
 // Control the maximum height of the project details manually after the page is loaded
+// This only needs to be run once after the page is loaded because the project details are static
 window.addEventListener('load', () => {
   const projectItems = document.querySelectorAll('.project-item');
 
