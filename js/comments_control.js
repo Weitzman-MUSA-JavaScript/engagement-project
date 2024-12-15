@@ -69,7 +69,6 @@ function commentsControl() {
       allCommentsParts.forEach((commentsPart) => {
         const projectId = commentsPart.closest('.project-item').dataset.projectId;
         const commentsList = commentsPart.querySelector('.comments-list');
-        console.log('Loading comments for project:', projectId);
         loadComments(projectId, commentsList); // Add comments dynamically
       });
 
@@ -83,7 +82,6 @@ function commentsControl() {
       // Clear all comments from the project items
       allCommentsParts.forEach((commentsPart) => {
         const commentsList = commentsPart.querySelector('.comments-list');
-        console.log('Clearing comments for:', commentsList);
         commentsList.innerHTML = ''; // Remove comments dynamically
       });
 
