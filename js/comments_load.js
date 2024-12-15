@@ -43,7 +43,7 @@ function adjustCommentsHeight(projectId) {
   const projectHeight = projectPart.offsetHeight;
   const commentsHeight = commentsPart.scrollHeight;
 
-  // Set the max height of the comments part depending on the project part
+  // Set the max height of the comments part based on the height of the project part
   if (commentsHeight > projectHeight) {
     commentsPart.style.maxHeight = `${projectHeight}px`; // Limit the max height
     commentsPart.style.overflowY = 'auto'; // Enable the scroll bar
