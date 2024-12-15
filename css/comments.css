@@ -422,7 +422,12 @@
   border-radius: 4px;
 
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  outline: 1.6px solid #696969;
 }
 
 .modal-buttons {
