@@ -1,8 +1,8 @@
 import { getProjectComments } from './firebase.js';
 
-// Define a function to load comments for a certain project
+// Define a function to load comments for a specific project
 async function loadComments(projectId, commentsList) {
-  // Download comments for certain project from Firebase
+  // Download comments for specific project from Firebase
   const comments = await getProjectComments(projectId);
 
   // Clear the commentsList
