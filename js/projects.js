@@ -49,7 +49,6 @@ initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 // Control the maximum height of the project details manually after the page is loaded
 window.addEventListener('load', () => {
   const projectItems = document.querySelectorAll('.project-item');
-  console.log('Project Items:', projectItems);
 
   projectItems.forEach((item, index) => {
     const coverPart = item.querySelector('.project-cover-container');
