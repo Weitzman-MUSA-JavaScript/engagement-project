@@ -122,6 +122,25 @@
       <span class="phone">+1 267-777-3513</span>
       <span class="address">3600 Chestnut St, Philadelphia</span>
     </footer>
+
+    <!-- Add a modal for adding comments -->
+    <div id="comment-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Add Comment</h2>
+        
+        <label for="name-input">Name:</label>
+        <input type="text" id="name-input" placeholder="Enter your name">
+        
+        <label for="content-input">Comment:</label>
+        <textarea id="content-input" placeholder="Enter your comment"></textarea>
+        
+        <div class="modal-buttons">
+          <button id="submit-comment">Submit</button>
+          <button id="close-modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
     
     <!-- Link to JS file -->
     <script type="module" src="js/comments.js"></script>
