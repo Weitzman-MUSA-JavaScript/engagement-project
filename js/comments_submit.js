@@ -1,7 +1,7 @@
-import { loadComments } from './comments_load.js';
 import { addProjectComment } from './firebase.js';
+import { loadComments } from './comments_load.js';
 
-// Define a function to submit comments
+// Define a function to submit comments using the comment modal
 function submitComments() {
   const modal = document.getElementById('comment-modal');
   const nameInput = document.getElementById('name-input');
@@ -13,9 +13,8 @@ function submitComments() {
   // Add click event listeners to all comment buttons
   document.querySelectorAll('.project-comment-button').forEach((button) => {
     button.addEventListener('click', () => {
-    // Extract the project ID from the button ID
-      currentProjectId = button.id.split('-').pop();
-      modal.classList.remove('hidden'); // Show the modal
+      currentProjectId = button.id.split('-').pop(); // Extract the project ID from the button ID
+      modal.classList.remove('hidden'); // Show the comment modal
     });
   });
 
@@ -32,7 +31,6 @@ function submitComments() {
     try {
     // Add the comment to the current project in firebase
       await addProjectComment(currentProjectId, name, content);
-      alert('Comment added successfully!');
 
       // Get the comments list of the current project
       const listItem = document.querySelector(`#add-comment-${currentProjectId}`).closest('li');
@@ -54,7 +52,7 @@ function submitComments() {
       modal.classList.add('hidden');
       nameInput.value = '';
       contentInput.value = '';
-      currentProjectId = null; // Reset the project ID
+      currentProjectId = null; // Reset the project ID to null
     }
   });
 
@@ -63,7 +61,7 @@ function submitComments() {
     modal.classList.add('hidden'); // Hide the modal
     nameInput.value = '';
     contentInput.value = '';
-    currentProjectId = null; // Reset the project ID
+    currentProjectId = null; // Reset the project ID to null
   });
 }
 
