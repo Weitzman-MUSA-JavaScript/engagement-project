@@ -75,7 +75,7 @@ function commentsControl() {
         promises.push(loadComments(projectId, commentsList)); // Add comments dynamically
       });
 
-      Promise.all(promises).then(() => {
+      Promise.all(promises).then(() => { // Wait for all comments to be loaded
         console.log('All comments are loaded');
       }).catch((error) => {
         console.error('Failed to load comments:', error);
