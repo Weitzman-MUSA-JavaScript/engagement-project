@@ -66,11 +66,20 @@ function commentsControl() {
       toggleSwitch.querySelector('.comments-hide').removeAttribute('active');
 
       // Load all comments to the project items
+      const promises = [];
+
       allCommentsParts.forEach((commentsPart) => {
         const projectId = commentsPart.closest('.project-item').dataset.projectId;
         const commentsList = commentsPart.querySelector('.comments-list');
-        loadComments(projectId, commentsList); // Add comments dynamically
+
+        promises.push(loadComments(projectId, commentsList)); // Add comments dynamically
       });
+
+      Promise.all(promises).then(() => {
+        console.log('All comments are loaded');
+      }).catch((error) => {
+        console.error('Failed to load comments:', error);
+      }); // Set for debugging
 
       document.querySelector('.projects-list').classList.add('no-hover'); // Remove the hover effect
 
