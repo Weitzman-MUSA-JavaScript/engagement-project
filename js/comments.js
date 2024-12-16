@@ -4,6 +4,8 @@ import { initProjectsSelect } from './projects_select.js';
 import { loadComments } from './comments_load.js';
 import { commentsControl } from './comments_control.js';
 import { submitComments } from './comments_submit.js';
+// import { loadProjectPage } from './project_page.js';
+// import { setupProjectButtons } from './project_button.js';
 
 // Load projects data
 const projectsData = await loadProjectsData();
@@ -19,7 +21,7 @@ function initListItems() {
     // Create the list item content
     listItem.innerHTML = `
       <div class="project-part">
-        <div class="project-cover-container">
+        <div class="project-cover-container" data-project-id="${project.id}">
           <img src="${project.folder}/cover.jpg" class="project-cover" alt="${project.title} Cover">
         </div>
         <div class="project-title-container">
@@ -58,6 +60,17 @@ commentsControl();
 
 // Initialize the comments submit function
 submitComments();
+
+// Add a event listener to the load the project template page
+// document.addEventListener('DOMContentLoaded', () => {
+//   const isProjectPage = window.location.pathname.includes('project-template.html');
+
+//   if (isProjectPage) {
+//     loadProjectPage();
+//   } else {
+//     setupProjectButtons('.project-cover-container', 'data-project-id', 'project-template.html');
+//   }
+// });
 
 // Display the page after it is loaded
 window.addEventListener('load', () => {
