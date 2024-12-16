@@ -47,7 +47,7 @@ console.log(projectsListItems); // Print the list items
 const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 
-// Add a event listener to the load the project template page
+// Add a event listener to load the project page when a project is clicked
 setupProjectButtons('.project-cover-container, .project-details', 'data-project-id', 'project_template.html');
 
 // Control the maximum height of the project details manually after the page is loaded

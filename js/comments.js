@@ -4,8 +4,7 @@ import { initProjectsSelect } from './projects_select.js';
 import { loadComments } from './comments_load.js';
 import { commentsControl } from './comments_control.js';
 import { submitComments } from './comments_submit.js';
-// import { loadProjectPage } from './project_page.js';
-// import { setupProjectButtons } from './project_button.js';
+import { setupProjectButtons } from './project_button.js';
 
 // Load projects data
 const projectsData = await loadProjectsData();
@@ -61,16 +60,8 @@ commentsControl();
 // Initialize the comments submit function
 submitComments();
 
-// Add a event listener to the load the project template page
-// document.addEventListener('DOMContentLoaded', () => {
-//   const isProjectPage = window.location.pathname.includes('project_template.html');
-
-//   if (isProjectPage) {
-//     loadProjectPage();
-//   } else {
-//     setupProjectButtons('.project-cover-container', 'data-project-id', 'project-template.html');
-//   }
-// });
+// Add a event listener to load the project page when a project is clicked
+setupProjectButtons('.project-cover-container', 'data-project-id', 'project_template.html');
 
 // Display the page after it is loaded
 window.addEventListener('load', () => {
