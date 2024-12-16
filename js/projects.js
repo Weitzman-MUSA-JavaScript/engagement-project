@@ -1,8 +1,7 @@
 // This is the main script for the projects page.
 import { loadProjectsData } from './projects_data.js';
 import { initProjectsSelect } from './projects_select.js';
-// import { loadProjectPage } from './project_page.js';
-// import { setupProjectButtons } from './project_button.js';
+import { setupProjectButtons } from './project_button.js';
 
 // Load projects data
 const projectsData = await loadProjectsData();
@@ -49,15 +48,7 @@ const projectsListEl = document.querySelector('#projects-list');
 initProjectsSelect(projectsListEl, projectsListItems, projectsData);
 
 // Add a event listener to the load the project template page
-// document.addEventListener('DOMContentLoaded', () => {
-//   const isProjectPage = window.location.pathname.includes('project-template.html');
-
-//   if (isProjectPage) {
-//     loadProjectPage();
-//   } else {
-//     setupProjectButtons('.project-cover-container, .project-details', 'data-project-id', 'project-template.html');
-//   }
-// });
+setupProjectButtons('.project-cover-container, .project-details', 'data-project-id', 'project_template.html');
 
 // Control the maximum height of the project details manually after the page is loaded
 // This only needs to be run once after the page is loaded because the project details are static

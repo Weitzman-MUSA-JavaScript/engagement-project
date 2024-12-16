@@ -63,7 +63,7 @@ submitComments();
 
 // Add a event listener to the load the project template page
 // document.addEventListener('DOMContentLoaded', () => {
-//   const isProjectPage = window.location.pathname.includes('project-template.html');
+//   const isProjectPage = window.location.pathname.includes('project_template.html');
 
 //   if (isProjectPage) {
 //     loadProjectPage();

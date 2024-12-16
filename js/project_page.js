@@ -14,6 +14,7 @@ async function loadProjectPage() {
   if (project) {
     // Load project header dynamically
     loadProjectHeader(project);
+    console.log(project);
 
     // Load project images and descriptions dynamically
     const contentList = document.getElementById('project-content-list');
@@ -30,7 +31,7 @@ async function loadProjectPage() {
 // Define a function to load project header dynamically
 function loadProjectHeader(project) {
   const titleElement = document.getElementById('project-title');
-  const descriptionsElement = document.getElementById('project-descriptions');
+  const descriptionsElement = document.getElementById('project-description');
 
   titleElement.textContent = project.title;
   descriptionsElement.textContent = project.description;
