@@ -20,3 +20,21 @@ I use two data sets from Dewey, a big data platform which is accessible to all P
 The two data sets can be joined by a shared column called PlaceKey, which is the unique and persistent ID tied to a POI.
 
 The images are from [Visit Philadelphia](https://www.visitphilly.com/).
+
+## How to Use
+
+Upon visiting the website, you'll encounter an introduction page. Scroll down to learn more, and click the button to navigate to the dashboard.
+
+### Dashboard Features
+
+- **Interactive Map:** The dashboard displays a map with Points of Interest (POIs) marked.
+- **Year Selection:** Use the dropdown in the top-left corner to select a specific year and visualize data for that period.
+- **Selecting POIs:**
+  - **Map Click:** Click directly on a POI marker on the map.
+  - **Search Bar:** Alternatively, search for a POI by name using the search bar at the top.
+- **POI Details:** Once a POI is selected, detailed information will appear on the right side of the map.
+- **Data Trends:** Below the map and detailed information, you can view the trend data for the selected POI over the past five years.
+
+### Contribute to the Project
+
+We welcome your contributions! Click the red **"TAKE SURVEY"** button at the top of the page to participate. By completing the survey, you can share your spending habits and in-store time. Your responses will be added to our dataset and visualized on the map, helping to enhance the project.
