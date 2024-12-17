@@ -6,7 +6,7 @@ html, body {
 }
 
 #intro {
-    background: url('/assets/image/background.jpg') no-repeat center center/cover;
+    background: url('assets/image/background.jpg') no-repeat center center/cover;
 }
 
 #intro h2 {
@@ -16,7 +16,7 @@ html, body {
 }
 
 #one {
-    background: url('/assets/image/intro-background.png') no-repeat center center/cover;
+    background: url('assets/image/intro-background.png') no-repeat center center/cover;
 }
 
 #one h2 {
