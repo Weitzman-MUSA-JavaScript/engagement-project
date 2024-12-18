@@ -1,0 +1,284 @@
+/* Global Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Lato, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styles */
+nav {
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #333;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar li {
+  margin: 0;
+}
+
+.navbar li a {
+  display: block;
+  padding: 14px 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  background-color: #111;
+}
+
+/* Controls Styles */
+.controls {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 20px; /* Use gap for spacing between elements */
+}
+
+.controls select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.search-container {
+  position: relative;
+  width: 300px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.suggestions {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Map and Info Box */
+.map-info-container {
+  display: flex;
+  flex: 1;
+  min-height: 600px; /* Optional: Set a minimum height */
+}
+
+.map-container {
+  width: 65%; 
+  height: 100%; /* Ensures it takes full height of the container */
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.info-box {
+  width: 35%;
+  padding: 20px;
+  flex: 1; 
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.info-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#info-table th, #info-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#info-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+#info-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#info-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Chart Grid */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.chart-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  min-height: 300px; /* Ensure enough space for charts */
+  position: relative; /* To position SVGs correctly */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-item svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 6px;
+  font: 12px sans-serif;
+  background: rgb(0 0 0 / 70%);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+/* Legend Styles */
+.legend-box {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid gray;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  font-size: 1em;
+  width: 180px;
+}
+
+.legend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 3px;
+  background-color: rgb(255 255 255 / 80%);
+  color: gray;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: gray; /* default color */
+}
+
+.legend-item.highlight {
+  color: black;
+  font-weight: bold;
+}
+
+.legend-title {
+  font-size: 1.02rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Popup Window */
+.popup {
+  display: flex;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  z-index: 2000;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.popup-content label {
+  margin: 8px 0 4px;
+  font-weight: bold;
+}
+
+.popup-content input {
+  padding: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup-content button {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#survey-button {
+  background-color: #ff6f61;
+  color: #fff; 
+  font-size: 1.2em;
+  font-weight: bold; 
+  padding: 12px 20px; 
+  border: none; 
+  box-shadow: 0 4px 6px rgb(0 0 0 / 20%);
+  text-transform: uppercase; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+}

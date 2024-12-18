@@ -1,0 +1,246 @@
+/* Resetting margin and padding to remove white border */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#intro {
+    background: url('../image/background.jpg') no-repeat center center/cover;
+}
+
+#intro h2 {
+    color: #fff !important;
+    font-size: 10em !important;
+    padding: all 20%;
+}
+
+#one {
+    background: url('../image/intro-background.png') no-repeat center center/cover;
+}
+
+#one h2 {
+    color: #fff !important;
+    font-size: 3em !important;
+}
+
+#one h3 {
+    color: #fff !important;
+    font-size: 1.5em !important;
+    font-weight: bold;
+}
+
+#one h4 {
+    color: #fff !important;
+    font-size: 1.2em !important;
+    font-weight: normal;
+}
+
+#one p {
+    color: #fff !important;
+    font-size: 1em !important;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+
+/* Main Content Sections */
+#main-content {
+    margin-left: 0; 
+    height: 100vh;
+    transition: margin-left 0.3s ease-in-out;
+
+    scroll-snap-type: y mandatory; 
+    padding: 0;
+}
+
+/* Individual Section Styling */
+#main-content section {
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+    transition: all 0.3s ease-in-out; 
+    background-color: #fff; 
+
+    scroll-snap-type: y mandatory; 
+    overflow-y: hidden; 
+    font-family: Roboto, sans-serif;
+}
+
+#main-content section h2 {
+    color: #0A9CA8;
+    font-size: 2em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#main-content section p {
+    color: #333;
+    line-height: 1.6em;
+    font-size: 1.1em;
+    margin-left: 5em;
+    margin-right: 5em;
+    transition: color 0.3s ease;
+}
+
+#main-content section a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Sidebar Toggle Button */
+#sidebar-toggle {
+    background-color: rgb(0 0 0 / 20%); 
+    color: #fff;
+    border: none; 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 5px; 
+    font-size: 1.5em; 
+    font-weight: bold;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%); 
+    z-index: 1100; 
+}
+
+/* Hover Effect for Toggle Button */
+#sidebar-toggle:hover {
+    transform: scale(1.05); 
+}
+
+/* Sidebar Navigation */
+#sidebar {
+    position: fixed;
+    width: 20vw;
+    height: 100vh;
+    background: rgb(250 250 250 / 5%);
+    backdrop-filter: blur(5px); 
+    color: #fff;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    font-family: Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+    transform: translateX(-100%); /* Initially hide the sidebar */
+}
+
+#sidebar.open {
+    transform: translateX(0); /* Sidebar visible when open */
+}
+
+#sidebar .inner {
+    width: 80%;
+    text-align: right;
+}
+
+#sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+#sidebar nav ul li {
+    margin: 1.5em 0;
+    position: relative;
+}
+
+#sidebar nav ul li a {
+    color: rgb(255 255 255 / 60%);
+    text-decoration: none;
+    font-size: 1.1em;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease-in-out, font-weight 0.3s ease-in-out;
+    display: block;
+    padding-bottom: 5px;
+    position: relative; /* To position the pseudo-element correctly */
+}
+
+#sidebar nav ul li a:hover {
+    color: #fff;
+}
+
+/* Default Persistent Horizontal Line for Each Link */
+#sidebar nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #e4e4e4, #fafafa); /* Default gradient for inactive links */
+    opacity: 1;
+    transition: background 0.3s ease-in-out; /* Smooth transition for background change */
+}
+
+/* Active Link Styling */
+#sidebar nav ul li a.active-link {
+    color: #fff; /* Change text color to white */
+    opacity: 1; 
+    font-weight: bold;
+}
+
+#sidebar nav ul li a.active-link::after {
+    animation: lineInFromRight 0.5s forwards;
+    background: linear-gradient(to right, #e4e4e4, #FFD300); /* Gradient color for active link */
+}
+
+/* Keyframes for Line Animations */
+
+@keyframes line-in-from-right {
+    0% {
+        width: 0;
+        left: 100%;
+    }
+
+    100% {
+        width: 100%;
+        left: 0;
+    }
+}
+
+/* Styling for Rectangle Areas */
+.rectangle-area {
+    width: 60vw;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.rectangle {
+    width: 80%;
+    margin: 3em auto;
+    padding: 1%;
+    height: 60%;
+    background: rgb(255 255 255 / 20%);
+    backdrop-filter: blur(5px); 
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+
+
+.rectangle:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgb(0 0 0 20%);
+}
+
+
+
+
+
