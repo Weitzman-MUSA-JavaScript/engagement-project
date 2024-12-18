@@ -1,0 +1,270 @@
+.map-overlay {
+    position: absolute;
+    width: 30%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    font:
+        12px/20px 'Open Sans',
+        Arial,
+        Helvetica,
+        sans-serif;
+    background-color: #efefef;
+    height: 100vh; 
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    left: 30%;
+    top: 0;
+    bottom: 0;
+    min-width: 70%;
+}
+
+#eventList {
+    margin-top: 10px;
+    padding: 10px;
+    overflow-y: auto; 
+    height: 100%;
+}
+
+#eventList h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#eventList h5 {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+#eventListContainer {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+
+#eventListContainer li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#eventListContainer li button {
+    margin-left: 1px;
+}
+
+.event-details {
+    flex: 1; 
+  }
+  
+
+.event-title {
+font-weight: bold;
+font-size: 16px;
+margin-bottom: 5px; 
+    }
+
+.edit-btn {
+    padding: 3px 5px; 
+    font-size: 14px;
+    margin-left: 5px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #55E; 
+    color: #fff;
+  }
+  
+.delete-btn {
+    padding: 3px 5px; 
+    font-size: 14px;
+    margin-left: 5px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #dc3545; 
+    color: #fff;
+  }
+
+.edit-btn:hover {
+    background-color: rgb(58, 58, 182) !important;
+    color: #fff;
+  }
+  
+.delete-btn:hover {
+    background-color: #8a232d !important;
+    color: #fff;
+  }
+  #eventListContainer :hover {
+    background-color: #bed3f3; 
+}
+
+.mapboxgl-popup-content {
+    max-width: 800px;
+    max-height: 800px;
+    overflow-y: auto;
+    font:
+        12px/20px 'Open Sans',
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+.map-overlay fieldset {
+    display: none;
+    background: #ddd;
+    border: none;
+    padding: 00px;
+    margin: 0;
+}
+
+.map-overlay .geocoder {
+    display: block;
+    background: #ddd;
+    border: none;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.map-overlay .mapboxgl-ctrl-geocoder {
+    max-width: 100%;
+}
+
+.map-overlay input {
+    display: block;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    padding: 8px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.group-toggle { 
+    margin-top: 30px; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    background: #f0f0f0; 
+    padding: 0; 
+    
+    height: 100%;
+    z-index: 1; 
+}
+
+.toggle-button {
+    margin: 5px;
+    background-color: #ddd; 
+    color: #003764; 
+    padding: 5px 10px; 
+    font-size: 12px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* 버튼 호버 효과 */
+.toggle-button:hover {
+    background-color: #ccc; 
+}
+
+.map-overlay .backgroundmap {
+    position: absolute;
+    overflow: hidden;
+    padding: 10px;
+    top: 75%;
+    width: 100%;
+    max-height: 30%;
+    background: #f0f0f0; 
+    font-family: 'Open Sans', sans-serif;  
+    display: flex;
+    flex-direction: column;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #003764;
+    border-color: #003764;
+    padding: 5px 10px; 
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    padding: 5px 10px; 
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+/* 모달 스타일 */
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: #003764;
+    color: white;
+    border-bottom: none;
+    padding: 15px;
+}
+
+.modal-header h5 {
+    margin: 0;
+}
+
+.modal-body {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.modal-footer {
+    padding: 15px;
+    border-top: none;
+    background-color: #f4f4f4;
+}
+
+.modal-footer .btn {
+    border-radius: 5px;
+}
+
+.add-event-button {
+    position: absolute; 
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 999; 
+    transform: translate(-50%, -50%); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .add-event-button:hover {
+    background-color: #0056b3; 
+  }
