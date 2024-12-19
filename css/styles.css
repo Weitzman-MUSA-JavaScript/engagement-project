@@ -4,13 +4,13 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 50px auto;
+    margin: 25px auto;
   }
 
 h1 {
     text-align: center; 
     color: white;
-    font-size: 2em;
+    font-size: 1.6em;
     font-family: "Gill Sans", sans-serif;
 }
 
@@ -19,10 +19,56 @@ p {
     color:white;
     padding-top: 0px;
     padding-right: 40px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     padding-left: 40px;
     font-family: "Gill Sans", sans-serif;
 }
+
+.menubar {
+    position: absolute;
+    top: 5px;
+    width: 45vh;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #4c2c2c;
+    border-color: #b7cbc1;
+    position: relative;
+    font-family: "Gill Sans", sans-serif;
+    width:100%;
+  }
+
+  .topnav #myLinks {
+    display: none;
+  }
+  
+  .topnav a {
+    color: white;
+    border-color: #65776e;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  .topnav a.icon {
+    background: black;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .active {
+    background-color: #6b7f75;
+    color: white;
+    border-color: #b7cbc1;
+  }
 
 .button-group{  
     display: flex;
@@ -35,11 +81,13 @@ button {
     text-align: center;
     font-family: sans-serif;
     font-weight: bold;
+    font-size: 1.1em;
     top:50%;
     width: 60%;
+    height: 10vh;
     background-color:#6b7f75;
     color: #fff;
-    padding: 10px;
+    padding: 5px;
 }
 
 button:hover {
@@ -47,12 +95,35 @@ button:hover {
     transition: 0.7s;
 }
 
-.map {
-    width: 100%;
-    height: 70vh;
+.map-section {
+    position: relative;
+    width: 45vh;
+    height: 90vh;
     background-color: silver;
+  }
 
+  #map {
+    width: 100%;
+    height: 90vh; /* Full viewport height minus any header/footer */
+  }
+
+  .map-search-controls {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    box-sizing: border-box;
+    height: 7vh;
+    margin: 0;
+    border: none;
+    padding: 0.5rem;
+    width: 100%;
+    gap: 0.5rem;
+    justify-content: space-between;
+    z-index: 1001; /* This z-index setting is one higher than the z-index of the map controls like zoom */
+  }
+  
+  .map-search-controls input {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: monospace;
+  }

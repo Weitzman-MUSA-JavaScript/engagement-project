@@ -6,24 +6,38 @@
         <meta charset="utf-8">
 
         <title>Clear Paths PHL</title>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
         <main>
+            <section class="menubar">
+                <div class="topnav">
+                    <a href="index.html" class="active">Home</a>
+                 <!-- Navigation links (hidden by default) -->
+                    <div id="myLinks">
+                     <a href="navigation.html">find a route</a>
+                    <a href="report.html">make a report</a>
+                    <a href="appInfo.html">about</a>
+                    </div>
+                    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                    <a href="#" class="icon">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+            </section>
             <h1>CLEAR PATHS PHILADELPHIA</h1>
             <p>Finding easier and safer pedestrian routes&mdash;for everybody.</p>
-            <div class="button-group">
-                <button onclick="window.location.href = 'navigation.html';">GO SOMEWHERE</button>
+            <section class="button-group">
+                <button onclick="window.location.href = 'navigation.html';">FIND A ROUTE</button>
                 <br>
                 <button onclick="window.location.href = 'report.html';">REPORT AN OBSTRUCTION</button>
                 <br>
                 <button onclick="window.location.href = 'appInfo.html';">ABOUT CLEAR PATHS PHL</button>
-            </div>
+            </section>
         </main>
 
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script type="module" src="js/main.js"></script>
     </body>
 </html>
