@@ -7,6 +7,7 @@
 
         <title>Clear Paths PHL</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <link rel="stylesheet" href="css/styles.css">
     </head>
 
@@ -27,17 +28,17 @@
                     </a>
                 </div>
             </section>
-            <h1>CLEAR PATHS PHILADELPHIA</h1>
-            <p>Finding easier and safer pedestrian routes&mdash;for everybody.</p>
-            <section class="button-group">
-                <button onclick="window.location.href = 'navigation.html';">FIND A ROUTE</button>
-                <br>
-                <button onclick="window.location.href = 'report.html';">REPORT AN OBSTRUCTION</button>
-                <br>
-                <button onclick="window.location.href = 'appInfo.html';">ABOUT CLEAR PATHS PHL</button>
-            </section>
+
+            <section class="map-section">
+                <fieldset class="map-search-controls">
+                  <input type="text" name="address-search" placeholder="Where to?" aria-label="Search around an address or place">
+                </fieldset>
+        
+                <div id="map">Map</div>
+              </section>
         </main>
 
-        <script type="module" src="js/main.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script type="module" src="js/navigation.js"></script>
     </body>
 </html>
