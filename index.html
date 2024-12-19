@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Driving Map</title>
+<!-- Mapbox GL JS -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/cyberpunk.css">
+</head>
+<body>
+<!-- Main map container -->
+<div id="map"></div>
+
+<!-- control panel -->
+<div id="control-panel" class="cyberpunk-panel">
+<button id="add-marker-btn" class="cyberpunk-button">ADD MARKER</button>
+<div id="marker-list" class="marker-list">
+<!-- The list of tags will be dynamically displayed here -->
+</div>
+</div>
+
+<!-- Layer Controls -->
+<div id="layer-controls" class="cyberpunk-panel layer-toggle">
+<h3>Map Layers</h3>
+<div class="layer-toggle-item">
+<input type="checkbox" id="traffic-flow-toggle" checked>
+<label for="traffic-flow-toggle">Traffic Flow</label>
+</div>
+<div class="layer-toggle-item">
+<input type="checkbox" id="poi-labels-toggle" checked>
+<label for="poi-labels-toggle">Points of Interest</label>
+</div>
+<div class="layer-toggle-item">
+<input type="checkbox" id="3d-buildings-toggle" checked>
+<label for="3d-buildings-toggle">3D Buildings</label>
+</div>
+<div class="layer-toggle-item">
+<input type="checkbox" id="transit-lines-toggle" checked>
+<label for="transit-lines-toggle">Transit Lines</label>
+</div>
+</div>
+
+<!-- tagged forms -->
+<div id="marker-form" class="cyberpunk-form">
+<h2>ADD NEW MARKER</h2>
+<form id="add-marker-form">
+<div class="form-group">
+<label for="marker-type">TYPE:</label>
+<select id="marker-type" class="cyberpunk-select" required>
+<option value="roadChange">Road Change</option>
+<option value="construction">Construction</option>
+<option value="traffic">Traffic Signal</option>
+<option value="incident">Traffic Incident</option>
+<option value="hazard">Road Hazard</option>
+<option value="closure">Road Closure</option>
+<option value="newRoad">New Road</option>
+<option value="infrastructure">Infrastructure</option>
+<option value="accident">Accident Prone Area</option>
+<option value="testing">AV Testing Zone</option>
+<option value="parking">Autonomous Parking</option>
+<option value="charging">EV Charging Station</option>
+</select>
+</div>
+<div class="form-group">
+<label for="marker-description">DESCRIPTION:</label>
+<textarea
+id="marker-description"
+required
+readonly
+placeholder="Click Submit to enable editing"
+class="cyberpunk-textarea"
+></textarea>
+</div>
+<div class="form-group">
+<label for="marker-duration">DURATION:</label>
+<select id="marker-duration" class="cyberpunk-select" required>
+<option value="temporary">Temporary (24 hours)</option>
+<option value="short">Short Term (1 week)</option>
+<option value="medium">Medium Term (1 month)</option>
+<option value="long">Long Term (6 months)</option>
+<option value="permanent">Permanent</option>
+<option value="recurring">Recurring</option>
+</select>
+</div>
+<div class="form-buttons">
+<button type="submit" class="cyberpunk-button">SUBMIT</button>
+<button type="button" class="cyberpunk-button cancel">CANCEL</button>
+</div>
+</form>
+</div>
+
+<!-- JavaScript -->
+<script src="js/map.js"></script>
+<script src="js/markers.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

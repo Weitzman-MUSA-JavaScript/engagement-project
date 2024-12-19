@@ -1,0 +1,249 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    
+    body {
+    margin: 0;
+    padding: 0;
+    background-color: #0B1A2F;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    }
+    
+
+    #map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    }
+    
+
+    .cyberpunk-panel {
+    position: absolute;
+    background: rgba(11, 26, 47, 0.9);
+    padding: 20px;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    z-index: 1000;
+    }
+    
+    #control-panel {
+    top: 20px;
+    left: 20px;
+    min-width: 250px;
+    }
+    
+    .layer-toggle {
+    top: 20px;
+    right: 20px;
+    min-width: 200px;
+    }
+    
+
+    .marker-list {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+    }
+    
+    .marker-item {
+    border: 1px solid #00FFFF;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 3px;
+    background: rgba(0, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+    
+    .marker-item:hover {
+    transform: translateX(5px);
+    background: rgba(0, 255, 255, 0.2);
+    }
+    
+
+    .cyberpunk-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(11, 26, 47, 0.95);
+    padding: 25px;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 350px;
+    display: none;
+    backdrop-filter: blur(10px);
+    }
+    
+    .form-group {
+    margin: 15px 0;
+    }
+    
+    .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00FFFF;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00FFFF;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+    }
+    
+    .form-group textarea {
+    height: 100px;
+    resize: vertical;
+    }
+    
+
+    .cyberpunk-select {
+    width: 100%;
+    padding: 10px 35px 10px 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00FFFF;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    }
+    
+
+    .cyberpunk-textarea {
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+    border: 1px solid var(--neon-blue);
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    }
+    
+    .cyberpunk-textarea[readonly] {
+    cursor: not-allowed;
+    opacity: 0.7;
+    border-color: rgba(0, 255, 255, 0.3);
+    }
+    
+    .cyberpunk-textarea:not([readonly]) {
+    cursor: text;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .cyberpunk-textarea:focus {
+    outline: none;
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+    
+    .cyberpunk-textarea::placeholder {
+    color: rgba(0, 255, 255, 0.5);
+    }
+    
+    .cyberpunk-textarea[readonly]::placeholder {
+    color: rgba(0, 255, 255, 0.3);
+    }
+    
+
+    .cyberpunk-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300FFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    }
+    
+
+    .cyberpunk-select option {
+    background-color: rgba(11, 26, 47, 0.95);
+    color: #fff;
+    padding: 10px;
+    }
+    
+
+    .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+    }
+    
+
+    ::-webkit-scrollbar {
+    width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+    background: #00FFFF;
+    border-radius: 4px;
+    }
+    
+
+    .marker-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+    
+
+    .marker-icon.roadChange { background-color: #00FFFF; }
+    .marker-icon.construction { background-color: #FF00FF; }
+    .marker-icon.traffic { background-color: #FFFF00; }
+    .marker-icon.incident { background-color: #FF0000; }
+    .marker-icon.hazard { background-color: #FFA500; }
+    .marker-icon.closure { background-color: #FF0000; }
+    .marker-icon.newRoad { background-color: #00FF00; }
+    .marker-icon.infrastructure { background-color: #4169E1; }
+    .marker-icon.accident { background-color: #FF4500; }
+    .marker-icon.testing { background-color: #9400D3; }
+    .marker-icon.parking { background-color: #1E90FF; }
+    .marker-icon.charging { background-color: #32CD32; }
+    
+    /* Layer toggle styles */
+    .layer-toggle-item {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    }
+    
+    .layer-toggle-item input[type="checkbox"] {
+    margin-right: 10px;
+    }
+    
+    .layer-toggle h3 {
+    margin-bottom: 15px;
+    color: #00FFFF;
+    font-size: 16px;
+    letter-spacing: 1px;
+    }
+    
