@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["http://127.0.0.1:3000"],
+      "responseHeader": ["Content-Type", "Authorization"],
+      "method": ["GET", "POST", "PUT", "DELETE"],
+      "maxAgeSeconds": 3600
+    }
+  ]
