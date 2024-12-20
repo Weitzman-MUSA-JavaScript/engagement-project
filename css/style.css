@@ -1,0 +1,417 @@
+/* Base Styles - Mobile First */
+body {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    font-family: "Barlow";
+}
+
+.container {
+    width: 100%;
+    padding: 15px;
+}
+
+.header {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Media Query for Larger Screens (e.g., Tablets) */
+@media (min-width: 600px) {
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header {
+        font-size: 2rem;
+    }
+}
+
+/* Media Query for Larger Screens (e.g., Laptops and Desktops) */
+@media (min-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+    .header {
+        font-size: 2.5rem;
+    }
+}
+
+body {
+    font-family: "Barlow";
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px; /* Adjust the logo size */
+    cursor: pointer;
+}
+
+.title {
+    margin-left: 10px;
+    font-size: 1.5em;
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Search Container*/
+.search-container {
+    position: fixed;  /* Fixed position so it stays on top */
+    top: 60px;  /* Adjust depending on the header size */
+    left: 5%;  /* Centering horizontally with some margin */
+    right: 5%;
+    z-index: 1050;  /* Ensure it's above the map */
+    border-radius: 5px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+/* Search Input and Button */
+.search-bar {
+    width: 30%;
+    padding: 5px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .search-bar input {
+    border-radius: 20px !important;  /* Forcing the style if needed */
+    padding: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 0;
+    box-sizing: border-box;
+}
+  
+.search-button {
+   padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    margin: 0;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+
+.search-button:hover {
+    background-color: #0056b3;  /* Darker shade on hover */
+}
+
+/* Dropdown hidden by default */
+.autocomplete-options {
+    display: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Optional: adds a subtle shadow */
+    max-height: 200px;
+    overflow-y: auto; /* Make it scrollable */
+    position: absolute;  /* Position relative to the input field */
+    top: 100%;  /* Just below the input field */
+    left: 0;
+    width: 100%; /* Match the width of the search bar */
+    z-index: 10;  /* Ensure the dropdown appears above other elements */
+  }
+
+  .autocomplete-options:not(.hidden) {
+    display: block;
+}
+
+  /* Style each option */
+  .autocomplete-option {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .autocomplete-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .hidden {
+    display: none
+  }
+
+/* No Results */
+.no-results {
+    color: grey;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Map Section */
+#map {
+    height: 100vh;          
+    width: 100%;             
+}
+
+/* Style the popup container */
+.mapboxgl-popup {
+    background: linear-gradient(135deg, #2c2c2c, #444444); /* Dark grey gradient */
+    color: #ffffff; /* White text */
+    border: 1px solid #666666; /* Light grey border */
+    border-radius: 10px; /* Smooth rounded corners */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    overflow-y: auto;
+    width: 350px;
+    max-height: 500px;
+  }
+  
+  /* Style the popup content */
+  .mapboxgl-popup-content {
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    max-height: 300px; /* Adjust as needed to fit your map design */
+    padding: 10px; /* Add some padding for better readability */
+    box-sizing: border-box; /* Include padding in width/height calculation */
+  }
+  
+  .mapboxgl-popup-content textarea {
+    width: 98%; /* Make the text box span the entire pop-up width */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    padding: 10px; /* Add padding for a better user experience */
+    font-size: 14px; /* Adjust font size */
+    border: 1px solid #ccc; /* Add a subtle border */
+    border-radius: 5px; /* Rounded corners */
+    resize: vertical; /* Allow vertical resizing, but not horizontal */
+    background-color: #1f1f1f; /* Match the futuristic theme */
+    color: #fff; /* Text color */
+  }
+
+  /* Style the close button */
+  .mapboxgl-popup-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #444444;
+    background: #444444;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 24px;
+    border: 1px solid #666666;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .mapboxgl-popup-close-button:hover {
+    background: #666666;
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
+  
+  /* Style the form inside the popup */
+  #sightingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1px; /* Space between elements */
+  }
+  
+  #sightingForm label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #343333; /* Lighter grey for labels */
+  }
+  
+  #sightingForm input,
+  #sightingForm textarea {
+    background: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  #sightingForm input:focus,
+  #sightingForm textarea:focus {
+    border-color: #777777;
+  }
+  
+  /* Style the submit button */
+  #submitBtn {
+    background: #555555;
+    color: #ffffff;
+    border: 1px solid #777777;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  #submitBtn:hover {
+    background: #777777;
+    transform: scale(1.05); /* Slight zoom on hover */
+  }  
+
+  #whaleSpecies {
+    background: #333333; /* Dark grey background */
+    color: #ffffff; /* White text */
+    border: 1px solid #555555; /* Subtle border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+    width: 100%; /* Optional: Adjust width */
+  }
+  
+  #whaleSpecies:focus {
+    border-color: #777777; /* Slightly brighter border on focus */
+  }
+
+/* Style for marker pop-ups */
+.marker-popup {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
+
+.marker-popup h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.marker-popup p {
+  font-size: 14px;
+  color: #555;
+}
+
+.marker-popup img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+/* Style for the user submission pop-up (use a different class or ID) */
+.user-popup {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+.user-popup h3 {
+  font-size: 20px;
+  color: #000;
+}
+
+.user-popup textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+/* You can style the user submission form pop-up differently here */
+
+#sightingPopup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+  max-height: 60%;
+  overflow-y: auto;
+  display: none;
+}
+
+#sightingContent {
+  padding: 10px;
+}
+
+.sighting-photo {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.sighting-video, .sighting-audio {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#commentSection {
+  margin-top: 20px;
+}
+
+#commentInput {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.comment {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* References Section*/
+.references {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.references h2 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.references ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.references ul li {
+    margin-bottom: 10px;
+}
+
+.references ul li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.references ul li a:hover {
+    text-decoration: underline;
+}
+

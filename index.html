@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name of Whale Database</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="banner">
+        <div class="logo-container">
+            <img src="./data/blueWhale.png" alt="Logo" id="logo" class="logo" />
+            <span class="title">Finding Whaley</span>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="search-container">
+            <div class="search-bar">
+                <input id="whale-type" type="text" placeholder="Search for whale type">
+            </div>
+            <!-- Location Search -->
+            <div class="search-bar">
+                <input id="location" type="text" placeholder="Search for country">
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="map"></div>
+        </div>
+
+        <button type="button" id="submitBtn" style="display: none;">Submit</button>
+
+    </main>
+
+    <div id = "reference section"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+    <!-- <script src="js/whaleTypeSelect.js" type="module"></script> -->
+    <script src="js/location_select.js" type="module"></script>
+    <script src="js/firebase.js" type="module"></script>
+
+</body>
+
+</html>
