@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koala Observation</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="./css/style.css" rel="stylesheet">
+  
+</head>
+<body>
+  <!-- Title container -->
+  <div id="title-container">
+    <h1>Koala Observation</h1>
+    <div id="button-container">
+      <button id="data-analysis-btn">Data Analysis</button>
+      <button id="report-observation-btn">Report Observation</button>
+    </div>
+  </div>
+
+  <!-- Main content container -->
+  <div id="content">
+  <!-- Left panel -->
+  <div id="info-panel">
+   <div id="slider-container">
+    <h2>Data Analysis</h2>
+    <label for="year-slider">Filter by Year:</label>
+    <input id="year-slider" type="range" min="0" max="5" step="1" value="5">
+    <div id="year-label">Year: 2020 ~ 2024</div>
+  </div>
+    <!-- bar chart -->
+    <div id="chart-container">
+      <canvas id="bar-chart"></canvas>
+      <div id="chart-description">Number of Koalas by Province</div>
+    </div>
+    
+    <!-- user report-->
+    <div id="report-form">
+      <h2>Report Your Observation</h2>
+      <form id="koala-form">
+        <div class="location-group">
+          <div class="form-group">
+            <label for="latitude">Latitude:</label>
+            <input type="number" id="latitude" name="latitude" step="0.001" required />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude:</label>
+            <input type="number" id="longitude" name="longitude" step="0.001" required />
+          </div>
+        </div>
+        <button type="button" id="get-location">Get Current Location</button>
+
+        <button type="button" id="click-on-map">Click on the Map</button>
+        
+        <label for="date"><br>Date:</label>
+        <input type="date" id="date" value="${new Date().toISOString().split('T')[0]}" required>
+
+        <label for="number">Number of Koalas:</label>
+        <input type="number" id="number" min="1" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" required></textarea>
+
+        <button type="submit" id="submit-report">Submit</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Map container -->
+  <div id="map">
+    <div id="map-controls">
+      <select id="layer-toggle-select">
+        <option value="points">Point Map</option>
+        <option value="heatmap">Heat Map</option>
+      </select>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Legend container -->
+  <div id="legend" class="legend">
+    <div class="legend-item">
+        <div class="color-box" style="background-color: #F4A6A1;"></div>
+        <span>Queensland</span>
+    </div>
+    <div class="legend-item">
+        <div class="color-box" style="background-color: #64B5F6;"></div>
+        <span>New South Wales</span>
+    </div>
+    <div class="legend-item">
+        <div class="color-box" style="background-color: #81C784;"></div>
+        <span>Victoria</span>
+    </div>
+    <div class="legend-item">
+        <div class="color-box" style="background-color: #7986CB;"></div>
+        <span>South Australia</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #FFEB3B;"></div>
+      <span>Australian Capital Territory</span>
+  </div>
+    
+    <div class="legend-item">
+        <div class="color-box" style="background-color: #AAAAAA;"></div>
+        <span>Others</span>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="./js/ui-controller.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
