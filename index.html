@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta charset="utf-8">
 
         <title>Clear Paths PHL</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css">
         <link rel="stylesheet" href="css/styles.css">
     </head>
-
+    
     <body>
         <main>
-            <section class="map-section">
-                <fieldset class="map-search-controls">
-                  <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
-                  <input type="time" name="time-search" aria-label="Search at a specific time...">
-                </fieldset>
-        
-                <div class="map">Map</div>
-            </section>
+        <div class="map"></div>
+        <div id="instructions"></div>
         </main>
 
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
         <script type="module" src="js/main.js"></script>
     </body>
 </html>

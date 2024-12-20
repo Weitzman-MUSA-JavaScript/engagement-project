@@ -35,4 +35,4 @@ async function loadRampData() {
   return { hoods, ramps: missingRamps };
 }
 
-export { loadRampData };
+export { loadRam
