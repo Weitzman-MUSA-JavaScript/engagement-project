@@ -1,0 +1,402 @@
+/* General Reset and Styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: #2C2C2C; /* Dark gray background */
+    font-family: "Open Sans", sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center; /* Center the map and dashboard */
+    align-items: center;
+    height: 100vh;
+    padding: 0 20px;
+  }
+  
+  /* Map container */
+  #map {
+    height: 80vh; /* 80% of the viewport height */
+    width: 60vw;  /* 60% of the viewport width */
+    border-radius: 15px;
+    border: 2px solid #444;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Main Dashboard Container */
+  .dashboard-container {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Uber-style buttons */
+  .uber-btn {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .uber-btn:hover {
+    background-color: #333333;
+  }
+  
+  /* Section Titles */
+  .dashboard-title, .search-section h4, .itinerary-section h4 {
+    margin-top: 0;
+    color: #333333;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  /* Input fields for search bars */
+  .search-bar {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Filter Dropdowns */
+  .filter-dropdown {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table for Itinerary */
+  .itinerary-section {
+    margin-top: 20px;
+  }
+  
+  .itinerary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .itinerary-table th, .itinerary-table td {
+    padding: 12px;
+    border-bottom: 1px solid #E0E0E0;
+    text-align: left;
+  }
+  
+  .itinerary-table th {
+    background-color: #444;
+    color: #FFF;
+  }
+  
+  .itinerary-table td {
+    background-color: #FFF;
+  }
+  
+  /* Misc */
+  .extra-stop-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .inputs input, .duration-selector {
+    width: 70%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+  }
+  .recommendation-interface {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2, h4 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .search-options {
+    margin-bottom: 20px;
+  }
+  
+  .place-type-options label {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  .filters {
+    margin-bottom: 20px;
+  }
+  
+  .filters label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .filters input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .uber-btn {
+    background-color: #292c30eb;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .uber-btn:hover {
+    background-color: #4c6a8b;
+  }
+  
+  #recommendationsContainer {
+    margin-top: 20px;
+  }
+  
+  #recommendations .place-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  
+  #recommendations .place-container h5 {
+    margin: 0 0 5px;
+  }
+  
+  #recommendations .place-container p {
+    margin: 0 0 10px;
+  }
+  
+  #recommendations .place-container button {
+    margin-right: 10px;
+  }
+  #recommendationsContainer {
+    margin-top: 20px;
+    max-height: 300px; /* Set the maximum height of the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  #recommendations .place-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  /* General Itinerary Section Styling */
+.itinerary-section {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Section Heading */
+.itinerary-section h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Itinerary Table Styling */
+.itinerary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.itinerary-table th,
+.itinerary-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.itinerary-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.itinerary-table td {
+  background-color: #fff;
+}
+
+/* Notes Section Styling */
+.notes-section {
+  margin-top: 15px;
+}
+
+.notes-section label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+}
+
+.notes-section textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-family: Arial, sans-serif;
+}
+
+/* Total Duration */
+.total-duration {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Buttons */
+.uber-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.uber-btn:hover {
+  background-color: #0056b3;
+}
+
+.uber-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Remove Button */
+.uber-btn.remove-btn {
+  background-color: #dc3545;
+}
+
+.uber-btn.remove-btn:hover {
+  background-color: #c82333;
+}
+
+/* Inputs and Textareas */
+.itinerary-table input[type="number"],
+.itinerary-table textarea {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+/* Scrollable Table Body for Long Itineraries */
+.itinerary-table tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.itinerary-table thead,
+.itinerary-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .itinerary-section {
+    padding: 10px;
+  }
+
+  .itinerary-table th,
+  .itinerary-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .notes-section textarea {
+    height: 60px;
+  }
+
+  .uber-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+.itinerary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.itinerary-table th,
+.itinerary-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.itinerary-table th {
+  background-color: #33475e;
+  color: white;
+}
+
+.total-duration {
+  margin-top: 6px;
+  font-weight: bold;
+}

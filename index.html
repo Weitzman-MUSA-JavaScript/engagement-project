@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Dashboard - Uber Style</title>
+
+  <!-- FontAwesome for checkbox icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS for Uber-style design -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyC05a4Y9AwdlsXaFxNWPrIYC2tgflfcMr4",
+    authDomain: "engagement-project-1e85c.firebaseapp.com",
+    projectId: "engagement-project-1e85c",
+    storageBucket: "engagement-project-1e85c.firebasestorage.app",
+    messagingSenderId: "384810886246",
+    appId: "1:384810886246:web:b95e7874574e84a579b9a7",
+    measurementId: "G-GF4DM7VLXV"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script><body>
+
+  <!-- Map Section -->
+  <div id="map"></div>
+
+  <!-- Main Dashboard Container -->
+  <div class="dashboard-container">
+    <div class="box-form">
+
+      <h3 class="dashboard-title">Plan Your Trip</h3>
+
+      <!-- Section: Starting and Destination Locations -->
+<div class="trip-locations">
+  <h4>Enter locations here!</h4>
+  <!-- Starting Location -->
+  <div class="location-section">
+    <label for="start">Starting Location:</label>
+    <input
+      type="text"
+      id="start"
+      class="search-bar"
+      placeholder="Enter Starting Location"
+    />
+    <label for="startDuration">Duration:</label>
+    <select
+      class="duration-selector"
+      id="startDuration"
+      title="Starting Duration"
+    >
+      <option value="0">0 hrs</option>
+      <option value="1">1 hr</option>
+      <option value="2">2 hrs</option>
+      <option value="3">3 hrs</option>
+    </select>
+  </div>
+
+  <!-- Swap Locations Button -->
+  <div class="location-section swap-section">
+    <button id="swapLocations" class="uber-btn swap-btn">
+      <i class="fas fa-arrows-alt-h"></i> Swap Locations
+    </button>
+  </div>
+
+  <!-- Section: Destination -->
+<div class="trip-locations">
+  <div class="location-section">
+    <label for="destination">Destination:</label>
+    <input
+      type="text"
+      id="destination"
+      class="search-bar"
+      placeholder="Enter Destination"
+    />
+    <label for="destinationDuration">Duration:</label>
+    <select
+      class="duration-selector"
+      id="destinationDuration"
+      title="Destination Duration"
+    >
+      <option value="0">0 hrs</option>
+      <option value="1">1 hr</option>
+      <option value="2">2 hrs</option>
+      <option value="3">3 hrs</option>
+    </select>
+  </div>
+</div>
+
+<!-- Section: Add Stops -->
+<div class="trip-locations">
+  <div class="location-section">
+    <label for="addStop">Add Additional Stops:</label>
+    <button id="addStop" class="uber-btn add-stop-btn">
+      <i class="fas fa-plus"></i> Add Stop
+    </button>
+  </div>
+
+  <!-- Container for Additional Stops -->
+  <div id="extraStopsContainer" class="stops-container">
+    <!-- Dynamically added stops will appear here -->
+  </div>
+</div>
+
+<!-- Recommendations Section -->
+<div class="recommendation-interface">
+  <h2>Discover Places Nearby</h2>
+
+  <!-- Step 1: Choose Place Type -->
+  <div class="search-options">
+    <h4>What are you looking for?</h4>
+    <div class="place-type-options">
+      <label>
+        <input type="radio" name="placeType" value="restaurant" checked />
+        Restaurants
+      </label>
+      <label>
+        <input type="radio" name="placeType" value="cafe" />
+        Cafes
+      </label>
+      <label>
+        <input type="radio" name="placeType" value="museum" />
+        Museums
+      </label>
+      <label>
+        <input type="radio" name="placeType" value="park" />
+        Parks
+      </label>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <h4>Filters</h4>
+    <label for="minRating">Minimum Rating:</label>
+    <input type="number" id="minRating" min="1" max="5" step="0.1" placeholder="E.g., 4.0" />
+
+    <label for="keyword">Keyword:</label>
+    <input type="text" id="keyword" placeholder="E.g., Italian, Brunch, Kids Friendly" />
+  </div>
+
+  <!-- Search Button -->
+  <button id="searchNearby" class="uber-btn">Search Nearby</button>
+
+  <!-- Step 2: Results -->
+  <div id="recommendationsContainer">
+    <h4>Nearby Places</h4>
+    <div id="recommendations"></div>
+  </div>
+</div>
+
+<!-- Itinerary Section -->
+<div class="itinerary-section">
+  <h4>Your Trip Itinerary</h4>
+  <table class="itinerary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Location</th>
+        <th>Duration</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="itineraryTableBody">
+  </table>
+
+  <!-- Total Duration -->
+  <div class="total-duration">
+    <strong>Total Trip Duration:</strong>
+    <span id="totalDuration">0 hrs</span>
+  </div>
+
+  <!-- Notes Section -->
+  <div class="notes-section">
+    <label for="tripNotes">Notes:</label>
+    <textarea id="tripNotes" placeholder="Add any trip notes here..."></textarea>
+  </div>
+
+  <!-- Open in Google Maps -->
+  <button id="openGoogleMaps" class="uber-btn" disabled>
+    Open in Google Maps
+  </button>
+</div>
+
+<!-- Action Buttons -->
+<div class="action-buttons">
+  <button id="calculateFare" class="uber-btn">Calculate Full Trip</button>
+  <button id="clearTrip" class="uber-btn">Clear Trip</button>
+</div>
+
+<button id="saveItinerary">Save Itinerary</button>
+<button id="shareItinerary">Share Itinerary</button>
+
+  <!-- Google Maps API with your API key and callback to initMap -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBZiGN9A5tC-P3aCyNhuE9x9P2N8Fk9so&libraries=places&callback=initMap" async defer></script>
+
+  <!-- Script for Map and Functionality -->
+  <script src="app.js"></script>
+</body>
+</html>

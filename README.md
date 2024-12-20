@@ -1,42 +1,32 @@
-# User Engagement Project
+# Vrinda-Engagement Project
 
-Your final project for the class will incorporate deeper user engegement. The project should build upon many of the concepts learned throughout the class, incorporate some significant amount of interactivity, and storing and recalling data in a way that multiple users of the application can benefit from. _The focus of this project will be on engagement -- i.e. inviting members of the public to create or add to a dataset in some way._
+https://vrinda-a.github.io/engagement-project/
 
-For this project you may extend your story map or your dashboard, as long as you have some realistic addition of functionality that allows for user engagement. You may also start a new project.
+Google Maps is at the core of this project—it's the canvas for planning trips and visualizing stops.
+I've used the Google Maps API for displaying the map, calculating routes, and providing directions.
+Users can interact with the map directly, select their starting point, destinations, add stops, and calculate the complete route with an estimated fare.
 
-## Timeline
 
-- This project will take us through the end of the semester on **December 4**, when we will have project presentations.
-- To help you with your timeline, here are some milestones:
-  - **October 30**: Project proposal due
-  - **November 6**: Initial wireframes due
-  - **November 20**: Plan for completion
-  - **December 4**: Project presentations
+Add Stops & Custom Itineraries:
 
-## Instructions
+Users can customize their trips by adding stops between their start and final destinations. This is handy for adding quick coffee breaks, restaurant visits, or even sightseeing stops.
+The interface lets users select how long they want to spend at each stop, and all of this is calculated into the trip duration.
 
-Fork this repository, and add your project code to it. When you are ready to submit your project, refer to the Submission Checklist below.
+Fare & Route Calculation:
 
-## Project Proposal
+I've implemented Google Maps Directions Service to calculate the complete route.
+It sums up the total distance, estimated driving duration, and adds the time spent at each stop, giving users a complete overview of their trip, much like the summary you see when booking an Uber ride.
 
-You proposal doesn't have to be deep. It should:
-1.  Make clear who the user of your project is. This should be more specific that "the general public". Refer to the [18F Method Card on Personas](https://guides.18f.gov/methods/decide/personas/) or the Digtal.gov article on [Improving Customer Experience with Digital Personas](https://digital.gov/2017/06/20/improving-customer-experience-with-digital-personas/).
-2. Describe what you'll be doing in your tool to meet your user's needs.
-3. Describe any datasets that you will be working with, including any data that users will put in.
+Where Things Stand Now:
 
-## Initial Wireframes
+The project is still a work in progress, with core features like Google Maps integration, adding stops, and fare calculation working well.
+I'm still ironing out the Yelp API integration and improving the drawing functionality so users can more intuitively mark areas and get information about them.
+It’s far from finished, but I’m determined to keep working on it and make it the all-in-one journey planner I envisioned.
+How This Tool Helps Users (And Uber)
+A Better Ride Experience: Rather than just offering a basic point A to B service, this tool helps riders plan an entire journey—choosing stops, calculating fares, and exploring places along the way.
+Explore While You Travel: Whether it's a long road trip or just a ride across town, users can explore local areas, find great restaurants, and decide on stops without needing to switch between different apps.
+More Informed Decisions: By integrating review data (thanks to Yelp), the tool helps users pick better spots for food, attractions, and other services.
+The Current Challenges
+Yelp API Integration:
 
-Use wireframes to show what your project or your new feature will look like. You can use any tool you like to create these wireframes. 
-
-## Plan for Completion
-
-Describe what you will need to do to complete your project. This should include a list of tasks that you will need to complete, and a timeline for when you will complete them. I suggest using a tool like GitHub Projects to list out and manage your tasks/issues.
-
-## Submission Checklist
-
-- [ ] Pushed latest code to the `main` branch of your repository
-- [ ] Linted JS and CSS code
-- [ ] Turned on GitHub Pages for the repository and verified that your site works when deployed
-- [ ] Submitted a pull request to the original repository in the class organization
-- [ ] In the PR **title**, included your name at least
-- [ ] In the PR **description**, included a brief description of your topic, and your target audience
+The idea was to let users "draw" on the map to create a custom area of interest. This feature is inspired by property search tools and seemed like a great way to narrow down restaurant searches, but there are still improvements to be made. The basic drawing works, but making it smoother and more user-friendly is next on my list.
