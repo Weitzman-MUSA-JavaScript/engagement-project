@@ -396,3 +396,40 @@ main {
 
   line-height: 1.4;
 }
+
+/* for popup resume */
+.popup-overlay {
+  height: 100%;
+  width: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: none; /* Set to hide by default */
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0 0 0 / 80%);
+  z-index: 1000;
+}
+
+.popup-content {
+  height: 90%;
+  width: auto;
+  max-width: 1000px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.popup-image {
+  height: 100%;
+  width: auto;
+
+  object-fit: contain; /* to fit the image */
+  box-shadow: 0 0 20px rgba(0 0 0 / 60%);
+}
