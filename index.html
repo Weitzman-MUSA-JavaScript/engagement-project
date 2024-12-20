@@ -13,32 +13,17 @@
 
     <body>
         <main>
-            <section class="menubar">
-                <div class="topnav">
-                    <a href="index.html" class="active">Home</a>
-                 <!-- Navigation links (hidden by default) -->
-                    <div id="myLinks">
-                     <a href="navigation.html">find a route</a>
-                    <a href="report.html">make a report</a>
-                    <a href="appInfo.html">about</a>
-                    </div>
-                    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-                    <a href="#" class="icon">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </div>
-            </section>
-
             <section class="map-section">
                 <fieldset class="map-search-controls">
-                  <input type="text" name="address-search" placeholder="Where to?" aria-label="Search around an address or place">
+                  <input type="text" name="address-search" placeholder="Near..." aria-label="Search around an address or place">
+                  <input type="time" name="time-search" aria-label="Search at a specific time...">
                 </fieldset>
         
-                <div id="map">Map</div>
-              </section>
+                <div class="map">Map</div>
+            </section>
         </main>
 
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <script type="module" src="js/navigation.js"></script>
+        <script type="module" src="js/main.js"></script>
     </body>
 </html>
