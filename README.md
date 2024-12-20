@@ -1,4 +1,4 @@
-# Vrinda-Uber-Dashboard-Project
+# Vrinda-Engagement Project
 
 
 Google Maps is at the core of this project—it's the canvas for planning trips and visualizing stops.
