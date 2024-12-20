@@ -1,0 +1,251 @@
+/*
+// for all elements
+*/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+}
+
+body {
+  height: auto;
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+  padding: 0;
+
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out; /* for fade-in effect */
+}
+
+body.loaded {
+  opacity: 1; /* for fade-in effect */
+}
+
+
+/*
+// for body elements
+*/
+
+/* aside */
+aside {
+  height: auto;
+  width: 250px;
+
+  position: fixed;
+  bottom: 60px;
+  margin-left: -310px;
+}
+
+@media (width < 1400px) {
+  aside {
+    display: none;
+  }
+}
+
+/* main */
+main {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
+.contact-information {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  margin-bottom: 2rem;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-information span{
+  flex: 1;
+  text-align: center;
+
+  font-size: 1rem;
+
+  position: relative;
+}
+
+.contact-information span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 1.5px;
+  height: 75%;
+  background-color: #5d5d5d;
+}
+
+
+/*
+// for aside elements
+*/
+.aside-project-type-list {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+}
+
+.aside-project-type {
+  height: auto;
+  width: 100%;
+
+  margin-bottom: 35px;
+}
+
+.aside-project-type:last-child {
+  margin-bottom: 0;
+}
+
+.aside-project-type button {
+  height: auto;
+  width: 100%;
+
+  text-align: right;
+  background-color: white;
+  border: none;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.aside-project-type .active {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+
+/*
+// for main elements
+*/
+
+/* header */
+.page-header {
+  height: auto;
+  width: 100%;
+
+  margin-top: 3rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* section */
+.main-content {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*
+// for header elements
+*/
+
+/* for page header */
+.page-header h1 {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+
+  font-size: 1.8rem;
+  font-family: Merriweather, serif;
+}
+
+/* for page navigator */
+.page-navigator {
+  height: auto;
+  flex-grow: 1;
+}
+
+.page-name-list {
+  height: auto;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1.8rem;
+}
+
+.page-name {
+  height: auto;
+  width: auto;
+
+  font-size: 1.2rem;
+  font-family: Merriweather, serif;
+
+  list-style: none;
+}
+
+.page-name a {
+  text-decoration: none;
+  color: black;
+}
+
+
+/*
+// for section elements
+*/
+
+/* for section header */
+.section-header {
+  height: auto;
+  width: 100%;
+}
+
+.section-header h2 {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+  margin-top: 5rem;
+
+  font-size: 2.8rem;
+  font-weight: 400;
+}
+
+.section-header p {
+  height: auto;
+  width: auto;
+
+  margin: 0;
+  margin-top: 2rem;
+
+  font-size: 1.4rem;
+  font-weight: 400;
+
+  line-height: 1.4;
+}
