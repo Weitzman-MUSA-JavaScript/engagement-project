@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Announcements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Quicksand:wght@300..700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/announcement.css">
+  <script src="js/announcement.js" type="module"></script>
+</head>
+<body>
+  <h1>Announcements</h1>
+
+  <!-- login/logout -->
+  <div id="login-section">
+    <button id="login-btn">Admin Login</button>
+    <button id="logout-btn" style="display: none;">Logout</button>
+  </div>
+
+  <div id="login-popup" style="display: none;">
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="email">Username:</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <button type="submit">Login</button>
+    </form>
+    <button id="close-popup">Close</button>
+  </div>
+
+  <!-- submit announce: only login user -->
+  <div id="announcement-form" style="display: none;">
+    <h2>Post Announcement</h2>
+    <form id="announcement-form">
+      <textarea id="announcement" rows="4" placeholder="Write your announcement here..." required></textarea>
+      <button type="submit">Submit Announcement</button>
+    </form>
+  </div>
+
+  <!-- show announce -->
+  <div id="announcements-display"></div>
+  
+  <a href="index.html">
+    <button class="back-button">Back</button>
+  </a>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    import { getFirestore, addDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyDaaXvC97Bhu7JWizvEETPxjLi81jQ4jLg",
+        authDomain: "fsmp-dashboard.firebaseapp.com",
+        projectId: "fsmp-dashboard",
+        storageBucket: "fsmp-dashboard.firebasestorage.app",
+        messagingSenderId: "709451842996",
+        appId: "1:709451842996:web:2b2872cb010510ba6c5ee1",
+        measurementId: "G-6MJ1Z4W38K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const loginPopup = document.getElementById("login-popup");
+    const announcementForm = document.getElementById("announcement-form");
+    const announcementsDisplay = document.getElementById("announcements-display");
+    const closePopupBtn = document.getElementById("close-popup");
+    const loginForm = document.getElementById("login-form");
+    
+    // show login popup
+    loginBtn.addEventListener("click", () => {
+      loginPopup.style.display = "block";
+    });
+
+    // close popup
+    closePopupBtn.addEventListener("click", () => {
+      loginPopup.style.display = "none";
+    });
+
+    // login
+    // Username: admin@fsmp.com
+    // Password: password123
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Logged in successfully!");
+        loginPopup.style.display = "none";
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    });
+
+    // logout
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth).then(() => {
+        alert("Logged out successfully!");
+      }).catch((error) => {
+        alert("Logout failed: " + error.message);
+      });
+    });
+
+    // show/hide
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        announcementForm.style.display = "block";
+      } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        announcementForm.style.display = "none";
+      }
+    });
+
+    // sumbit
+    document.getElementById('announcement-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const announcement = document.getElementById('announcement').value;
+
+      try {
+        await addDoc(collection(db, 'announcements'), {
+          announcement,
+          timestamp: new Date(),
+        });
+        alert('Announcement posted!');
+        e.target.reset();
+      } catch (error) {
+        console.error("Error posting announcement:", error);
+      }
+    });
+
+    // show announce
+    async function displayAnnouncements() {
+      const q = query(collection(db, 'announcements'), orderBy('timestamp', 'desc'), limit(5));
+      const querySnapshot = await getDocs(q);
+      const announcements = [];
+      querySnapshot.forEach((doc) => {
+        announcements.push(doc.data());
+      });
+
+      if (announcements.length === 0) {
+        announcementsDisplay.innerHTML = '<p>No announcements yet!</p>';
+        return;
+      }
+
+      announcements.forEach(({ announcement }) => {
+        const announcementItem = document.createElement('div');
+        announcementItem.className = 'announcement-item';
+
+        const announcementText = document.createElement('p');
+        announcementText.textContent = announcement;
+
+        announcementItem.appendChild(announcementText);
+        announcementsDisplay.appendChild(announcementItem);
+      });
+    }
+
+    displayAnnouncements();
+  </script>
+</body>
+</html>
