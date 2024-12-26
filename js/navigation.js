@@ -1,7 +1,7 @@
 async function initMap(El, mapboxToken) {
   const map = new mapboxgl.Map({
     container: El,
-    style: 'mapbox://styles/mapbox/streets-v12',
+    style: 'mapbox://styles/mapbox/light-v11',
     center: [-75.16, 39.95], 
     zoom: 12,
     accessToken: mapboxToken,
@@ -35,9 +35,8 @@ async function initMap(El, mapboxToken) {
   });
   map.addControl(geolocate);
 
-  geolocate.on('geolocate', (e) => {
-    const userCoordinates = [e.coords.longitude, e.coords.latitude];
-    setCurrentLocationAsOrigin(userCoordinates);
+  geolocate.on('geolocate', function(e) {
+    directions.setOrigin([e.coords.longitude, e.coords.latitude]); 
   });
 
   const rampsResponse = await fetch("data/ramps.json");
@@ -52,76 +51,6 @@ async function initMap(El, mapboxToken) {
   delete ppaViols.features[0].properties.violation_desc;
   
   map.on('load', () => {
-    map.addSource('ramps', {
-      type: 'geojson',
-      data: rampsCollection
-    });
-
-    map.addLayer({
-      id: 'ramps-layer',
-      type: 'circle',
-      source: 'ramps',
-      paint: {
-        'circle-radius': 3,
-        'circle-color': 'firebrick',
-        'circle-opacity': 0.6
-      }
-    });
-
-    map.on('click', 'ramps-layer', (e) => {
-      // Copy coordinates array.
-      const coordinates = e.features[0].geometry.coordinates.slice();
-      const description = 'Missing curb ramp';
-
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map);
-    });
-
-    // Change the cursor to a pointer when the mouse is over the places layer.
-    map.on('mouseenter', 'ramps-layer', () => {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'ramps-layer', () => {
-        map.getCanvas().style.cursor = '';
-    });
-    
-    map.addSource('ppa', {
-      type: 'geojson',
-      data: ppaViols
-    });
-
-    map.addLayer({
-      id: 'ppa-layer',
-      type: 'circle',
-      source: 'ppa',
-      paint: {
-        'circle-radius': 2,
-        'circle-color': '#98AFC7',
-        'circle-opacity': 0.2
-      }
-    });
-
-    map.on('click', 'ppa-layer', (e) => {
-      const coordinates = e.features[0].geometry.coordinates.slice();
-      const description = e.features[0].properties.violation;
-
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map);
-    });
-
-    map.on('mouseenter', 'ppa-layer', () => {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-
-    map.on('mouseleave', 'ppa-layer', () => {
-        map.getCanvas().style.cursor = '';
-    });
 
     const weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const d = new Date();
@@ -142,18 +71,135 @@ async function initMap(El, mapboxToken) {
          "fill-opacity": 0.5,
         },
     });
+
+    map.addSource('ramps', {
+      type: 'geojson',
+      data: rampsCollection
+    });
+
+    map.addLayer({
+      id: 'ramps-layer',
+      type: 'circle',
+      source: 'ramps',
+      paint: {
+        'circle-radius': 3,
+        'circle-color': 'firebrick',
+        'circle-opacity': 0.4,
+        'circle-stroke-width': 1,
+        'circle-stroke-color': 'firebrick'
+      }
+    });
+
+    map.on('click', 'ramps-layer', (e) => {
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const description = 'Missing curb ramp';
+
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(map);
+    });
+
+    map.on('mouseenter', 'ramps-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'ramps-layer', () => {
+        map.getCanvas().style.cursor = '';
+    });
+    
+    map.addSource('ppa', {
+      type: 'geojson',
+      data: ppaViols,
+      cluster: true,
+      clusterMaxZoom: 12,
+      clusterRadius: 50
+    });
+
+    map.addLayer({
+      id: 'ppa-cluster',
+      type: 'circle',
+      source: 'ppa',
+      filter: ['has', 'point_count'],
+      paint: {
+        'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            'royalblue',
+            20,
+            'royalblue',
+            90,
+            'royalblue'
+        ],
+        'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            4,
+            20,
+            10,
+            90,
+            15
+        ],
+        'circle-opacity': 0.9,
+    }
+    });
+
+    map.addLayer({
+      id: 'ppa-cluster-count',
+      type: 'symbol',
+      source: 'ppa',
+      filter: ['has', 'point_count'],
+      layout: {
+          'text-field': ['get', 'point_count_abbreviated'],
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': 10,
+      }, paint: {
+        'text-color': 'white',
+      }
   });
 
-  function setCurrentLocationAsOrigin(userCoordinates) {
-    // Set the origin of the Directions control
-    directions.setOrigin(userCoordinates);
+  map.addLayer({
+      id: 'unclustered-point',
+      type: 'circle',
+      source: 'ppa',
+      filter: ['!', ['has', 'point_count']],
+      paint: {
+          'circle-color': 'white',
+          'circle-radius': 2,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': 'royalblue'
+      }
+  });
 
-    // Find the input field for the origin
-    const originInput = document.querySelector('.mapbox-directions-origin-input');
-    if (originInput) {
-      originInput.value = 'Current Location'; // Change text to 'Current Location'
+  map.on('click', 'unclustered-point', (e) => {
+    const coordinates = e.features[0].geometry.coordinates.slice();
+    const violAddress = e.features[0].properties.location;
+    const violType =
+        e.features[0].properties.violation;
+
+    if (['mercator', 'equirectangular'].includes(map.getProjection().name)) {
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
     }
-  }
+
+    new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(
+            `${violAddress}<br>Violation: ${violType}`
+        )
+        .addTo(map);
+    });
+
+    map.on('mouseenter', 'clusters', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'clusters', () => {
+        map.getCanvas().style.cursor = '';
+    });
+  });
+
+  document.querySelector('button.mapboxgl-ctrl-geolocate').innerHTML = 'Use current location';
 }
 
 export { initMap };
