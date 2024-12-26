@@ -161,3 +161,27 @@ input[type="checkbox"] {
     font-size: 14px;
     color: #888;
 }
+
+.site-phone {
+    font-size: 14px;
+    color: #888;
+}
+
+.jump-button {
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.jump-button:hover {
+    background-color: #ccc;
+}

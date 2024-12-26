@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summer Meals Comments</title>
+  <link rel="stylesheet" href="css/comment.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Quicksand:wght@300..700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <script src="js/comments.js" type="module"></script>
+</head>
+<body>
+  <h1>Share your ideas and express your thanks!</h1>
+  
+  <form id="comment-form">
+    <label for="comment">Leave your comments here:</label>
+    <textarea id="comment" rows="4" placeholder="Write your comment here..." required></textarea>
+    
+    <button type="submit">Submit</button>
+  </form>
+  <div id="comments-display"></div>
+  <a href="index.html">
+    <button class="back-button">Back</button>
+  </a>
+
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js"></script>
+  <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { addDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+      import { getStorage } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+      import { query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    var firebaseConfig = {
+      apiKey: "AIzaSyDaaXvC97Bhu7JWizvEETPxjLi81jQ4jLg",
+      authDomain: "fsmp-dashboard.firebaseapp.com",
+      projectId: "fsmp-dashboard",
+      storageBucket: "fsmp-dashboard.firebasestorage.app",
+      messagingSenderId: "709451842996",
+      appId: "1:709451842996:web:2b2872cb010510ba6c5ee1",
+      measurementId: "G-6MJ1Z4W38K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    console.log("Firebase initialized successfully:", app);
+    console.log("Firestore and Storage are ready for use.");
+
+  document.getElementById('comment-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const comment = document.getElementById('comment').value;
+
+    try {
+      await addDoc(collection(db, 'comments'), {
+        comment,
+        timestamp: new Date(),
+      });
+      alert('Comment submitted!');
+      e.target.reset();
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  });
+
+  // Show Comments
+  async function displayComments() {
+  const commentsDisplay = document.getElementById('comments-display');
+  
+  // limited to 10
+  const q = query(collection(db, 'comments'), orderBy('timestamp', 'desc'), limit(10));
+  const querySnapshot = await getDocs(q);
+  
+  const comments = [];
+  querySnapshot.forEach((doc) => {
+    comments.push(doc.data());
+  });
+
+  if (comments.length === 0) {
+    commentsDisplay.innerHTML = '<p>Share your ideas and express your thanks!</p>';
+    return;
+  }
+
+  // random
+  comments.sort(() => 0.5 - Math.random());
+
+  // show
+  comments.slice(0, 5).forEach(({ comment }) => {
+    const commentItem = document.createElement('div');
+    commentItem.className = 'comment-item';
+
+    const commentText = document.createElement('p');
+    commentText.textContent = comment;
+
+    commentItem.appendChild(commentText);
+    commentsDisplay.appendChild(commentItem);
+  });
+}
+
+displayComments();
+  </script>
+  <script src="js/comments.js"></script>
+</body>
+</html>

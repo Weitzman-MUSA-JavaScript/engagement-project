@@ -77,7 +77,7 @@ function displaySidebarList(geojsonData) {
   siteList.appendChild(resetButton);
 
   geojsonData.features.forEach((feature, index) => {
-    const { NAME, ADDRESS } = feature.properties;
+    const { NAME, ADDRESS, PHONE } = feature.properties;
 
     const siteItem = document.createElement('div');
     siteItem.classList.add('site-item');
@@ -91,6 +91,11 @@ function displaySidebarList(geojsonData) {
     siteAddress.textContent = `Address: ${ADDRESS}`;
     siteAddress.classList.add('site-address');
     siteItem.appendChild(siteAddress);
+
+    const sitePhone = document.createElement('p');
+    sitePhone.textContent = `Tel: ${PHONE}`;
+    sitePhone.classList.add('site-phone');
+    siteItem.appendChild(sitePhone);
 
     siteItem.addEventListener('click', () => {
       // Find the marker and zoom in
