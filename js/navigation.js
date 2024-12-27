@@ -39,9 +39,11 @@ async function initMap(El, mapboxToken) {
     geolocate.trigger();
   });
   geolocate.on('geolocate', function(e) {
+    const userCoordinates = [e.coords.longitude, e.coords.latitude];
+    directions.setOrigin(userCoordinates);
     map.flyTo({
       zoom: 14,
-      center: [e.coords.longitude, e.coords.latitude]
+      center: userCoordinates,
     });
   });
 
