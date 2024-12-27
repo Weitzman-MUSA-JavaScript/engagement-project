@@ -207,7 +207,7 @@ async function initMap(El, mapboxToken) {
     });
   });
 
-  document.querySelector('button.mapboxgl-ctrl-geolocate').innerHTML = 'Use current location';
+  document.querySelector('button.mapboxgl-ctrl-geolocate').innerHTML = 'Get current location';
 }
 
 export { initMap };
