@@ -35,8 +35,14 @@ async function initMap(El, mapboxToken) {
   });
   map.addControl(geolocate);
 
+  map.on('load', function() {
+    geolocate.trigger();
+  });
   geolocate.on('geolocate', function(e) {
-    directions.setOrigin([e.coords.longitude, e.coords.latitude]); 
+    map.flyTo({
+      zoom: 14,
+      center: [e.coords.longitude, e.coords.latitude]
+    });
   });
 
   const rampsResponse = await fetch("data/ramps.json");
@@ -112,7 +118,7 @@ async function initMap(El, mapboxToken) {
       type: 'geojson',
       data: ppaViols,
       cluster: true,
-      clusterMaxZoom: 12,
+      clusterMaxZoom: 15,
       clusterRadius: 50
     });
 
