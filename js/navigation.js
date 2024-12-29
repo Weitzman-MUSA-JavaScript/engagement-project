@@ -47,6 +47,10 @@ async function initMap(El, mapboxToken) {
     });
   });
 
+  geolocate.on('error', () => {
+    console.error('Failed to get position!.');
+  });
+
   const rampsResponse = await fetch("data/ramps.json");
   const rampsCollection = await rampsResponse.json();
   
@@ -128,7 +132,7 @@ async function initMap(El, mapboxToken) {
       id: 'ppa-cluster',
       type: 'circle',
       source: 'ppa',
-      filter: ['has', 'point_count'],
+      filter: ['!=', 'violation', 'CORNER CLEARANCE'] && ['has', 'point_count'],
       paint: {
         'circle-color': [
             'step',

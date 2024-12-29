@@ -12,12 +12,35 @@
 
     <body>
         <main>
+            <button id="report-button">Report an Obstruction</button>
+            <div class = form-container>
+                <form id="report-form">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" required readonly><br><br>
+                
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                    <option value="debris">Debris</option>
+                    <option value="traffic">Traffic/Parking</option>
+                    <option value="event">Event</option>
+                    </select><br><br>
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea><br><br>
+
+                    <button type="submit">Submit Report</button>
+                </form>
+            <button type="button" id="close-form-button">Close</button>
+            </div>
+
             <div class="map"></div>
         </main>
 
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
