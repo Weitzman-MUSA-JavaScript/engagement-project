@@ -1,4 +1,4 @@
-import { db } from './firebase.js';
+import { db, ref, push } from './firebase.js';
 import { initMap } from './navigation.js';
 
 const mapboxToken = 'pk.eyJ1Ijoic29sYW5vYSIsImEiOiJjbTR3ZWU4MzAwY3JkMmpwb252czJudDVjIn0.6GUU4rEhxQx-bsGw5d7zeQ'; 
@@ -13,7 +13,7 @@ const closeButton = document.getElementById('close-form-button');
 
 reportButton.addEventListener('click', () => {
     formContainer.style.display = 'block';
-    getUserLocation(); // Get the user's location when the form is shown
+    getUserLocation();
 });
 
 closeButton.addEventListener('click', () => {
@@ -26,15 +26,12 @@ formContainer.addEventListener('submit', (event) => {
     const location = document.getElementById('location').value;
     const description = document.getElementById('description').value;
     const category = document.getElementById('category').value;
-    const additionalDetails = document.getElementById('additionalDetails').value;
 
-    // Add report to Realtime Database
     const reportsRef = ref(db, 'reports');
     push(reportsRef, {
     location: location,
     description: description,
     category: category,
-    additionalDetails: additionalDetails,
     timestamp: firebase.database.ServerValue.TIMESTAMP
     })
     .then(() => {
@@ -43,9 +40,6 @@ formContainer.addEventListener('submit', (event) => {
     .catch((error) => {
         console.error('Error adding report:', error);
     });
-
-    reportForm.reset();
-    reportForm.style.display = 'none';
 });
 
 function getUserLocation() {

@@ -15,22 +15,24 @@
             <button id="report-button">Report an Obstruction</button>
             <div class = form-container>
                 <form id="report-form">
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" required readonly><br><br>
+                    <p>Report obstructions here to help find safe and clear routes for all! Please note that you must have location services enabled to make a report.</p>
+                    <label for="location">Location:</label><br>
+                    <input type="text" id="location" name="location" placeholder="Current location" readonly><br><br>
                 
-                    <label for="category">Category:</label>
+                    <label for="category">Category:</label><br>
                     <select id="category" name="category" required>
+                    <option value="select">Select</option>
                     <option value="debris">Debris</option>
                     <option value="traffic">Traffic/Parking</option>
                     <option value="event">Event</option>
                     </select><br><br>
 
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" required></textarea><br><br>
+                    <label for="description">Description:</label><br>
+                    <textarea id="description" name="description" required></textarea><br>
 
-                    <button type="submit">Submit Report</button>
+                    <button id="submission" type="submit">Submit Report</button>
                 </form>
-            <button type="button" id="close-form-button">Close</button>
+            <button type="button" id="close-form-button">Exit</button>
             </div>
 
             <div class="map"></div>
