@@ -54,6 +54,7 @@ async function initMap(El, mapboxToken) {
 
   geolocate.on('geolocate', (e) => {
     const userCoordinates = [e.coords.longitude, e.coords.latitude];
+    directions.setOrigin(userCoordinates);
     
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
