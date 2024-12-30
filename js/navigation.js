@@ -61,7 +61,7 @@ async function initMap(El, mapboxToken) {
         center: userCoordinates,
         zoom: 14,
       });
-    }, 300);
+    }, 3000);
   });
 
   geolocate.on('error', () => {
