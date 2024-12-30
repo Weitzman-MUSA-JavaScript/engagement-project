@@ -50,15 +50,18 @@ async function initMap(El, mapboxToken) {
     geolocate.trigger();
   });
 
+  let debounceTimer;
+
   geolocate.on('geolocate', (e) => {
     const userCoordinates = [e.coords.longitude, e.coords.latitude];
-    directions.setOrigin(userCoordinates);
-    if (!isUserInteracting) {
+    
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
       map.flyTo({
         center: userCoordinates,
         zoom: 14,
       });
-    }
+    }, 300);
   });
 
   geolocate.on('error', () => {
