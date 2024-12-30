@@ -85,7 +85,7 @@ p {
 }
 
 .marker {
-  background-image: url('/img/octagon-exclamation.png');
+  background-image: url('../img/octagon-exclamation.png');
   background-size: cover;
   width: 20px;
   height:20px;
