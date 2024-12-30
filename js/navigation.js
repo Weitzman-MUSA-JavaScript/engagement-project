@@ -194,7 +194,7 @@ async function initMap(El, mapboxToken) {
       filter: ['!', ['has', 'point_count']],
       paint: {
         'circle-color': 'white',
-        'circle-radius': 2,
+        'circle-radius': 3,
         'circle-stroke-width': 1,
         'circle-stroke-color': 'royalblue',
       },
