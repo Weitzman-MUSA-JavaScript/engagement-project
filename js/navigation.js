@@ -29,6 +29,16 @@ async function initMap(El, mapboxToken) {
 
   map.addControl(directions, 'top-left');
 
+  let isUserInteracting = false;
+
+  map.on('mousedown', () => {
+    isUserInteracting = true;
+  });
+  
+  map.on('mouseup', () => {
+    isUserInteracting = false;
+  });
+
   const geolocate = new mapboxgl.GeolocateControl({
     positionOptions: { enableHighAccuracy: true },
     trackUserLocation: true,
@@ -43,10 +53,12 @@ async function initMap(El, mapboxToken) {
   geolocate.on('geolocate', (e) => {
     const userCoordinates = [e.coords.longitude, e.coords.latitude];
     directions.setOrigin(userCoordinates);
-    map.flyTo({
-      zoom: 14,
-      center: userCoordinates,
-    });
+    if (!isUserInteracting) {
+      map.flyTo({
+        center: userCoordinates,
+        zoom: 14,
+      });
+    }
   });
 
   geolocate.on('error', () => {
