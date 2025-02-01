@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   font-family: Poppins, sans-serif;
@@ -13,7 +17,7 @@ html, body {
 
 .header-left img {
   padding: 1rem;
-  width: 3rem;
+  width: 5rem;
   height: auto;
 }
 
@@ -191,7 +195,6 @@ label {
   display: block;
   text-align: left;
   padding: 0.5rem;
-  box-sizing: border-box;
   overflow-wrap: break-word;
   word-wrap: break-word;
   overflow-y: auto;
@@ -271,8 +274,6 @@ input[type="text"] {
   font-weight: 600;
   margin-top: 1em;
   text-transform: uppercase;
-  text-anchor: start !important;
-  transform: translate(-10rem, 0.8rem);
 }
 
 .bb-text {
