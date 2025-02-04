@@ -1,21 +1,26 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
-import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/latest/firebase-app.js';
+import { getAnalytics } from 'https://www.gstatic.com/firebasejs/latest/firebase-analytics.js';
 import { getFirestore, collection, doc, setDoc, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
 
 // Firebase setup
 const firebaseConfig = {
-  apiKey: 'AIzaSyAPujgD3xoa9zRjqve5nat6m4Q5Aa6MjDM',
-  authDomain: 'penn-football-benchmarking.firebaseapp.com',
-  projectId: 'penn-football-benchmarking',
-  storageBucket: 'penn-football-benchmarking.firebasestorage.app',
-  messagingSenderId: '144027601930',
-  appId: '1:144027601930:web:a4ea4a588776b2341d63f3',
-  measurementId: 'G-834Q3624G1',
+  apiKey: "AIzaSyAPujgD3xoa9zRjqve5nat6m4Q5Aa6MjDM",
+  authDomain: "penn-football-benchmarking.firebaseapp.com",
+  projectId: "penn-football-benchmarking",
+  storageBucket: "penn-football-benchmarking.firebasestorage.app",
+  messagingSenderId: "144027601930",
+  appId: "1:144027601930:web:a4ea4a588776b2341d63f3",
+  measurementId: "G-834Q3624G1"
+
 };
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
+analytics.setConfig({
+  cookie_domain: 'auto' 
+});
 
 window.db = db;
 window.collection = collection;
@@ -36,7 +41,7 @@ async function addAthleteReport(data) {
   }
 
   console.log(data)
-  
+
   const athleteID = `${data.Name}-${data.Status}-${data.Position}`
     .replace(/\s+/g, '')
     .toLowerCase();
