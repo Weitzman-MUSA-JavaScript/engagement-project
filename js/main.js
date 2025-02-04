@@ -75,31 +75,33 @@ setupAthleteSelectionListener();
 
 // Final stats
 
-/* const finalStatsResponse = await fetch('data/bulk uploads/jr_day_2025.json');
+const finalStatsResponse = await fetch('data/bulk uploads/jr_day_2025.json');
 const finalStats = await finalStatsResponse.json();
+
+console.log(finalStats.Name[4]);
 
 finalStats.Name.forEach((Name, index) => {
   const athlete = {}
   athlete.Name = finalStats.Name[index]
   athlete.Position = finalStats.Position[index]
   athlete.Status = finalStats.Status[index]
-  athlete.Number = ""
+  athlete.Number = "NA"
   athlete.Height = finalStats.Height[index]
   athlete.Weight = finalStats.Weight[index]
   athlete.Wingspan = finalStats.Wingspan[index]
-  athlete.Bench = ""
-  athlete.Squat = ""
-  athlete['225lb Bench'] = ""
-  athlete['Vertical Jump'] = ""
-  athlete['Broad Jump'] = ""
-  athlete['Hang Clean'] = ""
-  athlete['Power Clean'] = ""
-  athlete['10Y Sprint'] = ""
-  athlete['Flying 10'] = ""
-  athlete['Pro Agility'] = ""
-  athlete['L Drill'] = ""
-  athlete['60Y Shuttle'] = ""
-  athlete['Notes'] = ""
+  athlete.Bench = "NA"
+  athlete.Squat = "NA"
+  athlete['225lb Bench'] = "NA"
+  athlete['Vertical Jump'] = "NA"
+  athlete['Broad Jump'] = "NA"
+  athlete['Hang Clean'] = "NA"
+  athlete['Power Clean'] = "NA"
+  athlete['10Y Sprint'] = "NA"
+  athlete['Flying 10'] = "NA"
+  athlete['Pro Agility'] = "NA"
+  athlete['L Drill'] = "NA"
+  athlete['60Y Shuttle'] = "NA"
+  athlete['Notes'] = "NA"
 
   addAthleteReport(athlete)
-}); */
+});
