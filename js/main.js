@@ -73,19 +73,16 @@ document.getElementById('load-athletes').addEventListener('click', loadAthleteDr
 // Enable athlete selection from dropdown
 setupAthleteSelectionListener();
 
-// Final stats
-
-const finalStatsResponse = await fetch('data/bulk uploads/jr_day_2025.json');
+// Bulk athlete upload
+/* const finalStatsResponse = await fetch('data/bulk uploads/jr_day_2025.json');
 const finalStats = await finalStatsResponse.json();
-
-console.log(finalStats.Name[4]);
 
 finalStats.Name.forEach((Name, index) => {
   const athlete = {}
   athlete.Name = finalStats.Name[index]
-  athlete.Position = finalStats.Position[index]
-  athlete.Status = finalStats.Status[index]
-  athlete.Number = "NA"
+  athlete.Position = "DB"
+  athlete.Status = "HS"
+  athlete.Number = "#"
   athlete.Height = finalStats.Height[index]
   athlete.Weight = finalStats.Weight[index]
   athlete.Wingspan = finalStats.Wingspan[index]
@@ -104,4 +101,4 @@ finalStats.Name.forEach((Name, index) => {
   athlete['Notes'] = "NA"
 
   addAthleteReport(athlete)
-});
+}); */
