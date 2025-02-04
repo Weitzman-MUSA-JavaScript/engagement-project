@@ -1,0 +1,351 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  color: #1f1f1f;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  background-color: #1f1f1f;
+}
+
+.header-left img {
+  padding: 1rem;
+  width: 5rem;
+  height: auto;
+}
+
+.header-middle {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#athlete-position select,
+#name-input,
+#status-input,
+#number-input {
+  font-size: 2.5rem;
+  font-weight: 100;
+  color: white;
+  border: none;
+  background-color: transparent;
+  height: 3rem; 
+  line-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+#athlete-position select {
+  border: none;
+}
+
+#athlete-position select:hover,
+#name-input:hover,
+#status-input:hover,
+#number-input:hover {
+  color: #980000;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#load-athletes,
+#download-pdf {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#load-athletes:hover,
+#download-pdf:hover {
+  color: #980000;
+}
+
+#save-athlete,
+#clear-all {
+  padding: 0.5rem 1rem; 
+  font-family: Poppins, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400; 
+  color: white;
+  background-color: #011f5b;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+#save-athlete:hover,
+#clear-all:hover {
+  background-color: #023b87; 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+#save-athlete:active,
+#clear-all:active {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #001940; 
+}
+
+
+/* Dropdown Menu */
+#dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+fieldset > * {
+  margin-bottom: 0.5rem;
+}
+
+.benchmark-page {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+
+fieldset {
+  border-color: transparent;
+}
+
+ul {
+  font-family: Lato, sans-serif;
+  list-style-type: none;
+  padding-left: 0;
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+li {
+  display: flex;
+  margin-bottom: 0.5rem;
+  justify-content: space-between;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+}
+
+.benchmark-menu input {
+  font-family: Lato, sans-serif;
+  border-color: transparent;
+  width: 1rem;
+  font-size: 0.9rem;
+  background-color: #f8f8f8;
+  border-radius: 0.35em;
+  font-weight: 200;
+  color: #4d4d57;
+}
+
+#coach-notes {
+  width: 15vw;
+  display: block;
+  text-align: left;
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-y: auto;
+  resize: vertical;
+  border-color: rgb(160, 159, 159, 0.3);
+  color: gray;
+  border-width: 1px;
+  border-radius: 0.35em;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 40%;
+}
+
+input[type="number"] {
+  width: 40%;
+  appearance: textfield;
+  text-align: center;
+}
+
+.unit {
+  font-family: Lato, sans-serif;
+  pointer-events: none;
+  align-content: center;
+  opacity: 0.5;
+  padding-left: 0.25rem;
+  color: #a2a2a2;
+}
+
+.benchmark-chart-area {
+  display: grid;
+  grid-column: 2 / 7;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  height: 80vh;
+}
+
+.pct-chart {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(7, 9, 173, 0.1);
+
+}
+
+.stat-category-label, label[for="coach-notes"] {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
+input[type="number"]:invalid {
+  color: salmon;
+}
+
+input[type="text"] {
+  border-color: transparent;
+}
+
+.header input[type="text"] {
+  border-color: transparent;
+  box-sizing: content-box;
+  width: auto;
+}
+
+/* Billboard Charts */
+
+.bb text.bb-title {
+  font-size: 0.75rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
+.bb-text {
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.bb tspan {
+  font-family: Lato, sans-serif;
+  fill: #011f5b;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.bb-axis.bb-axis-x path.domain {
+  opacity: 0;
+}
+
+div#radar-chart .bb-level > text:nth-child(2), 
+div#radar-chart .bb-text{
+  font-size: 0.75rem;
+  font-weight: 100;
+}
+
+div#radar-chart .bb-axis-0 > text:nth-child(2),
+div#radar-chart .bb-axis-1 > text:nth-child(2),
+div#radar-chart .bb-axis-2 > text:nth-child(2),
+div#radar-chart .bb-axis-3 > text:nth-child(2) {
+  font-size: 0.75rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+/* Billboard.js Tooltip Styling */
+.bb-tooltip {
+  padding: 10px;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  color: #011f5b;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bb-tooltip .tooltip-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.bb-tooltip .tooltip-row {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 4px;
+}
+
+.bb-tooltip .tooltip-row:last-child {
+  margin-bottom: 0; 
+}
+
+.bb-tooltip .tooltip-label {
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+}
+
+.bb-tooltip .tooltip-value {
+  font-family: Lato, sans-serif;
+  text-align: right;
+}
