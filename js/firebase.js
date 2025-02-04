@@ -35,6 +35,8 @@ async function addAthleteReport(data) {
     return;
   }
 
+  console.log(data)
+  
   const athleteID = `${data.Name}-${data.Status}-${data.Position}`
     .replace(/\s+/g, '')
     .toLowerCase();

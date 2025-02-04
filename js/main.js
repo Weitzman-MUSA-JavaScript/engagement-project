@@ -72,3 +72,33 @@ document.getElementById('load-athletes').addEventListener('click', loadAthleteDr
 
 // Enable athlete selection from dropdown
 setupAthleteSelectionListener();
+
+// Final stats
+/* const finalStatsResponse = await fetch('data/latest_tests_2020_2024.json');
+const finalStats = await finalStatsResponse.json();
+
+finalStats.Name.forEach((Name, index) => {
+  const athlete = {}
+  athlete.Name = finalStats.Name[index]
+  athlete.Position = finalStats.Position[index]
+  athlete.Status = finalStats.Status[index]
+  athlete.Number = finalStats.Number[index]
+  athlete.Height = finalStats.Height[index]
+  athlete.Weight = finalStats.Weight[index]
+  athlete.Wingspan = finalStats.Wingspan[index]
+  athlete.Bench = finalStats.Bench[index]
+  athlete.Squat = finalStats.Squat[index]
+  athlete['225lb Bench'] = finalStats['225lb Bench'][index]
+  athlete['Vertical Jump'] = finalStats['Vertical Jump'][index]
+  athlete['Broad Jump'] = finalStats['Broad Jump'][index]
+  athlete['Hang Clean'] = finalStats['Hang Clean'][index]
+  athlete['Power Clean'] = finalStats['Power Clean'][index]
+  athlete['10Y Sprint'] = finalStats['10Y Sprint'][index]
+  athlete['Flying 10'] = finalStats['Flying 10'][index]
+  athlete['Pro Agility'] = finalStats['Pro Agility'][index]
+  athlete['L Drill'] = finalStats['L Drill'][index]
+  athlete['60Y Shuttle'] = finalStats['60Y Shuttle'][index]
+  athlete['Notes'] = ""
+
+  addAthleteReport(athlete)
+}); */
