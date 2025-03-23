@@ -2,7 +2,7 @@ import { initializeMap, addPointToMap, removeFirestoreMarkers } from './map.js';
 import { initializeChart, updateChart } from './chart.js';
 import { filterPointsByYear, processChartData } from './filter.js';
 import { setupReportForm } from './report.js';
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 import { db } from './firebase-config.js';
 
 // Initialize map and barchart
