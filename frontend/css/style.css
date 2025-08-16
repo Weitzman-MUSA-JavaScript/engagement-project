@@ -25,8 +25,12 @@ body {
     display: block;
   }
   .button-container {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;  /* 水平居中 */
+    gap: 10px;                 /* 按钮之间的间距 */
+    margin: 20px 0;            /* 上下间距 */
   }
+  
   .button-container button {
     background-color: #482e0b;
     color: #fff;
@@ -38,12 +42,31 @@ body {
     font-size: 1rem;
   }
   
-  #map1, #map2, #map3{
-    width: 100%;
-    height: 500px;
-    margin-top: 10px;
-    border-radius: 5px;
+  .intro-section {
+    background-color: #f8f5f0;  /* 淡米色背景，可换主题色 */
+    padding: 30px 20px;         /* 上下左右留白 */
+    margin: 30px 0;             /* 与其他内容拉开间距 */
   }
+  
+  .intro-section p {
+    font-size: 1.2rem;          /* 比正文大一点 */
+    line-height: 1.8;           /* 更舒适的行距 */
+    max-width: 900px;           /* 限制文字行宽 */
+    margin: 0 auto;             /* 水平居中 */
+  }
+  
+
+  
+  #map1, #map2, #map3{
+    width: min(1100px, 90vw);
+    height: 80vh;
+    margin: 10px auto 0;
+    border-radius: 24px;
+    overflow: hidden;           /* 圆角裁切瓦片 */
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  }
+  .leaflet-container{ background:#9ed6f0; } /* 海色底，避免露灰 */
+
   /* Select and Button in Section 2 */
 #year-select {
   font-size: 1rem;

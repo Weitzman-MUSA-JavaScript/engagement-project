@@ -1,74 +1,84 @@
+// js/sec_2.js
+
 let map2;
 let geojsonLayer;
 let map2Initialized = false;
 
 function initMap2() {
+  if (map2Initialized) return;
   map2Initialized = true;
 
-  // 初始化地圖
-  map2 = L.map('map2').setView([20, 0], 5);
-
-  // 添加 OpenStreetMap 圖層
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 10,
-    attribution: '© OpenStreetMap'
-  }).addTo(map2);
-
-  // 初始化年份選單的事件
-  const yearSelect = document.getElementById('year-select');
-  yearSelect.addEventListener('change', () => {
-    const selectedYear = yearSelect.value;
-    loadGeoJSONForYear(selectedYear);
+  // 只显示一份世界地图，锁定范围
+  map2 = L.map('map2', {
+    center: [20, 0],
+    zoom: 2,
+    minZoom: 2,
+    worldCopyJump: false,
+    maxBounds: [[-85, -180], [85, 180]],
+    maxBoundsViscosity: 1.0
   });
 
-  // 加載默認年份的 GeoJSON（例如 100 年）
+  const worldBounds = L.latLngBounds([[-85, -180], [85, 180]]);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap',
+    noWrap: true,           // 不重复平铺
+    bounds: worldBounds
+  }).addTo(map2);
+
+  // 年份下拉事件
+  const yearSelect = document.getElementById('year-select');
+  if (yearSelect) {
+    yearSelect.addEventListener('change', () => {
+      loadGeoJSONForYear(yearSelect.value);
+    });
+  }
+
+  // 默认加载 100 年
   loadGeoJSONForYear('100');
 }
 
-// 生成唯一顏色的函數
+// 生成稳定颜色（按名称哈希）
 function generateColor(name) {
-  if (!name) return '#cccccc'; // 如果沒有國家名，使用默認顏色
-  const hash = [...name].reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const hue = hash % 360; // 生成 0-359 的色調
-  return `hsl(${hue}, 70%, 60%)`; // 使用 HSL 顏色空間生成顏色
+  if (!name) return '#cccccc';
+  const hash = [...name].reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const hue = hash % 360;
+  return `hsl(${hue}, 70%, 60%)`;
 }
 
 function loadGeoJSONForYear(year) {
-  const geojsonUrl = `data_his/${year}.geojson`; // 根據年份加載對應的 GeoJSON 文件
+  const geojsonUrl = `data_his/${year}.geojson`;
 
-  // 如果已有圖層，先移除
+  // 清理旧图层
   if (geojsonLayer) {
     map2.removeLayer(geojsonLayer);
+    geojsonLayer = null;
   }
 
-  // 加載新的 GeoJSON 數據
   fetch(geojsonUrl)
-    .then(response => response.json())
+    .then(r => r.json())
     .then(data => {
       geojsonLayer = L.geoJSON(data, {
-        style: feature => {
-          const countryName = feature.properties.NAME || 'Unknown'; // 確保有名稱可用
-          return {
-            color: '#000000', // 邊框顏色
-            weight: 1, // 邊框粗細
-            fillColor: generateColor(feature.properties.NAME), // 每个国家的填充颜色
-            fillOpacity: 0.7 // 填充不透明度
-          };
-        },
+        style: f => ({
+          color: '#000000',
+          weight: 1,
+          fillColor: generateColor(f.properties?.NAME),
+          fillOpacity: 0.7
+        }),
         onEachFeature: (feature, layer) => {
-          // 添加彈窗顯示屬性信息
-          if (feature.properties && feature.properties.NAME) {
-            layer.bindPopup(`<strong>${feature.properties.NAME}</strong>`);
-          } else {
-            layer.bindPopup(`</strong> Unknown`);
-        }
+          const n = feature.properties?.NAME || 'Unknown';
+          layer.bindPopup(`<strong>${n}</strong>`);
         }
       }).addTo(map2);
 
-      // 調整地圖視圖到 GeoJSON 範圍
-      map2.fitBounds(geojsonLayer.getBounds());
+      // 让视图适配图层（若数据为空则跳过）
+      try {
+        const b = geojsonLayer.getBounds();
+        if (b.isValid()) map2.fitBounds(b, { padding: [10, 10] });
+      } catch (e) {
+        // ignore
+      }
     })
-    .catch(error => {
-      console.error('無法加載 GeoJSON 數據:', error);
+    .catch(err => {
+      console.error('無法加載 GeoJSON 數據:', err);
     });
 }
