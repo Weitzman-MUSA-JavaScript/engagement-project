@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History boundary</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+
+  <div class="intro-section">
+    <p>
+      This website visualizes the historical boundaries of world countries and cultural regions. Explore the fascinating evolution of world boundaries through time. 
+      Our interactive platform brings history to life, offering a detailed look at how nations and regions have changed shape over centuries. Whether you're a history enthusiast, a student, 
+      or simply curious, dive into the shifting borders that have shaped the world we know today.
+    </p>
+
+    <div class="button-container">
+      <button onclick="showSection('section2')">Yearly World Boundary</button>
+      <button onclick="showSection('section3')"> Add Your Marker</button>
+    </div>
+  
+  </div>
+  
+
+
+
+
+  <div id="section2" class="section" ">
+    <h2>World Boundary by Year</h2>
+    <p>Navigate the past with interactive maps, uncover stories behind the lines, and gain new perspectives on the forces that have shaped our global landscape. Start your journey through history now!</p>
+    <label for="year-select">Select year </label>
+    <select id="year-select">
+      <option value="100">100</option>
+      <option value="300">300</option>
+      <option value="600">600</option>
+      <option value="800">800</option>
+      <option value="1000">1000</option>
+      <option value="1300">1300</option>
+      <option value="1500">1500</option>
+      <option value="1800">1800</option>
+      <option value="1900">1900</option>
+      <option value="1930">1930</option>
+      <option value="1960">1960</option>
+      <option value="2000">2000</option>
+    </select>
+    
+    <div id="map2"></div>
+  </div>
+  
+  <div id="section3" class="section">
+    <h2>World Boundaries in 1800</h2>
+    <p>Share your story! Mark a point on the map to show where you or your ancestors were from in 1800, 
+      and fill in your current nationality. 
+      See how history connects us all!
+    </p>
+    <button id="toggle-labeling" onclick="toggleLabeling()">Enable Labeling</button>
+    <div id="map3"></div>
+  </div>
+  
+
+  </div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/sec_1.js"></script>
+  <script src="js/sec_2.js"></script>
+  <script type="module" src="js/firebase.js"></script>
+
+</body>
+</html>

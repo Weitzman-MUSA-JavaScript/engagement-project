@@ -1,0 +1,89 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: arial, sans-serif;
+    background-color: #b0761f62;
+    color: #333;
+    line-height: 1.6;
+    align-items: center;
+    padding: 10px;
+  }
+  .section {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;  
+  }
+
+  .section.active {
+    display: block;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;  /* 水平居中 */
+    gap: 10px;                 /* 按钮之间的间距 */
+    margin: 20px 0;            /* 上下间距 */
+  }
+  
+  .button-container button {
+    background-color: #482e0b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 1rem;
+  }
+  
+  .intro-section {
+    background-color: #f8f5f0;  /* 淡米色背景，可换主题色 */
+    padding: 30px 20px;         /* 上下左右留白 */
+    margin: 30px 0;             /* 与其他内容拉开间距 */
+  }
+  
+  .intro-section p {
+    font-size: 1.2rem;          /* 比正文大一点 */
+    line-height: 1.8;           /* 更舒适的行距 */
+    max-width: 900px;           /* 限制文字行宽 */
+    margin: 0 auto;             /* 水平居中 */
+  }
+  
+
+  
+  #map1, #map2, #map3{
+    width: min(1100px, 90vw);
+    height: 80vh;
+    margin: 10px auto 0;
+    border-radius: 24px;
+    overflow: hidden;           /* 圆角裁切瓦片 */
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  }
+  .leaflet-container{ background:#9ed6f0; } /* 海色底，避免露灰 */
+
+  /* Select and Button in Section 2 */
+#year-select {
+  font-size: 1rem;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button in Section 3 */
+#toggle-labeling {
+  background-color: #b07613;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
