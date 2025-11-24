@@ -1,0 +1,257 @@
+body {
+    font-family: Cambria, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e8f9f8;
+    color: #003d40;
+    box-sizing: border-box; /* Ensures padding and border are included in element width and height */
+    overflow: hidden; /* Prevents scrolling */
+}
+
+/* Popup container */
+#popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Popup content */
+.popup-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn:hover {
+    color: #f00;
+}
+
+/* Styles for the new report/complaint pop-up */
+#report-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Hide by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1100; /* Higher than the original pop-up */
+}
+
+.report-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.report-popup-content h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #003d40;
+}
+
+/* Align labels and inputs like the info-panel */
+.report-popup-content .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.report-popup-content .form-row label {
+    width: 40%; /* Match label width in info-panel */
+    text-align: right; /* Align labels to the right */
+    margin-right: 10px;
+    font-weight: bold;
+    color: #003d40;
+}
+
+.report-popup-content .form-row input,
+.report-popup-content .form-row select,
+.report-popup-content .form-row textarea {
+    flex: 1; /* Allow input fields to expand */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Statement textarea alignment */
+.report-popup-content .form-row textarea {
+    height: 100px;
+    resize: none; /* Disable resizing */
+}
+
+/* Form buttons remain unchanged */
+.report-popup-content .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.report-popup-content .form-buttons .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00bdbd;
+    color: white;
+    font-size: 14px;
+}
+
+.report-popup-content .form-buttons .btn:hover {
+    background-color: #007777;
+}
+
+/* Title and text styling */
+h1 {
+    color: #003d40;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #007777;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Numbered list styling */
+ol {
+    text-align: left;
+    color: #333;
+    font-size: 14px;
+    margin: 0 auto;
+    padding-left: 20px;
+    max-width: 400px;
+}
+
+ol li {
+    margin-bottom: 5px;
+}
+
+#dashboard {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw; /* Occupy the full width of the viewport */
+}
+
+#map-container {
+    flex: 2; /* Map container takes 2/3 of the available space */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#search-container {
+    padding: 10px;
+    background-color: #00bdbd;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: calc(10px + 0.5vw); /* Font size scales with viewport */
+}
+
+#search-container label {
+    margin-right: 5px;
+}
+
+#search-container input,
+#search-container select,
+#search-container button {
+    margin-left: 5px;
+    flex: 1 1 auto;
+    min-width: 60px; /* Prevents inputs from becoming too small */
+    font-size: inherit; /* Ensures font scales consistently */
+}
+
+#map {
+    flex: 1;
+    height: calc(100% - 50px); /* Subtract the height of the search bar */
+    border: 2px solid #003d40;
+}
+
+#info-panel {
+    flex: 1; /* Info panel takes 1/3 of the available space */
+    padding: 10px;
+    background-color: #dffaf8;
+    border-left: 2px solid #003d40;
+    overflow-y: auto;
+    font-size: calc(10px + 0.5vw); /* Font size scales with viewport */
+}
+
+/* Align labels and values in the info panel */
+#info-panel h2 {
+    text-align: center;
+    color: #007777;
+}
+
+#info-panel p {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+#info-panel p strong {
+    text-align: right;
+    width: 40%; /* Ensures label column has consistent width */
+}
+
+#info-panel p span {
+    text-align: left;
+    width: 55%; /* Ensures value column has consistent width */
+}
+
+#process-info {
+    font-weight: bold;
+}
+
+#process-info.pending {
+    color: red;
+}
+
+#process-info.complete {
+    color: green;
+}
+
+

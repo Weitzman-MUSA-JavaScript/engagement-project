@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Acquisition Process</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="popup-container" class="popup">
+        <div class="popup-content">
+            <!-- Close button -->
+            <button class="close-btn" id="close-popup">×</button>
+    
+            <!-- Popup content -->
+            <h1>Welcome to Land Acquisition Process Dashboard</h1>
+            <h3>For Serpong-Balaraja Toll Road</h3>
+            <p>The land acquisition progress for each land can be seen by:</p>
+            <ol>
+                <li>Searching the village where your land is located</li>
+                <li>Typing the number of your NUB</li>
+                <li>Clicking the search button to view the details</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div id="map-container">
+            <div id="search-container">
+                <label for="village-select">Village Administration:</label>
+                <select id="village-select">
+                    <option value="">--Select Village--</option>
+                </select>
+                <label for="nub-input">ID:</label>
+                <input type="text" id="nub-input" placeholder="Enter ID">
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="map"></div>
+        </div>
+        <div id="info-panel">
+            <h2>Land Description</h2>
+            <p><strong>Village Adm:</strong> <span id="village-info"></span></p>
+            <p><strong>ID:</strong> <span id="id-info"></span></p>
+            <p><strong>Area (m²):</strong> <span id="area-info"></span></p>
+            <p><strong>Land Certificate:</strong> <span id="certif-info"></span></p>
+            <p><strong>Land Remainder (m²):</strong> <span id="remain-info"></span></p>
+            <p><strong>Compensation Date:</strong> <span id="compdate-info"></span></p>
+            <p><strong>Compensation Type:</strong> <span id="comptype-info"></span></p> 
+            <p><strong>Compensation Amount:</strong> <span id="compamount-info"></span></p>
+            <p><strong>Process:</strong> <span id="process-info"></span></p>
+            <p><strong>Report/Complaint:</strong></p>
+            <button id="report-btn" class="btn">Fill This Form</button>
+        </div>
+    </div>
+
+    <!-- Dialog box for report/complaint form -->
+    <div id="report-popup-container" class="popup-container" style="display: none;">
+        <div class="popup-content">
+            <button id="close-report-popup" class="close-btn">&times;</button>
+            <h1>Report/Complaint Form</h1>
+    
+            <form id="report-form">
+                <div class="form-row">
+                    <label for="village-select-popup">Village Adm:</label>
+                    <select id="village-select-popup">
+                        <option value="" disabled selected>--Select Village--</option>
+                    </select>
+                </div>
+            
+                <div class="form-row">
+                    <label for="id-input-popup">ID:</label>
+                    <input type="text" id="id-input-popup" placeholder="Enter ID" />
+                </div>
+            
+                <div class="form-row">
+                    <label for="type-select-popup">Type of Report:</label>
+                    <select id="type-select-popup">
+                        <option value="" disabled selected>--Select Type--</option>
+                        <option value="Wrong Land Information">Wrong Land Information</option>
+                        <option value="Document Requirement">Document Requirement</option>
+                        <option value="Land Boundary Change">Land Boundary Change</option>
+                        <option value="Compensation Type Change">Compensation Type Change</option>
+                        <option value="Land Remainder">Land Remainder</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+            
+                <div class="form-row">
+                    <label for="statement-input-popup">Statement:</label>
+                    <textarea id="statement-input-popup" maxlength="500" placeholder="Enter your statement (max 500 words)"></textarea>
+                </div>
+            
+                <div class="form-buttons">
+                    <button type="button" id="submit-report-btn" class="btn">Submit</button>
+                    <button type="button" id="cancel-report-btn" class="btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script type="module" src="js/main.js" defer></script>
+</body>
+</html>
