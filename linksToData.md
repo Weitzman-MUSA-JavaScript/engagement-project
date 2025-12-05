@@ -1,0 +1,16 @@
+**Clear Paths Philadelphia**- a navigation tool that provides walking routes to Philadelphians that account for walking safety and the likelihood of potential obstructions from parked cars, damaged sidewalks, and more. The app will use data from sources like PPA, DVRPC, and Walk Score as its base data. The engagement portion of the app will be a feature where users can submit any obstructions they come across that the algorithm will account for when creating new routes for users.
+
+This application is primarily intended for users who are most affected by unsafe walking conditions and sidewalk obstruction like individuals with impaired vision or cannot walk on their own, like wheelchair users, walkers, canes, and other devices to assist movement. Other users are welcome to utilize the tool and contribute potential obstructions, since being able-bodied doesn't mean that these obstructions aren't inconvenient and dangerous. Some users are more vulnerable than others, but obstructions are unsafe for *everyone on the path*.
+
+Here I compile the datasets that I will be using to access later on and also document exactly what I am looking at. For data that span many years, I will make an API call that looks at the last 5-7 years to get a better idea for recent trends.
+
+- The [Complete Streets Dataset](https://opendataphilly.org/datasets/complete-streets/) provides a lot of information about the streets of Philly for the purpose of building complete streets. For me, the important information this dataset contains are speed limit, sidewalk width, street type, and street geometry.
+- The [Parking Violations Dataset](https://opendataphilly.org/datasets/parking-violations/) will give information about the where there are pedestrian-unfriendly violations in the city. This dataset will require some cleaning.
+- Walk Score - obtained API key
+- [Crash data](https://opendataphilly.org/datasets/vehicular-crashes/) to get an idea about crashes that involve pedestrians
+- [Vision Zero High Injury Network](https://opendataphilly.org/datasets/vision-zero-high-injury-network/) another reference for streets where pedestrians may be at higher risk
+- [Vehicle and Pedestrian Investigations](https://opendataphilly.org/datasets/vehicle-pedestrian-investigations/) police data about people who got pulled over, can filter down to offenses that involve driving on sidewalk, failing to yield for pedestrians, running red lights/stop signs, things like that.
+- DVRPC [Pedestrian Network (Lines)](https://dvrpc-dvrpcgis.opendata.arcgis.com/datasets/40186cee01824f11a407766e0cf32940_0/explore?filters=eyJjb3VudHkiOlsiUEhJTEFERUxQSElBIl19&location=39.951338%2C-75.168345%2C18.30) & [Pedestrian Network (Points)](https://dvrpc-dvrpcgis.opendata.arcgis.com/datasets/ec3411c2564640a58e7c3657c17d4f29/explore?filters=eyJjb3VudHkiOlsiUEhJTEFERUxQSElBIl19&location=39.958969%2C-75.159269%2C16.48) to have more info about the sidewalk network itself, the status of ADA ramps, and the with the help of some JavaScript, the length of crossings.
+- [Sanitation Collection Day Boundary](https://opendataphilly.org/datasets/sanitation-collection-day-boundary/) for information on trash day throughout the city to see if users are likely to encounter trash and trash bins along the route.
+
+

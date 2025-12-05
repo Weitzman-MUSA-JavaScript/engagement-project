@@ -1,0 +1,244 @@
+html {
+  font-size: 24px;
+  font-family: 'Helvetica Neue';
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#report-button {
+  height: 6%;
+  width: 30%;
+  position: absolute;
+  top: 25%;
+  bottom: 30%;
+  right: 0;
+  display: block;
+  padding: 0;
+  outline: none;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: #eee 0 0 10px;
+  background-color: #8f1b1b;
+  color: white;
+  font-size: auto;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1500;
+}
+
+p {
+  font-size: 0.6em;
+  color: black;
+  text-align: left;
+}
+
+.form-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 40%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+}
+
+#report-form {
+  width: 100%;
+  text-align: left;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#submission {
+  position: absolute;
+  background-color: #8f1b1b;
+  right: 0;
+  bottom: 0;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  height: 12%;
+}
+
+#close-form-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black;
+  font-size: 0.6em;
+  padding: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.marker {
+  background-image: url('../img/octagon-exclamation.png');
+  background-size: cover;
+  width: 20px;
+  height:20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.map {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 20px;
+}
+
+.mapboxgl-ctrl-geocoder,
+.mapboxgl-ctrl-geocoder *,
+.mapboxgl-ctrl-geocoder *:after,
+.mapboxgl-ctrl-geocoder *:before {
+  -webkit-box-sizing:border-box;
+     -moz-box-sizing:border-box;
+        box-sizing:border-box;
+}
+ 
+.mapboxgl-ctrl-geocoder {
+  font:15px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  position: relative;
+  background-color:white;
+  width: 95vw;
+  height: 6%;
+  border-radius:2px;
+  z-index: 1300;
+}
+
+.mapbox-directions-origin .mapboxgl-ctrl-geocoder {
+  z-index: 1500;
+  position: relative;
+}
+
+.mapboxgl-ctrl button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
+  background-image: none;
+}
+  
+.mapboxgl-ctrl-group button {
+  position: absolute;
+  width: 35vw;
+  height: 5vh;
+  display: block;
+  padding: 2px;
+  outline: none;
+  border: 0;
+  top: 10%;
+  right:55%;
+  box-sizing: border-box;
+  background-color: #25383C;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  z-index: 1500;
+}
+
+.mapboxgl-ctrl-geocoder input[type='text'] {
+  font-size: 1.2em;
+  border:0;
+  background-color:transparent;
+  margin:0;
+  width: 100%;
+  height: 90%;
+  padding:12px 10px 10px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mapbox-directions-origin input[type='text'] {
+  box-shadow: 0 1px 0 0 #ddd;
+  position: relative;
+  z-index: auto;
+}
+
+.mapboxgl-ctrl-geocoder button {
+  display: none;
+}
+
+.mapbox-directions-inputs button {
+  display: none;
+}
+
+.mapboxgl-ctrl-geocoder ul {
+  z-index: 2000;
+  top: 100%;
+  background-color:#fff;
+  border-radius: 0 0 3px 3px;
+  left:0;
+  list-style:none;
+  margin:0;
+  padding:0;
+  position:absolute;
+  width:100%;
+  overflow:hidden;
+  font-size:1.2em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl-geocoder ul,
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-geocoder ul {
+  top:auto;
+  bottom:100%;
+}
+
+.mapboxgl-ctrl-geocoder ul > li > a {
+  z-index: 2500;
+  clear: both;
+  cursor: default;
+  display: block;
+  padding: 5px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+}
+
+.mapboxgl-ctrl-geocoder ul > li:last-child > a {
+  border-bottom:none;
+}
+
+.mapboxgl-ctrl-geocoder ul > li.active > a,
+.mapboxgl-ctrl-geocoder ul > li > a:hover {
+  background-color:#eee;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.directions-control {
+  width:95vw;
+  height:15vh;
+  z-index:1;
+  }
+.directions-control.directions-control-directions {
+  box-sizing: border-box;
+  background:rgba(0,0,0,0.75);
+  color:#fff;
+  top:0;
+  right:0;
+  bottom:0;
+  padding: 10px;
+  overflow:auto;
+  overflow-x:hidden;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 2;
+  }
