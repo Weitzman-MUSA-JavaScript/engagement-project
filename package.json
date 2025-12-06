@@ -1,20 +1,36 @@
 {
-  "name": "engagement-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "dashboard-project",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "directories": {},
   "scripts": {
-    "css-lint": "stylelint --color  \"**/*.css\"",
-    "js-lint": "eslint --color **/*.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "setup:diary:sh": "bash scripts/setup_diary_env.sh",
+    "setup:diary:ps": "powershell -ExecutionPolicy Bypass -File scripts/setup_diary_env.ps1",
+    "data:gen": "node scripts/generate_demo_data.mjs --seed=20251111 --segments=64 --routes=5",
+    "data:check": "node scripts/validate_demo_data.mjs",
+    "test:diary:math": "node scripts/tests/diary_math.mjs",
+    "test:diary:agg": "node scripts/tests/aggregator_update.mjs",
+    "diary:qs:win": "powershell -ExecutionPolicy Bypass -File scripts/diary_quickstart.ps1",
+    "diary:qs:sh": "bash scripts/diary_quickstart.sh",
+    "diary:preview": "npm run data:gen && npm run data:check && VITE_FEATURE_DIARY=1 vite build && vite preview",
+    "data:streets:plan": "node scripts/fetch_philly_streets.mjs --source=opendata",
+    "data:fetch:streets": "node scripts/fetch_streets_phl.mjs",
+    "data:segment:streets": "node scripts/segment_streets_phl.mjs",
+    "streets:fetch": "node scripts/fetch_streets_phl.mjs",
+    "streets:segment": "node scripts/segment_streets_phl.mjs"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "@turf/turf": "^6.5.0",
+    "ajv": "^8.12.0",
+    "chart.js": "^4.5.1",
+    "dayjs": "^1.11.13",
+    "luxon": "^3.4.4",
+    "maplibre-gl": "^4.5.0"
+  },
   "devDependencies": {
-    "eslint": "^8.48.0",
-    "eslint-config-google": "^0.14.0",
-    "stylelint": "^15.10.3",
-    "stylelint-config-standard": "^34.0.0"
+    "vite": "^5.4.0"
   }
 }

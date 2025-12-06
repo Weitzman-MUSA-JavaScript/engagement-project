@@ -1,2 +1,29 @@
 node_modules/
+dist/
 .DS_Store
+*.local
+.env*
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Build caches
+.cache/
+.vite/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test coverage
+coverage/
+.nyc_output/
