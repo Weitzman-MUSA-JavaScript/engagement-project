@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - Philadelphia Business Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="brand">🎅 Taste of Philly: Delicacy Wonderland </div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item">Map 🗺️</a>
+            <a href="favorites.html" class="nav-item active">My Dining Wishlist 💖</a>
+            <a href="about.html" class="nav-item">About 🎁</a>
+        </nav>
+    </header>
+
+    <div class="page-content">
+        <h1 class="page-title">❤️ My Saved Places</h1>
+        
+        <div id="favorites-container" class="favorites-grid">
+            <p style="color:#666;">Loading favorites...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('favorites-container');
+            
+            // 1. Get IDs from LocalStorage
+            const favIds = JSON.parse(localStorage.getItem('phillyFavorites')) || [];
+            
+            if (favIds.length === 0) {
+                container.innerHTML = `<p>You haven't saved any places yet. Go to the <a href="index.html" style="color:#d32323;text-decoration:underline;">Map</a> to explore!</p>`;
+                return;
+            }
+
+            // 2. Fetch Data to get details (Name, Address, etc.)
+            fetch('data/philly_business.json')
+                .then(res => res.json())
+                .then(data => {
+                    // Filter data to only include favorites
+                    const favBusinesses = data.filter(biz => favIds.includes(biz.business_id));
+                    
+                    container.innerHTML = ''; // Clear loading text
+
+                    favBusinesses.forEach(biz => {
+                        const card = document.createElement('div');
+                        card.className = 'biz-card';
+                        card.innerHTML = `
+                            <h3>${biz.name}</h3>
+                            <div class="rating">★ ${biz.stars} (${biz.review_count})</div>
+                            <div class="info">📍 ${biz.address}, ${biz.city}</div>
+                            <div class="info">🏷️ ${biz.categories}</div>
+                            <div class="actions">
+                                <button class="btn-remove" onclick="removeFavorite('${biz.business_id}')">Remove</button>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                });
+        });
+
+        // Global function to remove favorite
+        window.removeFavorite = function(id) {
+            let favIds = JSON.parse(localStorage.getItem('phillyFavorites')) || [];
+            favIds = favIds.filter(favId => favId !== id);
+            localStorage.setItem('phillyFavorites', JSON.stringify(favIds));
+            // Reload page to reflect changes
+            location.reload();
+        }
+    </script>
+</body>
+</html>

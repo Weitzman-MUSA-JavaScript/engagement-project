@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map - Philadelphia Business Explorer</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="brand">
+            🎅 Taste of Philly: Delicacy Wonderland <span style="font-size:0.8em; opacity:0.9;">✨</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item active">Map 🗺️</a>
+            <a href="favorites.html" class="nav-item">My Dining Wishlist 💖</a>
+            <a href="about.html" class="nav-item">About 🎁</a>
+        </nav>
+    </header>
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3>🔍 Find a Place</h3>
+                <input type="text" id="search-input" placeholder="Search name or street..." class="search-bar">
+            </div>
+
+            <div class="toggle-container">
+                <div class="toggle-label">
+                    <span>❤️ Only My Dining Wishlist</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="fav-only-toggle">
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            
+            <div class="filter-group">
+                <h3>✨ Features</h3>
+                <div class="capsule-container">
+                    <label>
+                        <input type="checkbox" class="capsule-input feature-input" value="tv">
+                        <span class="capsule-label">📺 Has TV</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="capsule-input feature-input" value="outdoor">
+                        <span class="capsule-label">🌳 Outdoor</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="capsule-input feature-input" value="kids">
+                        <span class="capsule-label">👶 Kids Friendly</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="capsule-input feature-input" value="takeout">
+                        <span class="capsule-label">🥡 Takeout</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>🍽️ Cuisine Type</h3>
+                <div class="capsule-container">
+                    <label>
+                        <input type="checkbox" name="cuisine" value="American" class="capsule-input" checked>
+                        <span class="capsule-label">🍔 American</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Chinese" class="capsule-input" checked>
+                        <span class="capsule-label">🥟 Chinese</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Italian" class="capsule-input" checked>
+                        <span class="capsule-label">🍝 Italian</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Japanese" class="capsule-input" checked>
+                        <span class="capsule-label">🍣 Japanese</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Mexican" class="capsule-input" checked>
+                        <span class="capsule-label">🌮 Mexican</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Pizza" class="capsule-input" checked>
+                        <span class="capsule-label">🍕 Pizza</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Coffee" class="capsule-input" checked>
+                        <span class="capsule-label">☕ Coffee</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="cuisine" value="Bar" class="capsule-input" checked>
+                        <span class="capsule-label">🍺 Bars</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="slider-header">
+                    <h3>⭐ Rating</h3>
+                    <span id="rating-value">Any</span>
+                </div>
+                <input type="range" id="rating-slider" min="0" max="5" step="0.5" value="0" class="slider">
+            </div>
+
+            <button id="reset-btn">Reset Filters</button>
+
+            <div class="stats-card">
+                <div class="stats-title">Philly Holiday Vibes</div>
+                <div class="stats-number" id="stats-count">Loading...</div>
+                <div class="stats-desc">Places to Celebrate</div>
+            </div>
+        </aside>
+
+        <main class="map-wrapper">
+            <div id="loading-overlay">
+                <div class="spinner"></div>
+                <p>Loading Data...</p>
+            </div>
+            <div id="map"></div>
+        </main>
+        
+    </div> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="js/map.js"></script>
+    
+    <script>
+        function togglePrice(el, level) {
+            el.classList.toggle('selected');
+        }
+    </script>
+</body>
+</html>
