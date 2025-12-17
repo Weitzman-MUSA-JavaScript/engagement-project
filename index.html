@@ -1,0 +1,104 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Penn Football Strength Benchmarking</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+    </head>
+
+    <body>
+        <main role="main">
+            <div class="header" id="header" role="banner">
+                <!-- Logo -->
+                <div class="header-left">
+                    <img src="www/penn_shield.svg" alt="Penn Football Logo" aria-label="Penn Football Logo">
+                </div>
+            
+                <!-- Athlete Information -->
+                <div class="header-middle">
+                    <div id="athlete-position"></div>
+                    <input type="text" id="name-input" value="Athlete Name">
+                    <select id="status-input">
+                        <option value="HS">HS</option>
+                        <option value="FR">FR</option>
+                        <option value="SO" selected>SO</option>
+                        <option value="JR">JR</option>
+                        <option value="SE">SE</option>
+                    </select>
+                    <input type="text" id="number-input" value="#">
+                </div>
+            
+                <!-- Action Buttons -->
+                <div class="header-right">
+                    <div id="dropdown-container">
+                        <button id="load-athletes" aria-label="Load saved athletes">SAVED ATHLETES</button>
+                        <ul id="athlete-list" class="dropdown-menu hidden"></ul>
+                        <button id="download-pdf">DOWNLOAD PDF</button>
+                    </div>
+                </div>
+            </div>            
+
+        <section class="benchmark-page">
+            <section class="benchmark-menu" aria-labelledby="athlete-stats">
+                <fieldset id="athlete-stats">
+                </label>
+                    <ul id="stats-list">
+                        <li>
+                            <label for="bench-stat">
+                                Bench
+                            </label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="bench-stat" class="stat-input" name="bench" aria-label="Bench press weight">
+                                    <span class="unit">pounds</span>
+                                </div>
+                            
+                        </li>
+                        <li>
+                            <label for="wingspan-stat">
+                                Wingspan
+                            </label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="wingspan-stat" class="stat-input" name="wingspan" aria-label="Wingspan measurement in inches">
+                                    <span class="unit">inches</span>
+                                </div>
+                            
+                        </li>
+                    </ul>
+                    <label for="coach-notes">Coach's Notes</label>
+                    <textarea id="coach-notes" name="coach-notes" aria-label="Notes on athlete">"""BALL JUDGEMENT\nPLANT AND DRIVE\nBURST TO CLOSE\nABILITY TO PLAY MAN TO MAN\nTACKLING\nUNDERSTAND ZONES\nREACTION\nRUN SUPPORT\nBALANCE / BODY CONTROL\nSPECIAL TEAMS VALUE\nSHORT SPACE QUICKNESS"""</textarea>                    
+                    <div id = "fieldset-buttons">
+                    <button id="save-athlete" aria-label="Save athlete to database">SAVE ATHLETE</button>
+                    <button id="clear-all" aria-label="Clear all athlete data">CLEAR STATS</button>
+                </div>
+                </fieldset>
+            </section>
+            
+            <section class="benchmark-chart-area" id="stat-charts" aria-live="polite">
+                <div id = "anthropometrics-chart" class = "pct-chart"></div>
+                <div id = "strength-chart" class = "pct-chart"></div>
+                <div id = "power-chart" class = "pct-chart"></div>
+                <div id = "speed-chart" class = "pct-chart"></div>
+                <div id = "agility-chart" class = "pct-chart"></div>
+                <div id = "radar-chart"></div>
+            </section>
+        </section>
+        </main>
+
+        <script type="module"> import bb from 'https://cdn.jsdelivr.net/npm/billboard.js@3.14.0/+esm'; </script>
+          
+        <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  
+        <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <script src="js/main.js" type="module"></script>
+    </body>
+</html>
