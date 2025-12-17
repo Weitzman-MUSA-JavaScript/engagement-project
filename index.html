@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engagement Map Viewer</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+  <link rel="stylesheet" href="viewer.css" />
+</head>
+<body>
+  <div id="viewer-intro" class="intro-overlay">
+    <div class="intro-card">
+      <h2>Welcome</h2>
+      <p class="intro-description">
+        Philadelphia, once the nation's capital and the home of the Declaration of Independence,
+        draws thousands of visitors. Beyond museums and other formal sites, the historic
+        neighborhoods nearby have informal stories and everyday culture worth exploring. Community
+        spirit and history can enrich the official narrative. That's why your perspective matters to
+        us! <strong>Tell us the places in your neighborhood that make you proud and deserve a
+        spotlight, and what the planning department could do to elevate them.</strong><br /><br />
+        You can join the tour design game to share your ideas, or jump into the map to see what
+        others have created.
+      </p>
+      <div class="intro-choice-grid">
+        <div
+          class="intro-choice-card"
+          data-target-button="viewer-enter-map"
+          role="button"
+          tabindex="0"
+          aria-label="Enter the map"
+        >
+          <img src="pic/map.png" alt="Community map illustration" class="intro-choice-image" />
+          <button id="viewer-enter-map" type="button" class="intro-choice-btn ghost-btn">
+            Enter the map
+          </button>
+          <p class="intro-choice-desc">See tours created by your community members.</p>
+        </div>
+        <div
+          class="intro-choice-card"
+          data-target-button="viewer-enter-game"
+          role="button"
+          tabindex="0"
+          aria-label="Tour design game"
+        >
+          <img src="pic/design.png" alt="Design the tour illustration" class="intro-choice-image" />
+          <button id="viewer-enter-game" type="button" class="intro-choice-btn primary-btn">
+            Tour design game
+          </button>
+          <p class="intro-choice-desc">
+            Imagine guiding your friends through your neighborhood, how would you design the tour?
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="viz-main">
+    <div class="viz-controls">
+      <aside class="viz-sidebar">
+        <h3 class="viz-sidebar-title">Tour design game</h3>
+        <p class="viz-sidebar-desc">
+          Imagine guiding your friends through your neighborhood,how would you design the tour?
+        </p>
+        <button id="viz-enter-game" class="primary-btn" type="button">Go</button>
+      </aside>
+      <aside class="viz-leftbar">
+        <h3 class="viz-leftbar-title">Tour List</h3>
+        <p class="viz-leftbar-sub">Tours designed by community members</p>
+        <div id="trail-list" class="trail-list"></div>
+      </aside>
+    </div>
+    <div id="viz-map" aria-label="Submission map"></div>
+    <aside id="trail-detail" class="trail-detail hidden"></aside>
+    <div class="viz-legend">
+      <div class="legend-row"><span class="legend-swatch legend-stop"></span>Stop</div>
+      <div class="legend-row"><span class="legend-swatch legend-route"></span>Route</div>
+    </div>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

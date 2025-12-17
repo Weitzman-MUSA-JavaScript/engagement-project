@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engagement Dashboard</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="map" aria-label="Map centered on Philadelphia"></div>
+
+  <div id="thank-you-overlay" class="thank-you-overlay hidden" aria-hidden="true">
+    <div class="thank-you-card">
+      <div class="thank-you-letter" style="background-image: url('pic/thankyouletter.png');">
+        <button type="button" id="thank-you-download" class="thank-you-download" aria-label="Download thank you letter">
+          <img src="pic/xiazai.png" alt="Download" />
+        </button>
+        <div id="thank-you-content" class="thank-you-letter-inner">
+          <div class="thank-you-stack">
+            <h3 class="thank-you-heading">Thank you for contribution</h3>
+            <div class="thank-you-body">
+              <label class="thank-you-dear">
+                Dear
+                <input type="text" id="nickname-input" class="thank-you-dear-input" placeholder="your name" />
+                ,
+              </label>
+              <p class="thank-you-message">
+                Thanks for sharing your routes and memories—every stop makes the map lively and personal, and helps people discover Philadelphia's street culture. We'll keep improving; stay curious, invite friends to explore, and keep telling stories that celebrate this community.
+              </p>
+              <p class="thank-you-org">Philadelphia Community History & Culture Organization</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="thank-you-actions">
+        <button type="button" id="thank-you-back" class="ghost-btn">Back to Edit</button>
+        <button type="button" id="thank-you-submit" class="primary-btn">Submit</button>
+      </div>
+      <label class="nickname-visibility">
+        <input type="checkbox" id="nickname-visible" />
+        Allow using name to publish the route on the public map
+      </label>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar hidden">
+    <div class="sidebar-progress">
+      <div class="progress-track">
+        <div class="progress-node" data-step="0">
+          <span class="progress-circle"></span>
+          <span class="progress-caption">Select stops</span>
+        </div>
+        <div class="progress-line" data-line="0"></div>
+        <div class="progress-node" data-step="1">
+          <span class="progress-circle"></span>
+          <span class="progress-caption">Draw routes</span>
+        </div>
+        <div class="progress-line" data-line="1"></div>
+        <div class="progress-node" data-step="2">
+          <span class="progress-circle"></span>
+          <span class="progress-caption">Suggest</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="sidebar-toast" class="sidebar-toast hidden" role="status" aria-live="polite"></div>
+
+    <div id="sidebar-content" class="sidebar-content"></div>
+
+    <div class="sidebar-footer">
+      <button id="sidebar-left-btn" type="button" class="ghost-btn full-width">Exit</button>
+      <button id="sidebar-right-btn" type="button" class="primary-btn full-width" disabled>Next</button>
+    </div>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
