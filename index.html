@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杭州中心城区内涝上报系统 | Hangzhou Inundation Reporting</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">💧</div>
+            <div class="logo-text">
+                <span data-i18n="title-main">杭州内涝上报系统</span>
+                <span data-i18n="title-sub">Inundation Reporting</span>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                <div class="stat-value" id="totalReports">0</div>
+                <div class="stat-label" data-i18n="stat-total">上报总数 / Reports</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="todayReports">0</div>
+                <div class="stat-label" data-i18n="stat-today">今日 / Today</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Map -->
+        <div id="map"></div>
+        
+    <!-- Layer Controls -->
+        <div class="layer-controls collapsed" role="group" aria-labelledby="layer-title">
+            <div class="layer-title" id="layer-title" data-i18n="layer-title">
+                <span>图层 / Layers</span>
+                <span class="layer-toggle-icon">▼</span>
+            </div>
+            <div class="layer-items">
+                <div class="layer-item active" data-layer="roads" tabindex="0" role="button" aria-label="道路图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #666"></div>
+                    <div class="layer-name" data-i18n="layer-roads">道路 Roads</div>
+                </div>
+                <div class="layer-item active" data-layer="water" tabindex="0" role="button" aria-label="水体图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #3498DB"></div>
+                    <div class="layer-name" data-i18n="layer-water">水体 Water</div>
+                </div>
+                <div class="layer-item active" data-layer="parks" tabindex="0" role="button" aria-label="绿地图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #27AE60"></div>
+                    <div class="layer-name" data-i18n="layer-parks">绿地 Parks</div>
+                </div>
+                <div class="layer-item" data-layer="amenities" tabindex="0" role="button" aria-label="设施图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #E67E22"></div>
+                    <div class="layer-name" data-i18n="layer-amenities">设施 Amenities</div>
+                </div>
+                <div class="layer-item" data-layer="metro" tabindex="0" role="button" aria-label="地铁站图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #9B59B6"></div>
+                    <div class="layer-name" data-i18n="layer-metro">地铁站 Metro</div>
+                </div>
+                <div class="layer-item active" data-layer="floods" tabindex="0" role="button" aria-label="内涝点图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: #E74C3C"></div>
+                    <div class="layer-name" data-i18n="layer-floods">内涝点 Flood Reports</div>
+                </div>
+                <div class="layer-item active" data-layer="heatmap" tabindex="0" role="button" aria-label="热力图图层" aria-pressed="true">
+                    <div class="layer-checkbox"></div>
+                    <div class="layer-color" style="background: linear-gradient(90deg, blue, cyan, lime, yellow, orange, red)"></div>
+                    <div class="layer-name" data-i18n="layer-heatmap">热力图 Heatmap</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filter Panel -->
+        <div class="filter-panel collapsed">
+            <div class="filter-title" data-i18n="filter-title">
+                <span>筛选内涝上报 / Filter Reports</span>
+                <span class="filter-toggle-icon">▼</span>
+            </div>
+            <div class="filter-content">
+                <div class="filter-row">
+                    <div class="form-section">
+                        <label class="form-label" for="filterDateFrom" data-i18n="filter-date-from">开始日期 Start Date</label>
+                        <input type="text" class="filter-input" id="filterDateFrom" tabindex="0" aria-label="开始日期" title="选择开始日期" placeholder="yyyy-mm-dd">
+                    </div>
+                    <div class="form-section">
+                        <label class="form-label" for="filterDateTo" data-i18n="filter-date-to">结束日期 End Date</label>
+                        <input type="text" class="filter-input" id="filterDateTo" tabindex="0" aria-label="结束日期" title="选择结束日期" placeholder="yyyy-mm-dd">
+                    </div>
+                </div>
+                <div class="filter-chips">
+                    <div class="filter-chip active" data-depth="all" tabindex="0" role="button" data-i18n="filter-all">全部 All</div>
+                    <div class="filter-chip" data-depth="shallow" tabindex="0" role="button" data-i18n="filter-shallow">浅 &lt;10cm</div>
+                    <div class="filter-chip" data-depth="moderate" tabindex="0" role="button" data-i18n="filter-moderate">中 10-30cm</div>
+                    <div class="filter-chip" data-depth="deep" tabindex="0" role="button" data-i18n="filter-deep">深 30-50cm</div>
+                    <div class="filter-chip" data-depth="severe" tabindex="0" role="button" data-i18n="filter-severe">严重 &gt;50cm</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="zh">中文</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        
+        <!-- Side Panel -->
+        <div class="side-panel">
+            <div class="panel-header">
+                <div class="panel-title" data-i18n="panel-title">上报内涝事件</div>
+                <div class="panel-subtitle" data-i18n="panel-subtitle">Report Inundation Event</div>
+            </div>
+            
+            <div class="panel-content">
+                <!-- Mode Selector -->
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="report">
+                        <div class="mode-icon">🌊</div>
+                        <div data-i18n="mode-report">上报内涝<br><small>Report Flood</small></div>
+                    </button>
+                    <button class="mode-btn" data-mode="view">
+                        <div class="mode-icon">📋</div>
+                        <div data-i18n="mode-view">查看记录<br><small>View Reports</small></div>
+                    </button>
+                </div>
+                
+                <!-- Report Form -->
+                <form id="reportForm">
+                    <!-- Location -->
+                    <div class="form-section">
+                        <label class="form-label" data-i18n="form-location-label">位置 Location (点击地图选择 / Click map)</label>
+                        <div class="location-display" id="locationDisplay">
+                            <div class="location-icon">📍</div>
+                            <div class="location-placeholder" data-i18n="form-location-placeholder">请在地图上点击选择位置<br>Click on the map to select location</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Date and Time -->
+                    <div class="form-row">
+                        <div class="form-section">
+                            <label class="form-label" for="eventDate" data-i18n="form-date-label">日期 <span aria-hidden="true">Date</span></label>
+                            <input type="text" class="form-input" id="eventDate" name="eventDate" required aria-label="日期" title="选择日期">
+                        </div>
+                        <div class="form-section">
+                            <label class="form-label" for="eventTime" data-i18n="form-time-label">时间 <span aria-hidden="true">Time</span></label>
+                            <input type="text" class="form-input" id="eventTime" name="eventTime" required aria-label="时间" title="选择时间">
+                        </div>
+                    </div>
+                    
+                    <!-- Depth -->
+                    <div class="form-section">
+                        <label class="form-label" data-i18n="form-depth-label">积水深度 Water Depth</label>
+                        <div class="depth-options">
+                            <div class="depth-option" data-depth="shallow" role="button" aria-label="depth" tabindex="0">
+                                <div class="depth-value">&lt;10cm</div>
+                                <div class="depth-label" data-i18n="depth-shallow">浅 Shallow</div>
+                            </div>
+                            <div class="depth-option" data-depth="moderate" role="button" aria-label="depth" tabindex="0">
+                                <div class="depth-value">10-30cm</div>
+                                <div class="depth-label" data-i18n="depth-moderate">中 Moderate</div>
+                            </div>
+                            <div class="depth-option" data-depth="deep" role="button" aria-label="depth" tabindex="0">
+                                <div class="depth-value">30-50cm</div>
+                                <div class="depth-label" data-i18n="depth-deep">深 Deep</div>
+                            </div>
+                            <div class="depth-option" data-depth="severe" role="button" aria-label="depth" tabindex="0">
+                                <div class="depth-value">&gt;50cm</div>
+                                <div class="depth-label" data-i18n="depth-severe">严重 Severe</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Situation Type -->
+                    <div class="form-section">
+                        <label class="form-label" data-i18n="form-situation-label">情况类型 Situation Type</label>
+                        <div class="situation-options">
+                            <div class="situation-chip" data-situation="home" role="button" aria-label="situation" tabindex="0" data-i18n="situation-home">家附近 Near Home</div>
+                            <div class="situation-chip" data-situation="commute" role="button" aria-label="situation" tabindex="0" data-i18n="situation-commute">通勤路上 Commuting</div>
+                            <div class="situation-chip" data-situation="work" role="button" aria-label="situation" tabindex="0" data-i18n="situation-work">工作地点 Workplace</div>
+                            <div class="situation-chip" data-situation="other" role="button" aria-label="situation" tabindex="0" data-i18n="situation-other">其他 Other</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Description -->
+                    <div class="form-section">
+                        <label class="form-label" for="locationDesc" data-i18n="form-location-desc-label">详细位置描述 Location Details</label>
+                        <textarea class="form-textarea" id="locationDesc" data-i18n-placeholder="form-location-desc-placeholder" placeholder="如：XX路与XX路交叉口 / e.g., Intersection of XX Road and XX Street"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                        <span data-i18n="form-submit">提交上报 Submit Report</span>
+                    </button>
+                </form>
+                
+                <!-- Report List (hidden by default) -->
+                <div class="report-list" id="reportList" style="display: none;">
+                    <div class="report-list-title" data-i18n="report-list-title">历史上报记录 / Report History</div>
+                    <div id="reportItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Instructions Overlay -->
+    <div class="instructions-overlay" id="instructions">
+        <div class="instructions-icon">👆</div>
+    <div class="instructions-text" data-i18n="instructions-text">点击地图选择内涝位置 / Click on the map to select flood location</div>
+        <button class="instructions-close" id="closeInstructions">×</button>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span>✓</span>
+    <span data-i18n="toast-success">上报成功！Thank you for your report!</span>
+    </div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    
+    <!-- Application JS -->
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</body>
+</html>
