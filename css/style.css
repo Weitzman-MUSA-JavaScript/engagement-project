@@ -1,0 +1,187 @@
+/* at the start of CSS, make sure design go to the edge of the browser */
+
+/* Palette sourced from https://coolors.co/f6bd60-f7ede2-f5cac3-84a59d-f28482*/
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    font-family: "Montserrat";
+
+    position: fixed;
+}
+
+/* layout style */
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+header {
+    height: 9vh;
+    font-size: 12px;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+}
+
+main { 
+    background-color: #fdd8b9;
+
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: #fff;
+    height: 100%;
+    padding: 2vh;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 3em;
+    background-color: #bc5a1f;
+    z-index: 10000;
+}
+
+.main-container {
+
+    display: grid;
+    grid-template: 80vh 1fr / 1fr;
+    height: 88vh;
+
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.main-slide {
+  position: absolute;
+  top: 9%;
+
+  width: 100%;
+  height: 88vh;
+  margin: auto;
+
+  transform: translate(0%, 0%);
+  transition: left 1s;
+}
+
+.main-menu-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 90%;
+
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.main-menu-button-container button {
+    width: 75%;
+    height: 15%;
+    background: #bc5a1f;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+
+    font-family: "Montserrat";
+
+    display: grid;
+    grid-template-columns: 25% 75%;
+    min-height: fit-content;
+}
+
+.main-menu-button-container button img {
+  height: 60px;
+  grid-column: 1/2;
+  margin: auto;
+  margin-right: 0;
+}
+
+.main-menu-button-container button p {
+  grid-column: 2/3;
+  margin: auto;
+}
+
+.main-text {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: normal;
+  height: 10vh;
+
+  padding: 0;
+  text-align: center;
+}
+
+.main-text p {
+  margin: 0;
+}
+
+#img-view {
+  height: 52px;
+}
+
+#map-section {
+    box-sizing: border-box;
+    grid-row: 1 / 3
+}
+
+#footer-section {
+    grid-row: 2 / 3;
+    box-sizing: border-box;
+    background-color: #fdd8b9;
+}
+
+.grayout {
+  filter: grayscale(100%);
+  transition: filter 0.1s;  
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.left {
+  left: -200%;
+}
+
+.center {
+  left: 0%;
+}
+
+.right {
+  left: 200%;
+}
+
+
+@media screen and (min-width: 30em) and (orientation: landscape) {
+  .main-menu-button-container{
+    width: 40%;
+    margin-left: 28%;
+
+    padding-top: 2%;
+  }
+
+  .left {
+    left: -100%
+  }
+
+  .right { 
+    right: 101%;
+  }
+
+  .main-slide {
+    top: 4%;
+    width: 100%;
+    height: 78%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  }

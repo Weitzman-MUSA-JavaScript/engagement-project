@@ -1,0 +1,294 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>PinPoint</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <!-- <link rel="stylesheet" href="css/main-stat-style.css">-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popup-style.css">
+    <link rel="stylesheet" href="css/new-session.css">
+    <link rel="stylesheet" href="css/view-result.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <header>
+      <h1>PinPoint</h1>
+    </header>
+
+    <main>
+      <div class="main-container">
+        <!--<div class = "test">
+          <div class = "test-inner">
+            HERE'S SOME TESTING STUFF
+          </div> 
+        </div> -->
+          <!-- <section id="map-section">
+            <div class="map" id="map"></section>
+          </section> -->
+          <div class="main-menu main-slide center">
+            <div class = "main-menu-button-container">
+              <button class="mm-new-session-button">
+                <img src = "img/pen.png">
+                <p>Create Brand New Session</p>
+              </button>
+              <button class="mm-contribute-button">
+                <img src = "img/puzzle.png">
+                <p> Contribute to Existing Session</p>
+              </button>
+              <button class="mm-view-results-button">
+                <img src = "img/preview.png" id = "img-view">
+                <p> View Results of Existing Session</p>
+              </button>
+            </div>
+          </div>
+
+          <div class="new-session main-slide right">
+            <div class="main-text">
+              <p>Create a new session!</p>
+              
+            </div>
+            <div class="new-qn-1 new-qn">
+              <p>Question 1:</p>
+              <input type="text" class="new-qn-input new-qn1" maxlength="48" placeholder="Question 1" autocomplete="off">
+            </div>
+            <div class="new-qn-2 new-qn">
+              <p>Question 2:</p>
+              <input type="text" class="new-qn-input new-qn2" maxlength="48" placeholder="Question 2" autocomplete="off">
+            </div>
+            <div class="new-qn-3 new-qn">
+              <p>Question 3:</p>
+              <input type="text" class="new-qn-input new-qn3" maxlength="48" placeholder="Question 3" autocomplete="off">
+            </div>
+            <div class = "button-container">
+              <button class="new-session-back"> Back </button>
+              <button class="new-session-create grayout"> Create </button>
+            </div>
+          </div>
+
+          <div class = "submit-slide submit-slide-top submit-confirmation">
+            <div class = "main-text">
+              <p> Submitted! </p>
+            </div>
+          </div>
+
+          <div class = "create-slide submit-slide-top submit-confirmation">
+            <div class = "main-text">
+              <p> Created! </p>
+            </div>
+          </div>
+
+          <div class="popup main-slide right">
+
+    
+            <div class = "popup-slide popup-slide-0 popup-slide-center"> 
+              <div class = "main-text">
+                <p> Hi there! <br> Confirm that you've got the right sessionID?</p>
+              </div>
+              <div class = "all-session-container">
+                <div class = "hash-container">
+                  <p class = "session-id"> Session ID: </p>
+                  <input type="text" class="session-id-input" placeholder="1234" autocomplete="off">
+                </div>
+                <div class = "session-error-msg"></div>
+                <div class = "qr-container hidden">
+                  <div class = "qr-code"></div>
+                </div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-close-0"> Close</button>
+                <button class="popup-next-0"> Next</button>
+              </div>
+            </div>
+
+
+            <div class = "popup-slide popup-slide-1 popup-slide-right"> 
+              <div class = "main-text">
+                <p class = "popup-qn1"></p>
+              </div>
+              <div class="map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-1" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-1" >
+                  </ol>
+                </div>
+                <div class="map" id="map-1"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-1"> Back</button>
+                <button class="popup-next-1"> Next</button>
+              </div>
+            </div>
+            
+            
+            <div class = "popup-slide popup-slide-2 popup-slide-right"> 
+              <div class = "main-text">
+                <p class = "popup-qn2"></p>
+              </div>
+              <div class = "map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-2" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-2">
+                  </ol>
+                </div>
+                <div class="map" id="map-2"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-2"> Back</button>
+                <button class="popup-next-2"> Next</button>
+              </div>
+            </div>
+            
+            
+            <div class = "popup-slide popup-slide-3 popup-slide-right"> 
+              <div class = "main-text">
+                <p class = "popup-qn3"></p>
+              </div>
+              <div class = "map-qn-container">
+                <div class="popup-search-box">
+                  <input type="text" class="popup-search-bar" id="popup-search-bar-3" placeholder="Search Address..." autocomplete="off">
+                  <!--<button class="cross-icon" title="Clear input">
+                      <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                          <g id="SVGRepo_iconCarrier"> <path d="M19 5L5 19M5.00001 5L19 19" stroke="#838181" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                          </g>
+                      </svg>
+                  </button>-->
+                  <ul class="popup-search-dropdown" id ="popup-search-dropdown-3">
+                  </ol>
+                </div>
+                <div class="map" id="map-3"></div>
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-3"> Back</button>
+                <button class="popup-next-3"> Next</button>
+              </div>
+            </div>
+          
+            
+            <div class = "popup-slide popup-slide-4 popup-slide-right"> 
+              <div class = "submission-container">
+                <div class = "submission-instructions-container">
+                  <p> Fill in your username, pick an icon, and submit! </p>
+                </div>
+                <div class = "submission-username">
+                  <p> Username: </p>
+                  <input type="text" class="username-input" placeholder="lalalala" autocomplete="off">
+                </div>
+              </div>
+              
+              <div class = "popup-icon-container">
+                <img class = "icon" id = "cat-icon" src="img/icons/B_Cat.PNG" alt="Cat Icon">
+                <img class = "icon" id = "dog-icon" src="img/icons/B_Dog.PNG" alt="Dog Icon">
+                <img class = "icon" id = "fox-icon" src="img/icons/B_Fox.PNG" alt="Fox Icon">
+                <img class = "icon" id = "gir-icon" src="img/icons/B_Giraffe.PNG" alt="Giraffe Icon">
+                <img class = "icon" id = "ham-icon" src="img/icons/P_Hamster.PNG" alt="Hamster Icon">
+                <img class = "icon" id = "pan-icon" src="img/icons/P_Panda.PNG" alt="Panda Icon">
+                <img class = "icon" id = "she-icon" src="img/icons/P_Sheep.PNG" alt="Sheep Icon">
+                <img class = "icon" id = "ele-icon" src="img/icons/Y_Elephant.PNG" alt="Elephant Icon">
+                <img class = "icon" id = "slo-icon" src="img/icons/Y_Sloth.PNG" alt="Sloth Icon">
+                <img class = "icon" id = "zeb-icon" src="img/icons/Y_Zebra.PNG" alt="Zebra Icon">
+              </div>
+              <div class = "popup-button-container">
+                <button class="popup-back-4"> Back</button>
+                <button class="popup-submit grayout"> Submit</button>
+              </div>
+            </div>
+          
+          </div>
+          
+          <div class="view-session main-slide right">
+            <div class="main-text">
+              <p>Confirm your Session ID?</p>
+            </div>
+            <div class = "all-session-container">
+              <div class = "hash-container">
+                <p class = "session-id"> Session ID: </p>
+                <input type="text" class="session-id-input" placeholder="1234" autocomplete="off">
+              </div>
+              <div class = "session-error-msg view-session-error-msg"></div>
+              <div class = "qr-container view-qr-container hidden">
+                <div class = "qr-code view-qr"></div>
+              </div>
+            </div>
+            <div class = "popup-button-container">
+              <button class="view-session-back"> Close </button>
+              <button class="view-session-next grayout"> Next </button>
+            </div>
+          </div>
+
+          <div class="view-results main-slide right">
+            
+            <div class="change-qn-button-container">
+              <button class="change-qn-button">
+                  <p></p>
+              </button>
+            </div>
+            
+            <div class = "map-view-container">
+              <div class="popup-search-box">
+                <input type="text" class="popup-search-bar" id="popup-search-bar-view" placeholder="Search Address..." autocomplete="off">
+                <ul class="popup-search-dropdown" id ="popup-search-dropdown-view">
+                </ol>
+              </div>
+              <div class="map" id="map-view"></div>
+            </div>
+            <div class = "view-button-container popup-button-container">
+              <button class="view-back"> Back</button>
+            </div>
+            <div class = "view-change-qn-menu">
+              <ul class = "view-qn-list">
+                <li class = "view-qn-choice" value = 1></li>
+                <li class = "view-qn-choice" value = 2></li>
+                <li class = "view-qn-choice" value = 3></li>
+              </ul>
+            </div>
+          </div>
+
+          <!--<section id="footer-section">
+            <span> 
+              Property Data obtained from <a href="https://data.gov.sg/" title="data.gov">data.gov.sg</a> and <a href="https://ura.gov.sg/" title="ura.gov">ura.gov.sg</a>.<br>
+              <a href="https://www.flaticon.com/free-icons/home" title="home icons">Home icons created by Aswell Studio - Flaticon</a>
+            </span>
+          </section>-->
+      </div>
+    </main>
+
+    <footer id="footer-section">
+      <a href="https://www.flaticon.com/free-icons/pin" title="pin icons">Pin,</a>
+      <a href="https://www.flaticon.com/free-icons/pencil" title="pencil icons">Pencil,</a>
+      <a href="https://www.flaticon.com/free-icons/puzzle" title="puzzle icons">Puzzle,</a>
+      <a href="https://www.flaticon.com/free-icons/preview" title="preview icons">Preview Icons by Flaticon</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
