@@ -1,0 +1,263 @@
+html {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+body {
+    padding: 0;
+    /* border-box doesn't include margin, only padding */
+    margin: 0;
+    height: 100%;
+}
+
+header {
+    height: 9vh;
+    font-size: 12px;
+    box-sizing: border-box;
+    /* background-size: cover;  This option do not reshape img*/
+    /* background-position: bottom; */
+}
+
+h1 {
+    color: #745d46;
+    height: 100%;
+    padding: 2vh;
+    margin: 0;
+    box-sizing: border-box;
+    /* adjust background image transparency */
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+main {
+    height: 91vh;
+    display: flex;
+    flex-direction: row;
+}
+
+#map { flex: 1;     
+  width: 100%;
+}
+
+#sidebar {
+  width: 300px;              
+  padding: 12px;
+  box-sizing: border-box;
+
+  background-color: #f8f8f8;
+  border-left: 1px solid #ddd;
+
+  display: flex;
+  flex-direction: column;    
+  gap: 8px;
+
+  overflow-y: auto;          
+}
+
+h2 {
+    color: #745d46;
+    font-size: 18px;  
+    height: 100%;
+    padding: 2vh;
+    margin: 0;
+    box-sizing: border-box;
+    /* adjust background image transparency */
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#site-search {
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+#results {
+  border: 1px solid rgb(189, 189, 189);
+  min-height: 300px;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+#results button {
+  padding: 8px;
+  margin-bottom: 4px;
+  text-align: left;
+  border: 0.5px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+#results button:hover {
+  background: #eee;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 14px;
+  font-size: 14px;
+}
+
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-legend {
+  background: white;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #333;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.map-legend h4 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.legend-color.historic {
+  background: #ff8000;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.park {
+  background: #43bc63;
+}
+
+.legend-section {
+  margin: 6px 0;
+}
+
+.legend-color.food {
+  background: #540404;
+}
+
+.legend-color.food-20 { opacity: 0.75; }
+.legend-color.food-10 { opacity: 0.6; }
+.legend-color.food-5  { opacity: 0.45; }
+.legend-color.food-1  { opacity: 0.3; }
+.legend-color.food-0  { opacity: 0.15; }
+
+.hidden {
+  display: none;
+}
+
+/* ===== Modal container ===== */
+#review-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== Dark background ===== */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* ===== Modal card ===== */
+.modal-card {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 90vw);
+  background: white;
+  padding: 18px 20px 20px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Title ===== */
+.modal-card h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #5b4633;
+}
+
+/* ===== Inputs ===== */
+.modal-card label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.modal-card select,
+.modal-card textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.modal-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ===== Buttons ===== */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-actions .cancel-btn {
+  background: #eee;
+  color: #444;
+}
+
+.modal-actions .cancel-btn:hover {
+  background: #ddd;
+}
+
+.modal-actions .submit-btn {
+  background: #c76b2b;
+  color: white;
+  font-weight: 600;
+}
+
+.modal-actions .submit-btn:hover {
+  background: #b25f25;
+}
