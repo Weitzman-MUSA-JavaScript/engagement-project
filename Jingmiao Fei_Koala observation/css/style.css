@@ -1,0 +1,247 @@
+/* 设置页面整体样式 */
+body {
+    cursor: url('../data/koala.png') 16 16, auto; /* 'auto' is the fallback cursor */  
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 必须保证页面高度占满视口 */
+    font-family: Arial, sans-serif;
+}
+
+/* 标题容器 */
+#title-container {
+    flex-shrink: 0; /* 确保标题容器高度固定 */
+    background-color:#91A3B0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    height: 50px; /* 固定标题高度 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 主内容容器 (info-panel 和 map 的父级) */
+#content {
+    flex: 1; /* 剩余空间用于内容区域 */
+    display: flex;
+    height: calc(100vh - 50px); /* 剩余高度 */
+}
+
+/* 信息面板样式 */
+#info-panel {
+    flex: 2.5; /* 占 25% 宽度 */
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+/* 地图容器样式 */
+#map {
+    flex: 7.5; /* 占 75% 宽度 */
+    position: relative;
+    height: 100%; /* 必须确保地图高度占满父级 */
+}
+
+.mapboxgl-canvas {
+    cursor: url('../data/koala.png') 16 16, auto !important;
+  }
+
+#map-controls {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    z-index: 10; /* 确保按钮显示在地图之上 */
+  }
+  
+#layer-toggle-select {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+#layer-toggle-select:hover {
+    cursor: url('../data/koala.png') 16 16, pointer;
+    background-color: #f0f0f0;
+  }
+  
+
+#title-container h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+#button-container {
+    display: flex;
+    gap: 10px;
+}
+
+#button-container button {
+    padding: 10px 20px;
+    background-color: #718D99;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#button-container button:hover {
+    cursor: url('../data/koala.png') 16 16 , pointer;
+    background-color: #a6bfd1; /* 悬停时颜色稍微变浅，呼应标题容器 */
+    transform: scale(1.05); /* 鼠标悬停时略微放大，增加交互感 */}
+
+#button-container button:active {
+    background-color: #5D7580; /* 点击时颜色更深，增加按压效果 */
+    transform: scale(0.95); /* 点击时稍微缩小，增强反馈 */
+}
+
+#info-panel h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+
+/* 滑动条样式 */
+#year-slider {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#year-label {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+#chart-container {
+    height: 300px; /* 固定高度，确保不会无限延伸 */
+    width: 100%;   /* 宽度保持 100% */
+    margin-top: 20px;
+    position: relative; /* 防止嵌套问题 */
+  }
+  
+#bar-chart {
+    width: 100%; 
+    height: 100%; /* 条形图填充父容器 */
+  }
+  
+
+#chart-description {
+    margin-top: 10px; /* 与条形图的间距 */
+    text-align: left; /* 居中显示文字 */
+    font-size: 14px; /* 调整文字大小 */
+    color: #555; /* 设置温和的颜色 */
+    font-style: italic;
+    font-family: Arial, sans-serif; /* 确保与页面整体风格统一 */
+  }
+
+/* Form样式 */
+#report-form {
+    margin-top: 20px;
+}
+
+#report-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+#report-form label {
+    margin-bottom: 5px;
+}
+
+#report-form input, #report-form select, #report-form textarea {
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.location-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#click-on-map, #get-location {
+    margin-top: 10px;
+    padding: 5px 8px;
+    background-color: #68B0AB; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#click-on-map:hover, #get-location:hover {
+    cursor: url('../data/koala.png') 16 16 , pointer;
+    background-color: #4E8E8B; /* 悬停时颜色更深 */
+}
+
+#submit-report {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #68B0AB; /* 温和的蓝绿色 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-report:hover {
+    cursor: url('../data/koala.png') 16 16 , pointer;
+    background-color: #4E8E8B; /* 悬停时颜色更深 */
+}
+
+.form-group {
+    width: 48%;  /* 每个输入框占一半的宽度 */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;  /* 输入框占满父容器的宽度 */
+    padding: 5px;
+    box-sizing: border-box;  /* 保证padding不影响宽度计算 */
+}
+
+.custom-marker {
+    width: 32px;
+    height: 32px;
+    background-image: url('../data/locationMarker.png'); /* Custom image */
+    background-size: cover;
+  }
+  
+
+.legend {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    background-color: rgba(249, 249, 249, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.color-box {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
