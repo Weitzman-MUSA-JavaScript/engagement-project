@@ -1,7 +1,7 @@
 {
   "name": "engagement-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Add a readme for your engagement tool here. Include content overview, data citations, and any relevant technical details.",
   "main": "index.js",
   "type": "module",
   "directories": {},
@@ -16,5 +16,18 @@
     "eslint-config-google": "^0.14.0",
     "stylelint": "^15.10.3",
     "stylelint-config-standard": "^34.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luyiiw/engagement-project.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/luyiiw/engagement-project/issues"
+  },
+  "homepage": "https://github.com/luyiiw/engagement-project#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.88.0",
+    "dotenv": "^17.2.3"
   }
 }
