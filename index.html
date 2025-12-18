@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>First line In Community Reporting, Philadelphia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <!-- ===== global header (title, subtitle) ===== -->
+    <header class="app-header">
+      <div class="app-header__content">
+
+        <!-- ===== branding, title, etc ===== -->
+        <div class="app-header__brand">
+          <!-- <p class="eyebrow">Coalition of Care</p> -->
+
+          <!-- === title === -->
+          <h1>FLICR Philadelphia</h1>
+
+          <!-- == subtitle == -->
+          <p class="subtitle">First Line in Community Reporting, Coalition of Care</p>
+        </div>
+
+        <!-- ===== Filter drop downs at top ===== -->
+        <div class="app-header__filters" aria-label="Filter cases">
+          <label>
+            <span>Priority</span>
+            <select id="filter-priority">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <label>
+            <span>Status</span>
+            <select id="filter-status">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <label>
+            <span>Responsibility</span>
+            <select id="filter-responsibility">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <button id="filter-reset" class="ghost-btn ghost-btn--small" type="button">Reset</button>
+        </div>
+        <!-- ===== USER SESSION STACK ===== -->
+        <div class="app-header__user">
+          <div class="user-pill">
+            <span id="user-name">Coalition Dispatcher</span>
+            <small id="user-org">Coalition of Care Dispatch</small>
+          </div>
+          <button id="auth-toggle" class="ghost-btn ghost-btn--small" type="button">Log out</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== main app shell under title/filters ===== -->
+    <main id="main-content" class="app-shell" tabindex="-1">
+
+      <!-- ===== search bar ===== -->
+      <section class="panel panel--search" aria-label="Search reports">
+        <form class="search-bar" role="search">
+          <label class="search-bar__label" for="search-input">
+            <span class="eyebrow">Search</span>
+            <input id="search-input" type="search" placeholder="Search by title, address, or neighborhood" />
+          </label>
+          <button id="search-clear" class="ghost-btn ghost-btn--small" type="button">Clear</button>
+        </form>
+      </section>
+
+
+      <!-- ===== live feed (eyebrow, recent reports) ===== -->
+      <section class="panel panel--live" aria-label="Live feed">
+        <header>
+          <p class="eyebrow">Live feed</p>
+          <h1>Recent Reports</h1>
+        </header>
+        <ul id="recent-list" class="report-list" aria-live="polite"></ul>
+      </section>
+
+
+      <!-- ===== case panel: details and actions ===== -->
+      <section id="case-panel" class="panel case-panel hidden" aria-label="Detailed case information">
+
+        <div class="case-panel__grid">
+          <!-- ===== Row 1: action center ===== -->
+          <section id="case-actions" class="case-actions" aria-live="polite">
+            <header>
+              <p class="eyebrow">Action center</p>
+            </header>
+            <div id="case-actions-body" class="case-actions__body"></div>
+          </section>
+
+          <!-- ===== Row 2: meta + case details (single scrollable box) ===== -->
+          <section class="case-details">
+            <div class="case-details__meta" aria-live="polite">
+              <div class="case-details__meta-content">
+                <p id="case-status-detail" class="eyebrow">Case details</p>
+                <h3 id="case-title-detail" aria-label="Case title">Case Title</h3>
+                <div id="case-pills-detail" class="case-pills" aria-live="polite"></div>
+                <p id="case-address-detail" class="case-address"></p>
+                <p id="reporter-description" class="reporter-description"></p>
+              </div>
+              <div class="case-panel__header-actions">
+                <button id="close-case" class="primary-btn primary-btn--note" type="button">Close</button>
+              </div>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Report ID</dt>
+                <dd id="case-id"></dd>
+              </div>
+              <div>
+                <dt>Filed</dt>
+                <dd id="case-filed"></dd>
+              </div>
+              <div>
+                <dt>Responsibility</dt>
+                <dd id="case-responsibility"></dd>
+              </div>
+              <div>
+                <dt>Last Action</dt>
+                <dd id="case-updated"></dd>
+              </div>
+              <div>
+                <dt>Reporter</dt>
+                <dd id="case-reporter"></dd>
+              </div>
+              <div>
+                <dt>Contacted Agency</dt>
+                <dd id="case-contacted"></dd>
+              </div>
+              <div>
+                <dt>Contact on File</dt>
+                <dd id="case-contact"></dd>
+              </div>
+            </dl>
+            <div id="case-tags" class="case-tags" aria-live="polite"></div>
+            <section class="case-collaborators">
+              <header>
+                <p class="eyebrow">Coalition collaborators</p>
+              </header>
+              <ul id="case-collaborators-list"></ul>
+            </section>
+          </section>
+
+          <!-- ===== Row 3: comments + notes ===== -->
+          <section class="case-thread">
+            <div id="comments-column" class="thread-column thread-column--comments">
+              <div class="thread-header">
+                <p class="eyebrow">Comments</p>
+                <span id="comment-count" class="thread-count"></span>
+              </div>
+              <ul id="comments-list" class="thread-list thread-list--comments"></ul>
+              <form id="comment-form" class="thread-form">
+                <div id="reply-hint" class="reply-hint is-hidden"></div>
+                <div class="thread-form__actions">
+                  <button id="cancel-reply" class="ghost-btn ghost-btn--small is-hidden" type="button">
+                    Cancel reply
+                  </button>
+                  <button id="comment-open" type="button" class="primary-btn primary-btn--note">Post Comment</button>
+                </div>
+              </form>
+            </div>
+            <div id="notes-column" class="thread-column thread-column--notes">
+              <div class="thread-header">
+                <p class="eyebrow">Notes</p>
+                <span id="note-count" class="thread-count"></span>
+              </div>
+              <ul id="notes-list" class="thread-list thread-list--notes"></ul>
+              <form id="note-form" class="thread-form">
+                <div class="thread-form__actions">
+                  <button id="note-open" type="button" class="primary-btn primary-btn--note">Save Note</button>
+                </div>
+              </form>
+              <p id="note-permissions" class="permissions-hint is-hidden"></p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===== FOLLOW-UP PANEL ===== -->
+      <section class="panel panel--follow" aria-label="Follow-up activity">
+        <header>
+          <p class="eyebrow">Follow-up</p>
+          <h2>Report Activity</h2>
+        </header>
+        <ul id="activity-list" class="report-list" aria-live="polite"></ul>
+      </section>
+
+    </main>
+
+    <div id="input-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="input-modal-title">
+      <div class="modal__backdrop" data-modal-close></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h3 id="input-modal-title" class="modal__title"> Title</h3>
+          <button id="input-modal-close" type="button" class="ghost-btn ghost-btn--small" data-modal-close>
+            Close
+          </button>
+        </header>
+        <form id="input-modal-form" class="modal__form">
+          <div id="input-modal-select-wrap" class="modal__field is-hidden">
+            <label>
+              <span class="modal__label">Partner</span>
+              <select id="input-modal-select"></select>
+            </label>
+          </div>
+          <div class="modal__field">
+            <label>
+              <span id="input-modal-label" class="modal__label">Message</span>
+              <textarea id="input-modal-text" rows="5"></textarea>
+            </label>
+          </div>
+          <div class="modal__actions">
+            <button id="input-modal-cancel" type="button" class="ghost-btn ghost-btn--small" data-modal-close>
+              Cancel
+            </button>
+            <button id="input-modal-submit" type="submit" class="primary-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

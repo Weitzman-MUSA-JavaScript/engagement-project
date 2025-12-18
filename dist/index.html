@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>First line In Community Reporting, Philadelphia</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css"
+    />
+    <script type="module" crossorigin src="/assets/index-BRMqgFyE.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-g39KCnhq.css">
+  </head>
+  <body>
+    <!-- ===== GLOBAL HEADER ===== -->
+    <header class="app-header">
+      <div class="app-header__content">
+        <!-- ===== BRANDING ===== -->
+        <div class="app-header__brand">
+          <p class="eyebrow">Coalition of Care</p>
+          <h1>FLICR Philadelphia</h1>
+          <p class="subtitle">First Line in Community Reporting, Coalition of Care</p>
+        </div>
+        <!-- ===== FILTER CONTROLS ===== -->
+        <div class="app-header__filters" aria-label="Filter cases">
+          <label>
+            <span>Priority</span>
+            <select id="filter-priority">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <label>
+            <span>Status</span>
+            <select id="filter-status">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <label>
+            <span>Responsibility</span>
+            <select id="filter-responsibility">
+              <option value="all">All</option>
+            </select>
+          </label>
+          <button id="filter-reset" class="ghost-btn ghost-btn--small" type="button">Reset</button>
+        </div>
+        <!-- ===== USER SESSION STACK ===== -->
+        <div class="app-header__user">
+          <div class="user-pill">
+            <span id="user-name">Coalition Dispatcher</span>
+            <small id="user-org">Coalition of Care Dispatch</small>
+          </div>
+          <button id="auth-toggle" class="ghost-btn ghost-btn--small" type="button">Log out</button>
+        </div>
+      </div>
+    </header>
+    <!-- ===== PRIMARY APP SHELL ===== -->
+    <div class="app-shell">
+      <!-- ===== LIVE FEED PANEL ===== -->
+      <section class="panel panel--live" aria-label="Live feed">
+        <header>
+          <p class="eyebrow">Live feed</p>
+          <h1>Recent Reports</h1>
+        </header>
+        <ul id="recent-list" class="report-list" aria-live="polite"></ul>
+      </section>
+
+      <!-- ===== CASE PANEL (DETAILS + ACTIONS) ===== -->
+      <section id="case-panel" class="panel case-panel hidden" aria-label="Detailed case information">
+        <div class="case-panel__grid">
+          <!-- ===== CASE SUMMARY CARD ===== -->
+          <section class="case-summary">
+            <header class="panel-heading">
+              <p class="eyebrow">Case</p>
+              <h2>Details</h2>
+            </header>
+            <div class="case-summary__card">
+              <p class="case-status" id="case-status"></p>
+              <h3 id="case-title" aria-label="Case title">Case Title</h3>
+              <p id="case-address" class="case-address"></p>
+              <div class="case-summary__meta">
+                <span id="case-type-summary"></span>
+                <span id="case-responsibility-summary"></span>
+              </div>
+            </div>
+          </section>
+          <section class="case-locator">
+            <header>
+              <p class="eyebrow">Locator</p>
+              <h2>Map</h2>
+            </header>
+            <div id="locator-map"></div>
+          </section>
+        </div>
+
+        <div class="case-panel__body">
+          <div class="case-panel__header">
+            <div>
+              <p id="case-status-detail" class="case-status"></p>
+              <h3 id="case-title-detail" aria-label="Case title">Case Title</h3>
+              <p id="case-address-detail" class="case-address"></p>
+              <p id="reporter-description" class="reporter-description"></p>
+            </div>
+            <div class="case-panel__header-actions">
+              <button id="close-case" class="ghost-btn ghost-btn--close" type="button">Close</button>
+            </div>
+          </div>
+          <div class="case-panel__columns">
+            <!-- ===== ACTION CENTER STACK ===== -->
+            <section id="case-actions" class="case-actions" aria-live="polite">
+              <header>
+                <p class="eyebrow">Action center</p>
+                <h4>Move this case forward</h4>
+              </header>
+              <div id="case-actions-body" class="case-actions__body"></div>
+            </section>
+            <!-- ===== CASE METADATA STACK ===== -->
+            <section class="case-details">
+              <p id="case-description" class="case-description"></p>
+              <dl class="case-meta">
+                <div>
+                  <dt>Report ID</dt>
+                  <dd id="case-id"></dd>
+                </div>
+                <div>
+                  <dt>Filed</dt>
+                  <dd id="case-filed"></dd>
+                </div>
+                <div>
+                  <dt>Responsibility</dt>
+                  <dd id="case-responsibility"></dd>
+                </div>
+                <div>
+                  <dt>Last Action</dt>
+                  <dd id="case-updated"></dd>
+                </div>
+                <div>
+                  <dt>Reporter</dt>
+                  <dd id="case-reporter"></dd>
+                </div>
+                <div>
+                  <dt>Contacted Agency</dt>
+                  <dd id="case-contacted"></dd>
+                </div>
+                <div>
+                  <dt>Contact on File</dt>
+                  <dd id="case-contact"></dd>
+                </div>
+              </dl>
+              <div id="case-tags" class="case-tags" aria-live="polite"></div>
+              <section class="case-collaborators">
+                <header>
+                  <p class="eyebrow">Coalition collaborators</p>
+                </header>
+                <ul id="case-collaborators-list"></ul>
+              </section>
+            </section>
+          </div>
+          <!-- ===== THREADS (COMMENTS + NOTES) ===== -->
+          <section class="case-thread">
+            <div id="comments-column" class="thread-column thread-column--comments">
+              <div class="thread-header">
+                <h4>Comments</h4>
+                <span id="comment-count" class="thread-count"></span>
+              </div>
+              <ul id="comments-list" class="thread-list thread-list--comments"></ul>
+              <form id="comment-form" class="thread-form">
+                <label>
+                  <span class="visually-hidden">Add comment</span>
+                  <textarea id="comment-text" rows="3" placeholder="Leave a comment"></textarea>
+                </label>
+                <div id="reply-hint" class="reply-hint is-hidden"></div>
+                <div class="thread-form__actions">
+                  <button id="cancel-reply" class="ghost-btn ghost-btn--small is-hidden" type="button">
+                    Cancel reply
+                  </button>
+                  <button type="submit" class="primary-btn">Post Comment</button>
+                </div>
+              </form>
+            </div>
+            <div id="notes-column" class="thread-column thread-column--notes">
+              <div class="thread-header">
+                <h4>Notes</h4>
+                <span id="note-count" class="thread-count"></span>
+              </div>
+              <ul id="notes-list" class="thread-list thread-list--notes"></ul>
+              <form id="note-form" class="thread-form">
+                <label>
+                  <span class="visually-hidden">Add note</span>
+                  <textarea id="note-text" rows="3" placeholder="Add coalition-visible note"></textarea>
+                </label>
+                <button type="submit" class="ghost-btn">Save Note</button>
+              </form>
+              <p id="note-permissions" class="permissions-hint is-hidden"></p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===== FOLLOW-UP PANEL ===== -->
+      <section class="panel panel--follow" aria-label="Follow-up activity">
+        <header>
+          <p class="eyebrow">Follow-up</p>
+          <h2>Report Activity</h2>
+        </header>
+        <ul id="activity-list" class="report-list" aria-live="polite"></ul>
+      </section>
+
+    </div>
+  </body>
+</html>

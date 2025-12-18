@@ -1,0 +1,4134 @@
+{
+  "generatedAt": "2025-12-16T04:48:53.447Z",
+  "count": 150,
+  "reports": [
+    {
+      "id": "R-10000",
+      "caseNumber": 24973,
+      "createdAt": "2025-09-07T08:46:59.323Z",
+      "lastEngaged": "2025-09-09T03:46:59.323Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10001",
+      "caseNumber": 99819,
+      "createdAt": "2025-09-16T13:05:26.668Z",
+      "lastEngaged": "2025-09-25T19:05:26.668Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@neighborsunited.org",
+        "phone": "(225) 592-0068"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10002",
+      "caseNumber": 69163,
+      "createdAt": "2025-08-08T03:06:11.426Z",
+      "lastEngaged": "2025-08-13T13:06:11.426Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10003",
+      "caseNumber": 48495,
+      "createdAt": "2025-09-26T10:58:13.959Z",
+      "lastEngaged": "2025-09-27T16:58:13.959Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "Resident shared that seniors on site need heaters delivered.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10004",
+      "caseNumber": 12544,
+      "createdAt": "2025-08-18T15:59:35.629Z",
+      "lastEngaged": "2025-08-22T02:59:35.629Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10005",
+      "caseNumber": 38487,
+      "createdAt": "2025-08-16T11:31:58.247Z",
+      "lastEngaged": "2025-08-25T18:31:58.247Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "E. Thompson",
+        "email": "e.thompson@mutualaid.org",
+        "phone": "(261) 698-4043"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10006",
+      "caseNumber": 60807,
+      "createdAt": "2025-08-02T22:21:11.641Z",
+      "lastEngaged": "2025-08-07T22:21:11.641Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10007",
+      "caseNumber": 41770,
+      "createdAt": "2025-08-16T08:50:45.559Z",
+      "lastEngaged": "2025-08-23T15:50:45.559Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10008",
+      "caseNumber": 86716,
+      "createdAt": "2025-09-26T16:28:06.326Z",
+      "lastEngaged": "2025-09-29T09:28:06.326Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "C. Lee",
+        "email": "c.lee@neighborsunited.org",
+        "phone": "(251) 182-4812"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10009",
+      "caseNumber": 52396,
+      "createdAt": "2025-08-24T07:23:25.914Z",
+      "lastEngaged": "2025-08-25T15:23:25.914Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10010",
+      "caseNumber": 80477,
+      "createdAt": "2025-08-22T18:24:54.563Z",
+      "lastEngaged": "2025-08-31T14:24:54.563Z",
+      "location": {
+        "address": "1417 W Girard Ave",
+        "neighborhood": "Francisville",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1612,
+          39.9726
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@mutualaid.org",
+        "phone": "(265) 504-0488"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10011",
+      "caseNumber": 96228,
+      "createdAt": "2025-08-01T15:07:08.766Z",
+      "lastEngaged": "2025-08-10T05:07:08.766Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10012",
+      "caseNumber": 24724,
+      "createdAt": "2025-10-27T04:43:38.766Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": {
+        "name": "K. Martin",
+        "email": "k.martin@mutualaid.org",
+        "phone": "(259) 250-6917"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10013",
+      "caseNumber": 67443,
+      "createdAt": "2025-08-14T10:35:50.858Z",
+      "lastEngaged": "2025-08-22T12:35:50.858Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": {
+        "name": "E. Thompson",
+        "email": "e.thompson@mutualaid.org",
+        "phone": "(261) 077-9864"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10014",
+      "caseNumber": 72347,
+      "createdAt": "2025-08-29T06:42:06.881Z",
+      "lastEngaged": "2025-09-05T22:42:06.881Z",
+      "location": {
+        "address": "1417 W Girard Ave",
+        "neighborhood": "Francisville",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1612,
+          39.9726
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10015",
+      "caseNumber": 57869,
+      "createdAt": "2025-08-13T10:58:28.945Z",
+      "lastEngaged": "2025-08-21T07:58:28.945Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10016",
+      "caseNumber": 70822,
+      "createdAt": "2025-09-22T13:23:23.619Z",
+      "lastEngaged": "2025-09-27T04:23:23.619Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10017",
+      "caseNumber": 77383,
+      "createdAt": "2025-09-25T02:51:19.943Z",
+      "lastEngaged": "2025-10-04T04:51:19.943Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10018",
+      "caseNumber": 94236,
+      "createdAt": "2025-10-01T17:04:37.027Z",
+      "lastEngaged": "2025-10-10T05:04:37.027Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@neighborsunited.org",
+        "phone": "(222) 870-0388"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10019",
+      "caseNumber": 60646,
+      "createdAt": "2025-09-29T16:50:33.436Z",
+      "lastEngaged": "2025-10-07T15:50:33.436Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10020",
+      "caseNumber": 27595,
+      "createdAt": "2025-09-26T03:35:43.569Z",
+      "lastEngaged": "2025-09-30T13:35:43.569Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@tenantsolidarity.net",
+        "phone": "(237) 268-6269"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10021",
+      "caseNumber": 13403,
+      "createdAt": "2025-08-26T21:19:41.756Z",
+      "lastEngaged": "2025-09-05T03:19:41.756Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10022",
+      "caseNumber": 43458,
+      "createdAt": "2025-08-15T09:11:20.506Z",
+      "lastEngaged": "2025-08-18T08:11:20.506Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@tenantsolidarity.net",
+        "phone": "(248) 226-3656"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10023",
+      "caseNumber": 70830,
+      "createdAt": "2025-10-30T04:05:12.243Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "3131 Kensington Ave",
+        "neighborhood": "Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1209,
+          39.9928
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "R. Nguyen",
+        "email": "r.nguyen@mutualaid.org",
+        "phone": "(218) 636-2114"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10024",
+      "caseNumber": 46305,
+      "createdAt": "2025-09-14T16:55:27.703Z",
+      "lastEngaged": "2025-09-19T08:55:27.703Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10025",
+      "caseNumber": 17114,
+      "createdAt": "2025-08-19T22:18:09.537Z",
+      "lastEngaged": "2025-08-23T00:18:09.537Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10026",
+      "caseNumber": 69113,
+      "createdAt": "2025-09-24T11:57:19.640Z",
+      "lastEngaged": "2025-09-29T17:57:19.640Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "structural problem"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Water Department",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10027",
+      "caseNumber": 92120,
+      "createdAt": "2025-08-08T13:59:41.511Z",
+      "lastEngaged": "2025-08-12T01:59:41.511Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Water Department",
+      "optionalContact": {
+        "name": "S. Patel",
+        "email": "s.patel@tenantsolidarity.net",
+        "phone": "(223) 500-7048"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10028",
+      "caseNumber": 23167,
+      "createdAt": "2025-09-26T00:11:26.178Z",
+      "lastEngaged": "2025-10-05T04:11:26.178Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@tenantsolidarity.net",
+        "phone": "(236) 081-4169"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10029",
+      "caseNumber": 39825,
+      "createdAt": "2025-10-22T15:29:39.056Z",
+      "lastEngaged": "2025-10-30T06:29:39.056Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10030",
+      "caseNumber": 59691,
+      "createdAt": "2025-08-22T16:16:10.888Z",
+      "lastEngaged": "2025-08-30T23:16:10.888Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "R. Nguyen",
+        "email": "r.nguyen@neighborsunited.org",
+        "phone": "(226) 230-2161"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10031",
+      "caseNumber": 99383,
+      "createdAt": "2025-08-28T14:02:38.463Z",
+      "lastEngaged": "2025-09-04T04:02:38.463Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": {
+        "name": "E. Thompson",
+        "email": "e.thompson@mutualaid.org",
+        "phone": "(220) 744-2242"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10032",
+      "caseNumber": 33231,
+      "createdAt": "2025-10-23T15:44:29.686Z",
+      "lastEngaged": "2025-10-30T04:44:29.686Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10033",
+      "caseNumber": 57869,
+      "createdAt": "2025-10-26T20:22:10.085Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10034",
+      "caseNumber": 13182,
+      "createdAt": "2025-09-11T12:12:54.144Z",
+      "lastEngaged": "2025-09-18T10:12:54.144Z",
+      "location": {
+        "address": "901 N 63rd St",
+        "neighborhood": "Overbrook",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2524,
+          39.973
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10035",
+      "caseNumber": 83501,
+      "createdAt": "2025-09-01T23:21:57.462Z",
+      "lastEngaged": "2025-09-09T10:21:57.462Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "G. Jenkins",
+        "email": "g.jenkins@neighborsunited.org",
+        "phone": "(234) 438-2966"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10036",
+      "caseNumber": 99310,
+      "createdAt": "2025-08-26T18:47:44.664Z",
+      "lastEngaged": "2025-09-01T07:47:44.664Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10037",
+      "caseNumber": 57855,
+      "createdAt": "2025-09-29T03:58:15.217Z",
+      "lastEngaged": "2025-10-02T06:58:15.217Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10038",
+      "caseNumber": 81331,
+      "createdAt": "2025-08-31T09:01:03.538Z",
+      "lastEngaged": "2025-09-09T13:01:03.538Z",
+      "location": {
+        "address": "3131 Kensington Ave",
+        "neighborhood": "Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1209,
+          39.9928
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10039",
+      "caseNumber": 74924,
+      "createdAt": "2025-08-20T10:12:13.807Z",
+      "lastEngaged": "2025-08-22T03:12:13.807Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10040",
+      "caseNumber": 80345,
+      "createdAt": "2025-08-07T09:36:16.041Z",
+      "lastEngaged": "2025-08-15T08:36:16.041Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10041",
+      "caseNumber": 23919,
+      "createdAt": "2025-08-10T03:01:58.524Z",
+      "lastEngaged": "2025-08-11T01:01:58.524Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10042",
+      "caseNumber": 50474,
+      "createdAt": "2025-09-18T01:20:57.016Z",
+      "lastEngaged": "2025-09-22T05:20:57.016Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "K. Martin",
+        "email": "k.martin@mutualaid.org",
+        "phone": "(266) 520-8646"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10043",
+      "caseNumber": 68178,
+      "createdAt": "2025-10-09T05:01:23.035Z",
+      "lastEngaged": "2025-10-18T08:01:23.035Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "R. Nguyen",
+        "email": "r.nguyen@mutualaid.org",
+        "phone": "(226) 454-9658"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10044",
+      "caseNumber": 55429,
+      "createdAt": "2025-08-07T15:23:46.991Z",
+      "lastEngaged": "2025-08-15T17:23:46.991Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10045",
+      "caseNumber": 58364,
+      "createdAt": "2025-09-03T22:56:10.718Z",
+      "lastEngaged": "2025-09-10T03:56:10.718Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10046",
+      "caseNumber": 27455,
+      "createdAt": "2025-08-16T05:18:14.410Z",
+      "lastEngaged": "2025-08-24T03:18:14.410Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10047",
+      "caseNumber": 98548,
+      "createdAt": "2025-09-30T13:58:22.045Z",
+      "lastEngaged": "2025-10-05T12:58:22.045Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10048",
+      "caseNumber": 88657,
+      "createdAt": "2025-09-08T05:46:52.367Z",
+      "lastEngaged": "2025-09-08T18:46:52.367Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10049",
+      "caseNumber": 26765,
+      "createdAt": "2025-09-26T13:57:38.847Z",
+      "lastEngaged": "2025-09-30T08:57:38.847Z",
+      "location": {
+        "address": "2024 N 53rd St",
+        "neighborhood": "Wynnefield",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2316,
+          39.9957
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "threat to public safety"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10050",
+      "caseNumber": 90560,
+      "createdAt": "2025-08-07T23:37:19.699Z",
+      "lastEngaged": "2025-08-16T03:37:19.699Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@mutualaid.org",
+        "phone": "(223) 182-2129"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10051",
+      "caseNumber": 88748,
+      "createdAt": "2025-08-24T04:33:19.659Z",
+      "lastEngaged": "2025-08-29T18:33:19.659Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10052",
+      "caseNumber": 29807,
+      "createdAt": "2025-08-18T01:22:03.000Z",
+      "lastEngaged": "2025-08-25T10:22:03.000Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Water Department",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10053",
+      "caseNumber": 19883,
+      "createdAt": "2025-10-07T22:23:55.361Z",
+      "lastEngaged": "2025-10-08T13:23:55.361Z",
+      "location": {
+        "address": "1417 W Girard Ave",
+        "neighborhood": "Francisville",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1612,
+          39.9726
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@neighborsunited.org",
+        "phone": "(266) 534-8842"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10054",
+      "caseNumber": 66820,
+      "createdAt": "2025-08-08T04:08:34.888Z",
+      "lastEngaged": "2025-08-12T08:08:34.888Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "C. Lee",
+        "email": "c.lee@mutualaid.org",
+        "phone": "(246) 804-7655"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10055",
+      "caseNumber": 21079,
+      "createdAt": "2025-08-04T23:15:58.341Z",
+      "lastEngaged": "2025-08-14T01:15:58.341Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "threat to public safety"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@tenantsolidarity.net",
+        "phone": "(253) 861-8624"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10056",
+      "caseNumber": 11498,
+      "createdAt": "2025-10-14T16:20:27.661Z",
+      "lastEngaged": "2025-10-24T08:20:27.661Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@tenantsolidarity.net",
+        "phone": "(250) 526-8530"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10057",
+      "caseNumber": 94061,
+      "createdAt": "2025-08-16T02:17:07.024Z",
+      "lastEngaged": "2025-08-24T13:17:07.024Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10058",
+      "caseNumber": 79620,
+      "createdAt": "2025-09-14T17:06:30.420Z",
+      "lastEngaged": "2025-09-18T08:06:30.420Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10059",
+      "caseNumber": 78870,
+      "createdAt": "2025-09-12T08:15:40.215Z",
+      "lastEngaged": "2025-09-19T23:15:40.215Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10060",
+      "caseNumber": 79010,
+      "createdAt": "2025-10-15T18:16:25.683Z",
+      "lastEngaged": "2025-10-23T23:16:25.683Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10061",
+      "caseNumber": 95281,
+      "createdAt": "2025-10-04T21:43:12.796Z",
+      "lastEngaged": "2025-10-05T10:43:12.796Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10062",
+      "caseNumber": 73838,
+      "createdAt": "2025-10-04T20:44:46.607Z",
+      "lastEngaged": "2025-10-09T04:44:46.607Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10063",
+      "caseNumber": 44810,
+      "createdAt": "2025-09-22T00:42:17.445Z",
+      "lastEngaged": "2025-09-28T09:42:17.445Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@mutualaid.org",
+        "phone": "(225) 800-5025"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10064",
+      "caseNumber": 95622,
+      "createdAt": "2025-10-19T06:42:45.433Z",
+      "lastEngaged": "2025-10-22T13:42:45.433Z",
+      "location": {
+        "address": "2024 N 53rd St",
+        "neighborhood": "Wynnefield",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2316,
+          39.9957
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10065",
+      "caseNumber": 96177,
+      "createdAt": "2025-08-30T13:59:00.516Z",
+      "lastEngaged": "2025-09-03T19:59:00.516Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10066",
+      "caseNumber": 55950,
+      "createdAt": "2025-09-29T07:14:53.137Z",
+      "lastEngaged": "2025-10-08T04:14:53.137Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": {
+        "name": "E. Thompson",
+        "email": "e.thompson@neighborsunited.org",
+        "phone": "(215) 307-5458"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10067",
+      "caseNumber": 36379,
+      "createdAt": "2025-09-28T02:04:40.039Z",
+      "lastEngaged": "2025-09-30T23:04:40.039Z",
+      "location": {
+        "address": "3131 Kensington Ave",
+        "neighborhood": "Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1209,
+          39.9928
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10068",
+      "caseNumber": 87330,
+      "createdAt": "2025-09-21T17:16:38.064Z",
+      "lastEngaged": "2025-09-27T21:16:38.064Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10069",
+      "caseNumber": 74943,
+      "createdAt": "2025-08-30T07:53:01.262Z",
+      "lastEngaged": "2025-09-05T12:53:01.262Z",
+      "location": {
+        "address": "2024 N 53rd St",
+        "neighborhood": "Wynnefield",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2316,
+          39.9957
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10070",
+      "caseNumber": 62822,
+      "createdAt": "2025-08-08T14:58:05.281Z",
+      "lastEngaged": "2025-08-13T18:58:05.281Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "D. Alvarez",
+        "email": "d.alvarez@tenantsolidarity.net",
+        "phone": "(225) 383-7724"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10071",
+      "caseNumber": 90845,
+      "createdAt": "2025-08-17T17:02:44.090Z",
+      "lastEngaged": "2025-08-22T17:02:44.090Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Neighborhood Services Unit",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@neighborsunited.org",
+        "phone": "(254) 491-2805"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10072",
+      "caseNumber": 53414,
+      "createdAt": "2025-09-28T10:15:23.709Z",
+      "lastEngaged": "2025-10-03T05:15:23.709Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "heating/cooling issues"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "E. Thompson",
+        "email": "e.thompson@tenantsolidarity.net",
+        "phone": "(263) 795-9978"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10073",
+      "caseNumber": 96336,
+      "createdAt": "2025-10-03T16:11:48.381Z",
+      "lastEngaged": "2025-10-06T23:11:48.381Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@mutualaid.org",
+        "phone": "(253) 950-1743"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10074",
+      "caseNumber": 57059,
+      "createdAt": "2025-09-25T23:32:04.979Z",
+      "lastEngaged": "2025-09-30T23:32:04.979Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10075",
+      "caseNumber": 26625,
+      "createdAt": "2025-10-16T12:24:03.210Z",
+      "lastEngaged": "2025-10-25T14:24:03.210Z",
+      "location": {
+        "address": "3131 Kensington Ave",
+        "neighborhood": "Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1209,
+          39.9928
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Resident shared that seniors on site need heaters delivered.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@tenantsolidarity.net",
+        "phone": "(227) 834-6721"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10076",
+      "caseNumber": 99940,
+      "createdAt": "2025-08-30T13:50:38.194Z",
+      "lastEngaged": "2025-09-03T20:50:38.194Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10077",
+      "caseNumber": 53850,
+      "createdAt": "2025-08-31T15:37:53.772Z",
+      "lastEngaged": "2025-09-07T14:37:53.772Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10078",
+      "caseNumber": 27786,
+      "createdAt": "2025-10-21T11:33:27.090Z",
+      "lastEngaged": "2025-10-27T14:33:27.090Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "infestation"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10079",
+      "caseNumber": 77634,
+      "createdAt": "2025-10-16T16:03:02.498Z",
+      "lastEngaged": "2025-10-17T20:03:02.498Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Water Department",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10080",
+      "caseNumber": 58147,
+      "createdAt": "2025-10-13T19:59:34.405Z",
+      "lastEngaged": "2025-10-20T19:59:34.405Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@mutualaid.org",
+        "phone": "(236) 016-5653"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10081",
+      "caseNumber": 64139,
+      "createdAt": "2025-08-14T06:19:56.024Z",
+      "lastEngaged": "2025-08-14T18:19:56.024Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10082",
+      "caseNumber": 60232,
+      "createdAt": "2025-10-19T04:12:42.695Z",
+      "lastEngaged": "2025-10-22T02:12:42.695Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@neighborsunited.org",
+        "phone": "(263) 957-5359"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10083",
+      "caseNumber": 70518,
+      "createdAt": "2025-08-06T09:15:44.750Z",
+      "lastEngaged": "2025-08-11T14:15:44.750Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10084",
+      "caseNumber": 15582,
+      "createdAt": "2025-08-15T09:31:59.697Z",
+      "lastEngaged": "2025-08-24T15:31:59.697Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(243) 882-8738"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10085",
+      "caseNumber": 85189,
+      "createdAt": "2025-10-20T15:55:06.359Z",
+      "lastEngaged": "2025-10-28T12:55:06.359Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10086",
+      "caseNumber": 88277,
+      "createdAt": "2025-08-12T09:43:57.674Z",
+      "lastEngaged": "2025-08-21T19:43:57.674Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10087",
+      "caseNumber": 98001,
+      "createdAt": "2025-10-04T17:50:57.660Z",
+      "lastEngaged": "2025-10-11T14:50:57.660Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10088",
+      "caseNumber": 78141,
+      "createdAt": "2025-08-19T10:13:02.799Z",
+      "lastEngaged": "2025-08-23T18:13:02.799Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10089",
+      "caseNumber": 19154,
+      "createdAt": "2025-10-08T22:16:59.755Z",
+      "lastEngaged": "2025-10-13T17:16:59.755Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "structural problem"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10090",
+      "caseNumber": 72776,
+      "createdAt": "2025-08-27T19:30:28.039Z",
+      "lastEngaged": "2025-08-28T19:30:28.039Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10091",
+      "caseNumber": 50782,
+      "createdAt": "2025-10-22T18:22:56.272Z",
+      "lastEngaged": "2025-10-28T02:22:56.272Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "R. Nguyen",
+        "email": "r.nguyen@mutualaid.org",
+        "phone": "(231) 870-9556"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10092",
+      "caseNumber": 84561,
+      "createdAt": "2025-10-09T10:49:05.547Z",
+      "lastEngaged": "2025-10-15T15:49:05.547Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10093",
+      "caseNumber": 13893,
+      "createdAt": "2025-09-03T09:32:09.206Z",
+      "lastEngaged": "2025-09-10T20:32:09.206Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(250) 463-3500"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10094",
+      "caseNumber": 10902,
+      "createdAt": "2025-08-12T02:54:07.895Z",
+      "lastEngaged": "2025-08-18T15:54:07.895Z",
+      "location": {
+        "address": "2024 N 53rd St",
+        "neighborhood": "Wynnefield",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2316,
+          39.9957
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10095",
+      "caseNumber": 99729,
+      "createdAt": "2025-10-11T08:22:26.247Z",
+      "lastEngaged": "2025-10-11T23:22:26.247Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "S. Patel",
+        "email": "s.patel@mutualaid.org",
+        "phone": "(220) 501-5648"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10096",
+      "caseNumber": 69384,
+      "createdAt": "2025-08-22T18:14:08.910Z",
+      "lastEngaged": "2025-08-31T22:14:08.910Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10097",
+      "caseNumber": 61477,
+      "createdAt": "2025-10-29T14:59:16.531Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "901 N 63rd St",
+        "neighborhood": "Overbrook",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2524,
+          39.973
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "C. Lee",
+        "email": "c.lee@neighborsunited.org",
+        "phone": "(215) 913-6752"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10098",
+      "caseNumber": 67097,
+      "createdAt": "2025-09-10T06:34:25.472Z",
+      "lastEngaged": "2025-09-13T19:34:25.472Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10099",
+      "caseNumber": 98923,
+      "createdAt": "2025-10-07T12:03:14.658Z",
+      "lastEngaged": "2025-10-11T00:03:14.658Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(221) 611-9314"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10100",
+      "caseNumber": 19519,
+      "createdAt": "2025-10-26T08:26:21.444Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "1417 W Girard Ave",
+        "neighborhood": "Francisville",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1612,
+          39.9726
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "G. Jenkins",
+        "email": "g.jenkins@tenantsolidarity.net",
+        "phone": "(217) 971-1306"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10101",
+      "caseNumber": 25612,
+      "createdAt": "2025-08-04T10:33:51.025Z",
+      "lastEngaged": "2025-08-12T16:33:51.025Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10102",
+      "caseNumber": 29457,
+      "createdAt": "2025-08-31T01:47:47.442Z",
+      "lastEngaged": "2025-09-08T11:47:47.442Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10103",
+      "caseNumber": 38979,
+      "createdAt": "2025-09-08T21:15:47.582Z",
+      "lastEngaged": "2025-09-18T14:15:47.582Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "K. Martin",
+        "email": "k.martin@neighborsunited.org",
+        "phone": "(222) 022-3341"
+      },
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10104",
+      "caseNumber": 77206,
+      "createdAt": "2025-08-16T12:06:17.155Z",
+      "lastEngaged": "2025-08-22T05:06:17.155Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "infestation"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10105",
+      "caseNumber": 70201,
+      "createdAt": "2025-08-05T17:00:48.292Z",
+      "lastEngaged": "2025-08-11T19:00:48.292Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10106",
+      "caseNumber": 96841,
+      "createdAt": "2025-08-08T00:03:11.142Z",
+      "lastEngaged": "2025-08-10T23:03:11.142Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "D. Alvarez",
+        "email": "d.alvarez@mutualaid.org",
+        "phone": "(228) 554-9434"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10107",
+      "caseNumber": 56346,
+      "createdAt": "2025-10-17T04:27:49.512Z",
+      "lastEngaged": "2025-10-20T02:27:49.512Z",
+      "location": {
+        "address": "2024 N 53rd St",
+        "neighborhood": "Wynnefield",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2316,
+          39.9957
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "heating/cooling issues"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": {
+        "name": "G. Jenkins",
+        "email": "g.jenkins@mutualaid.org",
+        "phone": "(260) 791-4981"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10108",
+      "caseNumber": 95022,
+      "createdAt": "2025-10-18T07:58:40.968Z",
+      "lastEngaged": "2025-10-21T08:58:40.968Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "unsecured vacant building"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10109",
+      "caseNumber": 44663,
+      "createdAt": "2025-08-28T00:08:23.405Z",
+      "lastEngaged": "2025-08-29T06:08:23.405Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@neighborsunited.org",
+        "phone": "(247) 904-1518"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10110",
+      "caseNumber": 66678,
+      "createdAt": "2025-09-22T07:12:11.415Z",
+      "lastEngaged": "2025-10-01T05:12:11.415Z",
+      "location": {
+        "address": "1430 W Allegheny Ave",
+        "neighborhood": "Tioga",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1572,
+          40.0061
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10111",
+      "caseNumber": 43545,
+      "createdAt": "2025-10-06T06:05:54.404Z",
+      "lastEngaged": "2025-10-11T09:05:54.404Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Water Department",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(223) 355-3970"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10112",
+      "caseNumber": 76586,
+      "createdAt": "2025-08-27T22:47:49.818Z",
+      "lastEngaged": "2025-09-01T14:47:49.818Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "threat to public safety"
+      },
+      "notes": "Photos uploaded by tenant captain via hotline submission.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10113",
+      "caseNumber": 96221,
+      "createdAt": "2025-10-05T12:03:02.280Z",
+      "lastEngaged": "2025-10-07T07:03:02.280Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "structural problem"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10114",
+      "caseNumber": 54407,
+      "createdAt": "2025-08-11T00:19:31.268Z",
+      "lastEngaged": "2025-08-16T16:19:31.268Z",
+      "location": {
+        "address": "3131 Kensington Ave",
+        "neighborhood": "Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1209,
+          39.9928
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@mutualaid.org",
+        "phone": "(235) 756-2721"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10115",
+      "caseNumber": 23606,
+      "createdAt": "2025-08-11T09:59:00.551Z",
+      "lastEngaged": "2025-08-13T09:59:00.551Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Requesting legal triage to prep notice of violation.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10116",
+      "caseNumber": 66853,
+      "createdAt": "2025-09-13T09:22:53.202Z",
+      "lastEngaged": "2025-09-17T03:22:53.202Z",
+      "location": {
+        "address": "6234 Market St",
+        "neighborhood": "Cobbs Creek",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.244,
+          39.9626
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "structural problem"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": null,
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10117",
+      "caseNumber": 27923,
+      "createdAt": "2025-08-12T04:12:24.218Z",
+      "lastEngaged": "2025-08-22T03:12:24.218Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PECO Emergency Line",
+      "optionalContact": {
+        "name": "A. Santiago",
+        "email": "a.santiago@neighborsunited.org",
+        "phone": "(225) 265-8666"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10118",
+      "caseNumber": 34993,
+      "createdAt": "2025-10-21T21:08:29.772Z",
+      "lastEngaged": "2025-10-23T12:08:29.772Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "K. Martin",
+        "email": "k.martin@mutualaid.org",
+        "phone": "(236) 001-9140"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10119",
+      "caseNumber": 22170,
+      "createdAt": "2025-08-20T10:49:08.814Z",
+      "lastEngaged": "2025-08-24T05:49:08.814Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": {
+        "name": "S. Patel",
+        "email": "s.patel@neighborsunited.org",
+        "phone": "(231) 664-9893"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10120",
+      "caseNumber": 15301,
+      "createdAt": "2025-08-13T06:14:43.955Z",
+      "lastEngaged": "2025-08-16T09:14:43.955Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "R. Nguyen",
+        "email": "r.nguyen@tenantsolidarity.net",
+        "phone": "(229) 959-4632"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10121",
+      "caseNumber": 70779,
+      "createdAt": "2025-09-13T13:59:09.896Z",
+      "lastEngaged": "2025-09-23T08:59:09.896Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(220) 303-0820"
+      },
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10122",
+      "caseNumber": 10523,
+      "createdAt": "2025-08-12T19:01:50.363Z",
+      "lastEngaged": "2025-08-16T04:01:50.363Z",
+      "location": {
+        "address": "4824 Germantown Ave",
+        "neighborhood": "Germantown",
+        "councilDistrict": "District 8",
+        "coordinates": [
+          -75.1688,
+          40.0242
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "heating/cooling issues"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10123",
+      "caseNumber": 97394,
+      "createdAt": "2025-10-05T16:14:34.291Z",
+      "lastEngaged": "2025-10-15T12:14:34.291Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10124",
+      "caseNumber": 38313,
+      "createdAt": "2025-08-18T02:56:39.540Z",
+      "lastEngaged": "2025-08-19T17:56:39.540Z",
+      "location": {
+        "address": "722 Tasker St",
+        "neighborhood": "Passyunk Square",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1575,
+          39.9298
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Awaiting contractor quote; will update once scheduled.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10125",
+      "caseNumber": 41825,
+      "createdAt": "2025-10-10T12:50:34.591Z",
+      "lastEngaged": "2025-10-20T03:50:34.591Z",
+      "location": {
+        "address": "901 N 63rd St",
+        "neighborhood": "Overbrook",
+        "councilDistrict": "District 4",
+        "coordinates": [
+          -75.2524,
+          39.973
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10126",
+      "caseNumber": 96584,
+      "createdAt": "2025-10-26T04:20:08.494Z",
+      "lastEngaged": "2025-10-30T06:20:08.494Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "pests"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10127",
+      "caseNumber": 45268,
+      "createdAt": "2025-08-06T23:35:13.266Z",
+      "lastEngaged": "2025-08-08T15:35:13.266Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Licenses & Inspections",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@mutualaid.org",
+        "phone": "(267) 550-1807"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10128",
+      "caseNumber": 31521,
+      "createdAt": "2025-09-08T09:30:35.777Z",
+      "lastEngaged": "2025-09-09T20:30:35.777Z",
+      "location": {
+        "address": "2100 S 9th St",
+        "neighborhood": "Bella Vista",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1615,
+          39.9237
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": {
+        "name": "S. Patel",
+        "email": "s.patel@neighborsunited.org",
+        "phone": "(232) 392-3618"
+      },
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10129",
+      "caseNumber": 70838,
+      "createdAt": "2025-09-05T00:21:52.583Z",
+      "lastEngaged": "2025-09-10T20:21:52.583Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Community group offering weekend clean-up support.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "G. Jenkins",
+        "email": "g.jenkins@neighborsunited.org",
+        "phone": "(232) 268-1603"
+      },
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10130",
+      "caseNumber": 85704,
+      "createdAt": "2025-10-29T19:05:21.596Z",
+      "lastEngaged": "2025-10-30T12:00:00.000Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Block captain ready to canvass residents this weekend.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10131",
+      "caseNumber": 42116,
+      "createdAt": "2025-08-31T21:17:47.838Z",
+      "lastEngaged": "2025-09-07T18:17:47.838Z",
+      "location": {
+        "address": "4108 Lancaster Ave",
+        "neighborhood": "Belmont",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2108,
+          39.9655
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "structural problem"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "in progress",
+      "unread": false
+    },
+    {
+      "id": "R-10132",
+      "caseNumber": 65927,
+      "createdAt": "2025-08-26T13:16:25.498Z",
+      "lastEngaged": "2025-09-04T13:16:25.498Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10133",
+      "caseNumber": 29693,
+      "createdAt": "2025-08-24T02:10:39.304Z",
+      "lastEngaged": "2025-08-28T02:10:39.304Z",
+      "location": {
+        "address": "501 W Norris St",
+        "neighborhood": "Ludlow",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1407,
+          39.9814
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "high",
+        "focus": "nuisance property"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10134",
+      "caseNumber": 21206,
+      "createdAt": "2025-10-01T20:11:57.876Z",
+      "lastEngaged": "2025-10-09T23:11:57.876Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "threat to public safety"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10135",
+      "caseNumber": 75689,
+      "createdAt": "2025-09-02T06:35:48.703Z",
+      "lastEngaged": "2025-09-07T19:35:48.703Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "exterior maintenance"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10136",
+      "caseNumber": 51077,
+      "createdAt": "2025-09-30T08:51:23.072Z",
+      "lastEngaged": "2025-10-01T21:51:23.072Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "high",
+        "focus": "neglected vacant lot"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "PGW Emergency Response",
+      "optionalContact": {
+        "name": "L. Carter",
+        "email": "l.carter@tenantsolidarity.net",
+        "phone": "(252) 834-8779"
+      },
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10137",
+      "caseNumber": 42353,
+      "createdAt": "2025-08-05T02:21:16.583Z",
+      "lastEngaged": "2025-08-07T04:21:16.583Z",
+      "location": {
+        "address": "3901 N 5th St",
+        "neighborhood": "Hunting Park",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1399,
+          40.0127
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10138",
+      "caseNumber": 45228,
+      "createdAt": "2025-09-28T04:29:16.514Z",
+      "lastEngaged": "2025-10-03T00:29:16.514Z",
+      "location": {
+        "address": "600 W Rockland St",
+        "neighborhood": "Feltonville",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1297,
+          40.0239
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "mold"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10139",
+      "caseNumber": 20041,
+      "createdAt": "2025-09-15T12:18:20.829Z",
+      "lastEngaged": "2025-09-21T07:18:20.829Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "D. Alvarez",
+        "email": "d.alvarez@mutualaid.org",
+        "phone": "(258) 074-8551"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10140",
+      "caseNumber": 63851,
+      "createdAt": "2025-08-08T16:35:43.364Z",
+      "lastEngaged": "2025-08-17T04:35:43.364Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "medium",
+        "focus": "overgrown weeds"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10141",
+      "caseNumber": 60661,
+      "createdAt": "2025-08-18T21:53:45.474Z",
+      "lastEngaged": "2025-08-27T22:53:45.474Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Public safety",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "threat to public safety"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "referred",
+      "unread": false
+    },
+    {
+      "id": "R-10142",
+      "caseNumber": 40530,
+      "createdAt": "2025-08-02T05:36:55.782Z",
+      "lastEngaged": "2025-08-09T22:36:55.782Z",
+      "location": {
+        "address": "1900 E Tioga St",
+        "neighborhood": "Port Richmond",
+        "councilDistrict": "District 1",
+        "coordinates": [
+          -75.1023,
+          39.9879
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Coordinating with mutual aid partner for temporary repairs.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Housing Authority",
+      "optionalContact": {
+        "name": "K. Martin",
+        "email": "k.martin@neighborsunited.org",
+        "phone": "(245) 883-4306"
+      },
+      "status": "unread",
+      "unread": true
+    },
+    {
+      "id": "R-10143",
+      "caseNumber": 98774,
+      "createdAt": "2025-08-05T20:41:20.205Z",
+      "lastEngaged": "2025-08-08T08:41:20.205Z",
+      "location": {
+        "address": "1813 N 6th St",
+        "neighborhood": "West Kensington",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1391,
+          39.9788
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Neighbors reported worsening conditions after rainfall.",
+      "contactedAnotherAgency": true,
+      "contactedAgency": "Philadelphia Department of Public Health",
+      "optionalContact": null,
+      "status": "needs follow up",
+      "unread": false
+    },
+    {
+      "id": "R-10144",
+      "caseNumber": 75098,
+      "createdAt": "2025-08-15T09:05:07.413Z",
+      "lastEngaged": "2025-08-22T08:05:07.413Z",
+      "location": {
+        "address": "2701 W Lehigh Ave",
+        "neighborhood": "Strawberry Mansion",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.1773,
+          39.9977
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "G. Jenkins",
+        "email": "g.jenkins@neighborsunited.org",
+        "phone": "(229) 243-1937"
+      },
+      "status": "urgent",
+      "unread": false
+    },
+    {
+      "id": "R-10145",
+      "caseNumber": 93720,
+      "createdAt": "2025-09-11T03:45:56.223Z",
+      "lastEngaged": "2025-09-15T20:45:56.223Z",
+      "location": {
+        "address": "2230 N 16th St",
+        "neighborhood": "Sharswood",
+        "councilDistrict": "District 5",
+        "coordinates": [
+          -75.157,
+          39.9892
+        ]
+      },
+      "caseType": "Structural issue",
+      "casePriority": {
+        "level": "urgent",
+        "focus": "plumbing/electric issues"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10146",
+      "caseNumber": 19750,
+      "createdAt": "2025-08-09T12:18:10.298Z",
+      "lastEngaged": "2025-08-11T04:18:10.298Z",
+      "location": {
+        "address": "1120 N American St",
+        "neighborhood": "Northern Liberties",
+        "councilDistrict": "District 7",
+        "coordinates": [
+          -75.1418,
+          39.9674
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10147",
+      "caseNumber": 25384,
+      "createdAt": "2025-09-13T15:07:53.361Z",
+      "lastEngaged": "2025-09-16T09:07:53.361Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Escalated to safety committee for additional monitoring.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "under review",
+      "unread": false
+    },
+    {
+      "id": "R-10148",
+      "caseNumber": 78082,
+      "createdAt": "2025-09-01T07:55:33.704Z",
+      "lastEngaged": "2025-09-02T02:55:33.704Z",
+      "location": {
+        "address": "1816 Dickinson St",
+        "neighborhood": "Point Breeze",
+        "councilDistrict": "District 2",
+        "coordinates": [
+          -75.1756,
+          39.9344
+        ]
+      },
+      "caseType": "Nuisance property",
+      "casePriority": {
+        "level": "medium",
+        "focus": "sidewalk issue"
+      },
+      "notes": "Needs translator for follow-up conversation with residents.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": null,
+      "status": "closed",
+      "unread": false
+    },
+    {
+      "id": "R-10149",
+      "caseNumber": 53824,
+      "createdAt": "2025-08-05T14:24:39.186Z",
+      "lastEngaged": "2025-08-14T18:24:39.186Z",
+      "location": {
+        "address": "5522 Woodland Ave",
+        "neighborhood": "Kingsessing",
+        "councilDistrict": "District 3",
+        "coordinates": [
+          -75.2259,
+          39.9313
+        ]
+      },
+      "caseType": "Exterior maintenance",
+      "casePriority": {
+        "level": "low",
+        "focus": "zoning"
+      },
+      "notes": "Resident shared that seniors on site need heaters delivered.",
+      "contactedAnotherAgency": false,
+      "contactedAgency": "",
+      "optionalContact": {
+        "name": "M. Robinson",
+        "email": "m.robinson@neighborsunited.org",
+        "phone": "(260) 743-6051"
+      },
+      "status": "unread",
+      "unread": true
+    }
+  ]
+}

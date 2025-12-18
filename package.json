@@ -6,6 +6,10 @@
   "type": "module",
   "directories": {},
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "generate:data": "node scripts/generateMockReports.mjs",
     "css-lint": "stylelint --color  \"**/*.css\"",
     "js-lint": "eslint --color **/*.js"
   },
@@ -15,6 +19,7 @@
     "eslint": "^8.48.0",
     "eslint-config-google": "^0.14.0",
     "stylelint": "^15.10.3",
-    "stylelint-config-standard": "^34.0.0"
+    "stylelint-config-standard": "^34.0.0",
+    "vite": "^7.3.0"
   }
 }
