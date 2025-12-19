@@ -1,16 +1,13 @@
 {
-  "name": "engagement-project",
+  "name": "inside-the-walls",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "type": "module",
-  "directories": {},
   "scripts": {
-    "css-lint": "stylelint --color  \"**/*.css\"",
-    "js-lint": "eslint --color **/*.js"
-  },
-  "author": "",
-  "license": "ISC",
+  "lint:js": "eslint .",
+  "lint:css": "stylelint \"**/*.css\"",
+  "lint": "npm run lint:js && npm run lint:css"
+},
   "devDependencies": {
     "eslint": "^8.48.0",
     "eslint-config-google": "^0.14.0",
