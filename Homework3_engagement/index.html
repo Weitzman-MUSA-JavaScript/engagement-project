@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mara–Serengeti Design Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Optional UI fonts (handwritten title + readable body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS (CDN fallback). main.js will also attempt to inject Leaflet if needed. -->
+  <link
+    id="leaflet-css"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+    onerror="this.onerror=null;this.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';"
+  />
+
+  <!-- App CSS (supports either ./css/style.css or ./style.css) -->
+  <link id="app-css" rel="stylesheet" href="./css/style.css" onerror="this.onerror=null;this.href='./style.css';" />
+</head>
+
+<body>
+  <div class="page-bg">
+    <div class="app-frame">
+
+      <!-- Top bar -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <div class="app-icon" aria-hidden="true"></div>
+          <div class="app-title-block">
+            <h1 class="app-title">Mara–Serengeti Design Studio</h1>
+            <p class="app-subtitle">Design wildlife-friendly tourism routes and facilities in the Mara–Serengeti landscape.</p>
+          </div>
+        </div>
+
+        <div class="top-bar-right">
+          <button id="btn-save-design" class="primary-chip">Save Design</button>
+        </div>
+      </header>
+
+      <!-- Sub bar -->
+      <div class="sub-bar">
+        <div class="sub-bar-left">
+          <span class="sub-label">Scenario</span>
+          <select class="sub-select" id="scenario-select">
+            <option value="dry">Dry season – classic migration</option>
+            <option value="wet">Wet season – calving grounds</option>
+            <option value="tourist">High tourist season</option>
+          </select>
+        </div>
+
+        <div class="sub-bar-right">
+          <span class="sub-label">Map view</span>
+          <button class="ghost-chip ghost-chip--active" data-view="design">Design view</button>
+          <button class="ghost-chip" data-view="habitat">Habitat view</button>
+          <button class="ghost-chip" data-view="traffic">Traffic view</button>
+        </div>
+      </div>
+
+      <!-- Main workspace -->
+      <main class="app-main">
+
+        <!-- Canvas: map is the workbench -->
+        <section class="map-panel" aria-label="Design canvas">
+          <div id="map" data-mode="design">
+            <div id="mapStatus" class="map-status" role="status">Loading map…</div>
+
+            <!-- HUD gauges -->
+            <div class="hud" aria-label="Live dashboard">
+              <div class="gauge" data-gauge="eco">
+                <div class="gauge-title">Eco-Health</div>
+                <div class="gauge-svg" aria-hidden="true">
+                  <svg viewBox="0 0 120 70" width="120" height="70">
+                    <path class="gauge-track" d="M10,60 A50,50 0 0 1 110,60" />
+                    <path class="gauge-progress" id="ecoArc" d="M10,60 A50,50 0 0 1 110,60" />
+                  </svg>
+                </div>
+                <div class="gauge-value"><span id="ecoValue">78</span><span class="gauge-unit">%</span></div>
+              </div>
+
+              <div class="gauge" data-gauge="joy">
+                <div class="gauge-title">Visitor Joy</div>
+                <div class="gauge-svg" aria-hidden="true">
+                  <svg viewBox="0 0 120 70" width="120" height="70">
+                    <path class="gauge-track" d="M10,60 A50,50 0 0 1 110,60" />
+                    <path class="gauge-progress" id="joyArc" d="M10,60 A50,50 0 0 1 110,60" />
+                  </svg>
+                </div>
+                <div class="gauge-value"><span id="joyValue">62</span><span class="gauge-unit">%</span></div>
+              </div>
+            </div>
+
+            <!-- Floating toolbox dock (glass) -->
+            <div class="dock" aria-label="Floating toolbox">
+              <button class="tool-button is-active" data-tool="lodge" data-eco="-6" data-joy="4" data-red-radius="3500" data-green-radius="6500" data-tooltip="Eco −6 · Joy +4">
+                <span class="tool-icon">🏨</span>
+                <span class="tool-label">Lodge</span>
+              </button>
+              <button class="tool-button" data-tool="activity" data-eco="-14" data-joy="20" data-red-radius="2500" data-green-radius="1500" data-tooltip="Eco −14 · Joy +20">
+                <span class="tool-icon">🎪</span>
+                <span class="tool-label">Activity</span>
+              </button>
+              <button class="tool-button" data-tool="restaurant" data-eco="-7" data-joy="10" data-red-radius="4200" data-green-radius="5200" data-tooltip="Eco −7 · Joy +10">
+                <span class="tool-icon">🍽️</span>
+                <span class="tool-label">Restaurant</span>
+              </button>
+              <button class="tool-button" data-tool="camp" data-eco="-4" data-joy="6" data-red-radius="1000" data-green-radius="2000" data-tooltip="Eco −4 · Joy +6">
+                <span class="tool-icon">🔥</span>
+                <span class="tool-label">Camp</span>
+              </button>
+              <button class="tool-button" data-tool="shuttle" data-eco="6" data-joy="8" data-red-radius="0" data-green-radius="3000" data-tooltip="Eco +6 · Joy +8">
+                <span class="tool-icon">🚐</span>
+                <span class="tool-label">Shuttle</span>
+              </button>
+              <button class="tool-button" data-tool="parking" data-eco="-10" data-joy="8" data-red-radius="5000" data-green-radius="4500" data-tooltip="Eco −10 · Joy +8">
+                <span class="tool-icon">🅿️</span>
+                <span class="tool-label">Parking</span>
+              </button>
+              </button>
+              <button class="tool-button" data-tool="view" data-eco="-1" data-joy="12" data-red-radius="2500" data-green-radius="8000" data-tooltip="Eco −1 · Joy +12">
+                <span class="tool-icon">👀</span>
+                <span class="tool-label">Viewpoint</span>
+              </button>
+              <button class="tool-button" data-tool="hide" data-eco="-5" data-joy="14" data-red-radius="1200" data-green-radius="3500" data-tooltip="Eco −5 · Joy +14">
+                <span class="tool-icon">🦒</span>
+                <span class="tool-label">Hide</span>
+              </button>
+              <button class="tool-button" data-tool="research" data-eco="10" data-joy="6" data-red-radius="800" data-green-radius="2500" data-tooltip="Eco +10 · Joy +6">
+                <span class="tool-icon">🔬</span>
+                <span class="tool-label">Research</span>
+              </button>
+
+              <div class="dock-split" aria-hidden="true"></div>
+
+              <button class="dock-mini" id="btn-undo" data-tooltip="Undo">↩︎</button>
+              <button class="dock-mini" id="btn-clear" data-tooltip="Clear">🧹</button>
+            </div>
+
+            <!-- AI critic (cute ranger lion) -->
+            <div class="ai-critic" aria-live="polite">
+              <div class="ai-avatar" aria-hidden="true">🦁</div>
+              <div class="ai-bubble">
+                <div class="ai-name">Ranger Leo</div>
+                <div id="aiText" class="ai-text">Pick a tool and place it on the map. I’ll keep an eye on wildlife routes.</div>
+              </div>
+            </div>
+
+            <!-- Corner attribution (kept inside canvas) -->
+            <div class="canvas-attrib">© OpenStreetMap contributors · Powered by Leaflet</div>
+          </div>
+
+          <!-- Small badge under canvas -->
+          <div class="map-overlay-badge" id="noGoBadge">No-go zone: 0.0 km²</div>
+        </section>
+
+        <!-- Right side: detailed panels -->
+        <aside class="side-panel" aria-label="Details panel">
+
+          <section class="card scenario-card" id="scenarioCard">
+            <div class="card-header">
+              <h2>Scenario</h2>
+              <button class="card-close-btn" aria-label="Close scenario" data-close="#scenarioCard">×</button>
+            </div>
+            <p class="scenario-text" id="scenarioText1">
+              Wildebeest herds move between Mara River and the Serengeti plains. Design lodges, viewpoints and access routes that keep key habitats connected while offering memorable experiences.
+            </p>
+            <p class="scenario-text" id="scenarioText2">
+              Avoid placing facilities inside sensitive core zones. Try to keep distances reasonable so visitors can travel comfortably in a day.
+            </p>
+          </section>
+
+          <section class="card scores-card">
+            <div class="card-header">
+              <h2>Design Scores</h2>
+              <div class="score-tabs">
+                <button class="score-tab score-tab--active" data-tab="overview">Overview</button>
+                <button class="score-tab" data-tab="facilities">Facilities</button>
+                <button class="score-tab" data-tab="routes">Routes</button>
+              </div>
+            </div>
+
+            <div class="scores-body" data-tab-panel="overview">
+              <div class="score-row">
+                <div class="score-label">Facilities placed</div>
+                <div class="score-value"><span id="placedCount">0</span></div>
+              </div>
+
+              <div class="score-block">
+                <div class="score-block-title">Design summary</div>
+                <p class="facility-prompt" id="facilityPrompt">Please choose the facility you want to build.</p>
+
+                <div class="meter-row">
+                  <span>Conservation impact</span>
+                  <span class="meter-value"><span id="meterEcoVal">78</span>%</span>
+                </div>
+                <div class="meter-bar"><div class="meter-fill" id="meterEco"></div></div>
+
+                <div class="meter-row">
+                  <span>Visitor experience</span>
+                  <span class="meter-value"><span id="meterJoyVal">62</span>%</span>
+                </div>
+                <div class="meter-bar"><div class="meter-fill meter-fill--orange" id="meterJoy"></div></div>
+
+                <div class="meter-row">
+                  <span>No-go overlap</span>
+                  <span class="meter-value"><span id="meterNoGoVal">0</span>%</span>
+                </div>
+                <div class="meter-bar"><div class="meter-fill meter-fill--red" id="meterNoGo"></div></div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="selected-block" id="selectedBlock">
+                <div class="score-block-title">Selected</div>
+                <div class="selected-row"><span>Type</span><span id="selType">—</span></div>
+                <div class="selected-row"><span>Eco</span><span id="selEco">—</span></div>
+                <div class="selected-row"><span>Joy</span><span id="selJoy">—</span></div>
+                <div class="selected-desc" id="selDesc">Pick a tool to see what it does.</div>
+                <button id="btn-remove-selected" class="ghost-button" type="button" disabled>Remove</button>
+              </div>
+            </div>
+
+            <div class="scores-body is-hidden" data-tab-panel="facilities">
+              <div class="score-block-title">Facilities</div>
+              <div id="facilityList" class="facility-list"></div>
+            </div>
+
+            <div class="scores-body is-hidden" data-tab-panel="routes">
+              <div class="score-block-title">Routes</div>
+              <p class="scenario-text">
+                Keep shuttles and access roads on existing corridors to reduce new disturbance. Space hubs 3–5 km apart so visitors can cover them in a day.
+              </p>
+              <p class="scenario-text">
+                In Habitat view, check wildlife tracks and avoid red impact rings overlapping core zones. Cluster parking + restaurants to cut traffic loops.
+              </p>
+            </div>
+          </section>
+
+          <section class="card feedback-card">
+            <div class="card-header"><h2>Calculate Final Score</h2></div>
+            <p class="scenario-text">
+              When you are happy with your layout, run the final calculation to see how your design balances wildlife protection and visitor experience.
+            </p>
+            <button id="btn-calc-score" class="primary-button wide-button">Calculate score</button>
+            <div id="design-score" class="design-score-text"></div>
+          </section>
+
+        </aside>
+      </main>
+
+      <!-- Save brief modal -->
+      <dialog class="brief-modal" id="brief-modal">
+        <div class="brief-card">
+          <div class="brief-header">
+            <h2 class="brief-title">《Future Blueprint》</h2>
+            <button class="card-close-btn" type="button" id="btn-close-brief">×</button>
+          </div>
+          <div class="brief-content" id="brief-content"></div>
+          <div class="brief-actions">
+            <button class="ghost-chip" type="button" id="btn-copy-brief">Copy</button>
+            <button class="primary-button" type="button" id="btn-ok-brief">Done</button>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- Footer (only attribution) -->
+      <footer class="bottom-footer">
+        <span class="toolbar-text">© OpenStreetMap contributors · Powered by Leaflet</span>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- App JS (supports either ./js/main.js or ./main.js) -->
+  <script
+  id="app-js"
+  type="module"
+  src="./js/main.js"
+  defer
+  onerror="this.onerror=null;this.src='./main.js';"
+></script>
+</body>
+</html>
