@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" name="viewport" content="initial-scale=1.0,maximum-scale=1,user-scalable=no" />
+    <title>Base Management System By Youngsang Jun</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Add the Open Sans font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open%20Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
+
+    <!-- Add the Mapbox GL JS CSS and JS files -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css" />
+    <main>
+      
+      <section class="map-section">
+        <div class="map" id="map">Map</div>    
+      </section> 
+      <div id="addEventButton" class="add-event-button" style="display: none;">
+        Add Event Here
+      </div>
+      <div class="map-overlay">
+        <div id="geocoder" class="geocoder"><h4>Find Locations</h4></div>
+        <div id="eventList">
+          <h4>Event List</h4>
+          <h5>To add a new event, click on the map to select the location of the event place.</h5>
+          <ul id="eventListContainer"></ul>
+        </div>
+
+
+        <!-- Modal structure -->
+        <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg"> 
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- Event Form -->
+                <form id="eventForm">
+                  <label for="event_name">Event Name:</label>
+                  <input type="text" id="event_name" class="form-control" placeholder="e.g. Norfolk Naval Base Visitor Center Renovation" name="event_name" required><br>
+
+                  <label for="event_charge">The personnel in charge of this event:</label>
+                  <input type="text" id="event_charge" class="form-control" placeholder="e.g. ADM Poe" name="event_charge" required><br>
+
+                  <label for="event_type">Event Type:</label>
+                  <input type="text" id="event_type" class="form-control" placeholder="e.g. Construction, Exercise, Training, Sports, Others" required><br>
+
+                  <label for="event_org">Organization:</label>
+                  <input type="text" id="event_org" class="form-control" placeholder="e.g. NIC" name="event_org" required><br>
+
+                  <label for="event_personnum">Number of Participants:</label>
+                  <input type="number" id="event_personnum" class="form-control" placeholder="8" name="event_personnum" required><br>
+                  <label for="event_place">Event Place (Latitude, Longitude):</label>
+                  <!-- <input type="text" id="event_place" name="event_place" placeholder="36.94070755, -76.29736398778428" required><br><br>-->
+                  <input type="text" id="event_place" name="event_place" readonly><br>
+                  
+                  <label for="event_timestamp_from">Start Date & Time:</label>
+                  <input type="datetime-local" id="event_timestamp_from" class="form-control" required><br>
+
+                  <label for="event_timestamp_to">End Date & Time:</label>
+                  <input type="datetime-local" id="event_timestamp_to" class="form-control" required><br>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-primary" data-bs-toggle="modal" id="confirmButton" data-bs-target="#confirmationModal">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    </body>
+</html>
