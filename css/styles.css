@@ -1,0 +1,113 @@
+html {
+  font-size: 24px;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.map-container {
+  position: relative;
+  min-width: 0;
+  background-color: silver;
+  flex: 1 1 50%;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.marker-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: #000000;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -15px;
+}
+
+.marker-pin::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  margin: 3px 0 0 3px;
+  background: #fff;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.custom-div-icon i {
+  position: absolute;
+  width: 22px;
+  font-size: 22px;
+  left: 0;
+  right: 0;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.custom-div-icon i.awesome {
+  margin: 12px auto;
+  font-size: 17px;
+}
+
+.sidebar {
+  position: relative;
+  background-color: #e9c46a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
+  justify-content: space-around;
+}
+
+.sidebar-container {
+  background-color: white;
+  padding: 12px;
+  margin: 5px;
+}
+
+#trip-search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  flex: 0 0 auto;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.input label {
+  font-weight: bold;
+}
+
+.citations {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 0.6em;
+}
+
+
+
+
+
+
+
