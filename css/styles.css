@@ -1,0 +1,608 @@
+html {
+  font-family: "Gill Sans", sans-serif;
+}
+
+body { 
+  margin: 0; 
+  padding: 0;
+}
+
+/* TOP PART */
+
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
+
+.ucl-logo {
+  width: 100px; 
+  height: auto;
+  align-items: center;
+  margin-top: -15px; 
+}
+
+.header-container h2 {
+  margin: 0;
+  font-size: 1.5em; 
+  line-height: 1; 
+  display: flex; 
+  align-items: center;
+}
+
+/* MAP AND SEARCH BAR */
+
+.map-section {
+  display: flex;
+  flex-direction: column; 
+  height: 100vh; 
+  width: 100vw;
+  overflow: hidden; 
+}
+
+#campus-map {
+  flex: 1;
+  background-color: lightgrey;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  z-index: 1;
+}
+
+textarea::placeholder {
+  font-family: "Gill Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #999;
+  font-style: italic;
+}
+
+.comments-section textarea::placeholder {
+  font-family: "Gill Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #999;
+  font-style: italic;
+}
+
+.comment-form textarea {
+  width: 100%; 
+  max-width: 500px;
+  height: 20px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+/* FORM CHECKBOXES */
+fieldset {
+  margin-top: -10px; 
+  padding: 0;
+}
+
+fieldset > div,
+fieldset > label {
+  margin: 0;
+}
+
+fieldset input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  margin-right: 6px; 
+  position: relative;
+  top: -1px;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.1s, border-color 0.1s;
+}
+
+fieldset input[type="checkbox"] {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.resource-filter input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+
+fieldset input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+
+/* Green checkboxes for Vegetarian and Vegan */
+fieldset input[type="checkbox"][value="vegetarian"]:checked,
+fieldset input[type="checkbox"][value="vegan"]:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+fieldset legend {
+  font-weight: bold; 
+  margin-bottom: 2px;
+}
+
+fieldset label {
+  font-weight: normal;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+input[name= "food-category"] {
+  font-weight: normal; 
+  display: inline-flex;
+  align-items: center; 
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.form-dietary-options {
+  display: flex;
+  gap: 12px;
+}
+
+.form-dietary-options label {
+  margin-bottom: 2px;
+}
+
+/* FILTER ON THE TOP */
+.resource-filter {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  background-color: #faf0e6; 
+  padding: 2rem 2rem 0; 
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%); 
+  max-height: 20%; 
+  flex-shrink: 0; 
+  margin-top: 1rem; 
+}
+
+.resource-filter h2 {
+  text-align: center;
+  margin-bottom: 1rem; 
+  font-size: 2em; 
+  color: #000
+}
+
+.resource-filter form {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 1rem 0;
+  color: #000;
+}
+
+.resource-filter ul {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-filter ul.filter-container {
+  flex-grow: 1;
+}
+
+.resource-filter ul.dietary-options {
+  justify-content: flex-end;
+}
+
+.resource-filter li {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.custom-checkbox {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.3s ease;
+  vertical-align: middle;
+}
+
+.custom-checkbox::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: all 0.3s ease;
+}
+
+.custom-checkbox:checked {
+  background-color: #4a90e2;
+}
+
+.custom-checkbox:checked::before {
+  transform: translateX(20px); /* Move toggle */
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.comment-form button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.food-options {
+  list-style-type: none; 
+  padding: 0;
+}
+
+.food-options li {
+  margin-bottom: 20px;
+}
+
+.food-options label {
+  display: flex;
+  align-items: center;
+}
+
+.vegetarian-checkbox,
+.vegan-checkbox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #fff; 
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.vegetarian-checkbox:checked,
+.vegan-checkbox:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.vegetarian-checkbox:checked::before,
+.vegan-checkbox:checked::before {
+  content: '\2713';
+  font-size: 16px;
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.food-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dietary-options-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-and-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.food-entry-button {
+  margin-left: auto;
+}
+
+/* Media Query for Smaller Screens */
+@media (width <= 768px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filter-container label {
+    margin-bottom: 8px;
+}
+}
+
+.hidden {
+  display: none;
+}
+
+.food-entry-form {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  position: fixed;
+  top: 62%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 350px;
+  padding: 1.5rem;
+  background-color: #faf0e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+  z-index: 9999;
+}
+
+.food-entry-form.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.food-entry-form h3 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.food-entry-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.food-entry-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.food-entry-form input[type="text"],
+.food-entry-form textarea,
+.food-entry-form input[type="file"] {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+.food-entry-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.food-entry-form fieldset {
+  border: none;
+  padding: 0;
+}
+
+.food-entry-form legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.food-entry-form fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#food-entry-form input[type="text"],
+#food-entry-form textarea,
+#food-entry-form input[type="file"] {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+#food-entry-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+#food-entry-form fieldset {
+  border: none;
+  padding: 0;
+}
+
+#food-entry-form legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+#food-entry-form fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+#food-form input[type="text"], 
+#food-form textarea, 
+#food-form input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; 
+}
+
+#food-form label i {
+  font-weight: normal;
+}
+
+#food-description {
+  height: 80px;
+}
+
+#food-form textarea::placeholder,
+#food-form input::placeholder {
+  font-family: "Gill Sans", sans-serif; 
+  font-size: 0.9rem;
+}
+
+#toggle-form-btn {
+  width: 70%;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #357ab7;
+}
+
+.food-entry-form:not(.hidden) {
+  display: block;
+}
+
+.food-entry-button button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: -15px;
+}
+
+.food-entry-button button:hover {
+  background-color: #357ab7;
+}
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #f00;
+}
+
+.location-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.comments-section {
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.comment {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment small {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.comment-form {
+  margin-top: 10px;
+}
+
+.comment-form button:hover {
+  background-color: #357abd;
+}
+
+.popup-header {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.popup-paragraph {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.popup-content {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.popup-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}

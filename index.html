@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>On Campus Free/Discounted Food Finder</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+</head>
+
+<body>
+    <main>
+        <section class="map-section">
+            <div class="resource-filter">
+                <div class="header-container">
+                <img src="images/UCL.png" alt="UCL Logo" class="ucl-logo">
+                <h2> Campus Free/Discounted Food Finder</h2>
+                </div>
+                <div class="filter-and-button">
+                    <form id="filter-form">
+                      <div class="filter-container">
+                        <!-- Food Type Checkboxes -->
+                        <label><input type="checkbox" id="discounted-checkbox" class="custom-checkbox" value="discounted" checked> Discounted</label>
+                        <label><input type="checkbox" id="free-hot-checkbox" class="custom-checkbox" value="free-hot-food" checked> Free Hot Food</label>
+                        <label><input type="checkbox" id="free-packaged-checkbox" class="custom-checkbox" value="free-packaged-food" checked> Free Packaged Food</label>
+                        <label><input type="checkbox" id="vegetarian-checkbox" class="custom-checkbox vegetarian-checkbox"> Vegetarian</label>
+                        <label><input type="checkbox" id="vegan-checkbox" class="custom-checkbox vegan-checkbox"> Vegan</label>
+                        <div class="food-entry-button">
+                            <button id="toggle-form-btn" type = "button">Add Free/Discounted Food to the Map!</button>
+                        </div>  
+                    </div>
+                    </form>
+                  </div>          
+            </div>
+            <div id="campus-map" class="map"></div>
+            <!-- Food Entry Form (Initially Hidden) -->
+            <div class="food-entry-form hidden" id="food-entry-form">
+                <h3>Submit a Food Location</h3>
+                <form id="food-form">
+                    <button type="button" class="close-button" aria-label="Close form">&times;</button>
+                    <div class="location-buttons">
+                        <button type="button" id="select-map-location">Select location on map</button>
+                        <button type="button" id="use-current-location">Use my current location</button>
+                        <input type="hidden" id="location-coordinates" name="location-coordinates" required>
+                    </div>
+                    <label for="location">Location Description <br><i>(e.g IOE Room 403)</i></label>
+                    <input type="text" id="location-description" name="location-description" placeholder="Enter exact location" required>
+            
+                    <label for="food-description">Food Description <br> <i>(e.g 20 packaged sandwiches)</i></label>
+                    <textarea id="food-description" name="food-description" placeholder="Describe the food" required></textarea>
+            
+                    <label for="food-photo">Photo:</label>
+                    <input type="file" id="food-photo" name="food-photo" accept="image/*" required>
+                    <fieldset>
+                        <legend>Food Category</legend>
+                        <label><input type="checkbox" name="food-category" value="discounted"> Discounted</label>
+                        <label><input type="checkbox" name="food-category" value="free-hot-food"> Free Hot Food</label>
+                        <label><input type="checkbox" name="food-category" value="free-packaged-food"> Free Packaged Food</label>
+                        <div class="form-dietary-options">
+                        <label><input type="checkbox" name="food-category" value="vegetarian"> Vegetarian</label>
+                        <label><input type="checkbox" name="food-category" value="vegan"> Vegan</label>
+                        </div>
+                      </fieldset>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <label id="display-coordinates">Selected Location:</label>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
+    <script type="module" src="script/main.js"></script>
+</body>
+</html>
