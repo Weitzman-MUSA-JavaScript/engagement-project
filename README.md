@@ -1,4 +1,4 @@
-# Ground Truth Data Gathering for the Houston Grocery Gap
+# Ground Truth Data Gathering for the Houston Grocery Gap Tool
 
 Residents of Houston's food deserts map where they actually shop, which stores sell fresh food, and where they would like to see a new store. Then, planners and other admin users see all this data inside the grocery recruitment tool (see https://github.com/gbd2/dashboard-project/tree/main).
 
