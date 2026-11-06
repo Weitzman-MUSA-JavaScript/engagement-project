@@ -1,0 +1,178 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Smart Weekend Trip Planner for NJ Drivers</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet/dist/leaflet.css"
+    />
+
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+
+  <body>
+    <main>
+      <section class="map-section">
+        <fieldset class="map-search-controls">
+         
+          <input
+            type="text"
+            name="address-search"
+            placeholder="Search an address in New Jersey (or click the map to choose a location)"
+            aria-label="Search around an address or place in New Jersey"
+          >
+       
+        </fieldset>
+
+        <div class="map">Map</div>
+      </section>
+
+      <section class="station-list-section">
+        <aside id="prefs" class="panel">
+          <h2>Plan Your Weekend</h2>
+
+          <label class="field">
+            <span>Start address</span>
+            <input id="addressSearch" name="address-search" type="text" placeholder="Enter an address (NJ)" />
+         </label>
+
+         <div class="field">
+           <span>Max distance (miles): <b id="maxDistVal">30</b></span>
+           <input id="maxDist" type="range" min="5" max="120" step="5" value="30" />
+         </div>
+
+         <h3>Preferences (0–5)</h3>
+
+         <div class="field">
+           <span>Parks: <b id="wParksVal">3</b></span>
+           <input id="wParks" type="range" min="0" max="5" step="1" value="3" />
+         </div>
+
+         <div class="field">
+           <span>Food: <b id="wFoodVal">3</b></span>
+           <input id="wFood" type="range" min="0" max="5" step="1" value="3" />
+         </div>
+
+         <div class="field">
+           <span>Museums: <b id="wMuseumsVal">2</b></span>
+           <input id="wMuseums" type="range" min="0" max="5" step="1" value="2" />
+         </div>
+
+         <div class="field">
+           <span>Shopping: <b id="wShoppingVal">2</b></span>
+           <input id="wShopping" type="range" min="0" max="5" step="1" value="2" />
+         </div>
+
+         <hr />
+
+         <h3>Top picks</h3>
+         <div id="topPicks" class="cards"></div>
+        </aside>
+
+        <fieldset class="bike-search-controls">
+          <label class="electric-bikes-only-label">
+            <input type="checkbox" name="electric-bikes-only">
+            Show only high-score centers (score ≥ 4)
+          </label>
+
+          <label class="min-battery-level-label">
+            Min suitability score
+            <input
+              type="range"
+              name="min-battery-level"
+              min="0"
+              max="5"
+              value="0"
+            >
+          </label>
+          <div class="poi-category-panel">
+            <div class="control-label">POI categories</div>
+
+            <label class="poi-cat-item">
+              <input type="checkbox" id="poiCat_all" checked>
+              All
+            </label>
+
+            <label class="poi-cat-item">
+              <input type="checkbox" class="poiCat" value="supermarket_asian" checked>
+              Supermarket (Asian)
+             </label>
+
+            <label class="poi-cat-item">
+              <input type="checkbox" class="poiCat" value="supermarket_usa" checked>
+              Supermarket (USA)
+            </label>
+
+            <label class="poi-cat-item">
+              <input type="checkbox" class="poiCat" value="museum" checked>
+              Museum
+            </label>
+
+            <label class="poi-cat-item">
+              <input type="checkbox" class="poiCat" value="park" checked>
+             Park
+            </label>
+          </div>
+
+<div id="poiSummary" class="small-muted"></div>
+<ul id="poiList" class="poi-list"></ul>
+
+        </fieldset>
+          <ul class="station-list">
+          <li class="station" aria-expanded="false">
+            <header class="name">Example: Your nearest grid center</header>
+            <span class="distance" title="Distance from your chosen location">0.0 mi</span>
+            <span class="available-bikes" title="Suitability score for this grid center">Score: 3.5</span>
+            <span class="available-docks" title="Estimated driving time from your location">~45 min drive</span>
+            <span class="next-drop-off-est" title="Nearby high-score centers (score ≥ 4)">Nearby high-score centers: 2</span>
+            <span class="next-pick-up-est" title="Number of nearby POIs within the search radius">Nearby POIs: 5</span>
+          </li>
+
+          <li class="station" aria-expanded="true">
+            <header class="name">Example: High-score center #1</header>
+            <span class="distance" title="Distance from your chosen location">1.8 mi</span>
+            <span class="available-bikes" title="Suitability score for this center">Score: 4.6</span>
+            <span class="available-docks" title="Estimated driving time from your location">~55 min drive</span>
+            <span class="next-drop-off-est" title="Number of nearby parks / trails / nature POIs">Nearby POIs: 7</span>
+            <span class="next-pick-up-est" title="Elevation / landcover context (optional)">Forest & low elevation</span>
+
+            <div class="details">
+              <div class="chart drop-off-time-chart">
+                Suitability score compared to other nearby centers
+              </div>
+              <div class="chart pick-up-time-chart">
+                Count of nearby POIs by type
+              </div>
+            </div>
+          </li>
+
+          <li class="station" aria-expanded="false">
+            <header class="name">Example: High-score center #2</header>
+            <span class="distance" title="Distance from your chosen location">2.3 mi</span>
+            <span class="available-bikes" title="Suitability score for this center">Score: 4.2</span>
+            <span class="available-docks" title="Estimated driving time from your location">~60 min drive</span>
+            <span class="next-drop-off-est" title="Number of nearby parks / trails / nature POIs">Nearby POIs: 6</span>
+            <span class="next-pick-up-est" title="Elevation / landcover context (optional)">Forest & trail access</span>
+          </li>
+
+          <li class="station" aria-expanded="false">
+            <header class="name">Example: High-score center #3</header>
+            <span class="distance" title="Distance from your chosen location">3.1 mi</span>
+            <span class="available-bikes" title="Suitability score for this center">Score: 4.0</span>
+            <span class="available-docks" title="Estimated driving time from your location">~65 min drive</span>
+            <span class="next-drop-off-est" title="Number of nearby parks / trails / nature POIs">Nearby POIs: 4</span>
+            <span class="next-pick-up-est" title="Elevation / landcover context (optional)">Mixed forest</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
+
+    
+
+  </body>
+</html>
