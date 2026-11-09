@@ -1,25 +1,23 @@
 # Project Name
 
-A brief title and one-line description of your project.
+Platform to find the best bar in cities
+This platform is designed for people who are picky in drinks to find a high-quality bar. 
 
 ## Project Proposal
 
 Complete the following guiding statements to define the purpose and audience for your participation tool:
 
 1. **The specific participants/community I want to engage are...**
-   <!-- Describe the specific participants or community members you want to invite to participate. Be more specific than "the general public". -->
+   The specific participants I want to engage are cocktail or wine enthusiasts.
 
 2. **The contributions/input I am inviting them to make are...**
-   <!-- Describe what data, annotations, suggestions, or reports participants will contribute. -->
+   For cocktail or wine enthusiasts, it is always hard to find a "good" bar when they first travel to a new city. This platform gives them a opportunity to share with their best bar in different cities for reference. 
 
 3. **The participants will benefit from contributing their input by...**
-   <!-- Explain how the participants themselves benefit from taking part. -->
+   The participants will benefit from each other's input. The participant will have a reference to find a good bar when he/she travels to an unfamiler city, contributed by another participant who knows this city well.  
 
 4. **The users that will use the collected data are...**
-   <!-- Identify who will use the resulting data (these could be the same as the contributors, or a different group such as planners, organizers, or dispatchers). -->
-
-5. **The collected data will benefit those users by...**
-   <!-- (Optional, if the users of the data are different from the participants contributing the input) Explain how the data will help those users make decisions or take action. -->
+   The users that will use the collected data are the same as the contributers.
 
 ## Overview
 
