@@ -38,6 +38,8 @@ Streets Department can use the collected data to prioritize flexpost interventio
 
 Organizations can use the collected data to see if highly desired daylighting is in geographic proximity to their area of service.
 
+City Planners can see where daylighting is desired and work with various partners to align interventions with comprehensive plans. For example, a popular intersection with no proposals could be at a well-used bus stop, making a bus bulb the best option. Or perhaps the intersection is on a commercial corridor where bike parking is a need, or in a Combined Sewage System (CSS) area where GSI is a high priority. 
+
 5. **The collected data will benefit those users by...**
 
 Allowing for strategic investment into intersections with popular support. 
