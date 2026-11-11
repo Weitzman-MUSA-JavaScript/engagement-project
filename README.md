@@ -1,36 +1,62 @@
 # Project Name
 
-A brief title and one-line description of your project.
+Institutionalizing Tactical Urbanism
+
+Can Philadelphia daylight more intersections if it democratizes the work?
 
 ## Project Proposal
 
 Complete the following guiding statements to define the purpose and audience for your participation tool:
 
 1. **The specific participants/community I want to engage are...**
-   <!-- Describe the specific participants or community members you want to invite to participate. Be more specific than "the general public". -->
+   City agencies and non-profits with the ability to implement some form of daylighting infrastructure. For example: 
+   -Streets Department (Flexposts, Curb Extensions, Planters)
+   -IndeGo (Bikeshare stations)
+   -PWD (Green Stormwater Infrastructure)
+   -Dept Public Health/PHS (Tree trenches)
+   -BIDs (Streeteries, bike parking)
+   -SEPTA (Bus bulbs)
+   -Artists/Schools/Art Non-Profits (Paint)
+
+   The general public would be able to "suggest" an intersection for daylighting, but organizations would have to demonstrate capacity and submit a detailed plan to Streets Department before receiving permission to alter the right-of-way. 
 
 2. **The contributions/input I am inviting them to make are...**
-   <!-- Describe what data, annotations, suggestions, or reports participants will contribute. -->
+
+General Public: Suggest an intersection for daylighting or "upvote" a previous suggestion.
+
+Organizations: "Claim" a suggested intersection and apply to implement a daylighting intervention.
 
 3. **The participants will benefit from contributing their input by...**
-   <!-- Explain how the participants themselves benefit from taking part. -->
+
+The general public gets to suggest intersections in their community for daylighting. Transportation decision-makers don't have data for which intersections frequently get blocked by cars, so public input could help guide investment. The general public can also see where else interventions would be popular in their community and use that information to organize for city action or form an organization to take independent action.
+
+Organizations can glean popular support indications for daylighting and guide investments where they can have a dual benefit. For example, a BID looking to add bike parking can choose to implement bike parking within the street right-of-way rather than on the sidewalk, leaving more space for pedestrians in high foot traffic areas and daylighting an intersection. 
 
 4. **The users that will use the collected data are...**
-   <!-- Identify who will use the resulting data (these could be the same as the contributors, or a different group such as planners, organizers, or dispatchers). -->
+
+Streets Department can use the collected data to prioritize flexpost interventions. They can do so during routine resurfacing operations where resurfacing overlaps with a high-priority intersection.
+
+Organizations can use the collected data to see if highly desired daylighting is in geographic proximity to their area of service.
+
+City Planners can see where daylighting is desired and work with various partners to align interventions with comprehensive plans. For example, a popular intersection with no proposals could be at a well-used bus stop, making a bus bulb the best option. Or perhaps the intersection is on a commercial corridor where bike parking is a need, or in a Combined Sewage System (CSS) area where GSI is a high priority. 
 
 5. **The collected data will benefit those users by...**
-   <!-- (Optional, if the users of the data are different from the participants contributing the input) Explain how the data will help those users make decisions or take action. -->
+
+Allowing for strategic investment into intersections with popular support. 
 
 ## Overview
 
-<!-- Provide a high-level overview of the application, how it works, and how users interact with the map and interface. -->
+Users will at first see an explainer for what daylighting is, why it's important, and samples of interventions. Then they will see a map of Philadelphia with a street grid. They will select up to five intersections that they would like to see daylighting applied to. They can choose to "upvote" the selections of others instead.
+
+Organizations will also be able to "select" proposed intersections. They will be able to apply to the Streets Department to implement a proposed daylighting solution. While this application does not yet exist and would require the okay of the Streets Department, a rudimentary version that could be used in the future will be provided in this tool. 
 
 ## Data & Citations
 
-<!-- List all data sources used by your application and include citations. -->
+* **Reference Data:** 
+Street traffic control devices and street centerline layers from OpenDataPhilly. 
 
-* **Reference Data:** <!-- Describe any reference layers (e.g. basemaps, boundaries, transit lines) and cite their sources. -->
-* **Participant Contributed Data:** <!-- Describe the schema/structure of the data that participants generate or contribute. -->
+* **Participant Contributed Data:** 
+Points
 
 ## Technical Details
 
