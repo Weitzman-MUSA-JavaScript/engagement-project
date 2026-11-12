@@ -1,25 +1,23 @@
-# Project Name
+# Community Safety Sessions - a safety planning pilot
+## Project by Jamie Song, MPH for MUSA 6110, Professor Mjumbe Poe
 
-A brief title and one-line description of your project.
+This participatory mapping project is a pilot mockup for safety planning focus groups to be held across the City of Philadelphia.
 
 ## Project Proposal
 
 Complete the following guiding statements to define the purpose and audience for your participation tool:
 
 1. **The specific participants/community I want to engage are...**
-   <!-- Describe the specific participants or community members you want to invite to participate. Be more specific than "the general public". -->
+   Community members in Philadelphia, primarily community and organizational leadership with developed knowledge bases about their local areas, who will be recruited to attend focus group sessions in their neighborhoods through a collaboration between the Philadelphia Department of Public Health, the University of Pennsylvania, and neighborhood community organizations.
 
 2. **The contributions/input I am inviting them to make are...**
-   <!-- Describe what data, annotations, suggestions, or reports participants will contribute. -->
+   Ideas for improving safety, locations where safety could be improved, community assets that will help with safety planning.
 
 3. **The participants will benefit from contributing their input by...**
-   <!-- Explain how the participants themselves benefit from taking part. -->
+   Engaging with each other's ideas, developing further knowledge about their communities and viewpoints expressed by fellow community members, making contributions that could positively impact their own communities.
 
 4. **The users that will use the collected data are...**
-   <!-- Identify who will use the resulting data (these could be the same as the contributors, or a different group such as planners, organizers, or dispatchers). -->
-
-5. **The collected data will benefit those users by...**
-   <!-- (Optional, if the users of the data are different from the participants contributing the input) Explain how the data will help those users make decisions or take action. -->
+   Community members themselves who can use the collected data to advocate for change, along with their councilmembers' offices; city planners and public health officials who can collaborate to implement changes to improve safety; university faculty and staff who can study the collected data and share with colleagues, as well as use the data to generate hypotheses.
 
 ## Overview
 
