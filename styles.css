@@ -1,0 +1,336 @@
+:root {
+  font: 18px / 1.5 Arial, sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+header {
+  border-bottom: 1px solid #999;
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.35rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.8rem;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+
+p {
+  margin: 0 0 0.8rem;
+}
+
+header p, footer p, .note {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+a {
+  color: #222;
+  text-underline-offset: 0.15em;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  background: #eee;
+  border: 1px solid #777;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+}
+
+input[type="text"], select, textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #777;
+  padding: 0.4rem;
+  background: #fff;
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+:focus-visible {
+  outline: 3px solid #222;
+  outline-offset: 3px;
+}
+
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  position: static;
+  display: block;
+  padding: 0.5rem;
+}
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.filters label {
+  flex: 1 1 11rem;
+  margin: 0;
+}
+
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.panel {
+  border: 1px solid #999;
+  padding: 1rem;
+  min-width: 0;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-heading h2 {
+  margin: 0;
+}
+
+.map-diagram {
+  position: relative;
+  aspect-ratio: 1;
+  background: #f4f4f4;
+  border: 1px solid #aaa;
+  margin-bottom: 0.75rem;
+}
+
+.map-diagram.placing {
+  cursor: crosshair;
+}
+
+.map-diagram svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  background: #fff;
+  padding: 0;
+}
+
+.map-pin.selected {
+  border: 3px solid #222;
+}
+
+.draft-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0.2rem 0.5rem;
+  background: #fff;
+  border: 2px dashed #333;
+  pointer-events: none;
+}
+
+.map-caption {
+  position: absolute;
+  bottom: 0.3rem;
+  left: 0.5rem;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.map-note {
+  margin-top: 0.6rem;
+}
+
+.contribution {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #bbb;
+}
+
+.contribution:first-of-type {
+  padding-top: 0;
+}
+
+.contribution p {
+  margin-bottom: 0.35rem;
+}
+
+.contribution button {
+  margin-top: 0.25rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.3rem 0 0.6rem;
+}
+
+.search-row input {
+  min-width: 0;
+}
+
+.search-results {
+  padding: 0;
+  list-style: none;
+}
+
+.search-results button {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.4rem;
+}
+
+.selected-place {
+  padding: 0.6rem;
+  border: 1px dashed #888;
+  margin-bottom: 1rem;
+}
+
+fieldset {
+  padding: 0;
+  margin: 1rem 0;
+  border: 0;
+  min-width: 0;
+}
+
+legend {
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.response-choice {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  margin: 0;
+  min-height: 44px;
+}
+
+.response-choice input {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.error {
+  border: 2px solid #333;
+  padding: 0.75rem;
+  margin: 1rem 0;
+}
+
+.summary {
+  border-top: 1px solid #aaa;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0;
+}
+
+footer {
+  border-top: 1px solid #aaa;
+  margin-top: 1.5rem;
+  padding-top: 0.8rem;
+}
+
+#status:empty {
+  display: none;
+}
+
+@media (width <= 720px) {
+  body {
+    padding: 1rem;
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .map-section {
+    order: 2;
+  }
+
+  .filters label {
+    flex-basis: 100%;
+  }
+
+  .panel-heading, .search-row {
+    flex-wrap: wrap;
+  }
+
+  .panel-heading button {
+    flex-shrink: 0;
+  }
+}
+
+@media (forced-colors: active) {
+  button, .panel, .selected-place, .map-diagram {
+    border-color: ButtonText;
+  }
+}
