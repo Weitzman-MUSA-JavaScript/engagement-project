@@ -1,148 +1,472 @@
-import { kinds, topics, places, seedContributions, searchPlaces, validateLocation, validateDescription, responseOptions, responseSummary, filterContributions, escapeText as esc } from './data.js';
-import { readDemo, saveDemo, putContribution, putResponse } from './storage.js';
-import { mapMarkup, mapPoint } from './map.js';
+import { formatSessionDate } from './session-date.js';
+import { GroupReview } from './group-review.js';
+import { KINDS, TOPICS, SESSIONS, responseQuestion, contributionPrompt, escapeText as esc } from './domain.js';
+import { GeographicMap } from './map.js';
+import { LatestRequest } from './requests.js';
+import { filterContributions, describeContributionView, initContributionFilters } from './contribution-view.js';
+import { createDataService } from './data-service.js';
+import { initPlaceSearch } from './place-search.js';
+import { COORDINATE_CRS, PHILADELPHIA_BOUNDS, isPhiladelphiaPoint } from './geography.js';
 
-const main = document.querySelector('#main');
-const status = document.querySelector('#status');
-let storage;
-try { storage = window.localStorage; } catch { storage = null; }
-let data = readDemo(storage);
+const $ = (selector) => document.querySelector(selector);
+const panel = $('#task-panel');
+const loadedSessionDate = formatSessionDate();
+$('#join-session option[value="practice-current"]').textContent = `Community safety practice session - ${loadedSessionDate}`;
+let token = '';
+let activeSession = 'practice-current';
+let state = { phase: 'contribute', contributions: [] };
 let mode = 'list';
-let selectedId = null;
 let draft = null;
-let searchResults = [];
-const filters = { topic: '', session: '' };
-const responseDrafts = {};
+let detail = null;
+let busy = false;
+let placeSearch = null;
+let filter = {};
+let listLayout = 'list';
+const setExportAvailability = (disabled) => document.querySelectorAll('[data-export]').forEach((button) => { button.disabled = disabled; });
+let activeMap = 'saved';
+let savedMapSelection = null;
+let draftMapId = null;
+const responseDrafts = new Map();
+const detailLoadingMessage = 'Loading the selected account. Your unsaved input is kept.';
+const detailReads = new LatestRequest((pending) => {
+  if (pending) { panel.setAttribute('aria-busy', 'true'); $('#status').textContent = detailLoadingMessage; } else if (!busy) panel.removeAttribute('aria-busy');
+  if (!pending && $('#status').textContent === detailLoadingMessage) $('#status').textContent = '';
+});
+const stateReads = new LatestRequest();
+const sessionName = (id) => SESSIONS.find((s) => s.id === id)?.title || id;
+const dateLabel = (value) => new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+const options = (values, current, first) => `<option value="">${first}</option>${Object.entries(values).map(([key, label]) => `<option value="${key}" ${current === key ? 'selected' : ''}>${esc(label)}</option>`).join('')}`;
+const visiblePins = () => filterContributions(state.contributions, filter);
+const announce = (text) => { $('#status').textContent = text; };
+const focusPanel = () => $('#task-heading')?.focus();
+const errorSlot = (id) => `<span id="${id}-error" class="field-error"></span>`;
 
-const allPins = () => [...seedContributions.slice(0, 3), ...data.contributions.filter((pin) => kinds[pin.kind] && topics[pin.topic] && !validateLocation(pin.location))];
-const visiblePins = () => filterContributions(allPins(), filters);
-const options = (values, selected, allLabel) => `${allLabel ? `<option value="">${allLabel}</option>` : '<option value="">Choose one</option>'}${Object.entries(values).map(([key, label]) => `<option value="${key}" ${key === selected ? 'selected' : ''}>${esc(label)}</option>`).join('')}`;
-
-function announce(message) { status.textContent = message; }
-function focusPanel() { document.querySelector('#panel-heading').focus(); }
-function selectedPin() { return allPins().find((pin) => pin.id === selectedId); }
-
-function render() {
-  main.innerHTML = `<div class="filters"><label for="topic-filter">Topic<select id="topic-filter">${options(topics, filters.topic, 'All topics')}</select></label><label for="session-filter">Session<select id="session-filter">${options({ earlier: 'Earlier example session', today: 'Current example session' }, filters.session, 'All example sessions')}</select></label><button type="button" id="clear-filters">Clear filters</button></div>
-    <div class="workspace"><section class="panel map-section" aria-labelledby="map-heading"><h2 id="map-heading">Map</h2><div id="map-content"></div><p class="note map-note" id="map-instructions"></p><button type="button" id="go-to-panel">Go to contributions or form</button></section><section class="panel" id="content-panel" aria-labelledby="panel-heading"></section></div>`;
-  document.querySelector('#topic-filter').addEventListener('change', (event) => { filters.topic = event.target.value; updateMap(); if (mode === 'list') renderList(); announce(`${visiblePins().length} contributions match.`); });
-  document.querySelector('#session-filter').addEventListener('change', (event) => { filters.session = event.target.value; updateMap(); if (mode === 'list') renderList(); announce(`${visiblePins().length} contributions match.`); });
-  document.querySelector('#clear-filters').addEventListener('click', () => {
-    filters.topic = ''; filters.session = '';
-    document.querySelector('#topic-filter').value = ''; document.querySelector('#session-filter').value = '';
-    updateMap(); if (mode === 'list') renderList(); announce('Filters cleared.');
-  });
-  document.querySelector('#go-to-panel').addEventListener('click', focusPanel);
-  updateMap(); renderPanel();
+const api = createDataService(() => ({ origin: location.origin, token, activeSession }));
+function remember() {
+  try { if (token) sessionStorage.setItem('community-safety-demo-participant', JSON.stringify({ token, activeSession })); else sessionStorage.removeItem('community-safety-demo-participant'); } catch { announce('This tab cannot remember your return code. Copy it if you want to resume later.'); }
 }
-
-function updateMap() {
-  document.querySelector('#map-content').innerHTML = mapMarkup({ pins: mode === 'add' ? [] : visiblePins(), selected: mode === 'add' ? draft?.location : selectedPin(), placement: mode === 'add' });
-  document.querySelector('#map-instructions').textContent = mode === 'add' ? 'Click or tap to place a pin. You can also choose a location using the form.' : 'Select a numbered pin or read the same contributions in the list.';
-}
-
-function renderPanel() {
-  if (mode === 'add') renderForm();
-  else if (mode === 'detail' && selectedPin()) renderDetail();
-  else renderList();
-}
-
-function renderList() {
-  mode = 'list';
-  const pins = visiblePins();
-  document.querySelector('#content-panel').innerHTML = `<div class="panel-heading"><h2 id="panel-heading" tabindex="-1">Contributions (${pins.length})</h2><button type="button" id="add-place">Add a place</button></div>${pins.length ? pins.map((pin, index) => `<article class="contribution"><h3>${index + 1}. ${esc(pin.location.label)}</h3><p>${kinds[pin.kind].label} · ${topics[pin.topic]}</p><p>${esc(pin.description.slice(0, 105))}${pin.description.length > 105 ? '…' : ''}</p><button type="button" data-pin="${esc(pin.id)}">Read and respond</button></article>`).join('') : '<p>No contributions match. Try another topic or clear the filters.</p>'}`;
-  document.querySelector('#add-place').addEventListener('click', startAdd);
-}
-
-function startAdd() {
-  mode = 'add'; selectedId = null;
-  if (!draft) draft = { id: crypto.randomUUID(), location: null, kind: '', topic: '', description: '', context: '' };
-  updateMap(); renderForm(); focusPanel();
-}
-
-function renderForm() {
-  document.querySelector('#content-panel').innerHTML = `<h2 id="panel-heading" tabindex="-1">Add a place</h2><div id="form-errors"></div>
-    <form id="place-search-form"><label for="place-search">Find a place</label><div class="search-row"><input type="text" id="place-search" aria-describedby="search-help"><button type="submit">Search</button></div><p class="note" id="search-help">Example search: “Clark Park” or “46th and Baltimore.”</p><div id="search-feedback" role="status"></div><ul class="search-results" id="search-results">${searchResults.map((place) => `<li><button type="button" data-location="${place.id}">${esc(place.label)}</button></li>`).join('')}</ul></form>
-    <form id="contribution-form" novalidate><div class="selected-place"><label for="place-label">Selected place / nearby intersection</label><input type="text" id="place-label" value="${esc(draft.location?.label || '')}" maxlength="120"><p class="note">Choose a search result or place a pin, then check this name.</p></div>
-    <label for="kind">Contribution type<select id="kind">${options(Object.fromEntries(Object.entries(kinds).map(([key, value]) => [key, value.label])), draft.kind)}</select></label>
-    <label for="topic">Topic<select id="topic">${options(topics, draft.topic)}</select></label>
-    <label for="description">Description<textarea id="description" maxlength="600" aria-describedby="description-help">${esc(draft.description)}</textarea></label><p class="note" id="description-help">What matters about this place? Leave out names and private details.</p>
-    <div class="actions"><button type="submit" id="save-contribution">Save example</button><button type="button" id="cancel-add">Cancel</button></div></form>`;
-  document.querySelector('#place-search-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    searchResults = searchPlaces(document.querySelector('#place-search').value);
-    document.querySelector('#search-results').innerHTML = searchResults.map((place) => `<li><button type="button" data-location="${place.id}">${esc(place.label)}</button></li>`).join('');
-    document.querySelector('#search-feedback').textContent = searchResults.length ? `${searchResults.length} example places found.` : 'No example match. Try “Walnut” or place a pin.';
-  });
-  document.querySelector('#contribution-form').addEventListener('input', captureDraft);
-  document.querySelector('#contribution-form').addEventListener('change', captureDraft);
-  document.querySelector('#cancel-add').addEventListener('click', () => { captureDraft(); mode = 'list'; updateMap(); renderList(); focusPanel(); });
-  document.querySelector('#contribution-form').addEventListener('submit', (event) => {
-    event.preventDefault(); captureDraft();
-    const locationError = validateLocation(draft.location);
-    const problems = validateDescription(draft).map((problem) => ({ ...problem, field: problem.field.startsWith('kind-') ? 'kind' : problem.field.startsWith('topic-') ? 'topic' : problem.field }));
-    if (locationError) problems.unshift({ field: 'place-label', message: locationError });
-    if (problems.length) { showErrors(problems); return; }
-    const pin = { ...draft, title: draft.location.label, description: draft.description.trim(), session: 'today', date: new Date().toISOString(), exampleCounts: [0, 0, 0], synthetic: false };
-    if (!persist(putContribution(data, pin), 'save-contribution')) return;
-    selectedId = pin.id; draft = null; mode = 'detail'; searchResults = [];
-    updateMap(); renderDetail(); focusPanel(); announce('Example saved in this browser.');
-  });
-}
-
-function captureDraft() {
-  if (!draft || !document.querySelector('#contribution-form')) return;
-  for (const field of ['kind', 'topic', 'description']) draft[field] = document.getElementById(field).value;
-  if (draft.location) draft.location.label = document.querySelector('#place-label').value.trim();
-}
-
-function showErrors(problems) {
-  const target = document.querySelector('#form-errors');
-  target.innerHTML = `<div class="error" tabindex="-1"><strong>Check these fields:</strong><ul>${problems.map((problem) => `<li><a href="#${problem.field}" data-error="${problem.field}">${esc(problem.message)}</a></li>`).join('')}</ul></div>`;
-  target.querySelector('.error').focus();
-}
-
-function persist(next, field) {
-  try { saveDemo(storage, next); data = next; return true; } catch { showErrors([{ field, message: 'Could not save. Your input is still here. Check whether browser storage is available and try again.' }]); return false; }
-}
-
-function renderDetail() {
-  const pin = selectedPin();
-  const response = responseDrafts[pin.id] || data.responses[pin.id];
-  const wording = responseOptions(pin.kind);
-  const summary = responseSummary(pin, data.responses[pin.id]);
-  document.querySelector('#content-panel').innerHTML = `<div class="panel-heading"><h2 id="panel-heading" tabindex="-1">${esc(pin.location.label)}</h2><button type="button" id="back-to-list">Back</button></div><p>${kinds[pin.kind].label} · ${topics[pin.topic]}</p><p>${esc(pin.description)}</p><p class="note">${pin.synthetic ? 'Fictional contribution · earlier example session' : 'Your example · current session'}</p><div id="form-errors"></div>
-    <form id="response-form" novalidate><fieldset><legend>${wording.question}</legend>${wording.labels.map((label, index) => `<label class="response-choice"><input type="radio" id="answer-${index}" name="answer" value="${index}" ${response?.answer === index ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}</fieldset><label for="response-note">Comment (optional)<textarea id="response-note" maxlength="400">${esc(response?.note || '')}</textarea></label><button type="submit" id="save-response">Save response</button></form>
-    <div class="summary"><h3>Responses</h3><p class="note">Starting counts are fictional. Your saved example response is included, if present.</p>${wording.labels.map((label, index) => `<div class="summary-row"><span>${esc(label)}</span><strong>${summary.counts[index]}</strong></div>`).join('')}<p class="note">${summary.total} answers to this question. These do not represent community-wide agreement.</p></div>`;
-  document.querySelector('#back-to-list').addEventListener('click', () => { mode = 'list'; selectedId = null; updateMap(); renderList(); focusPanel(); });
-  document.querySelector('#response-form').addEventListener('input', () => {
-    const answer = new FormData(document.querySelector('#response-form')).get('answer');
-    responseDrafts[pin.id] = { answer: answer === null ? null : Number(answer), note: document.querySelector('#response-note').value };
-  });
-  document.querySelector('#response-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const answer = new FormData(event.currentTarget).get('answer');
-    if (answer === null) { showErrors([{ field: 'answer-0', message: 'Choose a response, or keep browsing without answering.' }]); return; }
-    if (!persist(putResponse(data, pin.id, Number(answer), document.querySelector('#response-note').value.trim()), 'save-response')) return;
-    delete responseDrafts[pin.id]; renderDetail(); document.querySelector('#save-response').focus(); announce('Response saved in this browser. You can change it.');
-  });
-}
-
-main.addEventListener('click', (event) => {
-  const error = event.target.closest('[data-error]');
-  if (error) { event.preventDefault(); document.getElementById(error.dataset.error)?.focus(); return; }
-  const pinButton = event.target.closest('[data-pin]');
-  if (pinButton) { if (mode === 'add') captureDraft(); selectedId = pinButton.dataset.pin; mode = 'detail'; updateMap(); renderDetail(); focusPanel(); return; }
-  const locationButton = event.target.closest('[data-location]');
-  if (locationButton) {
-    captureDraft(); draft.location = { ...places.find((place) => place.id === locationButton.dataset.location), source: 'example-place-search' };
-    document.querySelector('#place-label').value = draft.location.label; updateMap(); announce(`${draft.location.label} selected.`); return;
+function showError(error, fallbackField) {
+  const target = $('#form-errors');
+  if (!target) { $('#entry-error').textContent = error.message; announce(error.message); return; }
+  const errors = error.errors || { [fallbackField || 'task-heading']: error.message || 'Could not connect. Your input has been kept. Please try again.' };
+  target.innerHTML = `<div class="error-summary" tabindex="-1" role="group" aria-labelledby="error-heading"><h3 id="error-heading">Check before continuing</h3><ul>${Object.entries(errors).map(([key, value]) => `<li><a href="#${esc(key)}" data-error-target="${esc(key)}">${esc(value)}</a></li>`).join('')}</ul></div>`;
+  for (const [key, value] of Object.entries(errors)) {
+    const input = document.getElementById(key);
+    const output = document.getElementById(`${key}-error`);
+    if (output) { output.textContent = value; const descriptions = new Set((input?.getAttribute('aria-describedby') || '').split(' ').filter(Boolean)); descriptions.add(`${key}-error`); input?.setAttribute('aria-describedby', [...descriptions].join(' ')); }
+    input?.setAttribute('aria-invalid', 'true');
   }
-  const map = event.target.closest('.map-diagram');
-  if (map && mode === 'add') {
-    captureDraft(); draft.location = mapPoint(event, map); updateMap(); document.querySelector('#place-label').value = ''; document.querySelector('#place-label').focus(); announce('Pin placed. Name the place or intersection.');
+  target.querySelector('.error-summary').focus();
+  if ((error.status === 409 || error.status === 404) && draft?.expectedVersion && mode === 'form') {
+    const recover = document.createElement('button'); recover.type = 'button'; recover.textContent = 'Compare with the latest version';
+    recover.addEventListener('click', () => recoverEdit(recover)); target.append(recover);
+  } else if (error.status === 409 && detail && mode === 'detail') {
+    const reload = document.createElement('button'); reload.type = 'button'; reload.textContent = 'Read the latest version';
+    reload.addEventListener('click', () => openDetail(detail.contribution.id)); target.append(reload);
+  }
+}
+function clearErrors() {
+  if ($('#form-errors')) $('#form-errors').innerHTML = '';
+  panel.querySelectorAll('.field-error').forEach((e) => { e.textContent = ''; });
+  panel.querySelectorAll('[aria-invalid]').forEach((e) => {
+    e.removeAttribute('aria-invalid');
+    const remaining = (e.getAttribute('aria-describedby') || '').split(' ').filter((id) => id && !id.endsWith('-error'));
+    if (remaining.length) e.setAttribute('aria-describedby', remaining.join(' ')); else e.removeAttribute('aria-describedby');
+  });
+}
+async function perform(button, action, onError = showError) {
+  if (busy) return;
+  clearErrors();
+  detailReads.cancel();
+  stateReads.cancel();
+  placeSearch?.cancel();
+  busy = true;
+  const text = button?.textContent;
+  // Lock the complete task snapshot, including filters, Discard, and map controls.
+  const controls = [...document.querySelectorAll('button, input, select, textarea')].map((element) => [element, element.disabled]);
+  for (const [element] of controls) element.disabled = true;
+  panel.setAttribute('aria-busy', 'true');
+  if (button) button.textContent = 'Please wait…';
+  try { await action(); } catch (error) { onError(error); } finally {
+    busy = false;
+    panel.removeAttribute('aria-busy');
+    for (const [element, disabled] of controls) if (element.isConnected) element.disabled = disabled;
+    // Context may have changed while rendering the successful result.
+    setExportAvailability(!token || state.phase !== 'review');
+    if (button?.isConnected) button.textContent = text;
+  }
+}
+
+const savedMap = new GeographicMap($('#saved-map-container'), async (id) => {
+  if (busy) return;
+  if (mode !== 'form') { await openDetail(id); return; }
+  savedMapSelection = id;
+  drawMap();
+  $('#saved-map-preview h3')?.focus();
+  announce('Saved contribution preview. Your draft is unchanged.');
+}, () => {}, { label: 'Contributed places map' });
+const draftMap = new GeographicMap($('#draft-map-container'), () => {}, (coordinates) => {
+  if (mode !== 'form' || busy) return;
+  if (!isPhiladelphiaPoint(coordinates)) { showError(new Error('Choose a point within Philadelphia city limits, or describe the place without a point.'), 'location'); return; }
+  const firstPoint = !draft.geometry;
+  captureDraft(); draft.geometry = { type: 'Point', coordinates }; draft.locationSource = 'map'; draft.precision = 'point'; draft.dirty = true;
+  $('#approximate').checked = false;
+  updateLocation(); focusDraftPoint({ neighborhood: firstPoint }); $('#placeLabel').focus(); announce('Draft point selected. Check or enter its place name before saving.');
+}, { label: 'Your contribution location map' });
+void savedMap.init();
+void draftMap.init();
+function drawMap() {
+  const pins = visiblePins(), editing = mode === 'form';
+  if (!editing) activeMap = 'saved';
+  $('#map-view-switch').hidden = !editing;
+  $('#saved-map-view').hidden = activeMap !== 'saved';
+  $('#draft-map-view').hidden = activeMap !== 'draft';
+  document.querySelectorAll('[data-map-view-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mapViewChoice === activeMap)));
+  $('#map-heading').textContent = activeMap === 'saved' ? 'Contributed places' : draft?.geometry ? 'Your contribution location' : 'Choose your location';
+  $('#saved-map-help').textContent = state.phase === 'review' ? `Saved places in the current filters.${editing ? ' Your draft is separate.' : ''}` : 'Your saved places. Enter review to see other contributions.';
+  $('#draft-map-help').textContent = draft?.geometry ? 'Check this point for your contribution. Saved places are shown separately.' : 'Search, enter coordinates, or click the map to set your location.';
+  $('#return-draft-point').hidden = !editing || !draft?.geometry;
+  savedMapSelection = editing && pins.some((p) => p.id === savedMapSelection) ? savedMapSelection : null;
+  savedMap.set({ pins, draft: null, selected: editing ? savedMapSelection : detail?.contribution.id || null, placing: false });
+  draftMap.set({ pins: [], draft: editing ? draft?.geometry : null, selected: null, placing: editing });
+  const preview = $('#saved-map-preview'), selected = pins.find((p) => p.id === savedMapSelection);
+  preview.hidden = !editing || !selected;
+  preview.innerHTML = editing && selected ? `<h3 tabindex="-1">${esc(selected.placeLabel)}</h3><p>${esc(KINDS[selected.kind])} · ${esc(TOPICS[selected.topic])}</p><p>${esc(selected.description)}</p>${selected.context ? `<p class="note">When: ${esc(selected.context)}</p>` : ''}` : '';
+  $('#filters').hidden = editing;
+  $('#view-summary').hidden = editing;
+  $('#view-summary').textContent = describeContributionView(pins, state.contributions.length);
+}
+function focusDraftPoint({ neighborhood = true } = {}) {
+  activeMap = 'draft';
+  drawMap();
+  if (draft?.geometry) draftMap.focusPoint(draft.geometry.coordinates, { neighborhood });
+}
+$('#map-view-switch').addEventListener('click', (event) => {
+  const button = event.target.closest('[data-map-view-choice]');
+  if (button && !busy && mode === 'form') { activeMap = button.dataset.mapViewChoice; drawMap(); }
+});
+$('#return-draft-point').addEventListener('click', () => { if (!busy && draft?.geometry) focusDraftPoint(); });
+
+async function loadState() {
+  return stateReads.run((signal) => api('state', { signal }), (next) => {
+    state = next;
+    $('#active-session').innerHTML = `${esc(sessionName(activeSession))} - <span class="session-date">${loadedSessionDate}</span>`;
+    $('#phase-label').textContent = state.phase === 'review' ? 'Review earlier contributions' : 'Independent contribution';
+    $('#review-phase').hidden = state.phase === 'review';
+    setExportAvailability(state.phase !== 'review');
+    $('#return-code').textContent = token;
+    drawMap();
+  }, (error) => { throw error; });
+}
+async function enterSession({ fresh = false } = {}) {
+  if (!await loadState()) return;
+  $('#entry').hidden = true; $('#session-bar').hidden = false; $('#main').hidden = false; $('#entry-error').textContent = '';
+  remember();
+  if (fresh) openForm(); else renderList();
+  focusPanel();
+  announce(fresh ? 'Practice started. Your input is independent until you choose Review earlier input.' : 'Practice resumed. Your saved accounts and current phase are restored.');
+}
+function renderList() {
+  detailReads.cancel();
+  placeSearch?.destroy(); placeSearch = null;
+  mode = 'list'; detail = null;
+  const pins = visiblePins();
+  panel.innerHTML = `<div class="heading-row"><h2 id="task-heading" tabindex="-1">Contributions (${pins.length})</h2><button id="add-place" type="button" class="primary">Add a place</button></div><div id="form-errors"></div>
+    ${state.phase !== 'review' ? '<p class="notice">You are contributing independently. Only your current-session practice input is shown. Choose Review earlier input when ready; you can also review without adding a place.</p>' : '<p class="note">Review accounts from earlier or current sessions. A different experience is welcome. Recorded answers remain hidden until you choose to see them.</p>'}
+    <div class="list-toolbar"><label for="list-layout">View <select id="list-layout"><option value="list" ${listLayout === 'list' ? 'selected' : ''}>List</option><option value="table" ${listLayout === 'table' ? 'selected' : ''}>Table</option></select></label><button type="button" data-export="contributions" ${state.phase !== 'review' ? 'disabled' : ''}>Export all CSV</button></div>
+    ${pins.length ? renderContributions(pins) : '<p>No contributions match this view. Clear filters, add a place, or enter review.</p>'}`;
+  $('#list-layout').addEventListener('change', (event) => { listLayout = event.target.value; renderList(); $('#list-layout').focus(); });
+  $('#add-place').addEventListener('click', () => { if (!busy) { openForm(); focusPanel(); } });
+  drawMap();
+}
+function renderContributions(pins) {
+  const placeButton = (p) => `<button class="place-link" type="button" data-open="${esc(p.id)}">${esc(p.placeLabel)}</button>`;
+  const source = (p) => `${dateLabel(p.createdAt)}${p.fixture ? ' · Example' : ''}${p.mine ? ' · Yours' : ''}${!p.geometry ? ' · No pin' : ''}`;
+  if (listLayout === 'table') return `<div class="table-scroll" role="region" aria-label="Contribution table" tabindex="0"><table><caption>Contributions matching the current filters</caption><thead><tr><th scope="col">Place</th><th scope="col">Type / topic</th><th scope="col">Added</th></tr></thead><tbody>${pins.map((p) => `<tr><th scope="row">${placeButton(p)}</th><td>${esc(KINDS[p.kind])}<br><span class="note">${esc(TOPICS[p.topic])}</span></td><td>${esc(source(p))}</td></tr>`).join('')}</tbody></table></div>`;
+  return pins.map((p) => `<article class="contribution-card"><h3>${placeButton(p)}</h3><p class="note">${esc(KINDS[p.kind])} · ${esc(TOPICS[p.topic])} · ${esc(source(p))}</p><p class="compact-description">${esc(p.description.slice(0, 110))}${p.description.length > 110 ? '…' : ''}</p></article>`).join('');
+}
+function freshDraft() { return { id: crypto.randomUUID(), kind: '', topic: '', placeLabel: '', description: '', context: '', geometry: null, locationSource: 'description', precision: 'approximate', dirty: false }; }
+function openForm(pin) {
+  detailReads.cancel();
+  placeSearch?.destroy(); placeSearch = null;
+  mode = 'form'; detail = null;
+  draft = pin ? { ...pin, expectedVersion: pin.version, dirty: false } : draft || freshDraft();
+  activeMap = 'draft'; savedMapSelection = null;
+  if (draftMapId !== draft.id) { draftMapId = draft.id; draftMap.move('city'); }
+  panel.innerHTML = `<h2 id="task-heading" tabindex="-1">${draft.expectedVersion ? 'Edit your practice contribution' : 'Add a place'}</h2><p class="note">Saving to: ${esc(sessionName(activeSession))}. Required fields are marked.</p>${draft.expectedVersion ? '<p class="notice">Saving replaces the wording and creates a new version. Earlier wording is not retained; older answers are excluded from the new summary and export.</p>' : '<p class="note">Add a place, or choose Review earlier input without contributing. Describing a place without a pin is a complete contribution.</p>'}<div id="form-errors"></div><div id="edit-recovery"></div>
+    <form id="search-form"><label for="place-search">Find an address, intersection, or landmark <span class="note">(optional)</span></label><div class="search-row"><input id="place-search" type="search" maxlength="160" autocomplete="off" aria-describedby="search-help search-status"><button type="submit">Search</button><button type="button" id="clear-search">Clear search</button></div><p id="search-help" class="note">Philadelphia only. Try 1500 Market St, Broad &amp; Walnut, or Clark Park. Address and intersection queries go to the City’s public geocoder when you press Search. Choose a result and check its point before saving.</p><p id="search-status" role="status" aria-atomic="true"></p><ul id="search-results" class="search-results" aria-label="Matching locations"></ul></form>
+    <form id="contribution-form" novalidate>
+      <fieldset id="location" tabindex="-1"><legend>Location (required)</legend><p class="note">Describe the place below. Optionally place a pin, choose a landmark, or enter coordinates.</p><button type="button" id="describe-location">Describe the place without a point</button><div id="location-state" class="location-state"></div>${errorSlot('location')}
+      <details><summary>Enter coordinates instead</summary><label for="latitude">Latitude</label><input id="latitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[1]}" max="${PHILADELPHIA_BOUNDS[3]}"><label for="longitude">Longitude</label><input id="longitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[0]}" max="${PHILADELPHIA_BOUNDS[2]}"><button type="button" id="use-coordinates">Use these coordinates</button></details></fieldset>
+      <label for="placeLabel">Place name, intersection, or location description (required)</label><input id="placeLabel" type="text" maxlength="140" required value="${esc(draft.placeLabel)}" aria-describedby="place-help"><p id="place-help" class="note">Changing this text does not move an existing pin. Check the selected point, or choose Describe without a point.</p>${errorSlot('placeLabel')}
+      <label for="kind">Contribution type (required)</label><select id="kind" required>${options(KINDS, draft.kind, 'Choose one')}</select>${errorSlot('kind')}
+      <label for="topic">Topic (optional)</label><select id="topic">${options(TOPICS, draft.topic, 'Other / not sure')}</select>${errorSlot('topic')}
+      <label for="description" id="description-label">Describe one experience or idea (required)</label><p class="note" id="description-prompt"></p><p class="note" id="description-help">Up to 800 characters. Leave out personal names, private addresses, and identifying details.</p><textarea id="description" maxlength="800" required aria-describedby="description-prompt description-help description-count">${esc(draft.description)}</textarea><p class="note" id="description-count"></p>${errorSlot('description')}
+      <label for="context">When does this matter? (optional)</label><input id="context" type="text" maxlength="120" value="${esc(draft.context)}"><p class="note">For example, after dark or on the way to school. This is separate from the submission date.</p>${errorSlot('context')}
+      <label class="choice"><input id="approximate" type="checkbox" ${draft.precision === 'approximate' ? 'checked' : ''}><span>This is an approximate place, not an exact location.</span></label>
+      <p class="notice">Practice input is shared with users of this private demo. No real community collection or follow-up arrangement is in place.</p><div class="actions"><button type="submit" id="save-place" class="primary">${draft.expectedVersion ? 'Save new version' : 'Save practice contribution'}</button><button type="button" id="cancel-draft">Discard draft / back</button></div>
+    </form>`;
+  updateLocation(); updateFormFeedback(); drawMap();
+  if (draft.geometry) focusDraftPoint();
+  $('#contribution-form').addEventListener('input', () => { captureDraft(); draft.dirty = true; updateFormFeedback(); });
+  $('#contribution-form').addEventListener('change', (event) => { captureDraft(); draft.dirty = true; updateFormFeedback(); if (event.target.id === 'approximate') updateLocation(); });
+  $('#describe-location').addEventListener('click', () => { captureDraft(); draft.geometry = null; draft.locationSource = 'description'; draft.dirty = true; activeMap = 'draft'; updateLocation(); drawMap(); $('#placeLabel').focus(); announce('A place description will be saved without a confirmed map point.'); });
+  $('#use-coordinates').addEventListener('click', () => {
+    const lat = Number($('#latitude').value), lon = Number($('#longitude').value);
+    if (!$('#latitude').value || !$('#longitude').value || !isPhiladelphiaPoint([lon, lat])) { showError(new Error('Choose coordinates inside Philadelphia city limits. Your current point is unchanged.'), 'location'); return; }
+    captureDraft(); draft.geometry = { type: 'Point', coordinates: [lon, lat] }; draft.locationSource = 'coordinates'; draft.dirty = true; updateLocation(); focusDraftPoint(); announce('Coordinate point selected. Check its place name before saving.');
+  });
+  $('#cancel-draft').addEventListener('click', () => { if (busy || (draft.dirty && !confirm('Discard this unsaved draft?'))) return; draft = null; renderList(); focusPanel(); });
+  placeSearch = initPlaceSearch($('#search-form'), {
+    lookup: (query, signal) => api('locations/search', { method: 'POST', body: { query }, signal, readOnly: true }),
+    canSelect: () => !busy && mode === 'form',
+    onSelect: (result) => {
+      if (!isPhiladelphiaPoint(result.coordinates) || result.crs !== COORDINATE_CRS) { announce('The search result has invalid coordinates. Your draft is unchanged.'); return; }
+      captureDraft(); draft.geometry = { type: 'Point', coordinates: result.coordinates }; draft.placeLabel = result.label;
+      draft.locationSource = result.locationSource; draft.precision = 'approximate'; draft.dirty = true;
+      $('#placeLabel').value = draft.placeLabel; $('#approximate').checked = true;
+      updateLocation(); focusDraftPoint(); $('#placeLabel').focus();
+      announce('Search result selected. Check the approximate point and place name before saving.');
+    },
+  });
+  $('#contribution-form').addEventListener('submit', (event) => {
+    event.preventDefault(); captureDraft();
+    const request = { ...draft };
+    perform($('#save-place'), async () => {
+      const pin = await api(request.expectedVersion ? `contributions/${request.id}` : 'contributions', { method: request.expectedVersion ? 'PATCH' : 'POST', body: request });
+      // The write returns the validated, display-ready account. Do not make a
+      // confirmed save depend on another network request that could fail.
+      const exists = state.contributions.some((value) => value.id === pin.id);
+      state.contributions = exists ? state.contributions.map((value) => value.id === pin.id ? pin : value) : [...state.contributions, pin];
+      draft = null; resetFilters();
+      selectDetail({ contribution: pin, response: null, question: responseQuestion(pin.kind), canRespond: false });
+      announce('Saved to the current practice session. View filters were cleared so it stays visible.');
+    });
+  });
+}
+function captureDraft() {
+  if (mode !== 'form' || !draft || !$('#contribution-form')) return;
+  for (const id of ['kind', 'topic', 'placeLabel', 'description', 'context']) draft[id] = document.getElementById(id).value;
+  draft.precision = $('#approximate').checked ? 'approximate' : 'point';
+}
+function updateFormFeedback() {
+  const prompt = contributionPrompt(draft.kind);
+  $('#description-label').textContent = prompt.label;
+  $('#description-prompt').textContent = prompt.help;
+  $('#description-count').textContent = `${draft.description.length} of 800 characters used.`;
+}
+function updateLocation() {
+  if (!$('#location-state')) return;
+  $('#location-state').innerHTML = draft.geometry ? `${draft.precision === 'approximate' ? 'An approximate' : 'A selected'} point will be plotted. Check its position and place description.<details><summary>Point coordinates</summary>${draft.geometry.coordinates[1].toFixed(5)} latitude, ${draft.geometry.coordinates[0].toFixed(5)} longitude</details>` : 'Location described; not plotted on the map. Your account will appear in the list and can be reviewed and answered there.';
+}
+function resetFilters() { filter = filterControls.reset(); }
+
+function locationSummary(p) {
+  return p.geometry ? `<p class="note">${p.precision === 'approximate' ? 'Approximate' : 'Selected'} point; location accuracy is not verified.</p><details><summary>Point coordinates</summary>${p.geometry.coordinates[1].toFixed(5)}, ${p.geometry.coordinates[0].toFixed(5)}</details>` : '<p class="note">Location described; not plotted on the map. This is a complete account.</p>';
+}
+function phaseSummary(p) {
+  if (p.fixture) return '';
+  const phase = (value) => value === 'contribute' ? 'before entering review' : value === 'review' ? 'after entering review' : 'with review phase unknown';
+  return `<p class="note">Added ${phase(p.createdPhase)}.${p.version > 1 ? ` Current version saved ${phase(p.revisionPhase)}.` : ''}</p>`;
+}
+function unsavedAnswer(value) { return `<p>${esc(value.question || 'Earlier response draft')}</p><p>Your unsaved choice: ${esc(value.choiceLabel || value.answer || 'No answer selected')}</p><label>Unsaved comment (for copying)<textarea readonly>${esc(value.note || '')}</textarea></label>`; }
+function earlierResponseDraft(id, version) { return [...responseDrafts].find(([key]) => key.startsWith(`${id}:`) && key !== `${id}:${version}`) || []; }
+
+async function recoverEdit(button) {
+  captureDraft();
+  await perform(button, async () => {
+    const recovery = $('#edit-recovery');
+    let latest;
+    try { latest = (await api(`contributions/${draft.id}`)).contribution; } catch (error) {
+      if (error.status !== 404) throw error;
+      recovery.innerHTML = '<div class="notice"><h3 tabindex="-1">The saved account was withdrawn</h3><p>Your unsaved text is still in the form. You can discard it or keep it as a new draft; it will not be saved automatically.</p><button type="button" id="keep-as-new">Keep text as a new draft</button></div>';
+      $('#keep-as-new').addEventListener('click', () => { captureDraft(); draft.id = crypto.randomUUID(); delete draft.expectedVersion; draft.dirty = true; openForm(); focusPanel(); announce('Text kept as a new unsaved draft. Check it before saving.'); });
+      recovery.querySelector('h3').focus();
+      return;
+    }
+    recovery.innerHTML = `<div class="notice"><h3 tabindex="-1">Latest saved version: ${latest.version}</h3><p>${esc(latest.placeLabel)} · ${KINDS[latest.kind]}</p><p>${esc(latest.description)}</p><p>When: ${esc(latest.context || 'Not specified')}</p>${locationSummary(latest)}<p>Your own unsaved fields are unchanged below. Check both accounts before keeping your changes.</p><button id="use-latest-baseline" type="button">Keep my draft and use version ${latest.version} as its baseline</button></div>`;
+    $('#use-latest-baseline').addEventListener('click', () => {
+      captureDraft(); draft.expectedVersion = latest.version; draft.dirty = true; clearErrors();
+      recovery.textContent = `Your draft is kept. The next save will be checked against version ${latest.version}; no changes have been saved yet.`;
+      $('#description').focus();
+    });
+    recovery.querySelector('h3').focus();
+  });
+}
+
+async function openDetail(id, { focus = true } = {}) {
+  return detailReads.run((signal) => api(`contributions/${id}`, { signal }), (result) => selectDetail(result, { focus }), (error) => {
+    if (error.status === 404) { renderList(); announce('This account was withdrawn or is unavailable. The list has been kept; refresh to update it.'); }
+    showError(error);
+  });
+}
+function selectDetail(result, { focus = true } = {}) {
+  const previous = detail?.contribution, pin = result.contribution;
+  const [olderKey, olderDraft] = earlierResponseDraft(pin.id, pin.version);
+  placeSearch?.destroy(); placeSearch = null;
+  mode = 'detail'; detail = { ...result, olderDraft, olderKey };
+  if (pin.geometry) savedMap.focusPoint(pin.geometry.coordinates);
+  renderDetail(); drawMap();
+  announce(previous?.id === pin.id && previous.version !== pin.version ? 'This account was revised. Read the new wording. Your earlier unsaved answer has not been applied to it.' : 'Account loaded.');
+  if (focus) focusPanel(); else $('#save-response')?.focus();
+}
+function renderDetail() {
+  const p = detail.contribution;
+  const key = `${p.id}:${p.version}`;
+  const response = responseDrafts.get(key) || detail.response || {};
+  const q = detail.question;
+  panel.innerHTML = `<div class="heading-row"><h2 id="task-heading" tabindex="-1">${esc(p.placeLabel)}</h2><button type="button" id="back-list">Back to list</button></div><p>${KINDS[p.kind]} · ${TOPICS[p.topic]}</p><p class="account-text">${esc(p.description)}</p>${p.context ? `<p><strong>When:</strong> ${esc(p.context)}</p>` : ''}<p class="note">Source: ${esc(sessionName(p.sessionId))} · ${dateLabel(p.createdAt)} · Version ${p.version}${p.fixture ? ' · Fictional example' : ' · Practice account'}</p>${phaseSummary(p)}${locationSummary(p)}<div id="form-errors"></div>${detail.olderDraft ? `<div class="notice"><p>The account changed. Your earlier unsaved answer was not applied to this version. Copy any useful text before discarding it.</p>${unsavedAnswer(detail.olderDraft)}<button type="button" id="discard-earlier-answer">Discard earlier unsaved answer</button></div>` : ''}
+    ${p.mine ? '<div class="actions"><button id="edit-place" type="button">Edit your contribution</button><button id="withdraw-place" type="button" class="danger">Withdraw your contribution</button></div><p class="note">You cannot respond to your own account. Enter review to compare other accounts.</p>' : `<form id="response-form" novalidate><fieldset id="answer"><legend>${esc(q.text)}</legend><p class="note">Responding is optional. A different experience does not dismiss this account. Responding in: ${esc(sessionName(activeSession))}.</p>${Object.entries(q.options).map(([value, label]) => `<label class="choice"><input type="radio" name="answer" value="${value}" ${response.answer === value ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}${errorSlot('answer')}</fieldset><label for="note">Add context or explain a different experience (optional)</label><textarea id="note" maxlength="400" aria-describedby="note-help">${esc(response.note || '')}</textarea><p class="note" id="note-help">Up to 400 characters. Your comment and answer can be read by other users of this private demo. Leave out identifying details. Response comments are omitted from the download.</p>${errorSlot('note')}<button type="submit" id="save-response" class="primary">${detail.response ? 'Update' : 'Save'} practice response</button>${detail.response ? '<button type="button" id="remove-response">Remove my saved response</button>' : ''}<p class="note">One editable answer per practice identity, contribution version, and responding session. This does not verify a unique person.</p></form>`}
+    <div class="actions"><button type="button" id="show-summary">Show recorded answers</button></div><div id="summary"></div>`;
+  $('#discard-earlier-answer')?.addEventListener('click', () => { responseDrafts.delete(detail.olderKey); [detail.olderKey, detail.olderDraft] = earlierResponseDraft(p.id, p.version); renderDetail(); focusPanel(); });
+  $('#remove-response')?.addEventListener('click', () => {
+    if (busy || !confirm('Remove your saved answer and comment for this version? Any recorded totals-opening time remains.')) return;
+    perform($('#remove-response'), async () => {
+      await api(`contributions/${p.id}/response`, { method: 'DELETE', body: { version: p.version } });
+      responseDrafts.delete(key); detail.response = null; renderDetail(); focusPanel(); announce('Your saved answer and comment were removed. You can leave this account unanswered.');
+    });
+  });
+  $('#back-list').addEventListener('click', () => { if (!busy) { renderList(); focusPanel(); } });
+  $('#edit-place')?.addEventListener('click', () => { if (!busy) { openForm(p); focusPanel(); } });
+  $('#withdraw-place')?.addEventListener('click', () => {
+    if (!confirm('Withdraw this practice contribution and remove its response records?')) return;
+    perform($('#withdraw-place'), async () => { await api(`contributions/${p.id}`, { method: 'DELETE' }); await loadState(); renderList(); focusPanel(); announce('Contribution withdrawn. Its description and responses are no longer available in the shared demo.'); });
+  });
+  $('#show-summary').addEventListener('click', () => perform($('#show-summary'), showSummary));
+  $('#response-form')?.addEventListener('input', () => { const answer = new FormData($('#response-form')).get('answer'); responseDrafts.set(key, { answer, note: $('#note').value, question: q.text, choiceLabel: q.options[answer] }); });
+  $('#response-form')?.addEventListener('submit', (event) => {
+    event.preventDefault(); const answer = new FormData(event.currentTarget).get('answer'); const note = $('#note').value;
+    responseDrafts.set(key, { answer, note, question: q.text, choiceLabel: q.options[answer] });
+    perform($('#save-response'), async () => {
+      await api(`contributions/${p.id}/response`, { method: 'PUT', body: { version: p.version, answer, note } });
+      responseDrafts.delete(key); detail.response = { answer, note }; renderDetail(); $('#save-response').focus(); announce('Practice response saved. You can change it; changing it replaces this identity’s earlier answer for this version and session.');
+    });
+  });
+}
+async function showSummary() {
+  const result = await api(`contributions/${detail.contribution.id}/summary`, { method: 'POST', body: { version: detail.contribution.version } });
+  $('#summary').innerHTML = `<h3 tabindex="-1">Recorded practice answers</h3><p class="note">${esc(result.question.text)}</p><dl>${Object.entries(result.question.options).map(([key, label]) => `<div class="summary-row"><dt>${esc(label)}</dt><dd><strong>${result.counts[key]}</strong></dd></div>`).join('')}</dl><p><strong>${result.total}</strong> ${result.total === 1 ? 'answer' : 'answers'} to this version.</p><p class="note">${esc(result.denominator)} Zero answers is different from uncertainty or disagreement. These counts do not rank places or establish community consensus.</p>${result.earlierVersionAnswers ? `<p class="note">${result.earlierVersionAnswers} answers refer to earlier versions and are excluded here. Earlier wording is not retained.</p>` : ''}${result.comments?.length ? `<h3>Practice explanations</h3>${result.comments.map((c) => `<article><p><strong>${esc(result.question.options[c.answer])}</strong></p><p>${esc(c.note)}</p><p class="note">Responding session: ${esc(sessionName(c.sessionId))}</p></article>`).join('')}` : ''}`;
+  $('#summary h3').focus();
+  announce(`${result.total} recorded practice ${result.total === 1 ? 'answer' : 'answers'} shown. This opening was recorded for this version and responding session; it does not prove the answers were read.`);
+}
+
+$('#join-form').addEventListener('submit', (event) => {
+  event.preventDefault(); activeSession = $('#join-session').value;
+  perform(event.currentTarget.querySelector('button'), async () => { const result = await api('participants', { method: 'POST', body: { sessionId: activeSession } }); token = result.token; await enterSession({ fresh: true }); });
+});
+$('#resume-form').addEventListener('submit', (event) => {
+  event.preventDefault(); token = $('#resume-code').value.trim(); activeSession = $('#join-session').value;
+  perform(event.currentTarget.querySelector('button'), async () => { await enterSession(); $('#resume-code').value = ''; });
+});
+const groupReview = new GroupReview($('#group-review'), async () => { await loadState(); return visiblePins(); });
+$('#start-group-review').addEventListener('click', async () => {
+  if (busy) return;
+  captureDraft();
+  let ready = false;
+  await perform($('#start-group-review'), async () => {
+    if (state.phase !== 'review') { await api('phase', { method: 'POST', body: { phase: 'review' } }); await loadState(); }
+    ready = true;
+  });
+  if (ready) groupReview.open(visiblePins(), detail?.contribution.id, $('#start-group-review'));
+});
+$('#review-phase').addEventListener('click', () => {
+  if (draft?.dirty) { announce('Save or discard your current draft before entering review.'); return; }
+  perform($('#review-phase'), async () => { await api('phase', { method: 'POST', body: { phase: 'review' } }); draft = null; resetFilters(); await loadState(); renderList(); focusPanel(); announce('Review phase started. Earlier examples and shared practice accounts are now available.'); });
+});
+$('#refresh-records').addEventListener('click', () => perform($('#refresh-records'), async () => {
+  const selected = detail?.contribution;
+  await loadState();
+  if (mode === 'detail' && selected) {
+    if (state.contributions.some((p) => p.id === selected.id)) {
+      await openDetail(selected.id); announce('Shared input refreshed. The selected account is now current; check its wording before answering.');
+    } else {
+      const key = `${selected.id}:${selected.version}`, unsaved = responseDrafts.get(key);
+      renderList(); focusPanel();
+      if (unsaved) {
+        const recovery = document.createElement('div'); recovery.className = 'notice';
+        recovery.innerHTML = `<p>The selected account was withdrawn or is unavailable. Your unsaved answer was not sent. Copy any useful text before discarding it.</p>${unsavedAnswer(unsaved)}<button type="button">Discard this unsaved answer</button>`;
+        recovery.querySelector('button').addEventListener('click', () => { responseDrafts.delete(key); recovery.remove(); focusPanel(); }); panel.append(recovery);
+      }
+      announce('The selected account was withdrawn or is unavailable. Its saved narrative is no longer shown.');
+    }
+  } else if (mode === 'form') {
+    const current = state.contributions.find((p) => p.id === draft.id);
+    if (draft.expectedVersion && (!current || current.version !== draft.expectedVersion)) {
+      const error = new Error('The saved account changed or was withdrawn. Your unsaved fields are kept. Compare with the latest version before saving.'); error.status = 409; showError(error);
+    } else announce('Shared input refreshed. Your unsaved form is unchanged.');
+  } else { renderList(); announce('Shared input refreshed.'); }
+}));
+$('#finish-participant').addEventListener('click', () => {
+  if (busy) return;
+  detailReads.cancel();
+  $('#finish-drafts').textContent = draft?.dirty || responseDrafts.size ? 'You have unsaved input. Finishing will discard it.' : 'No unsaved input will be discarded.';
+  $('#finish-code').textContent = token; $('#finish-copy-status').textContent = '';
+  $('#finish-dialog').showModal();
+});
+$('#finish-cancel').addEventListener('click', () => $('#finish-dialog').close());
+$('#finish-dialog').addEventListener('keydown', (event) => {
+  if (event.key !== 'Tab') return;
+  const controls = [...event.currentTarget.querySelectorAll('button, summary, input, select, textarea, a[href], [tabindex="0"]')].filter((control) => !control.disabled && control.getClientRects().length);
+  const first = controls[0], last = controls.at(-1);
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault(); last?.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault(); first?.focus();
   }
 });
-
-document.querySelector('.skip-link').addEventListener('click', (event) => { event.preventDefault(); main.focus(); });
-render();
+$('#finish-dialog').addEventListener('close', () => { $('#finish-code').textContent = ''; $('#finish-dialog details').open = false; });
+$('#finish-confirm').addEventListener('click', () => {
+  detailReads.cancel(); stateReads.cancel(); placeSearch?.destroy(); placeSearch = null;
+  $('#finish-dialog').close();
+  token = ''; draft = null; detail = null; mode = 'list'; responseDrafts.clear(); listLayout = 'list'; state = { phase: 'contribute', contributions: [] }; remember(); resetFilters();
+  $('#session-bar details').open = false;
+  $('#return-code').textContent = ''; $('#resume-code').value = ''; $('#session-bar').hidden = true; $('#main').hidden = true; $('#entry').hidden = false; $('#entry-error').textContent = ''; setExportAvailability(true); panel.innerHTML = ''; activeMap = 'saved'; savedMapSelection = null; draftMapId = null;
+  for (const map of [savedMap, draftMap]) { map.set({ pins: [], draft: null, selected: null, placing: false }); map.move('city'); } $('#join-form button').focus(); announce('Finished. This tab no longer holds the participant code or unsaved drafts. Start a fresh practice participant for the next person.');
+});
+async function copyCode() {
+  let message;
+  try { await navigator.clipboard.writeText(token); message = 'Return code copied. Keep it private; it grants edit access.'; } catch { message = 'Copy was unavailable. Open the code disclosure and copy it manually before finishing.'; }
+  if ($('#finish-dialog').open) $('#finish-copy-status').textContent = message;
+  else announce(message);
+}
+$('#copy-code').addEventListener('click', copyCode);
+$('#finish-copy').addEventListener('click', copyCode);
+$('#use-map-center').addEventListener('click', () => { if (mode === 'form') draftMap.onPlace(draftMap.center()); });
+const filterControls = initContributionFilters($('#filters'), (event) => {
+  if (busy) return;
+  detailReads.cancel();
+  filter = event.detail;
+  if (mode === 'detail' && !visiblePins().some((p) => p.id === detail.contribution.id)) { renderList(); announce('The selected account is outside this filter. Returned to the matching list.'); } else if (mode === 'list') renderList();
+  drawMap();
+});
+$('#view-topic').insertAdjacentHTML('beforeend', Object.entries(TOPICS).map(([key, label]) => `<option value="${key}">${esc(label)}</option>`).join(''));
+$('#view-kind').insertAdjacentHTML('beforeend', Object.entries(KINDS).map(([key, label]) => `<option value="${key}">${esc(label)}</option>`).join(''));
+panel.addEventListener('click', (event) => {
+  const target = event.target.closest('[data-error-target]');
+  if (target) { event.preventDefault(); const input = document.getElementById(target.dataset.errorTarget); (input?.querySelector('button, input') || input)?.focus(); return; }
+  const open = event.target.closest('[data-open]'); if (open && !busy) openDetail(open.dataset.open);
+});
+for (const selector of ['.skip', '#skip-map']) $(selector).addEventListener('click', (event) => { event.preventDefault(); if (selector === '.skip' && $('#main').hidden) $('#entry-title').focus(); else focusPanel(); });
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-export]');
+  if (!button || button.disabled) return;
+  perform(button, async () => {
+    const dataset = button.dataset.export, isJson = dataset === 'json';
+    const output = await api(isJson ? 'export' : `export?format=csv&dataset=${dataset}`, { responseType: isJson ? 'json' : 'text' });
+    const blob = new Blob([isJson ? JSON.stringify(output, null, 2) : (output.startsWith('\uFEFF') ? output : '\uFEFF' + output)], { type: isJson ? 'application/json' : 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob), link = document.createElement('a');
+    link.href = url; link.download = isJson ? 'community-safety-practice-data.json' : `community-safety-${dataset}.csv`; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    announce('Practice data downloaded. Exports include all available sessions, regardless of view filters.');
+  });
+});
+window.addEventListener('beforeunload', (event) => { if (draft?.dirty || responseDrafts.size) { event.preventDefault(); event.returnValue = ''; } });
+let savedParticipant;
+try { savedParticipant = JSON.parse(sessionStorage.getItem('community-safety-demo-participant')); } catch { savedParticipant = null; }
+if (savedParticipant?.token) {
+  token = savedParticipant.token; activeSession = savedParticipant.activeSession || 'practice-current';
+  await perform(null, () => enterSession(), () => {
+    $('#resume-code').value = token; token = '';
+    $('#entry-error').textContent = 'The previous practice session could not be restored. Its code has been kept in this tab; retry Resume when the connection is available, or explicitly start a new participant.';
+  });
+}
