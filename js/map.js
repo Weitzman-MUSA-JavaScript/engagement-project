@@ -10,7 +10,22 @@ export class GeographicMap {
     Object.assign(this, { container, onSelect, onPlace, flexible, basemap: 'street', view: new MapViewport(CITY_BOUNDS), cityBounds: CITY_BOUNDS, showingCity: true, pins: [], draft: null, selected: null, placing: false, groups: new Map(), expandedGroup: null });
     this.root = container.closest('[data-map-view]') || container;
     const helpId = `${container.id}-help`, selectionId = `${container.id}-selection`;
-    container.innerHTML = `<div class="map-stage" tabindex="0" role="region" aria-label="${esc(label)}" aria-describedby="${helpId}"><svg class="map-surface" viewBox="0 0 600 440" aria-hidden="true"><g class="basemap"></g><path class="outside-city" fill-rule="evenodd"/><path class="city-boundary"/><circle class="draft" r="10" hidden/></svg><div class="map-markers" role="group" aria-label="Mapped accounts"></div></div><p id="${helpId}" class="note">Drag to pan. Arrow keys move; +/− zoom; Home shows Philadelphia. Points must stay inside the blue city boundary.</p><p data-street-attribution class="map-attribution">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> | <a href="https://www.openstreetmap.org/fixthemap">Report a map issue</a></p><p data-aerial-attribution class="map-attribution" hidden>Aerial imagery: PEMA 2021–2023 / <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PASDA</a></p><p data-map-availability class="note" role="status">Street map loading. The form and list are available.</p><p data-map-coverage class="note"></p><div id="${selectionId}" class="map-selection" data-map-selection hidden></div>`;
+    container.innerHTML = `
+      <div class="map-stage" tabindex="0" role="region" aria-label="${esc(label)}" aria-describedby="${helpId}">
+        <svg class="map-surface" viewBox="0 0 600 440" aria-hidden="true">
+          <g class="basemap"></g>
+          <path class="outside-city" fill-rule="evenodd"/>
+          <path class="city-boundary"/>
+          <circle class="draft" r="10" hidden/>
+        </svg>
+        <div class="map-markers" role="group" aria-label="Mapped accounts"></div>
+      </div>
+      <p id="${helpId}" class="note">Drag to pan. Arrow keys move; +/− zoom; Home shows Philadelphia. Points must stay inside the city boundary.</p>
+      <p data-street-attribution class="map-attribution">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> | <a href="https://www.openstreetmap.org/fixthemap">Report a map issue</a></p>
+      <p data-aerial-attribution class="map-attribution" hidden>Aerial imagery: PEMA 2021–2023 / <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PASDA</a></p>
+      <p data-map-availability class="note" role="status">Street map loading. The form and list are available.</p>
+      <p data-map-coverage class="note"></p>
+      <div id="${selectionId}" class="map-selection" data-map-selection hidden></div>`;
     this.svg = container.querySelector('svg');
     this.markers = container.querySelector('.map-markers');
     this.pan = new MapPan(this.view);
@@ -77,7 +92,7 @@ export class GeographicMap {
     const stage = this.container.querySelector('.map-stage');
     stage.addEventListener('keydown', (event) => {
       if (event.target !== stage) return;
-      const action = { ArrowLeft: 'west', ArrowRight: 'east', ArrowUp: 'north', ArrowDown: 'south', '+': 'zoom-in', '=': 'zoom-in', '-': 'zoom-out', Home: 'city' }[event.key];
+      const action = { 'ArrowLeft': 'west', 'ArrowRight': 'east', 'ArrowUp': 'north', 'ArrowDown': 'south', '+': 'zoom-in', '=': 'zoom-in', '-': 'zoom-out', 'Home': 'city' }[event.key];
       if (action) { event.preventDefault(); this.move(action); }
     });
   }
@@ -90,8 +105,8 @@ export class GeographicMap {
     this.draw();
   }
 
-  drawBasemap() {
-    if (!this.svg.getBoundingClientRect().width) return;
+  drawBasemap(width) {
+    if (!width) return;
     const source = this.basemap, aerial = source === 'aerial';
     this.svg.classList.toggle('show-aerial', aerial);
     this.container.querySelector('[data-street-attribution]').hidden = aerial;
@@ -107,7 +122,7 @@ export class GeographicMap {
         ? (aerial ? 'Some aerial tiles are unavailable. Switch to Street map to continue.' : 'Some street tiles are unavailable. The form and list still work.')
         : images.some((image) => image.dataset.status === 'loading') ? (aerial ? 'Loading aerial imagery…' : 'Street map loading. The form and list are available.') : (aerial ? 'Aerial imagery ready.' : 'Street map ready.');
     };
-    for (const tile of visibleTiles(this.view, this.basemap, this.svg.getBoundingClientRect().width)) {
+    for (const tile of visibleTiles(this.view, this.basemap, width)) {
       let image = existing.get(tile.key);
       existing.delete(tile.key);
       if (!image) {
@@ -154,8 +169,8 @@ export class GeographicMap {
   }
 
   draw() {
+    const rect = this.svg.getBoundingClientRect();
     if (this.flexible) {
-      const rect = this.svg.getBoundingClientRect();
       if (rect.width && rect.height) {
         const height = 600 * rect.height / rect.width;
         if (this.view.height !== height) {
@@ -165,7 +180,7 @@ export class GeographicMap {
         }
       }
     }
-    this.drawBasemap();
+    this.drawBasemap(rect.width);
     if (this.boundaryKey !== this.view.key) {
       const path = CITY_GEOMETRY.coordinates.map((ring) => ring.map((p, i) => { const [x, y] = this.project(p); return `${i ? 'L' : 'M'}${x.toFixed(2)},${y.toFixed(2)}`; }).join(' ') + 'Z').join(' ');
       this.svg.querySelector('.city-boundary').setAttribute('d', path);
@@ -173,7 +188,7 @@ export class GeographicMap {
       this.boundaryKey = this.view.key;
     }
     this.svg.classList.toggle('placing', this.placing);
-    const width = this.svg.getBoundingClientRect().width || 600;
+    const width = rect.width || 600;
     const { groups, mapped, offscreen, unplotted } = groupMapPins(this.pins, (point) => this.project(point), width, this.view.height);
     const matrix = this.svg.getScreenCTM(), markerBounds = this.markers.getBoundingClientRect();
     this.groups = new Map(groups.map((group) => [group.id, group]));

@@ -4,6 +4,7 @@ export class ReviewSequence {
     this.records = structuredClone(records);
     this.index = Math.max(0, this.records.findIndex((p) => p.id === selectedId));
   }
+
   get current() { return this.records?.[this.index] || null; }
   get previous() { return this.index > 0; }
   get next() { return this.index + 1 < this.records.length; }

@@ -33,9 +33,18 @@
     <p><strong>Contributing to:</strong> <span id="active-session"></span><br><strong>Current phase:</strong> <span id="phase-label"></span></p>
     <div class="actions"><button id="review-phase" type="button" class="primary">Review earlier input</button><button id="start-group-review" type="button">Group review</button><button id="refresh-records" type="button">Check for new input</button><button id="finish-participant" type="button">Finish on this device</button></div>
     <details><summary>Your return code</summary><p class="note">This code grants access to edit or withdraw your practice records. Keep it private. Copy it to return later, and finish before handing a shared device to someone else.</p><code id="return-code"></code><button type="button" id="copy-code">Copy return code</button></details>
+    <p id="draft-storage-status" class="note" role="status">Unsaved writing is kept in this browser tab for recovery after a refresh. Use Finish on this device to clear it before sharing the device.</p>
     <p class="demo-note">(Development demo. No human or group consultation has occurred. Use fictional practice accounts only.)</p>
   </section>
   <dialog id="group-review" aria-labelledby="group-review-title"></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+    <h2 id="confirm-title" data-confirm-title></h2>
+    <p id="confirm-description" data-confirm-description></p>
+    <div class="actions">
+      <button type="button" data-confirm-cancel autofocus>Keep working</button>
+      <button type="button" class="danger" data-confirm-accept>Confirm</button>
+    </div>
+  </dialog>
   <dialog id="finish-dialog" aria-labelledby="finish-title" aria-describedby="finish-help">
     <h2 id="finish-title">Finish on this device?</h2>
     <p id="finish-help">Saved practice accounts remain shared. Finishing clears your return code from this tab. Without a copy, you may lose access to edit or withdraw them.</p>
@@ -59,6 +68,10 @@
       </div></details>
     </form>
     <p id="view-summary" class="note" role="status" aria-atomic="true"></p>
+    <details id="session-overview" hidden>
+      <summary>Overview of filtered contributions</summary>
+      <div id="overview-content"></div>
+    </details>
     <div class="workspace">
       <section id="task-panel" class="panel" aria-labelledby="task-heading"></section>
       <section class="panel" aria-labelledby="map-heading">
@@ -97,7 +110,7 @@
       <p>Group review uses <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PEMA 2021–2023 aerial imagery via PASDA</a>. Only visible map areas are requested; contribution text and practice codes are not sent. Street View opens Google Maps only when its link is selected.</p>
       <p>City boundary: <a href="https://opendataphilly.org/datasets/city-limits/">City of Philadelphia City Limits</a>. The same published outline is used for point selection and saves.</p>
       <p>All starting accounts are fictional and start with zero responses. There has been no accessibility certification or human testing. Server-side storage is for practice records only; a retention, moderation, and participant-feedback agreement is needed before real collection.</p>
-      <div class="actions"><button id="export-data" data-export="json" type="button" disabled>Download JSON</button><button data-export="contributions" type="button" disabled>Contributions CSV</button><button data-export="answers" type="button" disabled>Responses CSV</button></div><p class="note">Available in review. Only current-version answers are exported. Codes, identity hashes, response comments, and historical answers are omitted.</p>
+      <div class="actions"><button id="export-data" data-export="json" type="button" disabled>Download JSON</button><button data-export="geojson" type="button" disabled>Contributions GeoJSON</button><button data-export="contributions" type="button" disabled>Contributions CSV</button><button data-export="answers" type="button" disabled>Responses CSV</button></div><p class="note">Available in review. Exports include all available sessions, regardless of view filters. GeoJSON includes described places with null geometry. Only current-version answers are exported in JSON/CSV. Codes, identity hashes, response comments, and historical answers are omitted.</p>
     </details>
   </footer>
 </body>

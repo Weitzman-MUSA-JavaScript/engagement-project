@@ -1,15 +1,19 @@
 import { formatSessionDate } from './session-date.js';
 import { GroupReview } from './group-review.js';
+import { containTabFocus, createConfirmationDialog } from './dialogs.js';
+import { createDraftStore } from './draft-store.js';
 import { KINDS, TOPICS, SESSIONS, responseQuestion, contributionPrompt, escapeText as esc } from './domain.js';
 import { GeographicMap } from './map.js';
 import { LatestRequest } from './requests.js';
-import { filterContributions, describeContributionView, initContributionFilters } from './contribution-view.js';
+import { filterContributions, describeContributionView, summarizeContributionView, initContributionFilters } from './contribution-view.js';
 import { createDataService } from './data-service.js';
 import { initPlaceSearch } from './place-search.js';
 import { COORDINATE_CRS, PHILADELPHIA_BOUNDS, isPhiladelphiaPoint } from './geography.js';
 
 const $ = (selector) => document.querySelector(selector);
 const panel = $('#task-panel');
+const confirmAction = createConfirmationDialog($('#confirm-dialog'));
+const pageTitle = document.title;
 const loadedSessionDate = formatSessionDate();
 $('#join-session option[value="practice-current"]').textContent = `Community safety practice session - ${loadedSessionDate}`;
 let token = '';
@@ -27,6 +31,7 @@ let activeMap = 'saved';
 let savedMapSelection = null;
 let draftMapId = null;
 const responseDrafts = new Map();
+const draftStore = createDraftStore(() => sessionStorage, () => draftStorageStatus(false));
 const detailLoadingMessage = 'Loading the selected account. Your unsaved input is kept.';
 const detailReads = new LatestRequest((pending) => {
   if (pending) { panel.setAttribute('aria-busy', 'true'); $('#status').textContent = detailLoadingMessage; } else if (!busy) panel.removeAttribute('aria-busy');
@@ -42,18 +47,28 @@ const focusPanel = () => $('#task-heading')?.focus();
 const errorSlot = (id) => `<span id="${id}-error" class="field-error"></span>`;
 
 const api = createDataService(() => ({ origin: location.origin, token, activeSession }));
-function remember() {
-  try { if (token) sessionStorage.setItem('community-safety-demo-participant', JSON.stringify({ token, activeSession })); else sessionStorage.removeItem('community-safety-demo-participant'); } catch { announce('This tab cannot remember your return code. Copy it if you want to resume later.'); }
+function draftStorageStatus(available) {
+  const message = available
+    ? 'Unsaved writing is kept in this browser tab for recovery after a refresh. Use Finish on this device to clear it before sharing the device.'
+    : 'This browser cannot keep a recovery copy. Keep this page open and copy unsaved writing before leaving.';
+  if ($('#draft-storage-status').textContent !== message) $('#draft-storage-status').textContent = message;
 }
+function remember() {
+  const saved = draftStore.save({ token, activeSession, draft, responseDrafts: [...responseDrafts], mode, detailId: detail?.contribution.id });
+  draftStorageStatus(saved);
+  return saved;
+}
+function keepDraft() { draft.dirty = true; remember(); }
 function showError(error, fallbackField) {
+  document.title = `Error: ${pageTitle}`;
   const target = $('#form-errors');
-  if (!target) { $('#entry-error').textContent = error.message; announce(error.message); return; }
+  if (!target) { $('#entry-error').textContent = `Error: ${error.message}`; return; }
   const errors = error.errors || { [fallbackField || 'task-heading']: error.message || 'Could not connect. Your input has been kept. Please try again.' };
   target.innerHTML = `<div class="error-summary" tabindex="-1" role="group" aria-labelledby="error-heading"><h3 id="error-heading">Check before continuing</h3><ul>${Object.entries(errors).map(([key, value]) => `<li><a href="#${esc(key)}" data-error-target="${esc(key)}">${esc(value)}</a></li>`).join('')}</ul></div>`;
   for (const [key, value] of Object.entries(errors)) {
     const input = document.getElementById(key);
     const output = document.getElementById(`${key}-error`);
-    if (output) { output.textContent = value; const descriptions = new Set((input?.getAttribute('aria-describedby') || '').split(' ').filter(Boolean)); descriptions.add(`${key}-error`); input?.setAttribute('aria-describedby', [...descriptions].join(' ')); }
+    if (output) { output.textContent = `Error: ${value}`; const descriptions = new Set((input?.getAttribute('aria-describedby') || '').split(' ').filter(Boolean)); descriptions.add(`${key}-error`); input?.setAttribute('aria-describedby', [...descriptions].join(' ')); }
     input?.setAttribute('aria-invalid', 'true');
   }
   target.querySelector('.error-summary').focus();
@@ -66,6 +81,8 @@ function showError(error, fallbackField) {
   }
 }
 function clearErrors() {
+  document.title = pageTitle;
+  $('#entry-error').textContent = '';
   if ($('#form-errors')) $('#form-errors').innerHTML = '';
   panel.querySelectorAll('.field-error').forEach((e) => { e.textContent = ''; });
   panel.querySelectorAll('[aria-invalid]').forEach((e) => {
@@ -83,7 +100,8 @@ async function perform(button, action, onError = showError) {
   busy = true;
   const text = button?.textContent;
   // Lock the complete task snapshot, including filters, Discard, and map controls.
-  const controls = [...document.querySelectorAll('button, input, select, textarea')].map((element) => [element, element.disabled]);
+  const controls = [...document.querySelectorAll(':is(#session-bar, #main, #entry, footer) :is(button, input, select, textarea)')]
+    .map((element) => [element, element.disabled]);
   for (const [element] of controls) element.disabled = true;
   panel.setAttribute('aria-busy', 'true');
   if (button) button.textContent = 'Please wait…';
@@ -94,6 +112,7 @@ async function perform(button, action, onError = showError) {
     // Context may have changed while rendering the successful result.
     setExportAvailability(!token || state.phase !== 'review');
     if (button?.isConnected) button.textContent = text;
+    if (token && !$('#main').hidden) remember();
   }
 }
 
@@ -109,7 +128,7 @@ const draftMap = new GeographicMap($('#draft-map-container'), () => {}, (coordin
   if (mode !== 'form' || busy) return;
   if (!isPhiladelphiaPoint(coordinates)) { showError(new Error('Choose a point within Philadelphia city limits, or describe the place without a point.'), 'location'); return; }
   const firstPoint = !draft.geometry;
-  captureDraft(); draft.geometry = { type: 'Point', coordinates }; draft.locationSource = 'map'; draft.precision = 'point'; draft.dirty = true;
+  captureDraft(); draft.geometry = { type: 'Point', coordinates }; draft.locationSource = 'map'; draft.precision = 'point'; keepDraft();
   $('#approximate').checked = false;
   updateLocation(); focusDraftPoint({ neighborhood: firstPoint }); $('#placeLabel').focus(); announce('Draft point selected. Check or enter its place name before saving.');
 }, { label: 'Your contribution location map' });
@@ -135,6 +154,24 @@ function drawMap() {
   $('#filters').hidden = editing;
   $('#view-summary').hidden = editing;
   $('#view-summary').textContent = describeContributionView(pins, state.contributions.length);
+  const overview = $('#session-overview');
+  overview.hidden = editing || state.phase !== 'review';
+  if (overview.hidden) {
+    overview.open = false;
+    $('#overview-content').replaceChildren();
+  } else renderOverview(pins);
+}
+function renderOverview(pins) {
+  const summary = summarizeContributionView(pins);
+  const rows = (values, labels) => Object.entries(values).map(([key, count]) => `<div class="summary-row"><dt>${esc(labels[key])}</dt><dd>${count}</dd></div>`).join('');
+  $('#overview-content').innerHTML = `
+    <h2>Overview of filtered contributions</h2>
+    <p><strong>${summary.total}</strong> ${summary.total === 1 ? 'contribution matches' : 'contributions match'} the current filters: ${summary.examples} fictional ${summary.examples === 1 ? 'example' : 'examples'} and ${summary.total - summary.examples} practice ${summary.total - summary.examples === 1 ? 'contribution' : 'contributions'}.</p>
+    <p class="note">These are counts of accounts, not people, safety ratings, or representative community findings. Saved response totals stay hidden until deliberately opened on an individual account.</p>
+    <h3>Contribution types</h3><dl>${rows(summary.kinds, KINDS)}</dl>
+    <h3>Topics</h3><dl>${rows(summary.topics, TOPICS)}</dl>
+    <p>${summary.mapped} with a map point; ${summary.described} described without a point.</p>
+    <p class="note">Time/context notes supplied: ${summary.withContext} of ${summary.total}. Free-text notes are not classified into inferred time-of-day groups.</p>`;
 }
 function focusDraftPoint({ neighborhood = true } = {}) {
   activeMap = 'draft';
@@ -160,13 +197,26 @@ async function loadState() {
 }
 async function enterSession({ fresh = false } = {}) {
   if (!await loadState()) return;
+  const recovery = fresh ? null : draftStore.recover(token, activeSession);
+  draft = recovery?.draft || null;
+  responseDrafts.clear();
+  for (const [key, value] of recovery?.responseDrafts || []) responseDrafts.set(key, value);
   $('#entry').hidden = true; $('#session-bar').hidden = false; $('#main').hidden = false; $('#entry-error').textContent = '';
-  remember();
-  if (fresh) openForm(); else renderList();
+  if (fresh || draft) openForm(); else renderList();
   focusPanel();
-  announce(fresh ? 'Practice started. Your input is independent until you choose Review earlier input.' : 'Practice resumed. Your saved accounts and current phase are restored.');
+  if (!draft && recovery?.mode === 'detail' && recovery.detailId && [...responseDrafts.keys()].some((key) => key.startsWith(`${recovery.detailId}:`))) await openDetail(recovery.detailId);
+  remember();
+  announce(draft?.dirty || responseDrafts.size ? 'Your unsaved writing was recovered in this tab. Check it before saving; nothing was submitted automatically.' : fresh ? 'Practice started. Your input is independent until you choose Review earlier input.' : 'Practice resumed. Your saved accounts and current phase are restored.');
+  if (draft?.expectedVersion) {
+    const current = state.contributions.find((pin) => pin.id === draft.id && pin.mine);
+    if (!current || current.version !== draft.expectedVersion) {
+      const error = new Error('The saved account changed or was withdrawn. Your recovered writing is kept. Compare with the latest version before saving.');
+      error.status = 409; showError(error);
+    }
+  }
 }
 function renderList() {
+  clearErrors();
   detailReads.cancel();
   placeSearch?.destroy(); placeSearch = null;
   mode = 'list'; detail = null;
@@ -174,10 +224,22 @@ function renderList() {
   panel.innerHTML = `<div class="heading-row"><h2 id="task-heading" tabindex="-1">Contributions (${pins.length})</h2><button id="add-place" type="button" class="primary">Add a place</button></div><div id="form-errors"></div>
     ${state.phase !== 'review' ? '<p class="notice">You are contributing independently. Only your current-session practice input is shown. Choose Review earlier input when ready; you can also review without adding a place.</p>' : '<p class="note">Review accounts from earlier or current sessions. A different experience is welcome. Recorded answers remain hidden until you choose to see them.</p>'}
     <div class="list-toolbar"><label for="list-layout">View <select id="list-layout"><option value="list" ${listLayout === 'list' ? 'selected' : ''}>List</option><option value="table" ${listLayout === 'table' ? 'selected' : ''}>Table</option></select></label><button type="button" data-export="contributions" ${state.phase !== 'review' ? 'disabled' : ''}>Export all CSV</button></div>
+    ${draft?.dirty ? '<div class="notice"><p>You have an unsaved contribution draft in this tab.</p><button id="resume-draft" type="button">Continue your draft</button></div>' : ''}
+    ${renderResponseRecovery()}
     ${pins.length ? renderContributions(pins) : '<p>No contributions match this view. Clear filters, add a place, or enter review.</p>'}`;
   $('#list-layout').addEventListener('change', (event) => { listLayout = event.target.value; renderList(); $('#list-layout').focus(); });
   $('#add-place').addEventListener('click', () => { if (!busy) { openForm(); focusPanel(); } });
+  $('#resume-draft')?.addEventListener('click', () => { if (!busy) { openForm(); focusPanel(); } });
   drawMap();
+  remember();
+}
+function renderResponseRecovery() {
+  if (!responseDrafts.size) return '';
+  return `<details><summary>Unsaved response drafts (${responseDrafts.size})</summary>${[...responseDrafts].map(([key, value]) => {
+    const id = key.slice(0, key.lastIndexOf(':'));
+    const pin = state.contributions.find((p) => p.id === id);
+    return `<article><h3>${esc(pin?.placeLabel || 'Unavailable account')}</h3>${unsavedAnswer(value)}${pin ? `<button type="button" data-open="${esc(id)}">Open current account</button>` : '<p class="note">This account is unavailable. You can copy your unsaved writing before discarding it.</p>'}<button type="button" data-discard-response="${esc(key)}">Discard this unsaved response</button></article>`;
+  }).join('')}</details>`;
 }
 function renderContributions(pins) {
   const placeButton = (p) => `<button class="place-link" type="button" data-open="${esc(p.id)}">${esc(p.placeLabel)}</button>`;
@@ -187,6 +249,7 @@ function renderContributions(pins) {
 }
 function freshDraft() { return { id: crypto.randomUUID(), kind: '', topic: '', placeLabel: '', description: '', context: '', geometry: null, locationSource: 'description', precision: 'approximate', dirty: false }; }
 function openForm(pin) {
+  clearErrors();
   detailReads.cancel();
   placeSearch?.destroy(); placeSearch = null;
   mode = 'form'; detail = null;
@@ -208,22 +271,34 @@ function openForm(pin) {
     </form>`;
   updateLocation(); updateFormFeedback(); drawMap();
   if (draft.geometry) focusDraftPoint();
-  $('#contribution-form').addEventListener('input', () => { captureDraft(); draft.dirty = true; updateFormFeedback(); });
-  $('#contribution-form').addEventListener('change', (event) => { captureDraft(); draft.dirty = true; updateFormFeedback(); if (event.target.id === 'approximate') updateLocation(); });
-  $('#describe-location').addEventListener('click', () => { captureDraft(); draft.geometry = null; draft.locationSource = 'description'; draft.dirty = true; activeMap = 'draft'; updateLocation(); drawMap(); $('#placeLabel').focus(); announce('A place description will be saved without a confirmed map point.'); });
+  $('#contribution-form').addEventListener('input', () => { captureDraft(); keepDraft(); updateFormFeedback(); });
+  $('#contribution-form').addEventListener('change', (event) => { captureDraft(); keepDraft(); updateFormFeedback(); if (event.target.id === 'approximate') updateLocation(); });
+  $('#describe-location').addEventListener('click', () => { captureDraft(); draft.geometry = null; draft.locationSource = 'description'; keepDraft(); activeMap = 'draft'; updateLocation(); drawMap(); $('#placeLabel').focus(); announce('A place description will be saved without a confirmed map point.'); });
   $('#use-coordinates').addEventListener('click', () => {
     const lat = Number($('#latitude').value), lon = Number($('#longitude').value);
     if (!$('#latitude').value || !$('#longitude').value || !isPhiladelphiaPoint([lon, lat])) { showError(new Error('Choose coordinates inside Philadelphia city limits. Your current point is unchanged.'), 'location'); return; }
-    captureDraft(); draft.geometry = { type: 'Point', coordinates: [lon, lat] }; draft.locationSource = 'coordinates'; draft.dirty = true; updateLocation(); focusDraftPoint(); announce('Coordinate point selected. Check its place name before saving.');
+    captureDraft(); draft.geometry = { type: 'Point', coordinates: [lon, lat] }; draft.locationSource = 'coordinates'; keepDraft(); updateLocation(); focusDraftPoint(); announce('Coordinate point selected. Check its place name before saving.');
   });
-  $('#cancel-draft').addEventListener('click', () => { if (busy || (draft.dirty && !confirm('Discard this unsaved draft?'))) return; draft = null; renderList(); focusPanel(); });
+  $('#cancel-draft').addEventListener('click', async () => {
+    if (busy) return;
+    detailReads.cancel(); stateReads.cancel(); placeSearch?.cancel();
+    const current = draft;
+    if (draft.dirty && !await confirmAction({
+      title: 'Discard this unsaved draft?',
+      description: 'Your unsaved changes will be discarded. Any previously saved contribution will stay unchanged.',
+      confirmLabel: 'Discard draft',
+      cancelLabel: 'Keep editing',
+    })) return;
+    if (busy || draft !== current || mode !== 'form') return;
+    draft = null; renderList(); focusPanel();
+  });
   placeSearch = initPlaceSearch($('#search-form'), {
     lookup: (query, signal) => api('locations/search', { method: 'POST', body: { query }, signal, readOnly: true }),
     canSelect: () => !busy && mode === 'form',
     onSelect: (result) => {
       if (!isPhiladelphiaPoint(result.coordinates) || result.crs !== COORDINATE_CRS) { announce('The search result has invalid coordinates. Your draft is unchanged.'); return; }
       captureDraft(); draft.geometry = { type: 'Point', coordinates: result.coordinates }; draft.placeLabel = result.label;
-      draft.locationSource = result.locationSource; draft.precision = 'approximate'; draft.dirty = true;
+      draft.locationSource = result.locationSource; draft.precision = 'approximate'; keepDraft();
       $('#placeLabel').value = draft.placeLabel; $('#approximate').checked = true;
       updateLocation(); focusDraftPoint(); $('#placeLabel').focus();
       announce('Search result selected. Check the approximate point and place name before saving.');
@@ -240,9 +315,25 @@ function openForm(pin) {
       state.contributions = exists ? state.contributions.map((value) => value.id === pin.id ? pin : value) : [...state.contributions, pin];
       draft = null; resetFilters();
       selectDetail({ contribution: pin, response: null, question: responseQuestion(pin.kind), canRespond: false });
+      showSaveReceipt(pin);
       announce('Saved to the current practice session. View filters were cleared so it stays visible.');
     });
   });
+  remember();
+}
+function showSaveReceipt(pin) {
+  const receipt = document.createElement('section');
+  receipt.className = 'notice';
+  receipt.setAttribute('aria-labelledby', 'receipt-heading');
+  receipt.innerHTML = `<h3 id="receipt-heading" tabindex="-1">Practice contribution saved</h3>
+    <p>Your contribution is saved to shared demo storage. Reference: <span class="receipt-reference">${esc(pin.id)}</span> · Version ${pin.version}.</p>
+    <p class="note">Current phase: ${state.phase === 'review' ? 'Review earlier contributions' : 'Independent contribution'}. Use Your return code above to keep access to edit or withdraw this account on another device.</p>
+    <p>No organization is assigned to act on this practice account. You can edit it below, add another place, or review earlier input when ready.</p>
+    <div class="actions"><button id="receipt-add-place" type="button">Add another place</button>${state.phase !== 'review' ? '<button id="receipt-review" type="button">Review earlier input</button>' : ''}</div>`;
+  panel.querySelector('.heading-row').after(receipt);
+  $('#receipt-add-place').addEventListener('click', () => { if (!busy) { openForm(); focusPanel(); } });
+  $('#receipt-review')?.addEventListener('click', () => { if (!busy) $('#review-phase').click(); });
+  $('#receipt-heading').focus();
 }
 function captureDraft() {
   if (mode !== 'form' || !draft || !$('#contribution-form')) return;
@@ -280,13 +371,13 @@ async function recoverEdit(button) {
     try { latest = (await api(`contributions/${draft.id}`)).contribution; } catch (error) {
       if (error.status !== 404) throw error;
       recovery.innerHTML = '<div class="notice"><h3 tabindex="-1">The saved account was withdrawn</h3><p>Your unsaved text is still in the form. You can discard it or keep it as a new draft; it will not be saved automatically.</p><button type="button" id="keep-as-new">Keep text as a new draft</button></div>';
-      $('#keep-as-new').addEventListener('click', () => { captureDraft(); draft.id = crypto.randomUUID(); delete draft.expectedVersion; draft.dirty = true; openForm(); focusPanel(); announce('Text kept as a new unsaved draft. Check it before saving.'); });
+      $('#keep-as-new').addEventListener('click', () => { captureDraft(); draft.id = crypto.randomUUID(); delete draft.expectedVersion; keepDraft(); openForm(); focusPanel(); announce('Text kept as a new unsaved draft. Check it before saving.'); });
       recovery.querySelector('h3').focus();
       return;
     }
     recovery.innerHTML = `<div class="notice"><h3 tabindex="-1">Latest saved version: ${latest.version}</h3><p>${esc(latest.placeLabel)} · ${KINDS[latest.kind]}</p><p>${esc(latest.description)}</p><p>When: ${esc(latest.context || 'Not specified')}</p>${locationSummary(latest)}<p>Your own unsaved fields are unchanged below. Check both accounts before keeping your changes.</p><button id="use-latest-baseline" type="button">Keep my draft and use version ${latest.version} as its baseline</button></div>`;
     $('#use-latest-baseline').addEventListener('click', () => {
-      captureDraft(); draft.expectedVersion = latest.version; draft.dirty = true; clearErrors();
+      captureDraft(); draft.expectedVersion = latest.version; keepDraft(); clearErrors();
       recovery.textContent = `Your draft is kept. The next save will be checked against version ${latest.version}; no changes have been saved yet.`;
       $('#description').focus();
     });
@@ -311,6 +402,7 @@ function selectDetail(result, { focus = true } = {}) {
   if (focus) focusPanel(); else $('#save-response')?.focus();
 }
 function renderDetail() {
+  clearErrors();
   const p = detail.contribution;
   const key = `${p.id}:${p.version}`;
   const response = responseDrafts.get(key) || detail.response || {};
@@ -319,8 +411,16 @@ function renderDetail() {
     ${p.mine ? '<div class="actions"><button id="edit-place" type="button">Edit your contribution</button><button id="withdraw-place" type="button" class="danger">Withdraw your contribution</button></div><p class="note">You cannot respond to your own account. Enter review to compare other accounts.</p>' : `<form id="response-form" novalidate><fieldset id="answer"><legend>${esc(q.text)}</legend><p class="note">Responding is optional. A different experience does not dismiss this account. Responding in: ${esc(sessionName(activeSession))}.</p>${Object.entries(q.options).map(([value, label]) => `<label class="choice"><input type="radio" name="answer" value="${value}" ${response.answer === value ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}${errorSlot('answer')}</fieldset><label for="note">Add context or explain a different experience (optional)</label><textarea id="note" maxlength="400" aria-describedby="note-help">${esc(response.note || '')}</textarea><p class="note" id="note-help">Up to 400 characters. Your comment and answer can be read by other users of this private demo. Leave out identifying details. Response comments are omitted from the download.</p>${errorSlot('note')}<button type="submit" id="save-response" class="primary">${detail.response ? 'Update' : 'Save'} practice response</button>${detail.response ? '<button type="button" id="remove-response">Remove my saved response</button>' : ''}<p class="note">One editable answer per practice identity, contribution version, and responding session. This does not verify a unique person.</p></form>`}
     <div class="actions"><button type="button" id="show-summary">Show recorded answers</button></div><div id="summary"></div>`;
   $('#discard-earlier-answer')?.addEventListener('click', () => { responseDrafts.delete(detail.olderKey); [detail.olderKey, detail.olderDraft] = earlierResponseDraft(p.id, p.version); renderDetail(); focusPanel(); });
-  $('#remove-response')?.addEventListener('click', () => {
-    if (busy || !confirm('Remove your saved answer and comment for this version? Any recorded totals-opening time remains.')) return;
+  $('#remove-response')?.addEventListener('click', async () => {
+    if (busy) return;
+    detailReads.cancel(); stateReads.cancel();
+    if (!await confirmAction({
+      title: 'Remove your saved response?',
+      description: 'Your saved answer and comment for this version will be removed. Any recorded totals-opening time will remain.',
+      confirmLabel: 'Remove saved response',
+      cancelLabel: 'Keep response',
+    })) return;
+    if (busy || detail?.contribution !== p) return;
     perform($('#remove-response'), async () => {
       await api(`contributions/${p.id}/response`, { method: 'DELETE', body: { version: p.version } });
       responseDrafts.delete(key); detail.response = null; renderDetail(); focusPanel(); announce('Your saved answer and comment were removed. You can leave this account unanswered.');
@@ -328,20 +428,29 @@ function renderDetail() {
   });
   $('#back-list').addEventListener('click', () => { if (!busy) { renderList(); focusPanel(); } });
   $('#edit-place')?.addEventListener('click', () => { if (!busy) { openForm(p); focusPanel(); } });
-  $('#withdraw-place')?.addEventListener('click', () => {
-    if (!confirm('Withdraw this practice contribution and remove its response records?')) return;
+  $('#withdraw-place')?.addEventListener('click', async () => {
+    if (busy) return;
+    detailReads.cancel(); stateReads.cancel();
+    if (!await confirmAction({
+      title: 'Withdraw your contribution?',
+      description: 'This practice contribution’s description and all its response records will be removed from the shared demo.',
+      confirmLabel: 'Withdraw contribution',
+      cancelLabel: 'Keep contribution',
+    })) return;
+    if (busy || detail?.contribution !== p) return;
     perform($('#withdraw-place'), async () => { await api(`contributions/${p.id}`, { method: 'DELETE' }); await loadState(); renderList(); focusPanel(); announce('Contribution withdrawn. Its description and responses are no longer available in the shared demo.'); });
   });
   $('#show-summary').addEventListener('click', () => perform($('#show-summary'), showSummary));
-  $('#response-form')?.addEventListener('input', () => { const answer = new FormData($('#response-form')).get('answer'); responseDrafts.set(key, { answer, note: $('#note').value, question: q.text, choiceLabel: q.options[answer] }); });
+  $('#response-form')?.addEventListener('input', () => { const answer = new FormData($('#response-form')).get('answer'); responseDrafts.set(key, { answer, note: $('#note').value, question: q.text, choiceLabel: q.options[answer] }); remember(); });
   $('#response-form')?.addEventListener('submit', (event) => {
     event.preventDefault(); const answer = new FormData(event.currentTarget).get('answer'); const note = $('#note').value;
-    responseDrafts.set(key, { answer, note, question: q.text, choiceLabel: q.options[answer] });
+    responseDrafts.set(key, { answer, note, question: q.text, choiceLabel: q.options[answer] }); remember();
     perform($('#save-response'), async () => {
       await api(`contributions/${p.id}/response`, { method: 'PUT', body: { version: p.version, answer, note } });
       responseDrafts.delete(key); detail.response = { answer, note }; renderDetail(); $('#save-response').focus(); announce('Practice response saved. You can change it; changing it replaces this identity’s earlier answer for this version and session.');
     });
   });
+  remember();
 }
 async function showSummary() {
   const result = await api(`contributions/${detail.contribution.id}/summary`, { method: 'POST', body: { version: detail.contribution.version } });
@@ -364,7 +473,11 @@ $('#start-group-review').addEventListener('click', async () => {
   captureDraft();
   let ready = false;
   await perform($('#start-group-review'), async () => {
-    if (state.phase !== 'review') { await api('phase', { method: 'POST', body: { phase: 'review' } }); await loadState(); }
+    if (state.phase !== 'review') {
+      await api('phase', { method: 'POST', body: { phase: 'review' } });
+      await loadState();
+      if (mode === 'list') renderList();
+    }
     ready = true;
   });
   if (ready) groupReview.open(visiblePins(), detail?.contribution.id, $('#start-group-review'));
@@ -385,7 +498,7 @@ $('#refresh-records').addEventListener('click', () => perform($('#refresh-record
       if (unsaved) {
         const recovery = document.createElement('div'); recovery.className = 'notice';
         recovery.innerHTML = `<p>The selected account was withdrawn or is unavailable. Your unsaved answer was not sent. Copy any useful text before discarding it.</p>${unsavedAnswer(unsaved)}<button type="button">Discard this unsaved answer</button>`;
-        recovery.querySelector('button').addEventListener('click', () => { responseDrafts.delete(key); recovery.remove(); focusPanel(); }); panel.append(recovery);
+        recovery.querySelector('button').addEventListener('click', () => { responseDrafts.delete(key); recovery.remove(); remember(); focusPanel(); }); panel.append(recovery);
       }
       announce('The selected account was withdrawn or is unavailable. Its saved narrative is no longer shown.');
     }
@@ -404,18 +517,13 @@ $('#finish-participant').addEventListener('click', () => {
   $('#finish-dialog').showModal();
 });
 $('#finish-cancel').addEventListener('click', () => $('#finish-dialog').close());
-$('#finish-dialog').addEventListener('keydown', (event) => {
-  if (event.key !== 'Tab') return;
-  const controls = [...event.currentTarget.querySelectorAll('button, summary, input, select, textarea, a[href], [tabindex="0"]')].filter((control) => !control.disabled && control.getClientRects().length);
-  const first = controls[0], last = controls.at(-1);
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault(); last?.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault(); first?.focus();
-  }
-});
+containTabFocus($('#finish-dialog'));
 $('#finish-dialog').addEventListener('close', () => { $('#finish-code').textContent = ''; $('#finish-dialog details').open = false; });
 $('#finish-confirm').addEventListener('click', () => {
+  if (!draftStore.save({ token: '' })) {
+    $('#finish-copy-status').textContent = 'This browser could not clear its recovery copy. Keep this tab private and close it before sharing the device.';
+    return;
+  }
   detailReads.cancel(); stateReads.cancel(); placeSearch?.destroy(); placeSearch = null;
   $('#finish-dialog').close();
   token = ''; draft = null; detail = null; mode = 'list'; responseDrafts.clear(); listLayout = 'list'; state = { phase: 'contribute', contributions: [] }; remember(); resetFilters();
@@ -442,6 +550,12 @@ const filterControls = initContributionFilters($('#filters'), (event) => {
 $('#view-topic').insertAdjacentHTML('beforeend', Object.entries(TOPICS).map(([key, label]) => `<option value="${key}">${esc(label)}</option>`).join(''));
 $('#view-kind').insertAdjacentHTML('beforeend', Object.entries(KINDS).map(([key, label]) => `<option value="${key}">${esc(label)}</option>`).join(''));
 panel.addEventListener('click', (event) => {
+  const discard = event.target.closest('[data-discard-response]');
+  if (discard && !busy) {
+    responseDrafts.delete(discard.dataset.discardResponse);
+    renderList(); focusPanel();
+    return;
+  }
   const target = event.target.closest('[data-error-target]');
   if (target) { event.preventDefault(); const input = document.getElementById(target.dataset.errorTarget); (input?.querySelector('button, input') || input)?.focus(); return; }
   const open = event.target.closest('[data-open]'); if (open && !busy) openDetail(open.dataset.open);
@@ -451,22 +565,25 @@ document.addEventListener('click', (event) => {
   const button = event.target.closest('[data-export]');
   if (!button || button.disabled) return;
   perform(button, async () => {
-    const dataset = button.dataset.export, isJson = dataset === 'json';
-    const output = await api(isJson ? 'export' : `export?format=csv&dataset=${dataset}`, { responseType: isJson ? 'json' : 'text' });
-    const blob = new Blob([isJson ? JSON.stringify(output, null, 2) : (output.startsWith('\uFEFF') ? output : '\uFEFF' + output)], { type: isJson ? 'application/json' : 'text/csv;charset=utf-8' });
+    const dataset = button.dataset.export, isGeoJSON = dataset === 'geojson', isJson = dataset === 'json' || isGeoJSON;
+    const output = await api(isGeoJSON ? 'export?format=geojson' : isJson ? 'export' : `export?format=csv&dataset=${dataset}`, { responseType: isJson ? 'json' : 'text' });
+    const blob = new Blob([isJson ? JSON.stringify(output, null, 2) : (output.startsWith('\uFEFF') ? output : '\uFEFF' + output)], { type: isGeoJSON ? 'application/geo+json' : isJson ? 'application/json' : 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob), link = document.createElement('a');
-    link.href = url; link.download = isJson ? 'community-safety-practice-data.json' : `community-safety-${dataset}.csv`; link.click();
+    link.href = url; link.download = isGeoJSON ? 'community-safety-contributions.geojson' : isJson ? 'community-safety-practice-data.json' : `community-safety-${dataset}.csv`; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     announce('Practice data downloaded. Exports include all available sessions, regardless of view filters.');
   });
 });
-window.addEventListener('beforeunload', (event) => { if (draft?.dirty || responseDrafts.size) { event.preventDefault(); event.returnValue = ''; } });
-let savedParticipant;
-try { savedParticipant = JSON.parse(sessionStorage.getItem('community-safety-demo-participant')); } catch { savedParticipant = null; }
+window.addEventListener('beforeunload', (event) => {
+  if (token && !$('#main').hidden) { captureDraft(); remember(); }
+  if (draft?.dirty || responseDrafts.size) { event.preventDefault(); event.returnValue = ''; }
+});
+const savedParticipant = draftStore.read();
 if (savedParticipant?.token) {
   token = savedParticipant.token; activeSession = savedParticipant.activeSession || 'practice-current';
   await perform(null, () => enterSession(), () => {
     $('#resume-code').value = token; token = '';
-    $('#entry-error').textContent = 'The previous practice session could not be restored. Its code has been kept in this tab; retry Resume when the connection is available, or explicitly start a new participant.';
+    document.title = `Error: ${pageTitle}`;
+    $('#entry-error').textContent = 'Error: The previous practice session could not be restored. Its code and recovery copy have been kept in this tab; retry Resume when the connection is available, or explicitly start a new participant.';
   });
 }
