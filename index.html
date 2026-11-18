@@ -23,9 +23,10 @@
     <p>This is a practice site. Use made-up examples and leave out names or personal details. Select the heading above to hide or show these steps.</p>
     <ol>
       <li><strong>Get started.</strong> Select <strong>Start practice</strong> below. At first, you will see only your own contributions.</li>
-      <li><strong>Add a place (optional).</strong> Fill in the <strong>Add a place</strong> form: describe where it is, choose a contribution type, and write a short description. A “Community asset” is a place that helps people feel safe or connected. You can describe a place without using the map.</li>
+      <li><strong>Add a place.</strong> Fill in the <strong>Add a place</strong> form: describe where it is, choose a contribution type, and write a short description. A “Community asset” is a place that helps people feel safe or connected.</li>
+      <li><strong>Locate your place.</strong> We recommend adding a point on the map so others can find it. Search for the place or select it on the map, then check the point. A map point is not required: a clear written location is enough.</li>
       <li><strong>Save your input.</strong> Select <strong>Save practice contribution</strong>. Wait for the “Practice contribution saved” message before moving on.</li>
-      <li><strong>Explore other input.</strong> Select <strong>Review earlier input</strong> when you are ready. You can do this without adding a place. Select a place name in the list to read more.</li>
+      <li><strong>Explore other input.</strong> Select <strong>Review earlier input</strong> when you are ready. Select a place name in the list to read more.</li>
       <li><strong>Respond if you wish.</strong> Choose an answer on someone else’s contribution, then select <strong>Save practice response</strong>. Use <strong>Check for new input</strong> to see updates from other participants.</li>
       <li><strong>Keep your code, then finish.</strong> To return later, open <strong>Your return code</strong> and select <strong>Copy return code</strong>. Keep it somewhere private. When done, select <strong>Finish on this device</strong>, then <strong>Finish and clear this tab</strong>. Your saved contributions stay shared.</li>
     </ol>
@@ -33,7 +34,7 @@
   </details>
   <section id="entry" aria-labelledby="entry-title">
     <h2 id="entry-title" tabindex="-1">Start a practice session</h2>
-    <p>Describe an unsafe crossing, poor lighting, a supportive gathering place, or a safety improvement. You can also review earlier examples.</p>
+    <p>Start by adding a Philadelphia place and describing a safety concern, a helpful community place, or an improvement idea. Then review and respond to earlier input.</p>
     <p class="note">Demo input is saved to shared storage and visible to users of this demo. Do not enter sensitive or identifying information. No organization has agreed to act on these accounts.</p>
     <form id="join-form">
       <label for="join-session">Session</label><select id="join-session"><option value="practice-current">Community safety practice session</option></select>
@@ -93,18 +94,13 @@
         <div id="map-view-switch" class="actions map-view-switch" role="group" aria-label="Map view" hidden><button type="button" data-map-view-choice="saved" aria-controls="saved-map-view" aria-pressed="false">Contributed places</button><button type="button" data-map-view-choice="draft" aria-controls="draft-map-view" aria-pressed="true">Your location</button></div>
         <div id="saved-map-view" data-map-view hidden>
           <p class="note" id="saved-map-help"></p>
-          <div class="actions map-views"><button type="button" data-map="city">Show Philadelphia</button></div>
           <div id="saved-map-container"></div>
-          <fieldset class="map-controls"><legend>Contributed places map controls</legend><button type="button" data-map="zoom-in" aria-label="Zoom in">+</button><button type="button" data-map="zoom-out" aria-label="Zoom out">−</button><button type="button" data-map="west">West</button><button type="button" data-map="north">North</button><button type="button" data-map="south">South</button><button type="button" data-map="east">East</button></fieldset>
           <div id="saved-map-preview" class="map-selection" hidden></div>
           <p class="note" data-map-position></p>
         </div>
         <div id="draft-map-view" data-map-view hidden>
           <p class="note" id="draft-map-help"></p>
-          <div class="actions map-views"><button type="button" id="return-draft-point" hidden>Return to your point</button><button type="button" data-map="city">Show Philadelphia</button></div>
           <div id="draft-map-container"></div>
-          <fieldset class="map-controls"><legend>Your location map controls</legend><button type="button" data-map="zoom-in" aria-label="Zoom in">+</button><button type="button" data-map="zoom-out" aria-label="Zoom out">−</button><button type="button" data-map="west">West</button><button type="button" data-map="north">North</button><button type="button" data-map="south">South</button><button type="button" data-map="east">East</button></fieldset>
-          <button id="use-map-center" type="button">Use the center of this map for the draft pin</button>
           <p class="note" data-map-position></p>
         </div>
       </section>
@@ -116,14 +112,14 @@
       <ul>
         <li>Use <strong>Tab</strong> and <strong>Shift + Tab</strong> to move between controls. Press <strong>Enter</strong> or <strong>Space</strong> to activate a button or open a collapsible section. Use arrow keys to move between radio-button answers.</li>
         <li>The <strong>Skip to the current task</strong> link appears when focused. It moves you past the introduction to the current form or contribution.</li>
-        <li>The map is optional. Every contribution is available in the list, and you can describe a location without placing a pin. Named map buttons are an alternative to dragging or using map shortcuts.</li>
+        <li>A map point is recommended when contributing, but a written location is enough. Every contribution is available in the list. Named map buttons are an alternative to dragging or using map shortcuts.</li>
         <li>Press <strong>Escape</strong> to close a dialog without confirming an action. Focus returns to the control that opened it.</li>
         <li>You can enlarge text with your browser’s zoom controls. The page supports your system’s reduced-motion and high-contrast preferences.</li>
       </ul>
     </details>
     <details><summary>About the demo, sources, and participation choices</summary>
       <p>This demonstration supports focused sessions and later review. The participant community, partner organization, real-world action, and final categories have not been validated with human participants.</p>
-      <p>Default protocol: contribute independently, then enter review session. You may skip contributing. Response totals are hidden until you choose to view them. A different experience is not a judgment that another account is false.</p>
+      <p>Begin by contributing a place from your own perspective, then enter review to explore other contributions. Response totals are hidden until you choose to view them. A different experience is not a judgment that another account is false.</p>
       <p>One saved answer for each practice identity, contribution version, and responding session; you can update or remove it.</p>
       <p>Authors can edit or withdraw their own demo contributions. Editing replaces the wording and creates a new version. Older answers are excluded from the current summary and export. Withdrawal clears the description and removes its answers and opening records.</p>
       <p>Address and intersection searches use the City of Philadelphia’s public geocoder; a small local index supplies landmark examples. Queries are sent only when Search is pressed. The contribution text and practice code are not sent to the City. Returned points are approximate and should be checked. Any place can be described without a point. The map supports point placement, keyboard controls, and coordinate entry.</p>

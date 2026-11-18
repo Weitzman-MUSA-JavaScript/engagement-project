@@ -6,11 +6,12 @@ import { MapPan } from './map-pan.js';
 import { MapViewport, INITIAL_BOUNDS, CITY_BOUNDS } from './geography.js';
 
 export class GeographicMap {
-  constructor(container, onSelect, onPlace, { label = 'Philadelphia safety map', flexible = false } = {}) {
+  constructor(container, onSelect, onPlace, { label = 'Philadelphia safety map', flexible = false, pointControls = false } = {}) {
     Object.assign(this, { container, onSelect, onPlace, flexible, basemap: 'street', view: new MapViewport(CITY_BOUNDS), cityBounds: CITY_BOUNDS, showingCity: true, pins: [], draft: null, selected: null, placing: false, groups: new Map(), expandedGroup: null });
     this.root = container.closest('[data-map-view]') || container;
     const helpId = `${container.id}-help`, selectionId = `${container.id}-selection`;
     container.innerHTML = `
+      <p id="${helpId}" class="note map-instructions">Explore with the map controls below, or drag to move the map. When the map has keyboard focus, arrow keys move it, +/− zoom, and Home shows Philadelphia. Points must stay inside the city boundary.<span data-map-coverage class="map-coverage"></span></p>
       <div class="map-stage" tabindex="0" role="region" aria-label="${esc(label)}" aria-describedby="${helpId}">
         <svg class="map-surface" viewBox="0 0 600 440" aria-hidden="true">
           <g class="basemap"></g>
@@ -20,11 +21,14 @@ export class GeographicMap {
         </svg>
         <div class="map-markers" role="group" aria-label="Mapped accounts"></div>
       </div>
-      <p id="${helpId}" class="note">Drag to pan. Arrow keys move; +/− zoom; Home shows Philadelphia. Points must stay inside the city boundary.</p>
+      <fieldset class="map-controls"><legend>Map controls</legend>
+        <div class="actions map-zoom-controls"><button type="button" data-map="zoom-in" aria-label="Zoom in">+ Zoom in</button><button type="button" data-map="zoom-out" aria-label="Zoom out">− Zoom out</button><button type="button" data-map="city">Show Philadelphia</button></div>
+        <div class="actions" role="group" aria-label="Move the map"><span>Move map:</span><button type="button" data-map="west">West</button><button type="button" data-map="north">North</button><button type="button" data-map="south">South</button><button type="button" data-map="east">East</button></div>
+        ${pointControls ? '<div class="actions" role="group" aria-label="Your contribution point"><button type="button" id="use-map-center">Use map center as my point</button><button type="button" id="return-draft-point" hidden>Return to your point</button></div>' : ''}
+      </fieldset>
       <p data-street-attribution class="map-attribution">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> | <a href="https://www.openstreetmap.org/fixthemap">Report a map issue</a></p>
       <p data-aerial-attribution class="map-attribution" hidden>Aerial imagery: PEMA 2021–2023 / <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PASDA</a></p>
       <p data-map-availability class="note" role="status">Street map loading. The form and list are available.</p>
-      <p data-map-coverage class="note"></p>
       <div id="${selectionId}" class="map-selection" data-map-selection hidden></div>`;
     this.svg = container.querySelector('svg');
     this.markers = container.querySelector('.map-markers');

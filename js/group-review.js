@@ -30,9 +30,6 @@ export class GroupReview {
               </select>
             </label>
             <button type="button" id="review-center">Center this place</button>
-            <button type="button" id="review-city">City overview</button>
-            <button type="button" data-map="zoom-in" aria-label="Zoom in">+</button>
-            <button type="button" data-map="zoom-out" aria-label="Zoom out">−</button>
           </div>
           <div id="review-map-container"></div>
           <p data-map-position class="note review-map-position"></p>
@@ -59,7 +56,7 @@ export class GroupReview {
     $('#review-jump').addEventListener('change', (event) => { this.sequence.select(event.target.value); this.render(); });
     $('#review-layer').addEventListener('change', (event) => this.map.setBasemap(event.target.value));
     $('#review-center').addEventListener('click', () => this.render());
-    $('#review-city').addEventListener('click', () => { this.map.set({ pins: this.sequence.records, selected: this.sequence.current?.id }); this.map.move('city'); });
+    this.map.container.querySelector('[data-map="city"]').addEventListener('click', () => this.map.set({ pins: this.sequence.records, selected: this.sequence.current?.id }));
     $('#review-exit').addEventListener('click', () => dialog.close());
     $('#review-fullscreen').hidden = !document.fullscreenEnabled;
     $('#review-fullscreen').addEventListener('click', async () => {
