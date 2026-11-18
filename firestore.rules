@@ -1,0 +1,94 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signed() { return request.auth != null; }
+    function participant() { return get(/databases/$(database)/documents/participants/$(request.auth.uid)).data; }
+    function reviewing() { return signed() && participant().phase == 'review'; }
+    function example(id) { return id in ['example-crossing', 'example-gathering', 'example-lighting', 'example-support']; }
+    function parent(id) { return get(/databases/$(database)/documents/contributions/$(id)).data; }
+    function active(id) { return example(id) || !parent(id).withdrawn; }
+    function version(id) { return example(id) ? 1 : parent(id).version; }
+    function kind(id) { return example(id) ? (id == 'example-support' ? 'idea' : (id == 'example-gathering' ? 'asset' : 'concern')) : parent(id).kind; }
+    function author(id) { return signed() && !example(id) && parent(id).ownerUid == request.auth.uid; }
+    function text(value, max) { return value is string && value.size() <= max; }
+    function validPoint(g) {
+      return g == null || (g is map && g.keys().hasOnly(['type', 'coordinates']) && g.type == 'Point' &&
+        g.coordinates is list && g.coordinates.size() == 2 && g.coordinates[0] is number && g.coordinates[1] is number &&
+        g.coordinates[0] >= -75.31 && g.coordinates[0] <= -74.95 && g.coordinates[1] >= 39.86 && g.coordinates[1] <= 40.15);
+    }
+    function contributionFields(d) {
+      return d.keys().hasAll(['kind', 'topic', 'placeLabel', 'description', 'context', 'precision', 'geometry', 'locationSource', 'locationStatus', 'demo', 'ownerUid', 'sessionId', 'version', 'createdAt', 'updatedAt', 'createdPhase', 'revisionPhase', 'reviewEnteredAt', 'withdrawn']) &&
+        d.keys().hasOnly(['kind', 'topic', 'placeLabel', 'description', 'context', 'precision', 'geometry', 'locationSource', 'locationStatus', 'demo', 'ownerUid', 'sessionId', 'version', 'createdAt', 'updatedAt', 'createdPhase', 'revisionPhase', 'reviewEnteredAt', 'withdrawn']);
+    }
+    function validContribution(d) {
+      return contributionFields(d) && d.kind in ['concern', 'asset', 'idea'] &&
+        d.topic in ['walking', 'lighting', 'gathering', 'public_space', 'violence', 'other'] &&
+        text(d.placeLabel, 140) && d.placeLabel.size() > 0 && text(d.description, 800) && d.description.size() > 0 && text(d.context, 120) &&
+        d.precision in ['point', 'approximate'] && validPoint(d.geometry) &&
+        (d.geometry == null ? d.locationStatus == 'unconfirmed' && d.locationSource == 'description' : d.locationStatus == 'placed' && d.locationSource in ['map', 'catalog', 'geocoder', 'coordinates']) &&
+        d.demo == true && d.sessionId == 'practice-current' && d.withdrawn == false && d.version is int && d.version > 0 &&
+        d.revisionPhase == participant().phase && d.reviewEnteredAt == participant().reviewEnteredAt && d.updatedAt == request.time;
+    }
+    match /participants/{uid} {
+      allow get: if signed() && uid == request.auth.uid;
+      allow create: if signed() && uid == request.auth.uid &&
+        request.resource.data.keys().hasAll(['sessionId', 'phase', 'reviewEnteredAt', 'createdAt']) &&
+        request.resource.data.keys().hasOnly(['sessionId', 'phase', 'reviewEnteredAt', 'createdAt']) &&
+        request.resource.data.sessionId == 'practice-current' && request.resource.data.phase == 'contribute' &&
+        request.resource.data.reviewEnteredAt == null && request.resource.data.createdAt == request.time;
+      allow update: if signed() && uid == request.auth.uid && resource.data.phase == 'contribute' &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['phase', 'reviewEnteredAt']) &&
+        request.resource.data.phase == 'review' && request.resource.data.reviewEnteredAt == request.time;
+    }
+    match /contributions/{id} {
+      allow get: if signed() && (!exists(/databases/$(database)/documents/contributions/$(id)) || resource.data.ownerUid == request.auth.uid || (!resource.data.withdrawn && reviewing()));
+      allow list: if signed() && (resource.data.ownerUid == request.auth.uid || (!resource.data.withdrawn && reviewing()));
+      allow create: if signed() && id.matches('^[a-f0-9-]{36}$') && validContribution(request.resource.data) &&
+        request.resource.data.ownerUid == request.auth.uid && request.resource.data.version == 1 &&
+        request.resource.data.createdAt == request.time && request.resource.data.createdPhase == participant().phase;
+      allow update: if signed() && resource.data.ownerUid == request.auth.uid && !resource.data.withdrawn &&
+        request.resource.data.ownerUid == resource.data.ownerUid && request.resource.data.sessionId == resource.data.sessionId &&
+        request.resource.data.createdAt == resource.data.createdAt && request.resource.data.createdPhase == resource.data.createdPhase &&
+        ((validContribution(request.resource.data) && request.resource.data.version == resource.data.version + 1) ||
+          (contributionFields(request.resource.data) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['withdrawn', 'placeLabel', 'description', 'context', 'geometry', 'locationSource', 'locationStatus', 'precision', 'updatedAt']) &&
+          request.resource.data.withdrawn == true && request.resource.data.description == '' && request.resource.data.placeLabel == '' && request.resource.data.context == '' &&
+          request.resource.data.geometry == null && request.resource.data.locationSource == 'description' && request.resource.data.locationStatus == 'unconfirmed' &&
+          request.resource.data.precision == 'approximate' && request.resource.data.updatedAt == request.time));
+
+      match /responses/{rid} {
+        function ownKey() { return signed() && rid.matches('^[1-9][0-9]*_' + request.auth.uid + '$'); }
+        function valid(d) {
+          return d.keys().hasAll(['ownerUid', 'sessionId', 'version', 'answer', 'note', 'questionId', 'sawTotals', 'totalsFirstOpenedAt', 'firstAnsweredAt', 'firstAnswerBeforeTotals', 'updatedAt']) &&
+            d.keys().hasOnly(['ownerUid', 'sessionId', 'version', 'answer', 'note', 'questionId', 'sawTotals', 'totalsFirstOpenedAt', 'firstAnsweredAt', 'firstAnswerBeforeTotals', 'updatedAt']) &&
+            d.ownerUid == request.auth.uid && d.sessionId == 'practice-current' && d.version == version(id) &&
+            rid == string(d.version) + '_' + request.auth.uid && d.answer in ['similar', 'different', 'unsure'] && text(d.note, 400) &&
+            d.questionId == (kind(id) == 'idea' ? 'support-v1' : 'experience-v1') && d.sawTotals is bool &&
+            (d.sawTotals ? d.totalsFirstOpenedAt == getAfter(/databases/$(database)/documents/contributions/$(id)/openings/$(rid)).data.totalsFirstOpenedAt :
+              d.totalsFirstOpenedAt == null && !existsAfter(/databases/$(database)/documents/contributions/$(id)/openings/$(rid)));
+        }
+        allow get: if signed() && ((active(id) && (ownKey() || reviewing())) || (author(id) && parent(id).withdrawn));
+        allow list: if signed() && ((active(id) && reviewing()) || (author(id) && parent(id).withdrawn));
+        allow create: if reviewing() && active(id) && !author(id) && valid(request.resource.data) &&
+          request.resource.data.firstAnsweredAt == request.time && request.resource.data.updatedAt == request.time &&
+          request.resource.data.firstAnswerBeforeTotals == !exists(/databases/$(database)/documents/contributions/$(id)/openings/$(rid));
+        allow update: if reviewing() && active(id) && !author(id) && resource.data.ownerUid == request.auth.uid && valid(request.resource.data) &&
+          request.resource.data.firstAnsweredAt == resource.data.firstAnsweredAt && request.resource.data.firstAnswerBeforeTotals == resource.data.firstAnswerBeforeTotals &&
+          (request.resource.data.updatedAt == request.time || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['sawTotals', 'totalsFirstOpenedAt']) && request.resource.data.updatedAt == resource.data.updatedAt));
+        allow delete: if signed() && ((active(id) && resource.data.ownerUid == request.auth.uid && resource.data.version == version(id)) || (author(id) && parent(id).withdrawn));
+      }
+      match /openings/{rid} {
+        allow get: if signed() && ((active(id) && rid.matches('^[1-9][0-9]*_' + request.auth.uid + '$')) || (author(id) && parent(id).withdrawn));
+        allow list, delete: if signed() && author(id) && parent(id).withdrawn;
+        allow create: if reviewing() && active(id) &&
+          request.resource.data.keys().hasAll(['ownerUid', 'sessionId', 'version', 'totalsFirstOpenedAt']) &&
+          request.resource.data.keys().hasOnly(['ownerUid', 'sessionId', 'version', 'totalsFirstOpenedAt']) &&
+          request.resource.data.ownerUid == request.auth.uid && request.resource.data.sessionId == 'practice-current' &&
+          request.resource.data.version == version(id) && rid == string(request.resource.data.version) + '_' + request.auth.uid &&
+          request.resource.data.totalsFirstOpenedAt == request.time &&
+          (!existsAfter(/databases/$(database)/documents/contributions/$(id)/responses/$(rid)) ||
+            (getAfter(/databases/$(database)/documents/contributions/$(id)/responses/$(rid)).data.sawTotals == true &&
+             getAfter(/databases/$(database)/documents/contributions/$(id)/responses/$(rid)).data.totalsFirstOpenedAt == request.time));
+      }
+    }
+  }
+}

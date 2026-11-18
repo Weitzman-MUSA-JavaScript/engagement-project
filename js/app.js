@@ -6,7 +6,7 @@ import { KINDS, TOPICS, SESSIONS, responseQuestion, contributionPrompt, escapeTe
 import { GeographicMap } from './map.js';
 import { LatestRequest } from './requests.js';
 import { filterContributions, describeContributionView, summarizeContributionView, initContributionFilters } from './contribution-view.js';
-import { createDataService } from './data-service.js';
+import { createAppDataService } from './app-data-service.js';
 import { initPlaceSearch } from './place-search.js';
 import { COORDINATE_CRS, PHILADELPHIA_BOUNDS, isPhiladelphiaPoint } from './geography.js';
 
@@ -46,7 +46,7 @@ const announce = (text) => { $('#status').textContent = text; };
 const focusPanel = () => $('#task-heading')?.focus();
 const errorSlot = (id) => `<span id="${id}-error" class="field-error"></span>`;
 
-const api = createDataService(() => ({ origin: location.origin, token, activeSession }));
+const api = createAppDataService(() => ({ origin: location.origin, token, activeSession }));
 function draftStorageStatus(available) {
   const message = available
     ? 'Unsaved writing is kept in this browser tab for recovery after a refresh. Use Finish on this device to clear it before sharing the device.'
@@ -267,7 +267,7 @@ function openForm(pin) {
       <label for="description" id="description-label">Describe one experience or idea (required)</label><p class="note" id="description-prompt"></p><p class="note" id="description-help">Up to 800 characters. Leave out personal names, private addresses, and identifying details.</p><textarea id="description" maxlength="800" required aria-describedby="description-prompt description-help description-count">${esc(draft.description)}</textarea><p class="note" id="description-count"></p>${errorSlot('description')}
       <label for="context">When does this matter? (optional)</label><input id="context" type="text" maxlength="120" value="${esc(draft.context)}"><p class="note">For example, after dark or on the way to school. This is separate from the submission date.</p>${errorSlot('context')}
       <label class="choice"><input id="approximate" type="checkbox" ${draft.precision === 'approximate' ? 'checked' : ''}><span>This is an approximate place, not an exact location.</span></label>
-      <p class="notice">Practice input is shared with users of this private demo. No real community collection or follow-up arrangement is in place.</p><div class="actions"><button type="submit" id="save-place" class="primary">${draft.expectedVersion ? 'Save new version' : 'Save practice contribution'}</button><button type="button" id="cancel-draft">Discard draft / back</button></div>
+      <p class="notice">Practice input is shared with users of this demo. No real community collection or follow-up arrangement is in place.</p><div class="actions"><button type="submit" id="save-place" class="primary">${draft.expectedVersion ? 'Save new version' : 'Save practice contribution'}</button><button type="button" id="cancel-draft">Discard draft / back</button></div>
     </form>`;
   updateLocation(); updateFormFeedback(); drawMap();
   if (draft.geometry) focusDraftPoint();
@@ -408,7 +408,7 @@ function renderDetail() {
   const response = responseDrafts.get(key) || detail.response || {};
   const q = detail.question;
   panel.innerHTML = `<div class="heading-row"><h2 id="task-heading" tabindex="-1">${esc(p.placeLabel)}</h2><button type="button" id="back-list">Back to list</button></div><p>${KINDS[p.kind]} · ${TOPICS[p.topic]}</p><p class="account-text">${esc(p.description)}</p>${p.context ? `<p><strong>When:</strong> ${esc(p.context)}</p>` : ''}<p class="note">Source: ${esc(sessionName(p.sessionId))} · ${dateLabel(p.createdAt)} · Version ${p.version}${p.fixture ? ' · Fictional example' : ' · Practice account'}</p>${phaseSummary(p)}${locationSummary(p)}<div id="form-errors"></div>${detail.olderDraft ? `<div class="notice"><p>The account changed. Your earlier unsaved answer was not applied to this version. Copy any useful text before discarding it.</p>${unsavedAnswer(detail.olderDraft)}<button type="button" id="discard-earlier-answer">Discard earlier unsaved answer</button></div>` : ''}
-    ${p.mine ? '<div class="actions"><button id="edit-place" type="button">Edit your contribution</button><button id="withdraw-place" type="button" class="danger">Withdraw your contribution</button></div><p class="note">You cannot respond to your own account. Enter review to compare other accounts.</p>' : `<form id="response-form" novalidate><fieldset id="answer"><legend>${esc(q.text)}</legend><p class="note">Responding is optional. A different experience does not dismiss this account. Responding in: ${esc(sessionName(activeSession))}.</p>${Object.entries(q.options).map(([value, label]) => `<label class="choice"><input type="radio" name="answer" value="${value}" ${response.answer === value ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}${errorSlot('answer')}</fieldset><label for="note">Add context or explain a different experience (optional)</label><textarea id="note" maxlength="400" aria-describedby="note-help">${esc(response.note || '')}</textarea><p class="note" id="note-help">Up to 400 characters. Your comment and answer can be read by other users of this private demo. Leave out identifying details. Response comments are omitted from the download.</p>${errorSlot('note')}<button type="submit" id="save-response" class="primary">${detail.response ? 'Update' : 'Save'} practice response</button>${detail.response ? '<button type="button" id="remove-response">Remove my saved response</button>' : ''}<p class="note">One editable answer per practice identity, contribution version, and responding session. This does not verify a unique person.</p></form>`}
+    ${p.mine ? '<div class="actions"><button id="edit-place" type="button">Edit your contribution</button><button id="withdraw-place" type="button" class="danger">Withdraw your contribution</button></div><p class="note">You cannot respond to your own account. Enter review to compare other accounts.</p>' : `<form id="response-form" novalidate><fieldset id="answer"><legend>${esc(q.text)}</legend><p class="note">Responding is optional. A different experience does not dismiss this account. Responding in: ${esc(sessionName(activeSession))}.</p>${Object.entries(q.options).map(([value, label]) => `<label class="choice"><input type="radio" name="answer" value="${value}" ${response.answer === value ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}${errorSlot('answer')}</fieldset><label for="note">Add context or explain a different experience (optional)</label><textarea id="note" maxlength="400" aria-describedby="note-help">${esc(response.note || '')}</textarea><p class="note" id="note-help">Up to 400 characters. Your comment and answer can be read by other users of this demo. Leave out identifying details. Response comments are omitted from the download.</p>${errorSlot('note')}<button type="submit" id="save-response" class="primary">${detail.response ? 'Update' : 'Save'} practice response</button>${detail.response ? '<button type="button" id="remove-response">Remove my saved response</button>' : ''}<p class="note">One editable answer per practice identity, contribution version, and responding session. This does not verify a unique person.</p></form>`}
     <div class="actions"><button type="button" id="show-summary">Show recorded answers</button></div><div id="summary"></div>`;
   $('#discard-earlier-answer')?.addEventListener('click', () => { responseDrafts.delete(detail.olderKey); [detail.olderKey, detail.olderDraft] = earlierResponseDraft(p.id, p.version); renderDetail(); focusPanel(); });
   $('#remove-response')?.addEventListener('click', async () => {
@@ -519,17 +519,25 @@ $('#finish-participant').addEventListener('click', () => {
 $('#finish-cancel').addEventListener('click', () => $('#finish-dialog').close());
 containTabFocus($('#finish-dialog'));
 $('#finish-dialog').addEventListener('close', () => { $('#finish-code').textContent = ''; $('#finish-dialog details').open = false; });
-$('#finish-confirm').addEventListener('click', () => {
-  if (!draftStore.save({ token: '' })) {
-    $('#finish-copy-status').textContent = 'This browser could not clear its recovery copy. Keep this tab private and close it before sharing the device.';
-    return;
-  }
-  detailReads.cancel(); stateReads.cancel(); placeSearch?.destroy(); placeSearch = null;
-  $('#finish-dialog').close();
-  token = ''; draft = null; detail = null; mode = 'list'; responseDrafts.clear(); listLayout = 'list'; state = { phase: 'contribute', contributions: [] }; remember(); resetFilters();
-  $('#session-bar details').open = false;
-  $('#return-code').textContent = ''; $('#resume-code').value = ''; $('#session-bar').hidden = true; $('#main').hidden = true; $('#entry').hidden = false; $('#entry-error').textContent = ''; setExportAvailability(true); panel.innerHTML = ''; activeMap = 'saved'; savedMapSelection = null; draftMapId = null;
-  for (const map of [savedMap, draftMap]) { map.set({ pins: [], draft: null, selected: null, placing: false }); map.move('city'); } $('#join-form button').focus(); announce('Finished. This tab no longer holds the participant code or unsaved drafts. Start a fresh practice participant for the next person.');
+$('#finish-confirm').addEventListener('click', async () => {
+  if (busy) return;
+  busy = true; $('#finish-confirm').disabled = true;
+  try {
+    await api.finish();
+    if (!$('#finish-dialog').open) return;
+    if (!draftStore.save({ token: '' })) {
+      $('#finish-copy-status').textContent = 'This browser could not clear its recovery copy. Keep this tab private and close it before sharing the device.';
+      return;
+    }
+    detailReads.cancel(); stateReads.cancel(); placeSearch?.destroy(); placeSearch = null;
+    $('#finish-dialog').close();
+    token = ''; draft = null; detail = null; mode = 'list'; responseDrafts.clear(); listLayout = 'list'; state = { phase: 'contribute', contributions: [] }; remember(); resetFilters();
+    $('#session-bar details').open = false;
+    $('#return-code').textContent = ''; $('#resume-code').value = ''; $('#session-bar').hidden = true; $('#main').hidden = true; $('#entry').hidden = false; $('#entry-error').textContent = ''; setExportAvailability(true); panel.innerHTML = ''; activeMap = 'saved'; savedMapSelection = null; draftMapId = null;
+    for (const map of [savedMap, draftMap]) { map.set({ pins: [], draft: null, selected: null, placing: false }); map.move('city'); } $('#join-form button').focus(); announce('Finished. This tab no longer holds the participant code or unsaved drafts. Start a fresh practice participant for the next person.');
+  } catch {
+    $('#finish-copy-status').textContent = 'Could not finish signing out. Keep this tab private and try again.';
+  } finally { busy = false; $('#finish-confirm').disabled = false; }
 });
 async function copyCode() {
   let message;
