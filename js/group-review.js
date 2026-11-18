@@ -1,15 +1,19 @@
 import { GeographicMap } from './map.js';
 import { ReviewSequence, streetViewUrl } from './review-sequence.js';
 import { KINDS, TOPICS, SESSIONS, escapeText as esc } from './domain.js';
+import { containTabFocus } from './dialogs.js';
 
 export class GroupReview {
   constructor(dialog, refresh) {
     this.dialog = dialog; this.refresh = refresh; this.sequence = new ReviewSequence(); this.generation = 0;
+    containTabFocus(dialog);
+    dialog.setAttribute('aria-describedby', 'review-help');
     dialog.innerHTML = `
       <header class="review-toolbar">
         <div>
           <h2 id="group-review-title">Group review</h2>
-          <p id="review-progress" role="status" aria-live="polite"></p>
+          <p id="review-progress" role="status" aria-atomic="true"></p>
+          <p id="review-help">Use Previous, Next contribution, or Choose a contribution to browse. The text includes every contribution; the map is optional. Press Escape or select Exit review to return.</p>
         </div>
         <div class="actions">
           <button type="button" id="review-fullscreen">Full screen</button>
@@ -72,13 +76,19 @@ export class GroupReview {
     });
     $('#review-refresh').addEventListener('click', async () => {
       const generation = this.generation;
+      const returnFocus = document.activeElement;
       const controls = [...dialog.querySelectorAll('button, select')].filter((node) => !['review-exit', 'review-fullscreen'].includes(node.id));
       controls.forEach((node) => { node.disabled = true; }); $('#review-feedback').textContent = 'Refreshing contributions…';
       try {
         const records = await this.refresh();
         if (!dialog.open || generation !== this.generation) return;
         this.sequence.replace(records); this.updateChoices(); this.render(); $('#review-feedback').textContent = 'Contributions refreshed.';
-      } catch { if (dialog.open && generation === this.generation) $('#review-feedback').textContent = 'Could not refresh. The current review is kept; try again.'; } finally { if (dialog.open && generation === this.generation) { controls.forEach((node) => { node.disabled = false; }); this.updateNavigation(); } }
+      } catch { if (dialog.open && generation === this.generation) $('#review-feedback').textContent = 'Could not refresh. The current review is kept; try again.'; } finally {
+        if (dialog.open && generation === this.generation) {
+          controls.forEach((node) => { node.disabled = false; }); this.updateNavigation();
+          if ([document.body, dialog].includes(document.activeElement) && returnFocus?.isConnected && !returnFocus.disabled) returnFocus.focus();
+        }
+      }
     });
   }
 
@@ -104,14 +114,19 @@ export class GroupReview {
   }
 
   render() {
+    const focused = document.activeElement;
     const p = this.sequence.current;
     this.updateNavigation();
-    this.$('#review-progress').textContent = p ? `${this.sequence.index + 1} of ${this.sequence.records.length} · Current filters` : 'No contributions match the current filters.';
+    this.$('#review-progress').textContent = p ? `${this.sequence.index + 1} of ${this.sequence.records.length}: ${p.placeLabel} · Current filters` : 'No contributions match the current filters.';
     this.$('#review-jump').value = p?.id || '';
     this.$('#review-contribution').innerHTML = p ? `<h3>${esc(p.placeLabel)}</h3><p class="review-kind">${esc(KINDS[p.kind])} · ${esc(TOPICS[p.topic])}</p><p class="account-text">${esc(p.description)}</p>${p.context ? `<p><strong>When:</strong> ${esc(p.context)}</p>` : ''}<p class="note">${esc(SESSIONS.find((s) => s.id === p.sessionId)?.title || p.sessionId)}${p.createdAt ? ` · ${esc(new Date(p.createdAt).toLocaleDateString())}` : ''}${p.fixture ? ' · Fictional example' : ' · Practice input'}</p><p class="note">${p.geometry ? (p.precision === 'approximate' ? 'Approximate point. Check the location with the group.' : 'Selected point. Check the location with the group.') : 'No confirmed map point. This contribution is included without assigning a location.'}</p>` : '<h3>No contributions to review</h3><p>Exit review and change the filters, or refresh to check for new input.</p>';
     const link = this.$('#review-street-view'); link.hidden = !p?.geometry;
+    this.$('#review-contribution h3').tabIndex = -1;
     if (p?.geometry) link.href = streetViewUrl(p.geometry.coordinates); else link.removeAttribute('href');
     if (p?.geometry) { this.map.view.focus(p.geometry.coordinates); this.map.view.width = 700; this.map.showingCity = false; } else { this.map.view.fit(this.map.cityBounds); this.map.showingCity = true; }
     this.map.set({ pins: p?.geometry ? [p] : [], selected: p?.id || null });
+    // A navigation button can become disabled at the end of the sequence, or a
+    // selected map marker can be replaced. Keep focus in the current account.
+    if ((focused?.disabled && this.dialog.contains(focused)) || (focused !== document.body && !focused?.isConnected)) this.$('#review-contribution h3').focus();
   }
 }
