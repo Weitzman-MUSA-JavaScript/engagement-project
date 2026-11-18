@@ -8,7 +8,7 @@
   <title>Community safety mapping — development demo</title>
   <link rel="preload" href="fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/startup.js"></script>
 </head>
 <body>
   <a class="skip" href="#page-main">Skip to the current task</a>
@@ -38,9 +38,10 @@
     <p class="note">Demo input is saved to shared storage and visible to users of this demo. Do not enter sensitive or identifying information. No organization has agreed to act on these accounts.</p>
     <form id="join-form">
       <label for="join-session">Session</label><select id="join-session"><option value="practice-current">Community safety practice session</option></select>
-      <button type="submit" class="primary">Start practice</button>
+      <button type="submit" class="primary" disabled>Start practice</button>
     </form>
-    <details><summary>Resume a practice participant</summary><p>Use your saved practice code to return on another device. It authorizes edits to that participant’s demo records; keep it private.</p><form id="resume-form"><label for="resume-code">Practice code</label><input id="resume-code" type="text" autocomplete="off" spellcheck="false"><button type="submit">Resume</button></form></details>
+    <details><summary>Resume a practice participant</summary><p>Use your saved practice code to return on another device. It authorizes edits to that participant’s demo records; keep it private.</p><form id="resume-form"><label for="resume-code">Practice code</label><input id="resume-code" type="text" autocomplete="off" spellcheck="false"><button type="submit" disabled>Resume</button></form></details>
+    <p id="startup-status" class="note" role="status">Loading session controls… If this does not finish, reload the page.</p>
     <div id="entry-error" role="alert"></div>
   </section>
   <section id="session-bar" hidden aria-label="Current participation context">
