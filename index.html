@@ -18,36 +18,45 @@
   </header>
   <main id="page-main" aria-label="Community participation">
   <noscript><p class="notice">This interactive practice needs JavaScript to load and save contributions. Enable JavaScript and reload to continue.</p></noscript>
-  <details class="panel usage-guide" open>
-    <summary>How to use this site</summary>
-    <p>This is a practice site. Use made-up examples and leave out names or personal details. Select the heading above to hide or show these steps.</p>
-    <ol>
-      <li><strong>Get started.</strong> Select <strong>Start practice</strong> below. At first, you will see only your own contributions.</li>
-      <li><strong>Add a place.</strong> Fill in the <strong>Add a place</strong> form: describe where it is, choose a contribution type, and write a short description. A “Community asset” is a place that helps people feel safe or connected.</li>
-      <li><strong>Locate your place.</strong> We recommend adding a point on the map so others can find it. Search for the place or select it on the map, then check the point. A map point is not required: a clear written location is enough.</li>
-      <li><strong>Save your input.</strong> Select <strong>Save practice contribution</strong>. Wait for the “Practice contribution saved” message before moving on.</li>
-      <li><strong>Explore other input.</strong> Select <strong>Review earlier input</strong> when you are ready. Select a place name in the list to read more.</li>
-      <li><strong>Respond if you wish.</strong> Choose an answer on someone else’s contribution, then select <strong>Save practice response</strong>. Use <strong>Check for new input</strong> to see updates from other participants.</li>
-      <li><strong>Keep your code, then finish.</strong> To return later, open <strong>Your return code</strong> and select <strong>Copy return code</strong>. Keep it somewhere private. When done, select <strong>Finish on this device</strong>, then <strong>Finish and clear this tab</strong>. Your saved contributions stay shared.</li>
-    </ol>
-    <p class="note">Returning with a saved code? Open <strong>Resume a practice participant</strong> below, paste your code, and select <strong>Resume</strong>.</p>
-  </details>
   <section id="entry" aria-labelledby="entry-title">
     <h2 id="entry-title" tabindex="-1">Start a practice session</h2>
-    <p>Start by adding a Philadelphia place and describing a safety concern, a helpful community place, or an improvement idea. Then review and respond to earlier input.</p>
-    <p class="note">Demo input is saved to shared storage and visible to users of this demo. Do not enter sensitive or identifying information. No organization has agreed to act on these accounts.</p>
+    <p>Think of a place you know. What helps people feel safe there, or what would you change?</p>
+    <p class="note">Other people in the session can read what you save. This site won’t send a report to the City.</p>
     <form id="join-form">
       <label for="join-session">Session</label><select id="join-session"><option value="practice-current">Community safety practice session</option></select>
       <button type="submit" class="primary" disabled>Start practice</button>
     </form>
-    <details><summary>Resume a practice participant</summary><p>Use your saved practice code to return on another device. It authorizes edits to that participant’s demo records; keep it private.</p><form id="resume-form"><label for="resume-code">Practice code</label><input id="resume-code" type="text" autocomplete="off" spellcheck="false"><button type="submit" disabled>Resume</button></form></details>
+    <div id="entry-help" class="session-help">
+      <details id="usage-guide" class="usage-guide" open>
+        <summary>How to use this site</summary>
+        <div class="guide-steps">
+          <ol>
+            <li>
+              <strong>Get started.</strong> Choose <strong>Start practice</strong> to open your form. At first, you’ll see only your own work.
+            </li>
+            <li>
+              <strong>Add a place.</strong> Give the place a name or describe where it is. Share a safety concern, an idea for a change, or a community asset. A community asset is a place that helps people feel safe or connected. Tell us why the place matters. Try marking it on the map so others can find it, but a written location works too. To add a point, search for the place or pick a spot on the map, then check where the point lands.
+            </li>
+            <li>
+              <strong>Save and see what others shared.</strong> Choose <strong>Save practice contribution</strong> and wait for “Practice contribution saved.” Then choose <strong>Review earlier input</strong>. Open a place someone else added and reply if you’d like. Use <strong>Check for new input</strong> to see what’s new.
+            </li>
+            <li>
+              <strong>Wrap up.</strong> Want to come back later? Open <strong>Your return code</strong> and copy it. Keep it somewhere private. When you’re done, choose <strong>Finish on this device</strong> and confirm. Others can still see what you saved.
+            </li>
+          </ol>
+        </div>
+      </details>
+      <details><summary>Resume a practice participant</summary><p>Paste your return code and choose <strong>Resume</strong>. You can use the same code on another device. Keep it private. Anyone with this code can change your saved work.</p><form id="resume-form"><label for="resume-code">Practice code</label><input id="resume-code" type="text" autocomplete="off" spellcheck="false"><button type="submit" disabled>Resume</button></form></details>
+    </div>
     <p id="startup-status" class="note" role="status">Loading session controls… If this does not finish, reload the page.</p>
     <div id="entry-error" role="alert"></div>
   </section>
   <section id="session-bar" hidden aria-label="Current participation context">
     <p><strong>Contributing to:</strong> <span id="active-session"></span><br><strong>Current phase:</strong> <span id="phase-label"></span></p>
     <div class="actions"><button id="review-phase" type="button" class="primary">Review earlier input</button><button id="start-group-review" type="button">Group review</button><button id="refresh-records" type="button">Check for new input</button><button id="finish-participant" type="button">Finish on this device</button></div>
-    <details><summary>Your return code</summary><p class="note">This code grants access to edit or withdraw your practice records. Keep it private. Copy it to return later, and finish before handing a shared device to someone else.</p><code id="return-code"></code><button type="button" id="copy-code">Copy return code</button></details>
+    <div id="session-help" class="session-help">
+      <details id="return-code-help"><summary>Your return code</summary><p class="note">This code grants access to edit or withdraw your practice records. Keep it private. Copy it to return later, and finish before handing a shared device to someone else.</p><code id="return-code"></code><button type="button" id="copy-code">Copy return code</button></details>
+    </div>
     <p id="draft-storage-status" class="note" role="status">Unsaved writing is kept in this browser tab for recovery after a refresh. Use Finish on this device to clear it before sharing the device.</p>
     <p class="demo-note">(Development demo. No human or group consultation has occurred. Use fictional practice accounts only.)</p>
   </section>

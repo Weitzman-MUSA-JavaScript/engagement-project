@@ -21,11 +21,27 @@ export class GeographicMap {
         </svg>
         <div class="map-markers" role="group" aria-label="Mapped accounts"></div>
       </div>
-      <fieldset class="map-controls"><legend>Map controls</legend>
-        <div class="actions map-zoom-controls"><button type="button" data-map="zoom-in" aria-label="Zoom in">+ Zoom in</button><button type="button" data-map="zoom-out" aria-label="Zoom out">− Zoom out</button><button type="button" data-map="city">Show Philadelphia</button></div>
-        <div class="actions" role="group" aria-label="Move the map"><span>Move map:</span><button type="button" data-map="west">West</button><button type="button" data-map="north">North</button><button type="button" data-map="south">South</button><button type="button" data-map="east">East</button></div>
-        ${pointControls ? '<div class="actions" role="group" aria-label="Your contribution point"><button type="button" id="use-map-center">Use map center as my point</button><button type="button" id="return-draft-point" hidden>Return to your point</button></div>' : ''}
-      </fieldset>
+      <section class="map-controls" aria-labelledby="${container.id}-controls-title">
+        <h3 id="${container.id}-controls-title">Map controls</h3>
+        <div class="map-control-row">
+          <button type="button" class="primary" data-map="zoom-in"><span aria-hidden="true">+</span> Zoom in</button>
+          <button type="button" class="primary" data-map="zoom-out"><span aria-hidden="true">−</span> Zoom out</button>
+          <button type="button" data-map="city">Show Philadelphia</button>
+        </div>
+        <div class="map-control-group" role="group" aria-labelledby="${container.id}-move-label">
+          <span id="${container.id}-move-label">Move the map</span>
+          <div class="map-control-row">
+            <button type="button" data-map="west"><span aria-hidden="true">←</span> West</button>
+            <button type="button" data-map="north"><span aria-hidden="true">↑</span> North</button>
+            <button type="button" data-map="south"><span aria-hidden="true">↓</span> South</button>
+            <button type="button" data-map="east"><span aria-hidden="true">→</span> East</button>
+          </div>
+        </div>
+        ${pointControls ? `<div class="map-control-group map-point-controls" role="group" aria-labelledby="${container.id}-point-label">
+          <span id="${container.id}-point-label">Your contribution point</span>
+          <div class="map-control-row"><button type="button" id="use-map-center">Use map center as my point</button><button type="button" id="return-draft-point" hidden>Return to your point</button></div>
+        </div>` : ''}
+      </section>
       <p data-street-attribution class="map-attribution">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> | <a href="https://www.openstreetmap.org/fixthemap">Report a map issue</a></p>
       <p data-aerial-attribution class="map-attribution" hidden>Aerial imagery: PEMA 2021–2023 / <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PASDA</a></p>
       <p data-map-availability class="note" role="status">Street map loading. The form and list are available.</p>
@@ -118,13 +134,15 @@ export class GeographicMap {
     const layer = this.svg.querySelector('.basemap');
     if (this.renderedBasemap !== this.basemap) { layer.replaceChildren(); this.renderedBasemap = this.basemap; }
     const existing = new Map([...layer.children].map((node) => [node.dataset.tile, node]));
+    const status = this.container.querySelector('[data-map-availability]');
     const updateStatus = () => {
       if (this.basemap !== source) return;
       const images = [...layer.children];
       const failed = images.some((image) => image.dataset.status === 'error');
-      this.container.querySelector('[data-map-availability]').textContent = failed
+      const message = failed
         ? (aerial ? 'Some aerial tiles are unavailable. Switch to Street map to continue.' : 'Some street tiles are unavailable. The form and list still work.')
         : images.some((image) => image.dataset.status === 'loading') ? (aerial ? 'Loading aerial imagery…' : 'Street map loading. The form and list are available.') : (aerial ? 'Aerial imagery ready.' : 'Street map ready.');
+      if (status.textContent !== message) status.textContent = message;
     };
     for (const tile of visibleTiles(this.view, this.basemap, width)) {
       let image = existing.get(tile.key);

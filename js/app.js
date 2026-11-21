@@ -12,6 +12,7 @@ import { COORDINATE_CRS, PHILADELPHIA_BOUNDS, isPhiladelphiaPoint } from './geog
 
 const $ = (selector) => document.querySelector(selector);
 const panel = $('#task-panel');
+const usageGuide = $('#usage-guide');
 const confirmAction = createConfirmationDialog($('#confirm-dialog'));
 const pageTitle = document.title;
 const loadedSessionDate = formatSessionDate();
@@ -205,6 +206,8 @@ async function enterSession({ fresh = false } = {}) {
   responseDrafts.clear();
   for (const [key, value] of recovery?.responseDrafts || []) responseDrafts.set(key, value);
   $('#entry').hidden = true; $('#session-bar').hidden = false; $('#main').hidden = false; $('#entry-error').textContent = '';
+  usageGuide.open = false;
+  $('#session-help').prepend(usageGuide);
   if (fresh || draft) openForm(); else renderList();
   focusPanel();
   if (!draft && recovery?.mode === 'detail' && recovery.detailId && [...responseDrafts.keys()].some((key) => key.startsWith(`${recovery.detailId}:`))) await openDetail(recovery.detailId);
@@ -262,12 +265,16 @@ function openForm(pin) {
   panel.innerHTML = `<h2 id="task-heading" tabindex="-1">${draft.expectedVersion ? 'Edit your practice contribution' : 'Add a place'}</h2><p class="note">Saving to: ${esc(sessionName(activeSession))}. Required fields are marked.</p>${draft.expectedVersion ? '<p class="notice">Saving replaces the wording and creates a new version. Earlier wording is not retained; older answers are excluded from the new summary and export.</p>' : '<p class="note">Start by describing a place and your experience or idea. We recommend adding a map point; a clear written location is enough if you cannot place one.</p>'}<div id="form-errors"></div><div id="edit-recovery"></div>
     <form id="search-form"><label for="place-search">Find an address, intersection, or landmark <span class="note">(optional)</span></label><div class="search-row"><input id="place-search" type="search" maxlength="160" autocomplete="off" aria-describedby="search-help search-status"><button type="submit">Search</button><button type="button" id="clear-search">Clear search</button></div><p id="search-help" class="note">Philadelphia only. Try 1500 Market St, Broad &amp; Walnut, or Clark Park. Address and intersection queries go to the City’s public geocoder when you press Search. Choose a result and check its point before saving.</p><p id="search-status" role="status" aria-atomic="true"></p><ul id="search-results" class="search-results" aria-label="Matching locations"></ul></form>
     <form id="contribution-form" novalidate>
-      <fieldset id="location" tabindex="-1"><legend>Location (required)</legend><p class="note">Describe the place below. We recommend adding a map point: search for a place, select a point on the map, or enter coordinates. You can save a written location without a point.</p><button type="button" id="describe-location">Describe the place without a point</button><div id="location-state" class="location-state"></div>${errorSlot('location')}
-      <details><summary>Enter coordinates instead</summary><label for="latitude">Latitude</label><input id="latitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[1]}" max="${PHILADELPHIA_BOUNDS[3]}"><label for="longitude">Longitude</label><input id="longitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[0]}" max="${PHILADELPHIA_BOUNDS[2]}"><button type="button" id="use-coordinates">Use these coordinates</button></details></fieldset>
-      <label for="placeLabel">Place name, intersection, or location description (required)</label><input id="placeLabel" type="text" maxlength="140" required value="${esc(draft.placeLabel)}" aria-describedby="place-help"><p id="place-help" class="note">Changing this text does not move an existing pin. Check the selected point, or choose Describe without a point.</p>${errorSlot('placeLabel')}
+      <div class="place-fields">
+        <fieldset id="location" tabindex="-1"><legend>Map point (recommended)</legend><p class="note">Search above, use the map, or enter coordinates. To contribute without a point, just fill in the place name or description below.</p><button type="button" id="choose-on-map">Choose a point on the map</button><button type="button" id="describe-location">Describe the place without a point</button><div id="location-state" class="location-state"></div>${errorSlot('location')}
+        <details><summary>Enter coordinates instead</summary><label for="latitude">Latitude</label><input id="latitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[1]}" max="${PHILADELPHIA_BOUNDS[3]}"><label for="longitude">Longitude</label><input id="longitude" type="number" step="any" min="${PHILADELPHIA_BOUNDS[0]}" max="${PHILADELPHIA_BOUNDS[2]}"><button type="button" id="use-coordinates">Use these coordinates</button></details></fieldset>
+        <label for="placeLabel">Place name, intersection, or location description (required)</label><input id="placeLabel" type="text" maxlength="140" required value="${esc(draft.placeLabel)}" aria-describedby="place-help"><p id="place-help" class="note">Changing this text does not move an existing pin. Check the selected point, or choose Describe without a point.</p>${errorSlot('placeLabel')}
+      </div>
       <label for="kind">Contribution type (required)</label><select id="kind" required>${options(KINDS, draft.kind, 'Choose one')}</select>${errorSlot('kind')}
       <label for="topic">Topic (optional)</label><select id="topic">${options(TOPICS, draft.topic, 'Other / not sure')}</select>${errorSlot('topic')}
-      <label for="description" id="description-label">Describe one experience or idea (required)</label><p class="note" id="description-prompt"></p><p class="note" id="description-help">Up to 800 characters. Leave out personal names, private addresses, and identifying details.</p><textarea id="description" maxlength="800" required aria-describedby="description-prompt description-help description-count">${esc(draft.description)}</textarea><p class="note" id="description-count"></p>${errorSlot('description')}
+      <div class="experience-field">
+        <label for="description" id="description-label">Describe one experience or idea (required)</label><p class="note" id="description-prompt"></p><p class="note" id="description-help">Up to 800 characters. Leave out personal names, private addresses, and identifying details.</p><textarea id="description" maxlength="800" required aria-describedby="description-prompt description-help description-count">${esc(draft.description)}</textarea><p class="note" id="description-count"></p>${errorSlot('description')}
+      </div>
       <label for="context">When does this matter? (optional)</label><input id="context" type="text" maxlength="120" value="${esc(draft.context)}"><p class="note">For example, after dark or on the way to school. This is separate from the submission date.</p>${errorSlot('context')}
       <label class="choice"><input id="approximate" type="checkbox" ${draft.precision === 'approximate' ? 'checked' : ''}><span>This is an approximate place, not an exact location.</span></label>
       <p class="notice">Practice input is shared with users of this demo. No real community collection or follow-up arrangement is in place.</p><div class="actions"><button type="submit" id="save-place" class="primary">${draft.expectedVersion ? 'Save new version' : 'Save practice contribution'}</button><button type="button" id="cancel-draft">Discard draft / back</button></div>
@@ -276,6 +283,11 @@ function openForm(pin) {
   if (draft.geometry) focusDraftPoint();
   $('#contribution-form').addEventListener('input', () => { captureDraft(); keepDraft(); updateFormFeedback(); });
   $('#contribution-form').addEventListener('change', (event) => { captureDraft(); keepDraft(); updateFormFeedback(); if (event.target.id === 'approximate') updateLocation(); });
+  $('#choose-on-map').addEventListener('click', () => {
+    activeMap = 'draft';
+    drawMap();
+    $('#draft-map-container .map-stage').focus();
+  });
   $('#describe-location').addEventListener('click', () => { captureDraft(); draft.geometry = null; draft.locationSource = 'description'; keepDraft(); activeMap = 'draft'; updateLocation(); drawMap(); $('#placeLabel').focus(); announce('A place description will be saved without a confirmed map point.'); });
   $('#use-coordinates').addEventListener('click', () => {
     const lat = Number($('#latitude').value), lon = Number($('#longitude').value);
@@ -535,7 +547,9 @@ $('#finish-confirm').addEventListener('click', async () => {
     detailReads.cancel(); stateReads.cancel(); placeSearch?.destroy(); placeSearch = null;
     $('#finish-dialog').close();
     token = ''; draft = null; detail = null; mode = 'list'; responseDrafts.clear(); listLayout = 'list'; state = { phase: 'contribute', contributions: [] }; remember(); resetFilters();
-    $('#session-bar details').open = false;
+    $('#return-code-help').open = false;
+    $('#entry-help').prepend(usageGuide);
+    usageGuide.open = true;
     $('#return-code').textContent = ''; $('#resume-code').value = ''; $('#session-bar').hidden = true; $('#main').hidden = true; $('#entry').hidden = false; $('#entry-error').textContent = ''; setExportAvailability(true); panel.innerHTML = ''; activeMap = 'saved'; savedMapSelection = null; draftMapId = null;
     for (const map of [savedMap, draftMap]) { map.set({ pins: [], draft: null, selected: null, placing: false }); map.move('city'); } $('#join-form button').focus(); announce('Finished. This tab no longer holds the participant code or unsaved drafts. Start a fresh practice participant for the next person.');
   } catch {

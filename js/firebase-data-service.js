@@ -199,13 +199,14 @@ export function createFirebaseDataService(context, config, { loadSdk = loadFireb
       const pins = (await state(runtime, uid)).contributions;
       const format = url.searchParams.get('format');
       if (format === 'geojson') return exportGeoJSON(pins);
+      const dataset = url.searchParams.get('dataset') || 'contributions';
+      if (format === 'csv') {
+        if (dataset === 'contributions') return exportCsv(dataset, pins, []);
+        if (dataset !== 'answers') fail('Choose contributions or answers for CSV export.');
+      }
       const all = await Promise.all(pins.map(async (pin) => ({ pin, answers: await responses(runtime, pin) })));
       const answers = all.flatMap(({ pin, answers: values }) => values.filter((a) => a.version === pin.version).map((a) => ({ contribution_id: pin.id, version: a.version, session_id: a.sessionId, answer: a.answer, question_id: a.questionId, saw_totals: a.sawTotals, first_answered_at: iso(a.firstAnsweredAt), first_answer_before_totals: a.firstAnswerBeforeTotals, totals_first_opened_at: iso(a.totalsFirstOpenedAt), updated_at: iso(a.updatedAt), demo: true })));
-      if (format === 'csv') {
-        const dataset = url.searchParams.get('dataset') || 'contributions';
-        if (!['contributions', 'answers'].includes(dataset)) fail('Choose contributions or answers for CSV export.');
-        return exportCsv(dataset, pins, answers);
-      }
+      if (format === 'csv') return exportCsv(dataset, pins, answers);
       return { format: 'community-safety-demo-v2', coordinateReferenceSystem: COORDINATE_CRS, demo: true, exportedAt: new Date().toISOString(), sessions: SESSIONS, contributions: pins.map(({ mine, ...p }) => p), answers, excludedHistoricalAnswers: all.reduce((n, { pin, answers: values }) => n + values.filter((a) => a.version !== pin.version).length, 0), limitations: 'Only current-version answers are exported. Earlier wording is not retained. Openings record in-app requests, not proof of reading or unique people.', omitted: 'Participant credentials, identity IDs, response comments, and historical answers. These are practice records, not community findings.' };
     }
     fail('This data operation does not exist.', 404);
