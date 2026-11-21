@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A development demonstration of place-based community safety participation, session review, and structured responses">
+  <title>Community safety mapping — development demo</title>
+  <link rel="preload" href="fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/startup.js"></script>
+</head>
+<body>
+  <a class="skip" href="#page-main">Skip to the current task</a>
+  <header>
+    <h1>Community safety mapping</h1>
+    <p class="intro">Map safety concerns, community assets, and ideas for safer Philadelphia streets and public spaces</p>
+  </header>
+  <main id="page-main" aria-label="Community participation">
+  <noscript><p class="notice">This interactive practice needs JavaScript to load and save contributions. Enable JavaScript and reload to continue.</p></noscript>
+  <section id="entry" aria-labelledby="entry-title">
+    <h2 id="entry-title" tabindex="-1">Start a practice session</h2>
+    <p>Think of a place you know. What helps people feel safe there, or what would you change?</p>
+    <p class="note">Other people in the session can read what you save. This site won’t send a report to the City.</p>
+    <form id="join-form">
+      <label for="join-session">Session</label><select id="join-session"><option value="practice-current">Community safety practice session</option></select>
+      <button type="submit" class="primary" disabled>Start practice</button>
+    </form>
+    <div id="entry-help" class="session-help">
+      <details id="usage-guide" class="usage-guide" open>
+        <summary>How to use this site</summary>
+        <div class="guide-steps">
+          <ol>
+            <li>
+              <strong>Get started.</strong> Choose <strong>Start practice</strong> to open your form. At first, you’ll see only your own work.
+            </li>
+            <li>
+              <strong>Add a place.</strong> Give the place a name or describe where it is. Share a safety concern, an idea for a change, or a community asset. A community asset is a place that helps people feel safe or connected. Tell us why the place matters. Try marking it on the map so others can find it, but a written location works too. To add a point, search for the place or pick a spot on the map, then check where the point lands.
+            </li>
+            <li>
+              <strong>Save and see what others shared.</strong> Choose <strong>Save practice contribution</strong> and wait for “Practice contribution saved.” Then choose <strong>Review earlier input</strong>. Open a place someone else added and reply if you’d like. Use <strong>Check for new input</strong> to see what’s new.
+            </li>
+            <li>
+              <strong>Wrap up.</strong> Want to come back later? Open <strong>Your return code</strong> and copy it. Keep it somewhere private. When you’re done, choose <strong>Finish on this device</strong> and confirm. Others can still see what you saved.
+            </li>
+          </ol>
+        </div>
+      </details>
+      <details><summary>Resume a practice participant</summary><p>Paste your return code and choose <strong>Resume</strong>. You can use the same code on another device. Keep it private. Anyone with this code can change your saved work.</p><form id="resume-form"><label for="resume-code">Practice code</label><input id="resume-code" type="text" autocomplete="off" spellcheck="false"><button type="submit" disabled>Resume</button></form></details>
+    </div>
+    <p id="startup-status" class="note" role="status">Loading session controls… If this does not finish, reload the page.</p>
+    <div id="entry-error" role="alert"></div>
+  </section>
+  <section id="session-bar" hidden aria-label="Current participation context">
+    <p><strong>Contributing to:</strong> <span id="active-session"></span><br><strong>Current phase:</strong> <span id="phase-label"></span></p>
+    <div class="actions"><button id="review-phase" type="button" class="primary">Review earlier input</button><button id="start-group-review" type="button">Group review</button><button id="refresh-records" type="button">Check for new input</button><button id="finish-participant" type="button">Finish on this device</button></div>
+    <div id="session-help" class="session-help">
+      <details id="return-code-help"><summary>Your return code</summary><p class="note">This code grants access to edit or withdraw your practice records. Keep it private. Copy it to return later, and finish before handing a shared device to someone else.</p><code id="return-code"></code><button type="button" id="copy-code">Copy return code</button></details>
+    </div>
+    <p id="draft-storage-status" class="note" role="status">Unsaved writing is kept in this browser tab for recovery after a refresh. Use Finish on this device to clear it before sharing the device.</p>
+    <p class="demo-note">(Development demo. No human or group consultation has occurred. Use fictional practice accounts only.)</p>
+  </section>
+  <dialog id="group-review" aria-labelledby="group-review-title"></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+    <h2 id="confirm-title" data-confirm-title></h2>
+    <p id="confirm-description" data-confirm-description></p>
+    <div class="actions">
+      <button type="button" data-confirm-cancel autofocus>Keep working</button>
+      <button type="button" class="danger" data-confirm-accept>Confirm</button>
+    </div>
+  </dialog>
+  <dialog id="finish-dialog" aria-labelledby="finish-title" aria-describedby="finish-help">
+    <h2 id="finish-title">Finish on this device?</h2>
+    <p id="finish-help">Saved practice accounts remain shared. Finishing clears your return code from this tab. Without a copy, you may lose access to edit or withdraw them.</p>
+    <p id="finish-drafts"></p>
+    <button id="finish-copy" type="button">Copy return code before finishing</button>
+    <p id="finish-copy-status" role="status"></p>
+    <details><summary>Show code for manual copying</summary><code id="finish-code"></code></details>
+    <div class="actions"><button id="finish-cancel" type="button">Keep working</button><button id="finish-confirm" type="button">Finish and clear this tab</button></div>
+  </dialog>
+  <p id="status" role="status" aria-atomic="true"></p>
+  <div id="main" tabindex="-1" role="region" aria-label="Participation workspace" hidden>
+    <form class="filters" id="filters" aria-label="View contributions">
+      <div class="filter-field"><label for="view-session">View contributions from</label><select id="view-session" name="session"><option value="">All available sessions</option><option value="practice-current">Current practice session</option><option value="example-earlier">Earlier illustrative session</option></select></div>
+      <div class="filter-field"><label for="view-topic">Topic</label><select id="view-topic" name="topic"><option value="">All topics</option></select></div>
+      <div class="filter-field"><label for="view-kind">Contribution type</label><select id="view-kind" name="kind"><option value="">All types</option></select></div>
+      <button type="reset">Clear filters</button>
+      <details class="more-filters"><summary>Search and location filters</summary><div class="filter-fields">
+        <div class="filter-field"><label for="view-query">Search accounts</label><input id="view-query" name="query" type="search" maxlength="160" aria-describedby="view-query-help"></div>
+        <p id="view-query-help" class="note">Search place names, descriptions, types, topics, and time notes.</p>
+        <div class="filter-field"><label for="view-location">Location</label><select id="view-location" name="location"><option value="">With or without a point</option><option value="mapped">Has a map point</option><option value="described">Described without a point</option></select></div>
+      </div></details>
+    </form>
+    <p id="view-summary" class="note" role="status" aria-atomic="true"></p>
+    <details id="session-overview" hidden>
+      <summary>Overview of filtered contributions</summary>
+      <div id="overview-content"></div>
+    </details>
+    <div class="workspace">
+      <section id="task-panel" class="panel" aria-labelledby="task-heading"></section>
+      <section class="panel" aria-labelledby="map-heading">
+        <h2 id="map-heading">Contributed places</h2>
+        <a href="#task-panel" id="skip-map">Go to the contribution list or form</a>
+        <div id="map-view-switch" class="actions map-view-switch" role="group" aria-label="Map view" hidden><button type="button" data-map-view-choice="saved" aria-controls="saved-map-view" aria-pressed="false">Contributed places</button><button type="button" data-map-view-choice="draft" aria-controls="draft-map-view" aria-pressed="true">Your location</button></div>
+        <div id="saved-map-view" data-map-view hidden>
+          <p class="note" id="saved-map-help"></p>
+          <div id="saved-map-container"></div>
+          <div id="saved-map-preview" class="map-selection" hidden></div>
+          <p class="note" data-map-position></p>
+        </div>
+        <div id="draft-map-view" data-map-view hidden>
+          <p class="note" id="draft-map-help"></p>
+          <div id="draft-map-container"></div>
+          <p class="note" data-map-position></p>
+        </div>
+      </section>
+    </div>
+  </div>
+  </main>
+  <footer>
+    <details><summary>Accessibility and keyboard help</summary>
+      <ul>
+        <li>Use <strong>Tab</strong> and <strong>Shift + Tab</strong> to move between controls. Press <strong>Enter</strong> or <strong>Space</strong> to activate a button or open a collapsible section. Use arrow keys to move between radio-button answers.</li>
+        <li>The <strong>Skip to the current task</strong> link appears when focused. It moves you past the introduction to the current form or contribution.</li>
+        <li>A map point is recommended when contributing, but a written location is enough. Every contribution is available in the list. Named map buttons are an alternative to dragging or using map shortcuts.</li>
+        <li>Press <strong>Escape</strong> to close a dialog without confirming an action. Focus returns to the control that opened it.</li>
+        <li>You can enlarge text with your browser’s zoom controls. The page supports your system’s reduced-motion and high-contrast preferences.</li>
+      </ul>
+    </details>
+    <details><summary>About the demo, sources, and participation choices</summary>
+      <p>This demonstration supports focused sessions and later review. The participant community, partner organization, real-world action, and final categories have not been validated with human participants.</p>
+      <p>Begin by contributing a place from your own perspective, then enter review to explore other contributions. Response totals are hidden until you choose to view them. A different experience is not a judgment that another account is false.</p>
+      <p>One saved answer for each practice identity, contribution version, and responding session; you can update or remove it.</p>
+      <p>Authors can edit or withdraw their own demo contributions. Editing replaces the wording and creates a new version. Older answers are excluded from the current summary and export. Withdrawal clears the description and removes its answers and opening records.</p>
+      <p>Address and intersection searches use the City of Philadelphia’s public geocoder; a small local index supplies landmark examples. Queries are sent only when Search is pressed. The contribution text and practice code are not sent to the City. Returned points are approximate and should be checked. Any place can be described without a point. The map supports point placement, keyboard controls, and coordinate entry.</p>
+      <p>Address and intersection lookup: <a href="https://citygeo-geocoder-pub.databridge.phila.gov/arcgis/rest/services/Geocoders/Philly_Composite_Locator/GeocodeServer">City of Philadelphia geocoder</a>.</p>
+      <p>Street basemap: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Viewing the map requests tiles for the visible area from OpenStreetMap; contribution text and practice codes are not sent. Map features are geographic context, not safety ratings. Points are restricted to Philadelphia city limits.</p>
+      <p>Group review uses <a href="https://imagery.pasda.psu.edu/arcgis/rest/services/PEMAImagery2021_2023cache/MapServer">PEMA 2021–2023 aerial imagery via PASDA</a>. Only visible map areas are requested; contribution text and practice codes are not sent. Street View opens Google Maps only when its link is selected.</p>
+      <p>City boundary: <a href="https://opendataphilly.org/datasets/city-limits/">City of Philadelphia City Limits</a>. The same published outline is used for point selection and saves.</p>
+      <p>All starting accounts are fictional and start with zero responses. There has been no accessibility certification or human testing. Server-side storage is for practice records only; a retention, moderation, and participant-feedback agreement is needed before real collection.</p>
+      <div class="actions"><button id="export-data" data-export="json" type="button" disabled>Download JSON</button><button data-export="geojson" type="button" disabled>Contributions GeoJSON</button><button data-export="contributions" type="button" disabled>Contributions CSV</button><button data-export="answers" type="button" disabled>Responses CSV</button></div><p class="note">Available in review. Exports include all available sessions, regardless of view filters. GeoJSON includes described places with null geometry. Only current-version answers are exported in JSON/CSV. Codes, identity hashes, response comments, and historical answers are omitted.</p>
+    </details>
+  </footer>
+</body>
+</html>
