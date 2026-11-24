@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StopScout — Suggest SEPTA bus stop upgrades</title>
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=excon@400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">StopScout</span>
+      <span class="brand-sub">Suggest upgrades at SEPTA bus stops</span>
+    </div>
+    <button class="link-btn" id="about-btn" type="button">About this map</button>
+  </header>
+
+  <main class="layout">
+    <div id="map" aria-label="Map of SEPTA bus stops"></div>
+    <div id="map-status" class="map-status" role="status" aria-live="polite">Loading SEPTA bus stops…</div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <aside class="panel" id="panel" aria-live="polite">
+
+      <!-- STATE 1: Instructions -->
+      <section id="panel-intro" class="panel-section">
+        <div class="panel-hero">
+          <h1>Which bus shelter would you like to suggest upgrades for?</h1>
+        </div>
+        <div class="panel-body">
+          <p class="lede">Many SEPTA bus stops can be hard to immediately spot. Some sit on the shoulder of a
+            suburban highway in the dark. Tell us which stops need a roof, a bench, a light, or
+            a route map, and who should be part of the conversation.</p>
+
+          <ol class="steps">
+            <li><strong>Find your stop.</strong> Search an address, or zoom in until the bus icons appear.</li>
+            <li><strong>Click the stop.</strong> Your cursor is a red ring. Click a stop and the ring locks onto it.</li>
+            <li><strong>Answer a few questions.</strong> No account or name needed.</li>
+          </ol>
+
+          <form id="stopid-form" class="stopid-form" autocomplete="off">
+            <label for="stopid-input">Know the Stop ID?</label>
+            <div class="inline-input">
+              <input id="stopid-input" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 275" />
+              <button type="submit" class="btn btn-dark">Go</button>
+            </div>
+            <p class="field-error" id="stopid-error" hidden></p>
+          </form>
+
+          <div class="jumps">
+            <span>Jump to:</span>
+            <button type="button" class="chip" data-jump="center-city">Center City</button>
+            <button type="button" class="chip" data-jump="north-philly">North Philly</button>
+            <button type="button" class="chip" data-jump="wc-pike">West Chester Pike</button>
+          </div>
+
+          <h2 class="section-title">Map legend</h2>
+          <ul class="legend">
+            <li><span class="lg lg-bus" aria-hidden="true"></span><div><strong>SEPTA bus stop.</strong> Zoom in to see the bus icons. Small black dots at lower zoom.</div></li>
+            <li><span class="lg lg-ring" aria-hidden="true"></span><div><strong>Your selection.</strong> The stop you're suggesting upgrades for.</div></li>
+            <li><span class="lg lg-suggest" aria-hidden="true"></span><div><strong>Rider suggestions.</strong> Darker circles show that other people have asked for upgrades there.</div></li>
+          </ul>
+
+          <p class="count-line" id="total-count"></p>
+
+          <details class="credits">
+            <summary>Data &amp; credits</summary>
+            <ul>
+              <li>Bus stops: <em>SEPTA Transit Stops (Spring 2026)</em>, Southeastern Pennsylvania Transportation Authority, published by DVRPC.</li>
+              <li>Basemap: © Mapbox, © OpenStreetMap contributors.</li>
+              <li>Suggestions: Submitted by riders through this map.</li>
+              <li>Public art example: Pablo Tauler, <em>Transit Shelters 1–11</em> (2000), City of Philadelphia Percent for Art Program, Chestnut Street shelters.</li>
+              <li>Layout inspired by the Bluebikes station suggestion map (Shareabouts, PoePublic).</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- STATE 2: Form -->
+      <section id="panel-form" class="panel-section" hidden>
+        <div class="stop-header">
+          <button type="button" class="back-btn" id="back-btn" aria-label="Back to instructions">←</button>
+          <h2 id="stop-name">Stop name</h2>
+          <p class="stop-id" id="stop-id">STOP ID</p>
+          <ul class="route-pills" id="stop-routes"></ul>
+        </div>
+
+        <div class="panel-body">
+          <div class="others" id="stop-others"></div>
+
+          <form id="suggest-form" novalidate>
+            <fieldset class="q" id="q-upgrades">
+              <legend>1. Which of these upgrades would you like to add? <span class="req">*</span></legend>
+              <p class="hint">Pick as many as you want.</p>
+              <label class="opt"><input type="checkbox" name="upgrades" value="roof" /> Roof / shelter</label>
+              <label class="opt"><input type="checkbox" name="upgrades" value="bench" /> Bench</label>
+              <label class="opt"><input type="checkbox" name="upgrades" value="led" /> LED lights</label>
+              <label class="opt"><input type="checkbox" name="upgrades" value="info" /> Information display case / bus route map</label>
+              <p class="field-error" hidden>Pick at least one upgrade.</p>
+            </fieldset>
+
+            <fieldset class="q" id="q-relationship">
+              <legend>2. How do you use this stop? <span class="req">*</span></legend>
+              <p class="hint">Pick as many as you want.</p>
+              <label class="opt"><input type="checkbox" name="relationship" value="ride_here" /> I catch the bus here</label>
+              <label class="opt"><input type="checkbox" name="relationship" value="live_nearby" /> I live nearby</label>
+              <label class="opt"><input type="checkbox" name="relationship" value="work_nearby" /> I work nearby</label>
+              <label class="opt"><input type="checkbox" name="relationship" value="would_ride_more" /> I would ride from here more often if it had a shelter</label>
+              <label class="opt"><input type="checkbox" name="relationship" value="good_spot" /> I just think it's a good spot</label>
+              <p class="field-error" hidden>Choose at least one.</p>
+            </fieldset>
+
+            <fieldset class="q" id="q-times">
+              <legend>3. When are you usually at this stop?</legend>
+              <p class="hint">Pick all that apply.</p>
+              <label class="opt"><input type="checkbox" name="times" value="early_morning" /> Early morning (before 6 am)</label>
+              <label class="opt"><input type="checkbox" name="times" value="am_rush" /> Morning rush (6–9 am)</label>
+              <label class="opt"><input type="checkbox" name="times" value="midday" /> Midday (9 am–3 pm)</label>
+              <label class="opt"><input type="checkbox" name="times" value="pm_rush" /> Afternoon rush (3–7 pm)</label>
+              <label class="opt"><input type="checkbox" name="times" value="evening" /> Evening (7–10 pm)</label>
+              <label class="opt"><input type="checkbox" name="times" value="late_night" /> Late night (after 10 pm)</label>
+              <label class="opt"><input type="checkbox" name="times" value="weekends" /> Weekends</label>
+            </fieldset>
+
+            <fieldset class="q" id="q-art">
+              <legend>4. Should a shelter here carry public art? <span class="req">*</span></legend>
+              <p class="hint">On Chestnut Street near Rittenhouse, shelters carry stained-glass panels by
+                Pablo Tauler, commissioned through Philadelphia's Percent for Art program. Public art
+                 can brighten up the neighborhood it stands in.</p>
+              <label class="opt"><input type="radio" name="publicArt" value="yes" /> Yes</label>
+              <label class="opt"><input type="radio" name="publicArt" value="no" /> No, just the upgrades</label>
+              <label class="opt"><input type="radio" name="publicArt" value="unsure" /> Not sure</label>
+              <p class="field-error" hidden>Choose one.</p>
+            </fieldset>
+
+            <div class="q conditional" id="q-art-meaning" hidden>
+              <label for="artMeaning" class="q-label">5. What makes this place meaningful to your community? <span class="req">*</span></label>
+              <p class="hint">What should the art say about this block or neighborhood? Think of people,
+                history, languages, traditions, businesses, churches, festivals, or landmarks. Who lived
+                here, and who lives here now?</p>
+              <textarea id="artMeaning" name="artMeaning" rows="5" maxlength="1500"></textarea>
+              <p class="field-error" hidden>Tell us a little about why. A sentence is enough.</p>
+            </div>
+
+            <div class="q">
+              <label for="outreach" class="q-label"><span class="qnum" data-base="5">5</span>. Who should we reach out to about this stop?</label>
+              <p class="hint">Neighbors, community groups, business owners, schools. </p>
+              <textarea id="outreach" name="outreach" rows="3" maxlength="1000"></textarea>
+            </div>
+
+            <div class="q">
+              <label for="comments" class="q-label"><span class="qnum" data-base="6">6</span>. Anything else about waiting at this stop?</label>
+              <textarea id="comments" name="comments" rows="3" maxlength="1000" placeholder="ex. dark at night or wait is 30+ minutes"></textarea>
+            </div>
+
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-red btn-block" id="submit-btn">Submit suggestion</button>
+            <p class="fine">Please don't include personal info like phone numbers. Suggestions are public on this map.</p>
+          </form>
+        </div>
+      </section>
+
+      <!-- STATE 3: Submitted, add another? -->
+      <section id="panel-thanks" class="panel-section" hidden>
+        <div class="panel-hero">
+          <h1>Thanks! Your suggestion is on the map.</h1>
+        </div>
+        <div class="panel-body">
+          <p class="lede" id="thanks-detail"></p>
+          <h2 class="section-title">Want to suggest upgrades at another bus stop?</h2>
+          <div class="btn-row">
+            <button type="button" class="btn btn-red" id="another-yes">Yes, pick another stop</button>
+            <button type="button" class="btn btn-outline" id="another-no">No, I'm done</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATE 3b: Picking another -->
+      <section id="panel-pick" class="panel-section" hidden>
+        <div class="panel-hero">
+          <h1>Click another bus stop</h1>
+        </div>
+        <div class="panel-body">
+          <p class="lede">Zoom in until the bus icons appear, then click the stop. You can also type a Stop ID.</p>
+          <form id="stopid-form-2" class="stopid-form" autocomplete="off">
+            <div class="inline-input">
+              <input id="stopid-input-2" inputmode="numeric" placeholder="Stop ID" aria-label="Stop ID" />
+              <button type="submit" class="btn btn-dark">Go</button>
+            </div>
+            <p class="field-error" id="stopid-error-2" hidden></p>
+          </form>
+          <button type="button" class="link-btn" id="pick-cancel">Back to instructions</button>
+        </div>
+      </section>
+
+      <!-- STATE 4: Done -->
+      <section id="panel-done" class="panel-section" hidden>
+        <div class="panel-hero">
+          <h1>Thank you for riding along.</h1>
+        </div>
+        <div class="panel-body">
+          <p class="lede" id="done-detail"></p>
+          <p>Your suggestions stay on the map for neighbors to see. Share the map with
+            someone who waits at the same stop.</p>
+          <button type="button" class="btn btn-outline" id="restart-btn">Start over</button>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="about-dialog" class="about">
+    <h2>About this map</h2>
+    <p>StopScout collects rider suggestions for upgrades at SEPTA bus stops: roofs, benches, LED lighting,
+      and route information, plus ideas for public art that reflects the neighborhood.</p>
+    <p><strong>Data:</strong> SEPTA Transit Stops (Spring 2026), SEPTA via DVRPC. Basemap © Mapbox © OpenStreetMap.
+      Suggestions are contributed by the public through this map.</p>
+    <p>Student project for the Master of Urban Spatial Analytics program, University of Pennsylvania. Not affiliated with SEPTA.</p>
+    <form method="dialog"><button class="btn btn-dark">Close</button></form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
