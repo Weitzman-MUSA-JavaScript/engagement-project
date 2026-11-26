@@ -152,7 +152,7 @@ function updateArea() {
   }
   areaName.hidden = false;
   areaName.textContent = tract.properties.hood;
-  areaBody.textContent = 'No store checks here yet. Be the first to check a store nearby.';
+  areaBody.textContent = 'No stores logged here yet. Log where you shop to add one.';
 }
 
 map.on('moveend', updateArea);
