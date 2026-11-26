@@ -210,6 +210,12 @@ h1 {
   font-family: 'Public Sans', system-ui, sans-serif;
 }
 
+.tip-type {
+  display: block;
+  color: #545e58;
+  font-size: 0.72rem;
+}
+
 .map-search {
   position: absolute;
   top: 0.75rem;
