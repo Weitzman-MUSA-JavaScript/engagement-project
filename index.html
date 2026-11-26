@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground Truth Groceries</title>
+    <meta name="description" content="Help map which Houston stores sell fresh food, where residents shop, and where they want a new store.">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/resident.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="./">Ground Truth Groceries</a>
+        <nav class="site-nav" aria-label="Site">
+            <button class="nav-link" type="button" id="about-open">About<span class="wide-only"> the data</span></button>
+            <a class="nav-link" href="planner.html"><span class="wide-only">Admin </span>Sign in</a>
+        </nav>
+    </header>
+
+<main class="app">
+<aside class="rail" aria-label="Ways to help">
+    <section class="view" id="view-home" aria-labelledby="home-heading">
+        <h1 id="home-heading">Help us map where there's fresh food in Houston</h1>
+        <p class="lede">Federal data counts every store that takes SNAP as tender as access to food (this includes gas stations). As a resident, you have a better knowledge of which ones actually sell fresh food.</p>
+
+        <h2 class="label">What would you like to do?</h2>
+        <ul class="options">
+            <li>
+                <button class="option" type="button" data-view="check">
+                    <span class="option-name">Check a store</span>
+                    <span class="option-desc">See what neighbors have reported about a store.</span>
+                </button>
+            </li>
+            <li>
+                <button class="option" type="button" data-view="shop">
+                    <span class="option-name">Log where you shop</span>
+                    <span class="option-desc">Tell us where you shop, what fresh food it has and how you get there.</span>
+                </button>
+            </li>
+            <li>
+                <button class="option" type="button" data-view="request">
+                    <span class="option-name">Request a store</span>
+                    <span class="option-desc">Drop a pin where a new store would help and that you'd shop at.</span>
+                </button>
+            </li>
+        </ul>
+
+        <section class="area" aria-labelledby="area-heading" aria-live="polite">
+            <h2 class="label" id="area-heading">In your area</h2>
+            <p class="area-name" id="area-name" hidden></p>
+            <p class="note" id="area-body">Search for your neighborhood or zoom in on the map to see what neighbors have reported.</p>
+        </section>
+    </section>
+
+    <section class="view" id="view-check" aria-labelledby="check-heading" hidden>
+        <button class="back" type="button" data-view="home">Back</button>
+        <h2 class="view-title" id="check-heading" tabindex="-1">Check a store</h2>
+        <p class="note">Select a store on the map to see what neighbors have reported.</p>
+    </section>
+
+    <section class="view" id="view-shop" aria-labelledby="shop-heading" hidden>
+        <button class="back" type="button" data-view="home">Back</button>
+        <h2 class="view-title" id="shop-heading" tabindex="-1">Log where you shop</h2>
+        <p class="note">Select the store where you shop on the map, and tell us about it.</p>
+    </section>
+
+    <section class="view" id="view-request" aria-labelledby="request-heading" hidden>
+        <button class="back" type="button" data-view="home">Back</button>
+        <h2 class="view-title" id="request-heading" tabindex="-1">Request a store</h2>
+        <p class="note">Click the map where a new store would help you.</p>
+    </section>
+</aside>
+
+    <div class="map-wrap">
+        <form class="map-search" id="search" role="search">
+            <label class="visually-hidden" for="search-input">Search for a neighborhood</label>
+            <input id="search-input" type="search" list="hood-list" placeholder="Search a neighborhood" autocomplete="off">
+            <datalist id="hood-list"></datalist>
+            <button class="search-go" type="submit">Go</button>
+            <p class="search-message" id="search-message" role="status"></p>
+        </form>
+        <div id="map" class="map" role="region" aria-label="Map of food stores in Harris County"></div>
+        <p class="map-status" id="map-status" role="status">Loading map data</p>
+        <div class="legend" aria-hidden="true">
+            <p class="legend-title">Stores</p>
+            <p class="legend-row"><span class="dot" data-status="fresh"></span>Sells fresh food</p>
+            <p class="legend-row"><span class="dot" data-status="unknown"></span>Unknown</p>
+            <p class="legend-row"><span class="dot" data-status="none"></span>No fresh food</p>
+        </div>
+    </div>
+</main>
+
+    <dialog class="about" id="about" aria-labelledby="about-heading">
+        <div class="about-head">
+            <h2 id="about-heading">About the data</h2>
+            <button class="about-close" type="button" id="about-close">Close</button>
+        </div>
+        <p class="note">Store reports come from residents and community workers. They are not verified by the city, and no names, emails or addresses are collected.</p>
+        <ul class="source-list">
+            <li><b>Store locations:</b> USDA Food and Nutrition Service, Historical SNAP Retailer Locator Data, stores authorized as of December 31, 2025, in and within 10 miles of Harris County.</li>
+            <li><b>Neighborhoods:</b> City of Houston Planning and Development, Super Neighborhoods. Outside the city, U.S. Census Bureau 2020 incorporated and census-designated places, and the U.S. Geological Survey, Geographic Names Information System.</li>
+            <li><b>Census tracts and county boundary:</b> U.S. Census Bureau, 2020 TIGER/Line.</li>
+            <li><b>Basemap:</b> CARTO Positron, with map data from OpenStreetMap contributors.</li>
+        </ul>
+    </dialog>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="js/resident.js"></script>
+</body>
+</html>
