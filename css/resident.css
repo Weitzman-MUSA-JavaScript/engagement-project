@@ -39,6 +39,7 @@ body {
 
 .site-nav {
   display: flex;
+  align-items: center;
   gap: 0.25rem;
 }
 
@@ -396,6 +397,11 @@ h1 {
 
   .wide-only {
     display: none;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
   }
 
   .app {
